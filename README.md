@@ -171,19 +171,19 @@ This action allows to fetch update patient data.
       "expectedWorkReturnDate": "2020-12-31Z",
       "actualWorkReturnDate": null,
       "closedCase": false,
-	  "updateTime": "2020-04-01T23:12:44.332Z",
-	  "updatedBy": "giovanni.bianchi"
+      "updateTime": "2020-04-01T23:12:44.332Z",
+      "updatedBy": "giovanni.bianchi"
     },
-	{
+    {
       "estremiProvvedimentiASL": "yxzk efgh abcd",
       "quarantinePlace": "HOSP",
       "expectedWorkReturnDate": "2020-12-31Z",
       "actualWorkReturnDate": "2020-12-30Z",
       "closedCase": true,
-	  "updateTime": "2020-04-02T21:50:12.731Z",
-	  "updatedBy": "giovanni.bianchi"
+      "updateTime": "2020-04-02T21:50:12.731Z",
+      "updatedBy": "giovanni.bianchi"
     },
-	// ... and so on
+    // ... and so on
   ]
 }
 ```
@@ -231,18 +231,18 @@ private static string ComputeSha256Hash(string rawData)
       "expectedWorkReturnDate": "2020-12-31Z",
       "actualWorkReturnDate": null, // nullable date
       "closedCase": true, // boolean
-	  "updateTime": "2020-04-01T23:12:44.332Z",
-	  "updatedBy": "giovanni.bianchi"
+      "updateTime": "2020-04-01T23:12:44.332Z",
+      "updatedBy": "giovanni.bianchi"
     },
-	{
-	  "quarantinePlace": "HOME", // value in [ "HOME", "HOSP" ]
+    {
+      "quarantinePlace": "HOME", // value in [ "HOME", "HOSP" ]
       "expectedWorkReturnDate": "2020-12-31Z",
       "actualWorkReturnDate": null, // nullable date
       "closedCase": true, // boolean
-	  "updateTime": "2020-04-02T21:50:12.731Z",
-	  "updatedBy": "giovanni.bianchi"
+      "updateTime": "2020-04-02T21:50:12.731Z",
+      "updatedBy": "giovanni.bianchi"
     },
-	// ... and so on
+    // ... and so on
   ]
 }
 ```
