@@ -1,11 +1,9 @@
-﻿using DomainModel.Services;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using CQRS.Commands;
+using DomainModel.Services;
 
 namespace DomainModel.CQRS.Commands.NewPositiveUpdate
 {
-    public class NewPositiveUpdateCommandHandler
+    public class NewPositiveUpdateCommandHandler : ICommandHandler<NewPositiveUpdateCommand>
     {
         private readonly INewPositiveUpdate newPositiveUpdate;
 

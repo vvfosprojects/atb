@@ -5,11 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CQRS\CQRS.csproj" />
+    <PackageReference Include="MongoDB.Bson" Version="2.10.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="CQRS\Queris\GetSubject\" />
+    <ProjectReference Include="..\CQRS\CQRS.csproj" />
   </ItemGroup>
 
 </Project>

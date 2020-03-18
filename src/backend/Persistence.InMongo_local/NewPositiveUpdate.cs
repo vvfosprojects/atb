@@ -31,12 +31,15 @@ namespace Persistence.InMongo_local
                 ExpectedWorkReturnDate = command.ExpectedWorkReturnDate,
                 QuarantinePlace = command.QuarantinePlace,
                 ClosedCase = command.ClosedCase,
-                UpdatedBy = loggedUser.GetLoggedUser()
+                UpdatedBy = loggedUser.GetLoggedUser(),
+                UpdateTime = DateTime.Now
             };
+
+            var builder = Builders<Patient>.Filter.Eq("number", command.CaseNumber);
 
             dbContext.Patients.FindOneAndUpdate(
                     Builders<Patient>.Filter.Eq("number", command.CaseNumber),
-                    Builders<Patient>.Update.Set("data", dataToInsert)
+                    Builders<Patient>.Update.AddToSet("updates", dataToInsert)
                     ); 
         }
     }
