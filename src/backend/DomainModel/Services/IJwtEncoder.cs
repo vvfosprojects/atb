@@ -6,6 +6,6 @@ namespace DomainModel.Services
 {
     public interface IJwtEncoder
     {
-        public string Encode(string username, string group, string[] roles);
+        string Encode(string username, string group, string[] roles);
     }
 }
