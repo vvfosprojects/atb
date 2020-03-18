@@ -1,7 +1,7 @@
 import { Roles } from '../../enum/roles.enum';
 
 export interface AuthResponseInterface {
-    result: string;
+    success: boolean;
     errorMsg: string;
     jwt: string;
     roles: Roles[];

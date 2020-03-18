@@ -6,6 +6,7 @@ import { Navigate } from '@ngxs/router-plugin';
 import { ClearAuth, SetCurrentJwt, SetCurrentUser } from './auth.actions';
 import { ngxsValidForm } from '../../../shared/functions';
 import { Injectable } from '@angular/core';
+import { AuthResponseInterface } from '../../../shared/interface/common';
 
 export interface LoginStateModel {
     returnUrl: string;
@@ -69,14 +70,16 @@ export class LoginState {
         const state = getState();
         patchState({ submittedForm: true });
         if (ngxsValidForm(state.loginForm.status)) {
-            this.authenticationService.login(state.loginForm.model.username, state.loginForm.model.password).subscribe(response => {
-                if (response.body && response.body.jwt && response.body.username) {
+            this.authenticationService.login(state.loginForm.model.username, state.loginForm.model.password).subscribe((response: AuthResponseInterface) => {
+                if (response && response.success) {
                     dispatch([
-                        new SetCurrentJwt(response.body.jwt),
-                        new SetCurrentUser(response.body.username),
+                        new SetCurrentJwt(response.jwt),
+                        new SetCurrentUser(response.username),
                         new SetErrorMessage(null),
                         new Navigate([ state.returnUrl ])
                     ]);
+                } else if (!response.success) {
+                    dispatch(new SetErrorMessage(response.errorMsg));
                 }
             }, (error: HttpErrorResponse) => {
                 dispatch(new SetErrorMessage(error.error.errorMsg));

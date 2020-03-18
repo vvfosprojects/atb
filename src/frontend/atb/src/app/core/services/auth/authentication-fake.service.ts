@@ -1,5 +1,4 @@
 import { of, throwError } from 'rxjs';
-import { HttpResponse } from '@angular/common/http';
 import { UserInterface } from '../../../shared/interface/common/user.interface';
 import { AuthResponseInterface } from '../../../shared/interface/common';
 import { Roles } from '../../../shared/enum/roles.enum';
@@ -16,8 +15,8 @@ export class AuthenticationFakeService {
         if (!user) {
             return error('Username o password errati');
         }
-        return ok({
-            result: `success`,
+        return of({
+            success: true,
             errorMsg: ``,
             jwt: `fake-atb-jwt-token.${user.username}`,
             roles: user.roles,
@@ -25,14 +24,10 @@ export class AuthenticationFakeService {
             username: user.username
         } as AuthResponseInterface);
 
-        function ok(body) {
-            return of(new HttpResponse({ status: 200, body }));
-        }
-
         function error(message) {
             return throwError({
                 status: 400, error: {
-                    result: `failure`,
+                    success: false,
                     errorMsg: message,
                     jwt: ``,
                     group: ``,
