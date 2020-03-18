@@ -13,6 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { LoadingState } from './shared/store/loading/loading.state';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { AuthState } from './features/auth/store/auth.state';
+import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
     declarations: [
@@ -33,7 +34,8 @@ import { AuthState } from './features/auth/store/auth.state';
         }),
         NgxsFormPluginModule.forRoot(),
         ReactiveFormsModule,
-        NgSelectModule
+        NgSelectModule,
+        NgbDatepickerModule
     ],
     providers: [],
     bootstrap: [AppComponent]
