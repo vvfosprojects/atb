@@ -120,28 +120,68 @@
                                 <span class="font-weight-bold text-danger">*</span>
                             </h4>
                             <hr>
-                            <div class="form-check">
+                            <div class="form-check mb-2">
                                 <div>
-                                    <label for="optionDomicilio">Domicilio</label>
-                                    <input id="optionDomicilio"
+                                    <input id="quarantinePlaceDomicilio"
                                            class="form-check-input"
                                            type="radio"
                                            name="quarantinePlace"
                                            value="Domicilio"
                                            formControlName="quarantinePlace">
+                                    <label for="quarantinePlaceDomicilio" class="form-check-label">Domicilio</label>
                                 </div>
                                 <div>
-                                    <label for="optionStrutturaOspedaliera">Struttura Ospedaliera</label>
-                                    <input id="optionStrutturaOspedaliera"
+                                    <input id="quarantinePlaceStrutturaOspedaliera"
                                            class="form-check-input"
                                            type="radio"
                                            name="quarantinePlace"
                                            value="Struttura Ospedaliera"
                                            formControlName="quarantinePlace">
+                                    <label for="quarantinePlaceStrutturaOspedaliera" class="form-check-label">Struttura
+                                        Ospedaliera</label>
                                 </div>
                             </div>
                             <div class="small">
                                 <span class="font-weight-bold text-danger">* Campi Obbligatori</span>
+                            </div>
+                        </div>
+                        <div *ngIf="f.quarantinePlace.value === 'Struttura Ospedaliera'"
+                             class="px-4 py-3 bg-light shadow-sm mb-4">
+                            <h4>
+                                Terapia Intensiva
+                                <span class="font-weight-bold text-danger">*</span>
+                            </h4>
+                            <hr>
+                            <div class="form-check mb-2">
+                                <div>
+                                    <input id="terapiaIntensivaSi"
+                                           class="form-check-input"
+                                           type="radio"
+                                           name="terapiaIntensiva"
+                                           value="Si"
+                                           formControlName="terapiaIntensiva">
+                                    <label for="terapiaIntensivaSi" class="form-check-label">Si</label>
+                                </div>
+                                <div>
+                                    <input id="terapiaIntensivaNo"
+                                           class="form-check-input"
+                                           type="radio"
+                                           name="terapiaIntensiva"
+                                           value="No"
+                                           formControlName="terapiaIntensiva">
+                                    <label for="terapiaIntensivaNo" class="form-check-label">No</label>
+                                </div>
+                            </div>
+                            <div class="small">
+                                <span class="font-weight-bold text-danger">* Campi Obbligatori</span>
+                            </div>
+                        </div>
+                        <div class="px-4 py-3 bg-light shadow-sm mb-4">
+                            <h4>Data Presunta di ripresa del servizio</h4>
+                            <hr>
+                            <div class="form-check">
+                                <label for="expectedWorkReturnDate" class="d-none">Data Ripresa Servizio</label>
+                                <input id="expectedWorkReturnDate" type="date">
                             </div>
                         </div>
 

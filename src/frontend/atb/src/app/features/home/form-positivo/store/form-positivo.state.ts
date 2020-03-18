@@ -22,6 +22,7 @@ export interface FormPositivoStateModel {
             actualWorkReturnDate: null;
             closedCase: boolean;
         };
+        status?: string;
     };
 }
 
@@ -42,6 +43,11 @@ export class FormPositivoState {
     @Selector()
     static pageTitle(state: FormPositivoStateModel) {
         return state.pageTitle;
+    }
+
+    @Selector()
+    static positivoFormValid(state: FormPositivoStateModel) {
+        return state.positivoForm.status === 'VALID';
     }
 
     @Action(SetPageTitleFormPositivo)
