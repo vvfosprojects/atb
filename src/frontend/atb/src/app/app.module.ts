@@ -24,6 +24,7 @@ import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
             name: '#ATB - NGXS',
             disabled: environment.production,
         }),
+        NgxsFormPluginModule.forRoot()
     ],
     providers: [],
     bootstrap: [ AppComponent ]
