@@ -3,7 +3,7 @@ import { ClearLogin, Login, Logout, SetErrorMessage, SetReturnUrl } from './logi
 import { AuthenticationService } from '../../../core/services/auth';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Navigate } from '@ngxs/router-plugin';
-// import { ClearAuth, SetCurrentJwt, SetCurrentUser } from './auth.actions';
+import { ClearAuth, SetCurrentJwt, SetCurrentUser } from './auth.actions';
 import { ngxsValidForm } from '../../../shared/functions';
 import { Injectable } from '@angular/core';
 
@@ -70,16 +70,16 @@ export class LoginState {
         patchState({ submittedForm: true });
         if (ngxsValidForm(state.loginForm.status)) {
             this.authenticationService.login(state.loginForm.model.username, state.loginForm.model.password).subscribe(response => {
-                if (response.body && response.body.token && response.body.user) {
+                if (response.body && response.body.jwt && response.body.username) {
                     dispatch([
-                        // new SetCurrentJwt(response.body.token),
-                        // new SetCurrentUser(response.body.user,
+                        new SetCurrentJwt(response.body.jwt),
+                        new SetCurrentUser(response.body.username),
                         new SetErrorMessage(null),
                         new Navigate([ state.returnUrl ])
                     ]);
                 }
             }, (error: HttpErrorResponse) => {
-                dispatch(new SetErrorMessage(error.error.message));
+                dispatch(new SetErrorMessage(error.error.errorMsg));
             });
         }
     }
@@ -88,7 +88,7 @@ export class LoginState {
     logout({ dispatch }: StateContext<LoginStateModel>) {
         dispatch([
             new ClearLogin(),
-            // new ClearAuth()
+            new ClearAuth()
         ]);
     }
 

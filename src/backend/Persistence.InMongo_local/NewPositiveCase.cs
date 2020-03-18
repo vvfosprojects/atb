@@ -1,26 +1,22 @@
-﻿using atb.Helper;
-using DomainModel.Classes;
+﻿using DomainModel.Classes;
 using DomainModel.CQRS.Commands.AddPatientCommand;
 using DomainModel.Services;
 
 namespace Persistence.InMongo_local
 {
-    internal class AddPositive : IAddPositive
+    internal class NewPositiveCase : INewPositiveCase
     {
         private readonly DbContext dbContext;
 
-        public AddPositive(DbContext dbContext)
+        public NewPositiveCase(DbContext dbContext)
         {
             this.dbContext = dbContext;
         }
 
-        public void Add(NewPositiveCommand command)
+        public void Add(NewPositiveCaseCommand command)
         {
-            var loggedUser = new GetLoggedUser_fake();
-
             Patient patient = new Patient()
             {
-
                 Data = new Anagrafica()
                 {
                     Nome = command.Name,
@@ -32,7 +28,6 @@ namespace Persistence.InMongo_local
                 },
                 Group = command.Group,
             };
-
             dbContext.Patients.InsertOne(patient);
         }
     }

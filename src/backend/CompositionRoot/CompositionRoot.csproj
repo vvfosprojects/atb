@@ -1,17 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="simpleinjector" Version="4.9.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.1.2" />
+    <PackageReference Include="simpleinjector" Version="4.9.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\CQRS\CQRS.csproj" />
     <ProjectReference Include="..\DomainModel\DomainModel.csproj" />
+    <ProjectReference Include="..\JwtStuff\JwtStuff.csproj" />
     <ProjectReference Include="..\Logging\Logging.csproj" />
+    <ProjectReference Include="..\Persistence.InMongo_local\Persistence.InMongo_local.csproj" />
   </ItemGroup>
 
 </Project>

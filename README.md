@@ -262,13 +262,14 @@ The SHA-256 and field encryption can be implemented with the code available [HER
 }
 ```
 
-## `doctors` collection
+## `users` collection
 
 ```jsonc
 {
   "username": "mario.rossi",
   "pwdHash": "6adc35089eb05a42a7d877259075158d99dc9e043c3c1ef7acd6ae52166a4663", // sha-256 password hash
   "group": "CATANIA", // this is the name of the group assigned to the doctor
-  "enabled": true // false if the account is deactivated
+  "enabled": true, // false if the account is deactivated
+  "roles": [ "doctor" ], // it is a set of { "doctor", "manager" }
 }
 ```

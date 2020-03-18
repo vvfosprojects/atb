@@ -5,4 +5,6 @@ export interface AuthResponseInterface {
     errorMsg: string;
     jwt: string;
     roles: Roles[];
+    username: string;
+    group: string;
 }

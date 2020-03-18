@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace DomainModel.Classes
+﻿namespace DomainModel.Classes
 {
     public class Patient
     {
@@ -10,7 +8,6 @@ namespace DomainModel.Classes
 
         public Anagrafica Data { get; set; }
 
-        public List<PositiveData> Updates { get; set; }
-
+        public PositiveData[] Updates { get; set; }
     }
 }

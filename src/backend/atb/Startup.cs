@@ -93,7 +93,7 @@ namespace atb
 
         private void InitializeContainer()
         {
-            CompositionRoot.RootBindings.Bind(container);
+            CompositionRoot.RootBindings.Bind(container, Configuration);
         }
     }
 }

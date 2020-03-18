@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgxsModule } from '@ngxs/store';
@@ -13,7 +12,8 @@ import { FormPositivoState } from './features/home/form-positivo/store/form-posi
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoadingState } from './shared/store/loading/loading.state';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { NgbDatepickerModule } from "@ng-bootstrap/ng-bootstrap";
+import { AuthState } from './features/auth/store/auth.state';
+import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
     declarations: [
@@ -24,7 +24,7 @@ import { NgbDatepickerModule } from "@ng-bootstrap/ng-bootstrap";
         BrowserModule,
         AppRoutingModule,
         NgxsModule.forRoot(
-            [LoadingState, FormPositivoState],
+            [LoadingState, FormPositivoState, AuthState],
             { developmentMode: !environment.production }
         ),
         NgxsRouterPluginModule.forRoot(),
