@@ -84,7 +84,7 @@
                             <hr>
                             <div class="form-group">
                                 <label for="role" class="d-none">Scegliere una delle seguenti voci</label>
-                                <ng-select [items]="[]"
+                                <ng-select [items]="qualifiche$ | async"
                                            id="role"
                                            placeholder="Selezionare una qualifica"
                                            formControlName="role">
@@ -193,7 +193,10 @@
                             </div>
                         </div>
                         <div class="text-center">
-                            <button type="submit" class="btn btn-lg btn-primary w-50 mt-4">Invia Scheda</button>
+                            <button type="submit" class="btn btn-lg btn-primary w-50 mt-4"
+                                    [disabled]="!(positivoFormValid$ | async)">
+                                Invia Scheda
+                            </button>
                         </div>
                     </form>
                 </div>

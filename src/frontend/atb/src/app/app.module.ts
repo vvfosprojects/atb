@@ -14,6 +14,7 @@ import { LoadingState } from './shared/store/loading/loading.state';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { AuthState } from './features/auth/store/auth.state';
 import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import { QualificheState } from './shared/store/qualifiche/qualifiche.state';
 
 @NgModule({
     declarations: [
@@ -24,7 +25,7 @@ import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
         BrowserModule,
         AppRoutingModule,
         NgxsModule.forRoot(
-            [LoadingState, FormPositivoState, AuthState],
+            [LoadingState, AuthState, QualificheState, FormPositivoState],
             { developmentMode: !environment.production }
         ),
         NgxsRouterPluginModule.forRoot(),

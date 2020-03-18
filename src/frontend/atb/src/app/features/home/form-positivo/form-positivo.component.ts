@@ -4,6 +4,7 @@ import { Select, Store } from '@ngxs/store';
 import { FormPositivoState } from './store/form-positivo.state';
 import { Observable } from 'rxjs';
 import { LoadingState } from '../../../shared/store/loading/loading.state';
+import { QualificheState } from "../../../shared/store/qualifiche/qualifiche.state";
 
 @Component({
     selector: 'app-positivo',
@@ -13,6 +14,7 @@ import { LoadingState } from '../../../shared/store/loading/loading.state';
 export class FormPositivoComponent implements OnInit {
 
     @Select(LoadingState.loading) loading$: Observable<boolean>;
+    @Select(QualificheState.qualifiche) qualifiche$: Observable<any[]>;
     @Select(FormPositivoState.pageTitle) pageTitle$: Observable<string>;
     @Select(FormPositivoState.positivoFormValid) positivoFormValid$: Observable<boolean>;
     positivoForm: FormGroup;
