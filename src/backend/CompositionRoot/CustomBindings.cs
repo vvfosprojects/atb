@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.Extensions.Configuration;
 using SimpleInjector;
 
@@ -9,9 +9,9 @@ namespace CompositionRoot
     /// </summary>
     internal static class CustomBindings
     {
-        internal static void Bind(Container container, IConfiguration Configuration)
+        internal static void Bind(Container container, IConfiguration configuration)
         {
-            var appConfSection = Configuration.GetSection("appConf");
+            var appConfSection = configuration.GetSection("appConf");
 
             container.Register<DomainModel.Services.IJwtEncoder>(() =>
             {
@@ -20,6 +20,21 @@ namespace CompositionRoot
 
                 return new JwtStuff.JwtEncoder(jwtSecret, new TimeSpan(0, 0, jwtDuration_sec));
             }, Lifestyle.Singleton);
+
+            container.Register<Persistence.InMongo_local.DbContext>(() =>
+            {
+                var configurationString = configuration.GetSection("ConnectionString").Value;
+                var databaseName = configuration.GetSection("DatabaseName").Value;
+                return new Persistence.InMongo_local.DbContext(configurationString, databaseName);
+            }, Lifestyle.Singleton);
+
+            BindDb_InMongo_local(container);
+        }
+
+        private static void BindDb_InMongo_local(Container container)
+        {
+            container.Register<DomainModel.Services.INewPositiveCase, Persistence.InMongo_local.NewPositiveCase>();
+            container.Register<DomainModel.Services.INewPositiveUpdate, Persistence.InMongo_local.NewPositiveUpdate>();
         }
     }
 }

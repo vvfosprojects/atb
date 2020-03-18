@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Select, Store } from '@ngxs/store';
 import { FormPositivoState } from './store/form-positivo.state';
 import { Observable } from 'rxjs';
@@ -14,9 +14,10 @@ export class FormPositivoComponent implements OnInit {
 
     @Select(LoadingState.loading) loading$: Observable<boolean>;
     @Select(FormPositivoState.pageTitle) pageTitle$: Observable<string>;
+    @Select(FormPositivoState.positivoFormValid) positivoFormValid$: Observable<boolean>;
     positivoForm: FormGroup;
 
-    constructor(private store: Store) {
+    constructor(private store: Store, private formBuilder: FormBuilder) {
         this.initForm();
     }
 
@@ -41,7 +42,6 @@ export class FormPositivoComponent implements OnInit {
             actualWorkReturnDate: new FormControl(),
             closedCase: new FormControl()
         });
-
     }
 
     get f() {

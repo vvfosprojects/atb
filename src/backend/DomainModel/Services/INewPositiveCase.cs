@@ -2,8 +2,8 @@
 
 namespace DomainModel.Services
 {
-    public interface IAddPositive
+    public interface INewPositiveCase
     {
-        void Add(NewPositiveCommand command);
+        void Add(NewPositiveCaseCommand command);
     }
 }

@@ -14,6 +14,7 @@
     <ProjectReference Include="..\DomainModel\DomainModel.csproj" />
     <ProjectReference Include="..\JwtStuff\JwtStuff.csproj" />
     <ProjectReference Include="..\Logging\Logging.csproj" />
+    <ProjectReference Include="..\Persistence.InMongo_local\Persistence.InMongo_local.csproj" />
   </ItemGroup>
 
 </Project>
