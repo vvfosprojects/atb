@@ -117,7 +117,7 @@ The response is empty.
 
 ## Action: `api/patientSheet`
 
-This action allows to fetch update patient data.
+This action allows to fetch updated patient data.
 
 ### Request
 
@@ -141,6 +141,39 @@ This action allows to fetch update patient data.
     },
     "data": {
       "estremiProvvedimentiASL": "abcd efgh yxzk",
+      "quarantinePlace": "HOME",
+      "expectedWorkReturnDate": "2020-12-31Z",
+      "actualWorkReturnDate": null,
+      "closedCase": true
+    }
+}
+```
+
+## Action: `api/suspectSheet`
+
+This action allows to fetch updated suspect data.
+
+### Request
+
+```jsonc
+{
+  "caseNumber": 1234
+}
+```
+
+### Response
+
+```jsonc
+{
+    "subject": {
+      "number": 1234,
+      "name": "Mario",
+      "surname": "Rossi",
+      "email": "mario.rossi@vigilfuoco.it",
+      "phone": "3331234567",
+      "role": "VIGILE DEL FUOCO"
+    },
+    "data": {
       "quarantinePlace": "HOME",
       "expectedWorkReturnDate": "2020-12-31Z",
       "actualWorkReturnDate": null,
