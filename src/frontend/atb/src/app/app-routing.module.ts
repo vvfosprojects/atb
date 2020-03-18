@@ -25,10 +25,10 @@ const routes: Routes = [
         loadChildren: () => import('./features/home/home.module').then(m => m.HomeModule),
         canActivate: [ AuthGuard ]
     },
-    // {
-    //     path: 'auth',
-    //     loadChildren: () => import('./features/auth/auth.module').then(m => m.AuthModule)
-    // },
+    {
+        path: 'auth',
+        loadChildren: () => import('./features/auth/auth.module').then(m => m.AuthModule)
+    },
     {
         path: 'login',
         redirectTo: 'auth/login',
