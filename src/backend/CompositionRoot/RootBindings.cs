@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
+using Microsoft.Extensions.Configuration;
 using SimpleInjector;
 
 namespace CompositionRoot
@@ -12,10 +13,10 @@ namespace CompositionRoot
     /// </summary>
     public static class RootBindings
     {
-        public static void Bind(Container container)
+        public static void Bind(Container container, IConfiguration configuration)
         {
             CQRSBindings.Bind(container);
-            CustomBindings.Bind(container);
+            CustomBindings.Bind(container, configuration);
         }
     }
 }
