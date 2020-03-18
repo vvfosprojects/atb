@@ -52,6 +52,8 @@ public static string Encrypt(string toEncrypt, string key)
 }
 ```
 
+Example key is `876543211234567887654321`.
+
 ## 3DES decryption
 
 ```c#
