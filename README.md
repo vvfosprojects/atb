@@ -69,3 +69,48 @@ This action allows to append an update to a positive case.
 ### Response
 
 The response is empty.
+
+## Action: `api/newSuspect`
+
+This action allows to insert a new suspected infected individual.
+
+### Request
+
+```jsonc
+{
+  "number": 1234,
+  "name": "Mario",
+  "surname": "Rossi",
+  "email": "mario.rossi@vigilfuoco.it",
+  "phone": "3331234567",
+  "role": "VIGILE DEL FUOCO"
+}
+```
+
+### Response
+
+The response is empty.
+
+### Notes
+
+The list of valid roles is [here](roles.md).
+
+## Action: `api/newSuspectUpdate`
+
+This action allows to append an update to a suspect infected individual.
+
+### Request
+
+```jsonc
+{
+  "caseNumber": 1234,
+  "quarantinePlace": "HOME", // value in [ "HOME", "HOSP" ]
+  "expectedWorkReturnDate": "2020-12-31Z"
+  "actualWorkReturnDate": null // nullable date
+  "closedCase": true // boolean
+}
+```
+
+### Response
+
+The response is empty.
