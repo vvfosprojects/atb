@@ -1,21 +1,154 @@
 <div class="container-fluid bg-light">
-    <div class="row vh-100">
+    <div class="row" style="min-height:100vh">
         <div class="col-12 col-sm-10 col-md-8 col-lg-7 col-xl-6 mx-auto bg-white py-3">
-            <div class="text-center">
-                <h2>{{pageTitle$ | async}}</h2>
-            </div>
-            <!--            <form [formGroup]="positivoForm"-->
-            <!--                  ngxsForm="formPositivo.positivoForm"-->
-            <!--                  (ngSubmit)="onSubmit()">-->
-            <!--                <div class="form-group">-->
-            <!--                    <label for="name">Nome</label>-->
-            <!--                    <input id="name" class="form-control" type="text" formControlName="name"/>-->
-            <!--                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone-->
-            <!--                        else.</small>-->
-            <!--                </div>-->
+            <div class="row">
+                <div class="col-12 text-center mb-4">
+                    <h1>{{(pageTitle$ | async) | titlecase}}</h1>
+                </div>
+                <div class="col-12 col-sm-11 col-md-10 mx-auto">
+                    <form [formGroup]="positivoForm" ngxsForm="formPositivo.positivoForm" (ngSubmit)="onSubmit()">
+                        <div class="px-4 py-3 bg-light shadow-sm mb-4">
+                            <h4>Codice Caso</h4>
+                            <hr>
+                            <div class="form-group">
+                                <label for="caseNumber">
+                                    Numero caso
+                                    <span class="font-weight-bold text-danger">*</span>
+                                </label>
+                                <input id="caseNumber" class="form-control" type="number" formControlName="caseNumber"/>
+                                <small id="caseNumberHelp" class="form-text text-muted">
+                                    <i class="fa fa-exclamation-triangle mr-1"></i>
+                                    Inserire un numero intero <span class="font-weight-bold">maggiore di zero</span>
+                                </small>
+                            </div>
+                            <div class="small">
+                                <span class="font-weight-bold text-danger">* Campi Obbligatori</span>
+                            </div>
+                        </div>
+                        <div class="px-4 py-3 bg-light shadow-sm mb-4">
+                            <h4>Dati relativi al singolo caso</h4>
+                            <hr>
+                            <div class="form-group">
+                                <label for="name">
+                                    Nome
+                                    <span class="font-weight-bold text-danger">*</span>
+                                </label>
+                                <input id="name" class="form-control" type="text" formControlName="name"/>
+                                <!-- <small id="nameHelp" class="form-text text-muted">-->
+                                <!--     <i class="fa fa-exclamation-triangle mr-1"></i>-->
+                                <!--     Inserire un numero intero <span class="font-weight-bold">maggiore di zero</span>-->
+                                <!-- </small>-->
+                            </div>
+                            <div class="form-group">
+                                <label for="surname">
+                                    Cognome
+                                    <span class="font-weight-bold text-danger">*</span>
+                                </label>
+                                <input id="surname" class="form-control" type="text" formControlName="surname"/>
+                                <!-- <small id="surnameHelp" class="form-text text-muted">-->
+                                <!--     <i class="fa fa-exclamation-triangle mr-1"></i>-->
+                                <!--     Inserire un numero intero <span class="font-weight-bold">maggiore di zero</span>-->
+                                <!-- </small>-->
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">
+                                    Numero Cellulare
+                                    <span class="font-weight-bold text-danger">*</span>
+                                </label>
+                                <input id="phone" class="form-control" type="number" formControlName="phone"/>
+                                <!-- <small id="phoneHelp" class="form-text text-muted">-->
+                                <!--     <i class="fa fa-exclamation-triangle mr-1"></i>-->
+                                <!--     Inserire un numero intero <span class="font-weight-bold">maggiore di zero</span>-->
+                                <!-- </small>-->
+                            </div>
+                            <div class="form-group">
+                                <label for="email">
+                                    Email
+                                    <span class="font-weight-bold text-danger">*</span>
+                                </label>
+                                <input id="email" class="form-control" type="text" formControlName="email"/>
+                                <!-- <small id="emailHelp" class="form-text text-muted">-->
+                                <!--     <i class="fa fa-exclamation-triangle mr-1"></i>-->
+                                <!--     Inserire un numero intero <span class="font-weight-bold">maggiore di zero</span>-->
+                                <!-- </small>-->
+                            </div>
+                            <div class="small">
+                                <span class="font-weight-bold text-danger">* Campi Obbligatori</span>
+                            </div>
+                        </div>
+                        <div class="px-4 py-3 bg-light shadow-sm mb-4">
+                            <h4>
+                                Qualifica
+                                <span class="font-weight-bold text-danger">*</span>
+                            </h4>
+                            <hr>
+                            <div class="form-group">
+                                <label for="role" class="d-none">Scegliere una delle seguenti voci</label>
+                                <ng-select [items]="[]"
+                                           id="role"
+                                           placeholder="Selezionare una qualifica"
+                                           formControlName="role">
+                                </ng-select>
+                            </div>
+                            <div class="small">
+                                <span class="font-weight-bold text-danger">* Campi Obbligatori</span>
+                            </div>
+                        </div>
+                        <div class="px-4 py-3 bg-light shadow-sm mb-4">
+                            <h4>
+                                Estremi Provvedimento ASL
+                                <span class="font-weight-bold text-danger">*</span>
+                            </h4>
+                            <hr>
+                            <div class="form-group">
+                                <label for="estremiProvvedimentiASL" class="d-none"></label>
+                                <input id="estremiProvvedimentiASL" class="form-control" type="number"
+                                       formControlName="estremiProvvedimentiASL"/>
+                                <small id="estremiProvvedimentiASLHelp" class="form-text text-muted">
+                                    <i class="fa fa-exclamation-triangle mr-1"></i>
+                                    Inserire gli estremi del provvedimento ASL che dichiara la positività del soggetto
+                                    al COVID-19.
+                                </small>
+                            </div>
+                            <div class="small">
+                                <span class="font-weight-bold text-danger">* Campi Obbligatori</span>
+                            </div>
+                        </div>
+                        <div class="px-4 py-3 bg-light shadow-sm mb-4">
+                            <h4>
+                                Sede di Isolamento
+                                <span class="font-weight-bold text-danger">*</span>
+                            </h4>
+                            <hr>
+                            <div class="form-check">
+                                <div>
+                                    <label for="optionDomicilio">Domicilio</label>
+                                    <input id="optionDomicilio"
+                                           class="form-check-input"
+                                           type="radio"
+                                           name="quarantinePlace"
+                                           value="Domicilio"
+                                           formControlName="quarantinePlace">
+                                </div>
+                                <div>
+                                    <label for="optionStrutturaOspedaliera">Struttura Ospedaliera</label>
+                                    <input id="optionStrutturaOspedaliera"
+                                           class="form-check-input"
+                                           type="radio"
+                                           name="quarantinePlace"
+                                           value="Struttura Ospedaliera"
+                                           formControlName="quarantinePlace">
+                                </div>
+                            </div>
+                            <div class="small">
+                                <span class="font-weight-bold text-danger">* Campi Obbligatori</span>
+                            </div>
+                        </div>
 
-            <!--                <button type="submit" class="btn btn-lg btn-primary float-md-right">Invia Scheda</button>-->
-            <!--            </form>-->
+                        <button type="submit" class="btn btn-lg btn-primary float-md-right mt-4">Invia Scheda</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </div>

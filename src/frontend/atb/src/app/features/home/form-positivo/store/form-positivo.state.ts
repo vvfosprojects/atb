@@ -6,28 +6,27 @@ export interface FormPositivoStateModel {
     pageTitle: string;
     positivoForm: {
         model?: {
-            personalInformation: {
-                number: number;
-                name: string;
-                surname: string;
-                email: string;
-                phone: string;
-                role: string;
-            };
-            personalData: {
-                caseNumber: number;
-                estremiProvvedimentiASL: string;
-                quarantinePlace: string;
-                expectedWorkReturnDate: string;
-                actualWorkReturnDate: null;
-                closedCase: boolean;
-            };
+            // Personal Information
+            // todo: verificare se necessario (number)
+            // number: number;
+            name: string;
+            surname: string;
+            email: string;
+            phone: string;
+            role: string;
+            // Personal Data
+            caseNumber: number;
+            estremiProvvedimentiASL: string;
+            quarantinePlace: string;
+            expectedWorkReturnDate: string;
+            actualWorkReturnDate: null;
+            closedCase: boolean;
         };
     };
 }
 
 export const formPositivoStateDefaults: FormPositivoStateModel = {
-    pageTitle: 'Crea Scheda: Nuovo Positivo',
+    pageTitle: 'nuova scheda',
     positivoForm: {
         model: undefined
     }

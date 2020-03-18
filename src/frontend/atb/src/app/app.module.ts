@@ -12,6 +12,7 @@ import { FormPositivoComponent } from './features/home/form-positivo/form-positi
 import { FormPositivoState } from './features/home/form-positivo/store/form-positivo.state';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoadingState } from './shared/store/loading/loading.state';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
     declarations: [
@@ -31,7 +32,8 @@ import { LoadingState } from './shared/store/loading/loading.state';
             disabled: environment.production,
         }),
         NgxsFormPluginModule.forRoot(),
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        NgSelectModule
     ],
     providers: [],
     bootstrap: [AppComponent]
