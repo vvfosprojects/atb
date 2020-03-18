@@ -148,3 +148,73 @@ This action allows to fetch update patient data.
     }
 }
 ```
+
+# Database collections
+
+## `patients` collection
+
+{
+  "group": "CATANIA", // this is the name of the group the patient belongs to
+  "data": {
+    "number": 1234,
+    "name": "Mario", // this field is stored encrypted
+    "surname": "Rossi", // this field is stored encrypted
+    "email": "mario.rossi@vigilfuoco.it", // this field is stored encrypted
+    "phone": "3331234567", // this field is stored encrypted
+    "role": "VIGILE DEL FUOCO" // this field is stored encrypted
+  },
+  updates: [
+    {
+      "estremiProvvedimentiASL": "abcd efgh yxzk",
+      "quarantinePlace": "HOME",
+      "expectedWorkReturnDate": "2020-12-31Z"
+      "actualWorkReturnDate": null
+      "closedCase": false,
+	  "updateTime": "2020-04-01T23:12:44.332Z",
+	  "updatedBy": "giovanni.bianchi"
+    },
+	{
+      "estremiProvvedimentiASL": "yxzk efgh abcd",
+      "quarantinePlace": "HOSP",
+      "expectedWorkReturnDate": "2020-12-31Z"
+      "actualWorkReturnDate": "2020-12-30Z"
+      "closedCase": true,
+	  "updateTime": "2020-04-02T21:50:12.731Z",
+	  "updatedBy": "giovanni.bianchi"
+    },
+	// ... and so on
+  ]
+}
+
+### Notes
+
+The SHA-256 can be computed with the following code.
+
+```C#
+    private static string ComputeSha256Hash(string rawData)
+    {
+      // Create a SHA256
+      using (SHA256 sha256Hash = SHA256.Create())
+      {
+        // ComputeHash - returns byte array
+        byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
+
+        // Convert byte array to a string
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < bytes.Length; i++)
+        {
+          builder.Append(bytes[i].ToString("x2"));
+        }
+        return builder.ToString();
+      }
+    }
+```
+
+## `doctors` collection
+
+{
+  "username": "mario.rossi",
+  "pwdHash": "6adc35089eb05a42a7d877259075158d99dc9e043c3c1ef7acd6ae52166a4663" // sha-256 password hash
+  "group": "CATANIA" // this is the name of the group assigned to the doctor
+  "enabled": true // false if the account is deactivated
+}
