@@ -8,7 +8,7 @@ using SimpleInjector;
 using Logging;
 using Microsoft.Extensions.Hosting;
 
-namespace RockApi
+namespace atb
 {
     public class Startup
     {
