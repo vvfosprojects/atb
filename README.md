@@ -190,27 +190,7 @@ This action allows to fetch update patient data.
 
 ### Notes
 
-The SHA-256 can be computed with the following code.
-
-```c#
-private static string ComputeSha256Hash(string rawData)
-{
-  // Create a SHA256
-  using (SHA256 sha256Hash = SHA256.Create())
-  {
-    // ComputeHash - returns byte array
-    byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
-
-    // Convert byte array to a string
-    StringBuilder builder = new StringBuilder();
-    for (int i = 0; i < bytes.Length; i++)
-    {
-      builder.Append(bytes[i].ToString("x2"));
-    }
-    return builder.ToString();
-  }
-}
-```
+The SHA-256 and field encryption can be implemented with the code available [HERE](cryptography.md).
 
 ## `suspects` collection
 
