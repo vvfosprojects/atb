@@ -47,4 +47,4 @@ The response is empty.
 
 ### Notes
 
-The list of valid roles is (here)[roles.md].
+The list of valid roles is [here](roles.md).
