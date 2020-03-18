@@ -1,5 +1,6 @@
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { SetPageTitleFormPositivo } from './form-positivo.actions';
+import { Injectable } from '@angular/core';
 
 export interface FormPositivoStateModel {
     pageTitle: string;
@@ -32,6 +33,7 @@ export const formPositivoStateDefaults: FormPositivoStateModel = {
     }
 };
 
+@Injectable()
 @State<FormPositivoStateModel>({
     name: 'formPositivo',
     defaults: formPositivoStateDefaults
