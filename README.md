@@ -153,6 +153,7 @@ This action allows to fetch update patient data.
 
 ## `patients` collection
 
+```jsonc
 {
   "group": "CATANIA", // this is the name of the group the patient belongs to
   "data": {
@@ -185,6 +186,7 @@ This action allows to fetch update patient data.
 	// ... and so on
   ]
 }
+```
 
 ### Notes
 
