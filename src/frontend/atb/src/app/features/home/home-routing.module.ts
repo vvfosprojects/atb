@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { SearchComponent } from './search/search.component';
+import { FormPositivoComponent } from "./form-positivo/form-positivo.component";
 
 const routes: Routes = [
     {
@@ -14,7 +15,7 @@ const routes: Routes = [
     },
     {
         path: 'form-positivo',
-        // component: PositivoComponent
+        component: FormPositivoComponent
     },
     {
         path: 'form-assente',

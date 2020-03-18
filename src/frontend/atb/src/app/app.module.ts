@@ -8,16 +8,21 @@ import { environment } from '../environments/environment';
 import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsFormPluginModule } from '@ngxs/form-plugin';
+import { FormPositivoComponent } from './features/home/form-positivo/form-positivo.component';
+import { FormPositivoState } from './features/home/form-positivo/store/form-positivo.state';
+import { ReactiveFormsModule } from '@angular/forms';
+import { LoadingState } from './shared/store/loading/loading.state';
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
+        FormPositivoComponent
     ],
     imports: [
         BrowserModule,
         AppRoutingModule,
         NgxsModule.forRoot(
-            [],
+            [LoadingState, FormPositivoState],
             { developmentMode: !environment.production }
         ),
         NgxsRouterPluginModule.forRoot(),
@@ -25,10 +30,11 @@ import { NgxsFormPluginModule } from '@ngxs/form-plugin';
             name: '#ATB - NGXS',
             disabled: environment.production,
         }),
-        NgxsFormPluginModule.forRoot()
+        NgxsFormPluginModule.forRoot(),
+        ReactiveFormsModule
     ],
     providers: [],
-    bootstrap: [ AppComponent ]
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 }
