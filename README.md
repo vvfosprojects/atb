@@ -114,3 +114,37 @@ This action allows to append an update to a suspect infected individual.
 ### Response
 
 The response is empty.
+
+## Action: `api/patientSheet`
+
+This action allows to fetch update patient data.
+
+### Request
+
+```jsonc
+{
+  "caseNumber": 1234
+}
+```
+
+### Response
+
+```jsonc
+{
+    "subject": {
+      "number": 1234,
+      "name": "Mario",
+      "surname": "Rossi",
+      "email": "mario.rossi@vigilfuoco.it",
+      "phone": "3331234567",
+      "role": "VIGILE DEL FUOCO"
+    },
+    "data": {
+      "estremiProvvedimentiASL": "abcd efgh yxzk",
+      "quarantinePlace": "HOME",
+      "expectedWorkReturnDate": "2020-12-31Z"
+      "actualWorkReturnDate": null
+      "closedCase": true
+    }
+}
+```
