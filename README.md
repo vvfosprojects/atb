@@ -20,7 +20,9 @@ This action allows to authenticate to the system.
   "result": "failure", // [success|failure]
   "errorMsg": "Wrong username or password" // empty in case of success,
   "jwt": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJtYXJpby5yb3NzaSIsImlhdCI6MTUxNjIzOTAyMiwicm9sZXMiOlsiZG9jdG9yIl19.u77tWJnNskPxa4cGuBikY6ebFEpflC2_XGwDvZFiukY", // secret is "mysecret"
-  "roles": [ "doctor" ] // it is a set of { "doctor", "manager" }
+  "username": "mario.rossi",
+  "roles": [ "doctor" ], // it is a set of { "doctor", "manager" }
+  "group": "Catania" // the group the user belongs to
 }
 ```
 

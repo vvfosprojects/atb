@@ -9,8 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Classes\" />
-    <Folder Include="Services\" />
+    <Folder Include="CQRS\Queris\GetSubject\" />
   </ItemGroup>
 
 </Project>
