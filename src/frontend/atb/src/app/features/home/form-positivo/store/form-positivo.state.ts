@@ -7,8 +7,6 @@ export interface FormPositivoStateModel {
     positivoForm: {
         model?: {
             // Personal Information
-            // todo: verificare se necessario (number)
-            // number: number;
             name: string;
             surname: string;
             email: string;

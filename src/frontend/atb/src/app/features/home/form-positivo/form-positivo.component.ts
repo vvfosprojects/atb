@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Select, Store } from '@ngxs/store';
 import { FormPositivoState } from './store/form-positivo.state';
 import { Observable } from 'rxjs';
@@ -27,8 +27,6 @@ export class FormPositivoComponent implements OnInit {
     initForm() {
         this.positivoForm = new FormGroup({
             // Personal Information
-            // todo: verificare se necessario (number)
-            // number: new FormControl(),
             name: new FormControl(),
             surname: new FormControl(),
             phone: new FormControl(),
@@ -38,10 +36,35 @@ export class FormPositivoComponent implements OnInit {
             caseNumber: new FormControl(),
             estremiProvvedimentiASL: new FormControl(),
             quarantinePlace: new FormControl(),
+            intensiveTerapy: new FormControl(),
             expectedWorkReturnDate: new FormControl(),
             actualWorkReturnDate: new FormControl(),
             closedCase: new FormControl()
         });
+        this.positivoForm = this.formBuilder.group({
+            // Personal Information
+            name: [null, Validators.required],
+            surname: [null, Validators.required],
+            phone: [null, Validators.required],
+            email: [null, Validators.required],
+            role: [null],
+            // Personal Data
+            caseNumber: [null, Validators.required],
+            estremiProvvedimentiASL: [null, Validators.required],
+            quarantinePlace: [null, Validators.required],
+            intensiveTerapy: [null],
+            expectedWorkReturnDate: [null, Validators.required],
+            actualWorkReturnDate: [null],
+            closedCase: [null]
+        });
+    }
+
+    onPatchQuarantinePlace() {
+        if (this.f.quarantinePlace.value !== 'Domicilio') {
+            this.f.intensiveTerapy.setValidators(Validators.required);
+        } else {
+            this.f.intensiveTerapy.clearValidators();
+        }
     }
 
     get f() {

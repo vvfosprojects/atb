@@ -13,6 +13,7 @@ import { FormPositivoState } from './features/home/form-positivo/store/form-posi
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoadingState } from './shared/store/loading/loading.state';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { NgbDatepickerModule } from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
     declarations: [
@@ -33,7 +34,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
         }),
         NgxsFormPluginModule.forRoot(),
         ReactiveFormsModule,
-        NgSelectModule
+        NgSelectModule,
+        NgbDatepickerModule
     ],
     providers: [],
     bootstrap: [AppComponent]
