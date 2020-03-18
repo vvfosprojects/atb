@@ -25,24 +25,27 @@ export class FormPositivoComponent implements OnInit {
 
     initForm() {
         this.positivoForm = new FormGroup({
-            personalInformation: new FormControl({
-                number: new FormControl(),
-                name: new FormControl(),
-                surname: new FormControl(),
-                email: new FormControl(),
-                phone: new FormControl(),
-                role: new FormControl(),
-            }),
-            personalData: new FormControl({
-                caseNumber: new FormControl(),
-                estremiProvvedimentiASL: new FormControl(),
-                quarantinePlace: new FormControl(),
-                expectedWorkReturnDate: new FormControl(),
-                actualWorkReturnDate: new FormControl(),
-                closedCase: new FormControl()
-            })
+            // Personal Information
+            // todo: verificare se necessario (number)
+            // number: new FormControl(),
+            name: new FormControl(),
+            surname: new FormControl(),
+            phone: new FormControl(),
+            email: new FormControl(),
+            role: new FormControl(),
+            // Personal Data
+            caseNumber: new FormControl(),
+            estremiProvvedimentiASL: new FormControl(),
+            quarantinePlace: new FormControl(),
+            expectedWorkReturnDate: new FormControl(),
+            actualWorkReturnDate: new FormControl(),
+            closedCase: new FormControl()
         });
 
+    }
+
+    get f() {
+        return this.positivoForm.controls;
     }
 
     onSubmit() {
