@@ -8,19 +8,18 @@ namespace atb.Controllers
     [ApiController]
     public class NewPositiveCaseController : ControllerBase
     {
-        private readonly ICommandHandler<NewPositiveCommand> handler;
+        private readonly ICommandHandler<NewPositiveCaseCommand> handler;
 
-        public NewPositiveCaseController(ICommandHandler <NewPositiveCommand> handler)
+        public NewPositiveCaseController(ICommandHandler <NewPositiveCaseCommand> handler)
         {
             this.handler = handler;
         }
 
         [HttpPost]
-        public ActionResult Add([FromBody] NewPositiveCommand command)
+        public ActionResult Add([FromBody] NewPositiveCaseCommand command)
         {
             handler.Handle(command);
             return Ok();
         }
-
     }
 }

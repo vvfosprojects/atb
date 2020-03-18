@@ -2,7 +2,7 @@
 
 namespace DomainModel.CQRS.Commands.AddPatientCommand
 {
-    public class NewPositiveCommand
+    public class NewPositiveCaseCommand
     {
         public int Number { get; set; }
 
@@ -18,14 +18,5 @@ namespace DomainModel.CQRS.Commands.AddPatientCommand
 
         public string Role { get; set; }
 
-        public string EstremiProvvedimentiASL { get; set; }
-
-        public string QuarantinePlace { get; set; }
-
-        public DateTime ExpectedWorkReturnDate { get; set; }
-
-        public DateTime? ActualWorkReturnDate { get; set; }
-
-        public bool ClosedCase { get; set; }
     }
 }
