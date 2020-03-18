@@ -27,30 +27,24 @@ namespace atb.Controllers
         public ActionResult Get(AuthQuery query)
         {
             var authResult = this.handler.Handle(query);
+            string jwt;
 
             if (authResult.Success)
             {
-                var roles = authResult.IsDoctor ? new[] { "doctor " } : new string[0];
-                var jwt = this.jwtEncoder.Encode(query.Username, authResult.Group, roles);
-                return Ok(new
-                {
-                    result = "success",
-                    errorMsg = string.Empty,
-                    jwt,
-                    username = query.Username,
-                    roles,
-                    group = authResult.Group
-                });
+                var roles = authResult.Roles;
+                jwt = this.jwtEncoder.Encode(query.Username, authResult.Group, roles);
             }
+            else
+                jwt = string.Empty;
 
             return Ok(new
             {
-                result = "failure",
-                errorMsg = "Authentication failed.",
-                username = query.Username,
-                jwt = string.Empty,
-                roles = new string[0],
-                group = string.Empty
+                success = authResult.Success,
+                errorMsg = authResult.Success ? string.Empty : "Authentication failed.",
+                jwt,
+                username = authResult.Username,
+                roles = authResult.Roles,
+                group = authResult.Group
             });
         }
     }
