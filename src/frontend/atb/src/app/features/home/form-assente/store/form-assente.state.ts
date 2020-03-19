@@ -2,6 +2,7 @@ import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { Injectable } from '@angular/core';
 import { SaveNewSuspectCase, SetPageTitleFormAssente } from './form-assente.actions';
 import { AssentiService } from '../../../../core/services/assenti/assenti.service';
+import { Navigate } from "@ngxs/router-plugin";
 
 export interface FormAssenteStateModel {
     pageTitle: string;
@@ -61,12 +62,8 @@ export class FormAssenteState {
     }
 
     @Action(SaveNewSuspectCase)
-    saveNewSuspectCase({ getState }: StateContext<FormAssenteStateModel>) {
+    saveNewSuspectCase({ getState, dispatch }: StateContext<FormAssenteStateModel>) {
         const assenteFormValue = getState().assenteForm.model;
-        console.log('SaveNewSuspectCase',
-            assenteFormValue
-        );
-        // todo: logica per il save
         const obj = {
             number: assenteFormValue.caseNumber,
             name: assenteFormValue.name,
@@ -76,8 +73,23 @@ export class FormAssenteState {
             role: assenteFormValue.role,
             closedCase: false
         };
-        this.assentiService.newSuspectCase(obj).subscribe((res: any) => {
-            console.log(res);
+        this.assentiService.newSuspectCase(obj).subscribe(() => {
+            const obj2 = {
+                caseNumber: assenteFormValue.caseNumber,
+                quarantinePlace: assenteFormValue.quarantinePlace,
+                expectedWorkReturnDate: formatDate(assenteFormValue.expectedWorkReturnDate),
+                closedCase: false
+            };
+            this.assentiService.newSuspectUpdate(obj2).subscribe(() => {
+                dispatch(new Navigate(['./home/ricerca']));
+            });
         });
     }
+}
+
+function formatDate(data: any) {
+    const year = data.year;
+    const month = data.month.toString().length > 1 ? data.month : '0' + data.month;
+    const day = data.day.toString().length > 1 ? data.day : '0' + data.day;
+    return year + '-' + month + '-' + day;
 }

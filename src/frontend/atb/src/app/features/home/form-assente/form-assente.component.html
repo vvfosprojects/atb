@@ -95,26 +95,6 @@
                     </div>
                     <div class="px-4 py-3 bg-light rounded border border-light shadow-sm mb-4">
                         <h4>
-                            Estremi Provvedimento ASL
-                            <span class="font-weight-bold text-danger">*</span>
-                        </h4>
-                        <hr>
-                        <div class="form-group">
-                            <label for="estremiProvvedimentiASL" class="d-none"></label>
-                            <input id="estremiProvvedimentiASL" class="form-control" type="string"
-                                   formControlName="estremiProvvedimentiASL"/>
-                            <small id="estremiProvvedimentiASLHelp" class="form-text text-muted">
-                                <i class="fa fa-exclamation-triangle mr-1"></i>
-                                Inserire gli estremi del provvedimento ASL che dichiara la positività del soggetto
-                                al COVID-19.
-                            </small>
-                        </div>
-                        <div class="small">
-                            <span class="font-weight-bold text-danger">* Campi Obbligatori</span>
-                        </div>
-                    </div>
-                    <div class="px-4 py-3 bg-light rounded border border-light shadow-sm mb-4">
-                        <h4>
                             Sede di Isolamento
                             <span class="font-weight-bold text-danger">*</span>
                         </h4>
@@ -126,8 +106,7 @@
                                        type="radio"
                                        name="quarantinePlace"
                                        value="Domicilio"
-                                       formControlName="quarantinePlace"
-                                       (ngModelChange)="onPatchQuarantinePlace($event)">
+                                       formControlName="quarantinePlace">
                                 <label for="quarantinePlaceDomicilio" class="form-check-label">Domicilio</label>
                             </div>
                             <div>
@@ -136,41 +115,9 @@
                                        type="radio"
                                        name="quarantinePlace"
                                        value="Struttura Ospedaliera"
-                                       formControlName="quarantinePlace"
-                                       (ngModelChange)="onPatchQuarantinePlace($event)">
+                                       formControlName="quarantinePlace">
                                 <label for="quarantinePlaceStrutturaOspedaliera" class="form-check-label">Struttura
                                     Ospedaliera</label>
-                            </div>
-                        </div>
-                        <div class="small">
-                            <span class="font-weight-bold text-danger">* Campi Obbligatori</span>
-                        </div>
-                    </div>
-                    <div *ngIf="f.quarantinePlace.value === 'Struttura Ospedaliera'"
-                         class="px-4 py-3 bg-light rounded border border-light shadow-sm mb-4">
-                        <h4>
-                            Terapia Intensiva
-                            <span class="font-weight-bold text-danger">*</span>
-                        </h4>
-                        <hr>
-                        <div class="form-check mb-2">
-                            <div>
-                                <input id="terapiaIntensivaSi"
-                                       class="form-check-input"
-                                       type="radio"
-                                       name="intensiveTerapy"
-                                       [value]="true"
-                                       formControlName="intensiveTerapy">
-                                <label for="terapiaIntensivaSi" class="form-check-label">Si</label>
-                            </div>
-                            <div>
-                                <input id="terapiaIntensivaNo"
-                                       class="form-check-input"
-                                       type="radio"
-                                       name="intensiveTerapy"
-                                       [value]="false"
-                                       formControlName="intensiveTerapy">
-                                <label for="terapiaIntensivaNo" class="form-check-label">No</label>
                             </div>
                         </div>
                         <div class="small">
