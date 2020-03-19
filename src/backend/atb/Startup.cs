@@ -7,6 +7,12 @@ using Microsoft.Extensions.DependencyInjection;
 using SimpleInjector;
 using Logging;
 using Microsoft.Extensions.Hosting;
+using System;
+using JwtStuff;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
 
 namespace atb
 {
@@ -29,7 +35,39 @@ namespace atb
         {
             services.AddControllers();
 
+            IntegrateJwtTokenManagement(services);
+
             IntegrateSimpleInjector(services);
+        }
+
+        private void IntegrateJwtTokenManagement(IServiceCollection services)
+        {
+            var token = Configuration.GetSection("appConf:tokenManagement").Get<TokenManagement>();
+            var secret = Encoding.ASCII.GetBytes(token.Secret);
+
+            services.AddHttpContextAccessor();
+
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(token.Secret)),
+                    ValidIssuer = token.Issuer,
+                    ValidAudience = token.Audience,
+                    ValidateIssuer = true,
+                    ValidateAudience = false,
+                    // the following line enables the possibility to read the logged username
+                    // ('sub' claim in the JWT token) by reading User.Identity.Name property
+                    NameClaimType = ClaimTypes.NameIdentifier
+                };
+            });
         }
 
         private void IntegrateSimpleInjector(IServiceCollection services)
@@ -76,6 +114,7 @@ namespace atb
             }
 
             app.UseRouting();
+            app.UseAuthentication();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {

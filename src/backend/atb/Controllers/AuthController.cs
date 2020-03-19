@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using CQRS.Queries;
 using DomainModel.CQRS.Queries.Auth;
 using DomainModel.Services;
+using DomainModel.Services.Users;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -44,7 +45,7 @@ namespace atb.Controllers
                 jwt,
                 username = authResult.Username,
                 roles = authResult.Roles,
-                group = authResult.Group
+                group = authResult.Group,
             });
         }
     }

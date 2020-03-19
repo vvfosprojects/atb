@@ -11,19 +11,24 @@ namespace CompositionRoot
     {
         internal static void Bind(Container container, IConfiguration configuration)
         {
-            var appConfSection = configuration.GetSection("appConf");
+            var appConfSection = configuration.GetSection("appConf:tokenManagement");
 
             container.Register<DomainModel.Services.IJwtEncoder>(() =>
             {
-                var jwtDuration_sec = Convert.ToInt32(appConfSection["jwtDuration_sec"]);
-                var jwtSecret = appConfSection["jwtSecret"];
+                var jwtDuration_sec = Convert.ToInt32(appConfSection["accessExpiration"]);
+                var jwtSecret = appConfSection["secret"];
+                var jwtIssuer = appConfSection["issuer"];
 
-                return new JwtStuff.JwtEncoder(jwtSecret, new TimeSpan(0, 0, jwtDuration_sec));
+                return new JwtStuff.JwtEncoder(jwtSecret, jwtIssuer, new TimeSpan(0, 0, jwtDuration_sec));
             }, Lifestyle.Singleton);
 
             container.Register<
                 DomainModel.Services.Users.IGetUserByUsername,
                 DomainModel.Services.Users.GetUserByUsername_Fake>(Lifestyle.Scoped);
+
+            container.Register<
+                DomainModel.Services.Users.IGetLoggedUser,
+                JwtStuff.GetLoggedUser>(Lifestyle.Scoped);
 
             container.Register<Persistence.InMongo_local.DbContext>(() =>
             {

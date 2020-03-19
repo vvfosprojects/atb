@@ -10,9 +10,11 @@ namespace JwtStuff
     internal class JwtEncoder : IJwtEncoder
     {
         private readonly string secret;
+        private readonly string issuer;
         private readonly TimeSpan duration;
 
         public JwtEncoder(string secret,
+            string issuer,
             TimeSpan duration)
         {
             if (string.IsNullOrWhiteSpace(secret))
@@ -20,7 +22,13 @@ namespace JwtStuff
                 throw new ArgumentException("secret cannot be empty", nameof(secret));
             }
 
+            if (string.IsNullOrWhiteSpace(issuer))
+            {
+                throw new ArgumentException("issuer cannot be empty", nameof(issuer));
+            }
+
             this.secret = secret;
+            this.issuer = issuer;
             this.duration = duration;
         }
 
@@ -29,10 +37,11 @@ namespace JwtStuff
             var token = new JwtBuilder()
               .WithAlgorithm(new HMACSHA256Algorithm())
               .WithSecret(this.secret)
-              .AddClaim("username", username)
+              .Subject(username)
+              .Issuer(this.issuer)
+              .ExpirationTime(DateTime.UtcNow.Add(this.duration))
               .AddClaim("group", group)
               .AddClaim("roles", roles)
-              .ExpirationTime(DateTime.UtcNow.Add(this.duration))
               .Encode();
 
             return token;

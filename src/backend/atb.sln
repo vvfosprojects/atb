@@ -17,8 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "atb", "atb\atb.csproj", "{6
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Implementations", "Implementations", "{3F844CA0-8A97-4516-A0E7-AD0D665392F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JwtStuff", "JwtStuff\JwtStuff.csproj", "{F35465C4-932B-45EF-9695-6A3A68F9969E}"
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistence.InMongo_local", "Persistence.InMongo_local\Persistence.InMongo_local.csproj", "{4813C98F-79FA-456F-926E-FD3E503821E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JwtStuff", "JwtStuff\JwtStuff.csproj", "{F35465C4-932B-45EF-9695-6A3A68F9969E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Persistence.InMongo_local", "Persistence.InMongo_local\Persistence.InMongo_local.csproj", "{4813C98F-79FA-456F-926E-FD3E503821E2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,17 +51,14 @@ Global
 		{6F91FBB0-E562-40C4-A224-2FA73B9E0F3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F91FBB0-E562-40C4-A224-2FA73B9E0F3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F91FBB0-E562-40C4-A224-2FA73B9E0F3F}.Release|Any CPU.Build.0 = Release|Any CPU
-<<<<<<< HEAD
 		{F35465C4-932B-45EF-9695-6A3A68F9969E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F35465C4-932B-45EF-9695-6A3A68F9969E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F35465C4-932B-45EF-9695-6A3A68F9969E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F35465C4-932B-45EF-9695-6A3A68F9969E}.Release|Any CPU.Build.0 = Release|Any CPU
-=======
 		{4813C98F-79FA-456F-926E-FD3E503821E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4813C98F-79FA-456F-926E-FD3E503821E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4813C98F-79FA-456F-926E-FD3E503821E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4813C98F-79FA-456F-926E-FD3E503821E2}.Release|Any CPU.Build.0 = Release|Any CPU
->>>>>>> 4620fe5267817585348cb044be510d2eae0248b6
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
