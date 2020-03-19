@@ -18,7 +18,7 @@ export class AuthenticationFakeService {
         return of({
             success: true,
             errorMsg: ``,
-            jwt: `fake-atb-jwt-token.${user.username}`,
+            jwt: testJwt(),
             roles: user.roles,
             group: user.group,
             username: user.username
@@ -34,6 +34,10 @@ export class AuthenticationFakeService {
                     roles: []
                 } as AuthResponseInterface
             });
+        }
+
+        function testJwt() {
+            return 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYXJpby5yb3NzaSIsImlzcyI6ImF0YlZ2ZkFwcCIsImV4cCI6MTU4NDY5NzIyNS4wLCJncm91cCI6IkNhdGFuaWEiLCJyb2xlcyI6WyJkb2N0b3IiXX0.ULhQqDInh_8kn8QDvwdZbug2lAEK3563qkWyAaG2qVI';
         }
     }
 
