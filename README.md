@@ -184,6 +184,86 @@ This action allows to fetch updated suspect data.
 }
 ```
 
+## Action: `api/statistics`
+
+This action allows to fetch statistics on sheets.
+
+### Request
+
+The request is empty.
+
+### Response
+
+```jsonc
+{
+    groupStatistics: [
+        {
+            "group": "Group 1",
+            "positives": {
+                "totalSick": 3,
+				"totalClosed": 3,
+                "quarantinePlacesFacet": {
+                    "HOME": 2,
+                    "HOSP": 1,
+                    "INTCARE": 0
+                },
+                "roleFacet": [
+                    {
+                      "name": "Role 1",
+                      "total": 1
+                    },
+                    {
+                      "name": "Role 2",
+                      "total": 0
+                    },
+                    
+                    // ...
+                    
+                    {
+                      "name": "Role N",
+                      "total": 2
+                    },
+                ],
+            },
+			"suspects": {
+                "total": 12,
+				"totalClosed": 21,
+                "quarantinePlacesFacet": {
+                    "HOME": 10,
+                    "HOSP": 1,
+                },
+                "roleFacet": [
+                    {
+                      "name": "Role 1",
+                      "total": 5
+                    },
+                    {
+                      "name": "Role 2",
+                      "total": 3
+                    },
+                    
+                    // ...
+                    
+                    {
+                      "name": "Role N",
+                      "total": 1
+                    },
+                ],
+            },
+            ...
+        },
+        {
+            "group": "Group 2",
+            ...
+        },
+    ]
+}
+```
+
+## Authorization
+
+The logged user must have `manager` privileges.
+
 # Database collections
 
 ## `patients` collection
