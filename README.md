@@ -17,8 +17,8 @@ This action allows to authenticate to the system.
 
 ```jsonc
 {
-  "result": "failure", // [success|failure]
-  "errorMsg": "Wrong username or password" // empty in case of success,
+  "success": true,
+  "errorMsg": "", // it might be "Wrong username or password" in case of failure
   "jwt": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJtYXJpby5yb3NzaSIsImlhdCI6MTUxNjIzOTAyMiwicm9sZXMiOlsiZG9jdG9yIl19.u77tWJnNskPxa4cGuBikY6ebFEpflC2_XGwDvZFiukY", // secret is "mysecret"
   "username": "mario.rossi",
   "roles": [ "doctor" ], // it is a set of { "doctor", "manager" }

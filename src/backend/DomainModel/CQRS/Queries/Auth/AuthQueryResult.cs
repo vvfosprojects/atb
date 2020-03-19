@@ -9,6 +9,6 @@ namespace DomainModel.CQRS.Queries.Auth
         public bool Success { get; set; }
         public string Username { get; set; }
         public string Group { get; set; }
-        public bool IsDoctor { get; set; }
+        public string[] Roles { get; set; }
     }
 }

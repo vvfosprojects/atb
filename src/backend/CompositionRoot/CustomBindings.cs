@@ -21,6 +21,10 @@ namespace CompositionRoot
                 return new JwtStuff.JwtEncoder(jwtSecret, new TimeSpan(0, 0, jwtDuration_sec));
             }, Lifestyle.Singleton);
 
+            container.Register<
+                DomainModel.Services.Users.IGetUserByUsername,
+                DomainModel.Services.Users.GetUserByUsername_Fake>(Lifestyle.Scoped);
+
             container.Register<Persistence.InMongo_local.DbContext>(() =>
             {
                 var configurationString = configuration.GetSection("ConnectionString").Value;
