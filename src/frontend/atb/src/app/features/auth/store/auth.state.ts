@@ -96,6 +96,9 @@ export class AuthState {
 
     @Action(ClearAuth)
     clearAuth({ patchState }: StateContext<AuthStateModel>) {
+        sessionStorage.removeItem(LSNAME.token);
+        sessionStorage.removeItem(LSNAME.currentUser);
+        localStorage.removeItem(LSNAME.redirectUrl);
         patchState(AuthStateDefaults);
     }
 
