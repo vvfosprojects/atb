@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace DomainModel.CQRS.Commands.AddPatientCommand
+﻿namespace DomainModel.CQRS.Commands.NewSuspectCommand
 {
-    public class NewPositiveCaseCommand
+    public class NewSuspectCommand
     {
         public int Number { get; set; }
 
