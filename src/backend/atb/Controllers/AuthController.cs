@@ -38,7 +38,7 @@ namespace atb.Controllers
             else
                 jwt = string.Empty;
 
-            return Ok(new
+            var result = new
             {
                 success = authResult.Success,
                 errorMsg = authResult.Success ? string.Empty : "Authentication failed.",
@@ -46,7 +46,9 @@ namespace atb.Controllers
                 username = authResult.Username,
                 roles = authResult.Roles,
                 group = authResult.Group,
-            });
+            };
+
+            return Ok(result);
         }
     }
 }
