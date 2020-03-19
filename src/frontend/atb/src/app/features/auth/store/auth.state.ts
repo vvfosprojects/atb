@@ -77,7 +77,6 @@ export class AuthState {
 
     @Action(SetCurrentUser)
     setCurrentUser({ patchState }: StateContext<AuthStateModel>, { currentUser }: SetCurrentUser) {
-        sessionStorage.setItem(LSNAME.currentUser, JSON.stringify(currentUser.username));
         patchState({ currentUser });
     }
 
@@ -97,7 +96,6 @@ export class AuthState {
     @Action(ClearAuth)
     clearAuth({ patchState }: StateContext<AuthStateModel>) {
         sessionStorage.removeItem(LSNAME.token);
-        sessionStorage.removeItem(LSNAME.currentUser);
         localStorage.removeItem(LSNAME.redirectUrl);
         patchState(AuthStateDefaults);
         window.location.href = '/';
