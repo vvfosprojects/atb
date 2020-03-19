@@ -34,6 +34,7 @@ namespace atb
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddDataProtection(); // see https://stackoverflow.com/a/43936866/1045789
 
             IntegrateJwtTokenManagement(services);
 
