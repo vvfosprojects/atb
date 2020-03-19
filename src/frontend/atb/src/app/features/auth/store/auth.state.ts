@@ -100,6 +100,7 @@ export class AuthState {
         sessionStorage.removeItem(LSNAME.currentUser);
         localStorage.removeItem(LSNAME.redirectUrl);
         patchState(AuthStateDefaults);
+        window.location.href = '/';
     }
 
 }
