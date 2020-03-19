@@ -9,5 +9,10 @@
         public Anagrafica Data { get; set; }
 
         public PositiveData[] Updates { get; set; }
+
+        public Patient()
+        {
+            Updates = new PositiveData[] { };
+        }
     }
 }

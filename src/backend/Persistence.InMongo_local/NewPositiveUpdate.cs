@@ -37,10 +37,16 @@ namespace Persistence.InMongo_local
 
             var builder = Builders<Patient>.Filter.Eq("number", command.CaseNumber);
 
-            dbContext.Patients.FindOneAndUpdate(
-                    Builders<Patient>.Filter.Eq("number", command.CaseNumber),
-                    Builders<Patient>.Update.AddToSet("updates", dataToInsert)
-                    ); 
+            var t = dbContext.Patients.Find(builder).ToList();
+
+            //var update = Builders<Patient>.Update.SetOnInsert<PositiveData>("updates", dataToInsert);
+
+            //dbContext.Patients.FindOneAndUpdate(builder, update);
+
+            //dbContext.Patients.FindOneAndUpdate(
+            //        Builders<Patient>.Filter.Eq("number", command.CaseNumber),
+            //        Builders<Patient>.Update.AddToSet("updates", dataToInsert)
+            //        ); 
         }
     }
 }
