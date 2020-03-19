@@ -27,8 +27,8 @@ namespace CompositionRoot
                 DomainModel.Services.Users.GetUserByUsername_Fake>(Lifestyle.Scoped);
 
             container.Register<
-                DomainModel.Services.Users.IGetLoggedUser,
-                JwtStuff.GetLoggedUser>(Lifestyle.Scoped);
+                DomainModel.Services.Users.IGetSessionContext,
+                JwtStuff.GetSessionContext>(Lifestyle.Scoped);
 
             container.Register<Persistence.InMongo_local.DbContext>(() =>
             {
