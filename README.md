@@ -229,7 +229,7 @@ The request is empty.
             "group": "Group 1",
             "positives": {
                 "totalSick": 3,
-				"totalClosed": 3,
+                "totalClosed": 3,
                 "quarantinePlacesFacet": {
                     "HOME": 2,
                     "HOSP": 1,
@@ -253,9 +253,9 @@ The request is empty.
                     },
                 ],
             },
-			"suspects": {
+            "suspects": {
                 "total": 12,
-				"totalClosed": 21,
+                "totalClosed": 21,
                 "quarantinePlacesFacet": {
                     "HOME": 10,
                     "HOSP": 1,
