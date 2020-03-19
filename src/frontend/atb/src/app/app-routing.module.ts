@@ -17,10 +17,10 @@ const routes: Routes = [
     //     path: '500',
     //     loadChildren: () => import('./features/wrong/wrong.module').then(m => m.WrongModule)
     // },
-    // {
-    //     path: 'forbidden',
-    //     loadChildren: () => import('./features/forbidden/forbidden.module').then(m => m.ForbiddenModule)
-    // },
+    {
+        path: 'forbidden',
+        loadChildren: () => import('./features/forbidden/forbidden.module').then(m => m.ForbiddenModule)
+    },
     {
         path: 'home',
         loadChildren: () => import('./features/home/home.module').then(m => m.HomeModule),
