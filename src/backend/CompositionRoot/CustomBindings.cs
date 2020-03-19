@@ -52,6 +52,9 @@ namespace CompositionRoot
         {
             container.Register<DomainModel.Services.INewPositiveCase, Persistence.InMongo_local.NewPositiveCase>();
             container.Register<DomainModel.Services.INewPositiveUpdate, Persistence.InMongo_local.NewPositiveUpdate>();
+            container.Register<DomainModel.Services.INewSuspect, Persistence.InMongo_local.NewSuspect>();
+            container.Register<DomainModel.Services.INewSuspectUpdate, Persistence.InMongo_local.NewSuspectUpdate>();
+
         }
     }
 }

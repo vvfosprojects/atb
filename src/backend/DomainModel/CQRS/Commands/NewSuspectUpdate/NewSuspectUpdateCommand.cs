@@ -1,12 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace DomainModel.CQRS.Commands.NewPositiveUpdate
+namespace DomainModel.CQRS.Commands.NewSuspectUpdate
 {
-    public class NewPositiveUpdateCommand
+    public class NewSuspectUpdateCommand
     {
         public int CaseNumber { get; set; }
-
-        public string EstremiProvvedimentiASL { get; set; }
 
         public string QuarantinePlace { get; set; }
 

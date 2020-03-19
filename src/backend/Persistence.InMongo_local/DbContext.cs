@@ -48,6 +48,14 @@ namespace Persistence.InMongo_local
                     .SetIdGenerator(StringObjectIdGenerator.Instance)
                     .SetSerializer(new StringSerializer(BsonType.ObjectId));
             });
+
+            BsonClassMap.RegisterClassMap<Suspect>(cm =>
+            {
+                cm.AutoMap();
+                cm.MapIdMember(c => c.Id)
+                    .SetIdGenerator(StringObjectIdGenerator.Instance)
+                    .SetSerializer(new StringSerializer(BsonType.ObjectId));
+            });
         }
 
         public IMongoCollection<Patient> Patients
