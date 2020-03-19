@@ -8,10 +8,10 @@ const routes: Routes = [
         redirectTo: 'home',
         pathMatch: 'full'
     },
-    // {
-    //     path: '404',
-    //     loadChildren: () => import('./features/not-found/not-found.module').then(m => m.NotFoundModule)
-    // },
+    {
+        path: '404',
+        loadChildren: () => import('./features/not-found/not-found.module').then(m => m.NotFoundModule)
+    },
     // {
     //     path: '500',
     //     loadChildren: () => import('./features/wrong/wrong.module').then(m => m.WrongModule)
