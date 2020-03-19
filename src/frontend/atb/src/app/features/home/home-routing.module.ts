@@ -18,6 +18,10 @@ const routes: Routes = [
         component: FormPositivoComponent
     },
     {
+        path: 'form-positivo/:id',
+        component: FormPositivoComponent
+    },
+    {
         path: 'form-assente',
         // component: AssenteComponent
     },

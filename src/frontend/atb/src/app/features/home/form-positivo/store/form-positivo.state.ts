@@ -1,5 +1,5 @@
 import { Action, Selector, State, StateContext } from '@ngxs/store';
-import { SetPageTitleFormPositivo } from './form-positivo.actions';
+import { SaveNewPositivoCase, SetPageTitleFormPositivo } from './form-positivo.actions';
 import { Injectable } from '@angular/core';
 
 export interface FormPositivoStateModel {
@@ -16,6 +16,7 @@ export interface FormPositivoStateModel {
             caseNumber: number;
             estremiProvvedimentiASL: string;
             quarantinePlace: string;
+            intensiveTerapy: boolean;
             expectedWorkReturnDate: string;
             actualWorkReturnDate: null;
             closedCase: boolean;
@@ -53,5 +54,14 @@ export class FormPositivoState {
         patchState({
             pageTitle: action.title
         });
+    }
+
+    @Action(SaveNewPositivoCase)
+    saveNewPositivoCase({ getState }: StateContext<FormPositivoStateModel>) {
+        const state = getState();
+        console.log('SaveNewPositivoCase',
+            state.positivoForm.model
+        );
+        // todo: logica per il save
     }
 }

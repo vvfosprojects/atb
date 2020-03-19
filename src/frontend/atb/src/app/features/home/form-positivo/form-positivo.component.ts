@@ -4,6 +4,9 @@ import { Select, Store } from '@ngxs/store';
 import { FormPositivoState } from './store/form-positivo.state';
 import { Observable } from 'rxjs';
 import { LoadingState } from '../../../shared/store/loading/loading.state';
+import { QualificheState } from '../../../shared/store/qualifiche/qualifiche.state';
+import { ActivatedRoute } from '@angular/router';
+import { SaveNewPositivoCase, SetPageTitleFormPositivo } from './store/form-positivo.actions';
 
 @Component({
     selector: 'app-positivo',
@@ -13,11 +16,21 @@ import { LoadingState } from '../../../shared/store/loading/loading.state';
 export class FormPositivoComponent implements OnInit {
 
     @Select(LoadingState.loading) loading$: Observable<boolean>;
+    @Select(QualificheState.qualifiche) qualifiche$: Observable<any[]>;
     @Select(FormPositivoState.pageTitle) pageTitle$: Observable<string>;
     @Select(FormPositivoState.positivoFormValid) positivoFormValid$: Observable<boolean>;
-    positivoForm: FormGroup;
 
-    constructor(private store: Store, private formBuilder: FormBuilder) {
+    positivoForm: FormGroup;
+    submitted = false;
+
+    today = new Date();
+
+    constructor(private store: Store,
+                private formBuilder: FormBuilder,
+                private route: ActivatedRoute) {
+        if (this.route.snapshot.params.id) {
+            this.store.dispatch(new SetPageTitleFormPositivo('modifica positivo'));
+        }
         this.initForm();
     }
 
@@ -59,12 +72,16 @@ export class FormPositivoComponent implements OnInit {
         });
     }
 
-    onPatchQuarantinePlace() {
-        if (this.f.quarantinePlace.value !== 'Domicilio') {
+    onPatchQuarantinePlace(event: string) {
+        if (event === 'Struttura Ospedaliera') {
             this.f.intensiveTerapy.setValidators(Validators.required);
         } else {
             this.f.intensiveTerapy.clearValidators();
         }
+    }
+
+    onPatchExpectedWorkReturnDate(event: string) {
+        return;
     }
 
     get f() {
@@ -72,6 +89,12 @@ export class FormPositivoComponent implements OnInit {
     }
 
     onSubmit() {
-        return;
+        this.submitted = true;
+
+        if (this.positivoForm.invalid) {
+            return;
+        }
+
+        this.store.dispatch(new SaveNewPositivoCase());
     }
 }
