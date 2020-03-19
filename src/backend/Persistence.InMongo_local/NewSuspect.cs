@@ -1,16 +1,21 @@
 ﻿using DomainModel.Classes;
 using DomainModel.CQRS.Commands.NewSuspectCommand;
 using DomainModel.Services;
+using DomainModel.Services.Users;
 
 namespace Persistence.InMongo_local
 {
     public class NewSuspect : INewSuspect
     {
         private readonly DbContext dbContext;
+        private readonly ICryptools cryptools;
+        private readonly IGetSessionContext getSessionContext;
 
-        public NewSuspect(DbContext dbContext)
+        public NewSuspect(DbContext dbContext, ICryptools cryptools, IGetSessionContext getSessionContext)
         {
             this.dbContext = dbContext;
+            this.getSessionContext = getSessionContext;
+            this.cryptools = cryptools;
         }
 
         public void Add(NewSuspectCommand command)
@@ -19,14 +24,14 @@ namespace Persistence.InMongo_local
             {
                 Data = new Anagrafica()
                 {
-                    Nome = command.Name,
-                    Cognome = command.Surname,
-                    Email = command.Email,
+                    Nome = cryptools.Encrypt(command.Name),
+                    Cognome = cryptools.Encrypt(command.Surname),
+                    Email = cryptools.Encrypt(command.Email),
                     Number = command.Number,
-                    Phone = command.Phone,
-                    Role = command.Role
+                    Phone = cryptools.Encrypt(command.Phone),
+                    Role = cryptools.Encrypt(command.Role)
                 },
-                Group = command.Group,
+                Group = getSessionContext.GetActiveGroup(),
             };
             dbContext.Suspects.InsertOne(suspect);
         }
