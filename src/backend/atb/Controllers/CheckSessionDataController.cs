@@ -25,7 +25,9 @@ namespace RockApi.Controllers
             return Ok(new
             {
                 username = this.getLoggedUserContext.GetLoggedUsername(),
-                activeGroup = this.getLoggedUserContext.GetActiveGroup()
+                activeGroup = this.getLoggedUserContext.GetActiveGroup(),
+                isManager = this.getLoggedUserContext.LoggedUserIsManager(),
+                isDoctor = this.getLoggedUserContext.LoggedUserIsDoctor(),
             });
         }
     }

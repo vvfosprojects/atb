@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Linq;
+using System.Security.Claims;
 
 namespace JwtStuff
 {
@@ -19,7 +20,7 @@ namespace JwtStuff
             var user = this.httpContextAccessor.HttpContext.User;
 
             if (user.Identity.IsAuthenticated)
-                return user.Claims.Single(c => c.Type.ToLower().EndsWith("group")).Value;
+                return user.Claims.Single(c => c.Type == "atbGroup").Value;
             else
                 return null;
         }
@@ -32,6 +33,34 @@ namespace JwtStuff
                 return identity.Name;
             else
                 return null;
+        }
+
+        public bool LoggedUserIsDoctor()
+        {
+            var user = this.httpContextAccessor.HttpContext.User;
+
+            if (user.Identity.IsAuthenticated)
+            {
+                return user.Claims
+                    .Where(c => c.Type == "atbRoles")
+                    .Any(r => r.Value == "doctor");
+            }
+            else
+                return false;
+        }
+
+        public bool LoggedUserIsManager()
+        {
+            var user = this.httpContextAccessor.HttpContext.User;
+
+            if (user.Identity.IsAuthenticated)
+            {
+                return user.Claims
+                    .Where(c => c.Type == "atbRoles")
+                    .Any(r => r.Value == "manager");
+            }
+            else
+                return false;
         }
     }
 }

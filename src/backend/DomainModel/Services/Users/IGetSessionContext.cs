@@ -20,5 +20,17 @@ namespace DomainModel.Services.Users
         /// </summary>
         /// <returns>The active group bound to the logged user. Null in case of anonymous users.</returns>
         string GetActiveGroup();
+
+        /// <summary>
+        /// Tells if the logged user is a doctor.
+        /// </summary>
+        /// <returns>True if he is a doctor</returns>
+        bool LoggedUserIsDoctor();
+
+        /// <summary>
+        /// Tells if the logged user is a manager.
+        /// </summary>
+        /// <returns>True if he is a manager</returns>
+        bool LoggedUserIsManager();
     }
 }

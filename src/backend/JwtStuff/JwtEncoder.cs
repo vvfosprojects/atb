@@ -1,4 +1,4 @@
-﻿using DomainModel.Services;
+﻿using DomainModel.Services.Users;
 using JWT.Algorithms;
 using JWT.Builder;
 using System;
@@ -40,8 +40,8 @@ namespace JwtStuff
               .Subject(username)
               .Issuer(this.issuer)
               .ExpirationTime(DateTime.UtcNow.Add(this.duration))
-              .AddClaim("group", group)
-              .AddClaim("roles", roles)
+              .AddClaim("atbGroup", group)
+              .AddClaim("atbRoles", roles)
               .Encode();
 
             return token;

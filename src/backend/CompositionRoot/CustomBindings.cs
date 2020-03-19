@@ -14,7 +14,7 @@ namespace CompositionRoot
             var appConfSection = configuration.GetSection("appConf");
             var tokenManagementSection = appConfSection.GetSection("tokenManagement");
 
-            container.Register<DomainModel.Services.IJwtEncoder>(() =>
+            container.Register<DomainModel.Services.Users.IJwtEncoder>(() =>
             {
                 var jwtDuration_sec = Convert.ToInt32(tokenManagementSection["accessExpiration"]);
                 var jwtSecret = tokenManagementSection["secret"];
