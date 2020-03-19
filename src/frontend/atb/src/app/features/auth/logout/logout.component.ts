@@ -1,15 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Store } from '@ngxs/store';
+import { Logout } from '../store/login.actions';
 
 @Component({
-  selector: 'app-logout',
-  templateUrl: './logout.component.html',
-  styleUrls: ['./logout.component.scss']
+    selector: 'app-logout',
+    template: ``
 })
-export class LogoutComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+export class LogoutComponent {
+    constructor(private store: Store) {
+        this.store.dispatch(new Logout());
+    }
 }

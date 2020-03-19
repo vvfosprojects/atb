@@ -2,20 +2,31 @@
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace JwtStuff
 {
-    internal class GetLoggedUser : IGetLoggedUser
+    internal class GetSessionContext : IGetSessionContext
     {
         private readonly IHttpContextAccessor httpContextAccessor;
 
-        public GetLoggedUser(IHttpContextAccessor httpContextAccessor)
+        public GetSessionContext(IHttpContextAccessor httpContextAccessor)
         {
             this.httpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(httpContextAccessor));
         }
 
-        public string Get()
+        public string GetActiveGroup()
+        {
+            var user = this.httpContextAccessor.HttpContext.User;
+
+            if (user.Identity.IsAuthenticated)
+                return user.Claims.Single(c => c.Type.ToLower().EndsWith("group")).Value;
+            else
+                return null;
+        }
+
+        public string GetLoggedUsername()
         {
             var identity = this.httpContextAccessor.HttpContext.User.Identity;
 
