@@ -26,6 +26,10 @@ This action allows to authenticate to the system.
 }
 ```
 
+### Authorization
+
+The action can be executed by an anonymous user.
+
 ## Action: `api/newPositiveCase`
 
 This action allows to insert a new positive case.
@@ -46,6 +50,10 @@ This action allows to insert a new positive case.
 ### Response
 
 The response is empty.
+
+### Authorization
+
+The logged user must have `doctor` privileges.
 
 ### Notes
 
@@ -72,6 +80,10 @@ This action allows to append an update to a positive case.
 
 The response is empty.
 
+### Authorization
+
+The logged user must have `doctor` privileges.
+
 ## Action: `api/newSuspect`
 
 This action allows to insert a new suspected infected individual.
@@ -97,6 +109,10 @@ The response is empty.
 
 The list of valid roles is [here](roles.md).
 
+### Authorization
+
+The logged user must have `doctor` privileges.
+
 ## Action: `api/newSuspectUpdate`
 
 This action allows to append an update to a suspect infected individual.
@@ -116,6 +132,10 @@ This action allows to append an update to a suspect infected individual.
 ### Response
 
 The response is empty.
+
+### Authorization
+
+The logged user must have `doctor` privileges.
 
 ## Action: `api/patientSheet`
 
@@ -151,6 +171,10 @@ This action allows to fetch updated patient data.
 }
 ```
 
+### Authorization
+
+The logged user must have `doctor` privileges.
+
 ## Action: `api/suspectSheet`
 
 This action allows to fetch updated suspect data.
@@ -183,6 +207,10 @@ This action allows to fetch updated suspect data.
     }
 }
 ```
+
+### Authorization
+
+The logged user must have `doctor` privileges.
 
 ## Action: `api/statistics`
 
@@ -260,7 +288,7 @@ The request is empty.
 }
 ```
 
-## Authorization
+### Authorization
 
 The logged user must have `manager` privileges.
 
