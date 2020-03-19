@@ -6,7 +6,7 @@ export interface QualificheStateModel {
 }
 
 export const qualificheStateDefaults: QualificheStateModel = {
-    qualifiche: []
+    qualifiche: ['CAPO SQUADRA']
 };
 
 @Injectable()

@@ -26,7 +26,7 @@ export interface FormPositivoStateModel {
 }
 
 export const formPositivoStateDefaults: FormPositivoStateModel = {
-    pageTitle: 'nuova scheda',
+    pageTitle: 'nuovo positivo',
     positivoForm: {
         model: undefined
     }

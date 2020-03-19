@@ -1,36 +1,34 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Select, Store } from '@ngxs/store';
-import { FormPositivoState } from './store/form-positivo.state';
 import { Observable } from 'rxjs';
 import { LoadingState } from '../../../shared/store/loading/loading.state';
 import { QualificheState } from '../../../shared/store/qualifiche/qualifiche.state';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SaveNewPositivoCase, SetPageTitleFormPositivo } from './store/form-positivo.actions';
+import { FormAssenteState } from './store/form-assente.state';
+import { SaveNewSuspectCase, SetPageTitleFormAssente } from './store/form-assente.actions';
 
 @Component({
-    selector: 'app-positivo',
-    templateUrl: './form-positivo.component.html',
-    styleUrls: ['./form-positivo.component.scss']
+    selector: 'app-assente',
+    templateUrl: './form-assente.component.html',
+    styleUrls: ['./form-assente.component.scss']
 })
-export class FormPositivoComponent implements OnInit {
+export class FormAssenteComponent implements OnInit {
 
     @Select(LoadingState.loading) loading$: Observable<boolean>;
     @Select(QualificheState.qualifiche) qualifiche$: Observable<any[]>;
-    @Select(FormPositivoState.pageTitle) pageTitle$: Observable<string>;
-    @Select(FormPositivoState.positivoFormValid) positivoFormValid$: Observable<boolean>;
+    @Select(FormAssenteState.pageTitle) pageTitle$: Observable<string>;
+    @Select(FormAssenteState.assenteFormValid) assenteFormValid$: Observable<boolean>;
 
-    positivoForm: FormGroup;
+    assenteForm: FormGroup;
     submitted = false;
-
-    today = new Date();
 
     constructor(private store: Store,
                 private formBuilder: FormBuilder,
                 private route: ActivatedRoute,
                 private router: Router) {
         if (this.route.snapshot.params.id) {
-            this.store.dispatch(new SetPageTitleFormPositivo('modifica positivo'));
+            this.store.dispatch(new SetPageTitleFormAssente('modifica assente'));
         }
         this.initForm();
     }
@@ -39,7 +37,7 @@ export class FormPositivoComponent implements OnInit {
     }
 
     initForm() {
-        this.positivoForm = new FormGroup({
+        this.assenteForm = new FormGroup({
             // Personal Information
             name: new FormControl(),
             surname: new FormControl(),
@@ -55,7 +53,7 @@ export class FormPositivoComponent implements OnInit {
             actualWorkReturnDate: new FormControl(),
             closedCase: new FormControl()
         });
-        this.positivoForm = this.formBuilder.group({
+        this.assenteForm = this.formBuilder.group({
             // Personal Information
             name: [null, Validators.required],
             surname: [null, Validators.required],
@@ -86,17 +84,17 @@ export class FormPositivoComponent implements OnInit {
     }
 
     get f() {
-        return this.positivoForm.controls;
+        return this.assenteForm.controls;
     }
 
     onSubmit() {
         this.submitted = true;
 
-        if (this.positivoForm.invalid) {
+        if (this.assenteForm.invalid) {
             return;
         }
 
-        this.store.dispatch(new SaveNewPositivoCase());
+        this.store.dispatch(new SaveNewSuspectCase());
     }
 
     goBack() {

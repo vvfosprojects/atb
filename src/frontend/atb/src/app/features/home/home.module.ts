@@ -8,9 +8,10 @@ import { FormPositivoComponent } from './form-positivo/form-positivo.component';
 import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SearchAssenteComponent } from './search/search-assente/search-assente.component';
+import { FormAssenteComponent } from './form-assente/form-assente.component';
 
 @NgModule({
-    declarations: [SearchComponent, FormPositivoComponent, SearchPositivoComponent, SearchAssenteComponent],
+    declarations: [SearchComponent, FormPositivoComponent, FormAssenteComponent, SearchPositivoComponent, SearchAssenteComponent],
     imports: [
         CommonModule,
         HomeRoutingModule,
