@@ -1,22 +1,19 @@
 import { Action, Selector, State, StateContext } from '@ngxs/store';
-import { ClearLogin, Login, Logout, SetErrorMessage, SetReturnUrl } from './login.actions';
+import { ClearLogin, Login, Logout, SetErrorMessage } from './login.actions';
 import { AuthenticationService } from '../../../core/services/auth';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Navigate } from '@ngxs/router-plugin';
 import { ClearAuth, SetCurrentJwt, SetCurrentUser } from './auth.actions';
 import { ngxsValidForm } from '../../../shared/functions';
 import { Injectable } from '@angular/core';
 import { AuthResponseInterface } from '../../../shared/interface/common';
 
 export interface LoginStateModel {
-    returnUrl: string;
     errorMessage: string;
     loginForm: any;
     submittedForm: boolean;
 }
 
 export const LoginStateDefaults: LoginStateModel = {
-    returnUrl: '/',
     errorMessage: null,
     loginForm: {
         model: undefined,
@@ -56,15 +53,6 @@ export class LoginState {
         }
     }
 
-    @Action(SetReturnUrl)
-    setReturnUrl({ patchState }: StateContext<LoginStateModel>, action: SetReturnUrl) {
-        if (action.returnUrl) {
-            patchState({
-                returnUrl: action.returnUrl
-            });
-        }
-    }
-
     @Action(Login)
     login({ getState, patchState, dispatch }: StateContext<LoginStateModel>) {
         const state = getState();
@@ -74,9 +62,12 @@ export class LoginState {
                 if (response && response.success) {
                     dispatch([
                         new SetCurrentJwt(response.jwt),
-                        new SetCurrentUser(response.username),
-                        new SetErrorMessage(null),
-                        new Navigate([ state.returnUrl ])
+                        new SetCurrentUser({
+                            username: response.username,
+                            roles: response.roles,
+                            group: response.group
+                        }),
+                        new SetErrorMessage(null)
                     ]);
                 } else if (!response.success) {
                     dispatch(new SetErrorMessage(response.errorMsg));

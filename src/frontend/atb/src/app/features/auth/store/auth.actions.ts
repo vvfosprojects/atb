@@ -1,3 +1,5 @@
+import { UserInterface } from '../../../shared/interface/common/user.interface';
+
 export class GetAuth {
     static readonly type = '[Auth] Get Auth';
 }
@@ -19,7 +21,18 @@ export class SetCurrentTicket {
 export class SetCurrentUser {
     static readonly type = '[Auth] Set current User';
 
-    constructor(public currentUser: string) {
+    constructor(public currentUser: UserInterface) {
+    }
+}
+
+export class SetLogged {
+    static readonly type = '[Auth] Set Logged';
+}
+
+export class SetReturnUrl {
+    static readonly type = '[Auth] Set Return Url';
+
+    constructor(public returnUrl: string) {
     }
 }
 
