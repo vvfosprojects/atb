@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngxs/store';
+import { Select, Store } from '@ngxs/store';
 import { SearchPositiveCase, SearchSuspectCase } from './store/search.actions';
+import { LoadingState } from '../../../shared/store/loading/loading.state';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'app-search',
@@ -9,7 +11,11 @@ import { SearchPositiveCase, SearchSuspectCase } from './store/search.actions';
 })
 export class SearchComponent implements OnInit {
 
+    @Select(LoadingState.loading) loading$: Observable<boolean>;
+    loading: boolean;
+
     constructor(private store: Store) {
+        this.getLoading();
     }
 
     ngOnInit(): void {
@@ -21,5 +27,11 @@ export class SearchComponent implements OnInit {
 
     onSearchSuspectCase(search: number) {
         this.store.dispatch(new SearchSuspectCase(search));
+    }
+
+    getLoading() {
+        this.loading$.subscribe((loading: boolean) => {
+            this.loading = loading;
+        });
     }
 }

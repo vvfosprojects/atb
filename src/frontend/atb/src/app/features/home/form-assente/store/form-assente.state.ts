@@ -2,6 +2,8 @@ import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { Injectable } from '@angular/core';
 import { SaveNewSuspectCase, SetPageTitleFormAssente } from './form-assente.actions';
 import { AssentiService } from '../../../../core/services/assenti/assenti.service';
+import { Navigate } from "@ngxs/router-plugin";
+import { formatDate } from "../../../../shared/functions/functions";
 
 export interface FormAssenteStateModel {
     pageTitle: string;
@@ -61,23 +63,27 @@ export class FormAssenteState {
     }
 
     @Action(SaveNewSuspectCase)
-    saveNewSuspectCase({ getState }: StateContext<FormAssenteStateModel>) {
+    saveNewSuspectCase({ getState, dispatch }: StateContext<FormAssenteStateModel>) {
         const assenteFormValue = getState().assenteForm.model;
-        console.log('SaveNewSuspectCase',
-            assenteFormValue
-        );
-        // todo: logica per il save
-        const obj = {
+        const objSubject = {
             number: assenteFormValue.caseNumber,
             name: assenteFormValue.name,
             surname: assenteFormValue.surname,
             email: assenteFormValue.email,
             phone: assenteFormValue.phone.toString(),
             role: assenteFormValue.role,
-            closedCase: false
+            closedCase: assenteFormValue.closedCase
         };
-        this.assentiService.newSuspectCase(obj).subscribe((res: any) => {
-            console.log(res);
+        this.assentiService.newSuspectCase(objSubject).subscribe(() => {
+            const objData = {
+                caseNumber: assenteFormValue.caseNumber,
+                quarantinePlace: assenteFormValue.quarantinePlace,
+                expectedWorkReturnDate: formatDate(assenteFormValue.expectedWorkReturnDate),
+                closedCase: assenteFormValue.closedCase
+            };
+            this.assentiService.newSuspectUpdate(objData).subscribe(() => {
+                dispatch(new Navigate(['./home/ricerca']));
+            });
         });
     }
 }

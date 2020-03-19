@@ -7,6 +7,7 @@ import { LoadingState } from '../../../shared/store/loading/loading.state';
 import { QualificheState } from '../../../shared/store/qualifiche/qualifiche.state';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SaveNewPositivoCase, SetPageTitleFormPositivo } from './store/form-positivo.actions';
+import { UpdateFormStatus } from "@ngxs/form-plugin";
 
 @Component({
     selector: 'app-positivo',
@@ -69,20 +70,16 @@ export class FormPositivoComponent implements OnInit {
             intensiveTerapy: [null],
             expectedWorkReturnDate: [null, Validators.required],
             actualWorkReturnDate: [null],
-            closedCase: [null]
+            closedCase: [null, Validators.required]
         });
     }
 
     onPatchQuarantinePlace(event: string) {
-        if (event === 'Struttura Ospedaliera') {
+        if (event === 'HOSP') {
             this.f.intensiveTerapy.setValidators(Validators.required);
         } else {
             this.f.intensiveTerapy.clearValidators();
         }
-    }
-
-    onPatchExpectedWorkReturnDate(event: string) {
-        return;
     }
 
     get f() {

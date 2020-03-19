@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -7,8 +7,11 @@ import { Router } from '@angular/router';
     styleUrls: ['./search-positivo.component.scss']
 })
 export class SearchPositivoComponent implements OnInit {
-    caseNumber: number;
+
+    @Input() loading: boolean;
     @Output() search: EventEmitter<number> = new EventEmitter<number>();
+
+    caseNumber: number;
 
     constructor(private router: Router) {
     }

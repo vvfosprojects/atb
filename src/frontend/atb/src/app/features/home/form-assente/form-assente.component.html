@@ -33,10 +33,6 @@
                                 <span class="font-weight-bold text-danger">*</span>
                             </label>
                             <input id="name" class="form-control" type="text" formControlName="name"/>
-                            <!-- <small id="nameHelp" class="form-text text-muted">-->
-                            <!--     <i class="fa fa-exclamation-triangle mr-1"></i>-->
-                            <!--     Inserire un numero intero <span class="font-weight-bold">maggiore di zero</span>-->
-                            <!-- </small>-->
                         </div>
                         <div class="form-group">
                             <label for="surname">
@@ -44,10 +40,6 @@
                                 <span class="font-weight-bold text-danger">*</span>
                             </label>
                             <input id="surname" class="form-control" type="text" formControlName="surname"/>
-                            <!-- <small id="surnameHelp" class="form-text text-muted">-->
-                            <!--     <i class="fa fa-exclamation-triangle mr-1"></i>-->
-                            <!--     Inserire un numero intero <span class="font-weight-bold">maggiore di zero</span>-->
-                            <!-- </small>-->
                         </div>
                         <div class="form-group">
                             <label for="phone">
@@ -55,10 +47,6 @@
                                 <span class="font-weight-bold text-danger">*</span>
                             </label>
                             <input id="phone" class="form-control" type="number" formControlName="phone"/>
-                            <!-- <small id="phoneHelp" class="form-text text-muted">-->
-                            <!--     <i class="fa fa-exclamation-triangle mr-1"></i>-->
-                            <!--     Inserire un numero intero <span class="font-weight-bold">maggiore di zero</span>-->
-                            <!-- </small>-->
                         </div>
                         <div class="form-group">
                             <label for="email">
@@ -66,10 +54,6 @@
                                 <span class="font-weight-bold text-danger">*</span>
                             </label>
                             <input id="email" class="form-control" type="text" formControlName="email"/>
-                            <!-- <small id="emailHelp" class="form-text text-muted">-->
-                            <!--     <i class="fa fa-exclamation-triangle mr-1"></i>-->
-                            <!--     Inserire un numero intero <span class="font-weight-bold">maggiore di zero</span>-->
-                            <!-- </small>-->
                         </div>
                         <div class="small">
                             <span class="font-weight-bold text-danger">* Campi Obbligatori</span>
@@ -95,26 +79,6 @@
                     </div>
                     <div class="px-4 py-3 bg-light rounded border border-light shadow-sm mb-4">
                         <h4>
-                            Estremi Provvedimento ASL
-                            <span class="font-weight-bold text-danger">*</span>
-                        </h4>
-                        <hr>
-                        <div class="form-group">
-                            <label for="estremiProvvedimentiASL" class="d-none"></label>
-                            <input id="estremiProvvedimentiASL" class="form-control" type="string"
-                                   formControlName="estremiProvvedimentiASL"/>
-                            <small id="estremiProvvedimentiASLHelp" class="form-text text-muted">
-                                <i class="fa fa-exclamation-triangle mr-1"></i>
-                                Inserire gli estremi del provvedimento ASL che dichiara la positività del soggetto
-                                al COVID-19.
-                            </small>
-                        </div>
-                        <div class="small">
-                            <span class="font-weight-bold text-danger">* Campi Obbligatori</span>
-                        </div>
-                    </div>
-                    <div class="px-4 py-3 bg-light rounded border border-light shadow-sm mb-4">
-                        <h4>
                             Sede di Isolamento
                             <span class="font-weight-bold text-danger">*</span>
                         </h4>
@@ -125,9 +89,8 @@
                                        class="form-check-input"
                                        type="radio"
                                        name="quarantinePlace"
-                                       value="Domicilio"
-                                       formControlName="quarantinePlace"
-                                       (ngModelChange)="onPatchQuarantinePlace($event)">
+                                       value="HOME"
+                                       formControlName="quarantinePlace">
                                 <label for="quarantinePlaceDomicilio" class="form-check-label">Domicilio</label>
                             </div>
                             <div>
@@ -135,42 +98,10 @@
                                        class="form-check-input"
                                        type="radio"
                                        name="quarantinePlace"
-                                       value="Struttura Ospedaliera"
-                                       formControlName="quarantinePlace"
-                                       (ngModelChange)="onPatchQuarantinePlace($event)">
+                                       value="HOSP"
+                                       formControlName="quarantinePlace">
                                 <label for="quarantinePlaceStrutturaOspedaliera" class="form-check-label">Struttura
                                     Ospedaliera</label>
-                            </div>
-                        </div>
-                        <div class="small">
-                            <span class="font-weight-bold text-danger">* Campi Obbligatori</span>
-                        </div>
-                    </div>
-                    <div *ngIf="f.quarantinePlace.value === 'Struttura Ospedaliera'"
-                         class="px-4 py-3 bg-light rounded border border-light shadow-sm mb-4">
-                        <h4>
-                            Terapia Intensiva
-                            <span class="font-weight-bold text-danger">*</span>
-                        </h4>
-                        <hr>
-                        <div class="form-check mb-2">
-                            <div>
-                                <input id="terapiaIntensivaSi"
-                                       class="form-check-input"
-                                       type="radio"
-                                       name="intensiveTerapy"
-                                       [value]="true"
-                                       formControlName="intensiveTerapy">
-                                <label for="terapiaIntensivaSi" class="form-check-label">Si</label>
-                            </div>
-                            <div>
-                                <input id="terapiaIntensivaNo"
-                                       class="form-check-input"
-                                       type="radio"
-                                       name="intensiveTerapy"
-                                       [value]="false"
-                                       formControlName="intensiveTerapy">
-                                <label for="terapiaIntensivaNo" class="form-check-label">No</label>
                             </div>
                         </div>
                         <div class="small">
@@ -193,9 +124,39 @@
                             </div>
                         </div>
                     </div>
+                    <div class="px-4 py-3 bg-light rounded border border-light shadow-sm mb-4">
+                        <h4>
+                            Scheda Chiusa
+                            <span class="font-weight-bold text-danger">*</span>
+                        </h4>
+                        <hr>
+                        <div class="form-check mb-2">
+                            <div>
+                                <input id="schedaChiusaSi"
+                                       class="form-check-input"
+                                       type="radio"
+                                       name="closedCase"
+                                       [value]="true"
+                                       formControlName="closedCase">
+                                <label for="schedaChiusaSi" class="form-check-label">Si</label>
+                            </div>
+                            <div>
+                                <input id="schedaChiusaNo"
+                                       class="form-check-input"
+                                       type="radio"
+                                       name="closedCase"
+                                       [value]="false"
+                                       formControlName="closedCase">
+                                <label for="schedaChiusaNo" class="form-check-label">No</label>
+                            </div>
+                        </div>
+                        <div class="small">
+                            <span class="font-weight-bold text-danger">* Campi Obbligatori</span>
+                        </div>
+                    </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-lg btn-primary w-50 mt-4"
-                                [disabled]="!(assenteFormValid$ | async)">
+                                [disabled]="!this.assenteForm.valid">
                             <i class="fa fa-save mr-1"></i>
                             Salva Scheda
                         </button>

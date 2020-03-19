@@ -7,6 +7,9 @@ import { QualificheState } from '../../../shared/store/qualifiche/qualifiche.sta
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormAssenteState } from './store/form-assente.state';
 import { SaveNewSuspectCase, SetPageTitleFormAssente } from './store/form-assente.actions';
+import { SearchState } from '../search/store/search.state';
+import { SuspectCaseInterface } from '../../../shared/interface/suspect-case.interface';
+import { UpdateFormValue } from "@ngxs/form-plugin";
 
 @Component({
     selector: 'app-assente',
@@ -19,6 +22,7 @@ export class FormAssenteComponent implements OnInit {
     @Select(QualificheState.qualifiche) qualifiche$: Observable<any[]>;
     @Select(FormAssenteState.pageTitle) pageTitle$: Observable<string>;
     @Select(FormAssenteState.assenteFormValid) assenteFormValid$: Observable<boolean>;
+    @Select(SearchState.suspectCase) suspectCase$: Observable<SuspectCaseInterface>;
 
     assenteForm: FormGroup;
     submitted = false;
@@ -29,6 +33,31 @@ export class FormAssenteComponent implements OnInit {
                 private router: Router) {
         if (this.route.snapshot.params.id) {
             this.store.dispatch(new SetPageTitleFormAssente('modifica assente'));
+            this.suspectCase$.subscribe((suspectCase: SuspectCaseInterface) => {
+                if (suspectCase) {
+                    this.store.dispatch(
+                        new UpdateFormValue({
+                            path: 'assente.assenteForm',
+                            value: {
+                                // Personal Information
+                                name: suspectCase.subject.nome,
+                                surname: suspectCase.subject.cognome,
+                                phone: suspectCase.subject.phone,
+                                email: suspectCase.subject.email,
+                                role: suspectCase.subject.role,
+                                // Personal Data
+                                caseNumber: suspectCase.subject.number,
+                                quarantinePlace: suspectCase.data.quarantinePlace,
+                                expectedWorkReturnDate: suspectCase.data.expectedWorkReturnDate,
+                                actualWorkReturnDate: suspectCase.data.actualWorkReturnDate,
+                                closedCase: suspectCase.data.closedCase
+                            }
+                        })
+                    );
+                } else {
+                    this.goBack();
+                }
+            });
         }
         this.initForm();
     }
@@ -46,9 +75,7 @@ export class FormAssenteComponent implements OnInit {
             role: new FormControl(),
             // Personal Data
             caseNumber: new FormControl(),
-            estremiProvvedimentiASL: new FormControl(),
             quarantinePlace: new FormControl(),
-            intensiveTerapy: new FormControl(),
             expectedWorkReturnDate: new FormControl(),
             actualWorkReturnDate: new FormControl(),
             closedCase: new FormControl()
@@ -62,25 +89,11 @@ export class FormAssenteComponent implements OnInit {
             role: [null, Validators.required],
             // Personal Data
             caseNumber: [null, Validators.required],
-            estremiProvvedimentiASL: [null, Validators.required],
             quarantinePlace: [null, Validators.required],
-            intensiveTerapy: [null],
             expectedWorkReturnDate: [null, Validators.required],
             actualWorkReturnDate: [null],
-            closedCase: [null]
+            closedCase: [null, Validators.required]
         });
-    }
-
-    onPatchQuarantinePlace(event: string) {
-        if (event === 'Struttura Ospedaliera') {
-            this.f.intensiveTerapy.setValidators(Validators.required);
-        } else {
-            this.f.intensiveTerapy.clearValidators();
-        }
-    }
-
-    onPatchExpectedWorkReturnDate(event: string) {
-        return;
     }
 
     get f() {
