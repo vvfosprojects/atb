@@ -11,6 +11,7 @@ export class AuthGuard implements CanActivate {
     }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+        console.log('data', route.data);
         const logged = this.store.selectSnapshot(AuthState.logged);
         if (logged) {
             return true;

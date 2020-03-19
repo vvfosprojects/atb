@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './core/guards/auth.guard';
+import { Roles } from './shared/enum/roles.enum';
 
 const routes: Routes = [
     {
@@ -23,7 +24,14 @@ const routes: Routes = [
     {
         path: 'home',
         loadChildren: () => import('./features/home/home.module').then(m => m.HomeModule),
-        canActivate: [ AuthGuard ]
+        canActivate: [ AuthGuard ],
+        data: { roles: [ Roles.Doctor ] }
+    },
+    {
+        path: 'reports',
+        loadChildren: () => import('./features/reports/reports.module').then(m => m.ReportsModule),
+        canActivate: [ AuthGuard ],
+        data: { roles: [ Roles.Manager ] }
     },
     {
         path: 'auth',
