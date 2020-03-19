@@ -26,7 +26,7 @@ export interface FormPositivoStateModel {
 }
 
 export const formPositivoStateDefaults: FormPositivoStateModel = {
-    pageTitle: 'nuova scheda',
+    pageTitle: 'nuovo positivo',
     positivoForm: {
         model: undefined
     }
@@ -34,7 +34,7 @@ export const formPositivoStateDefaults: FormPositivoStateModel = {
 
 @Injectable()
 @State<FormPositivoStateModel>({
-    name: 'formPositivo',
+    name: 'positivo',
     defaults: formPositivoStateDefaults
 })
 export class FormPositivoState {

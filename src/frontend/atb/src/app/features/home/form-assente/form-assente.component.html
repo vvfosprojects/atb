@@ -5,7 +5,7 @@
                 <h1>{{(pageTitle$ | async) | titlecase}}</h1>
             </div>
             <div class="col-12 col-sm-11 col-md-10 mx-auto">
-                <form [formGroup]="positivoForm" ngxsForm="positivo.positivoForm" (ngSubmit)="onSubmit()">
+                <form [formGroup]="assenteForm" ngxsForm="assente.assenteForm" (ngSubmit)="onSubmit()">
                     <div class="px-4 py-3 bg-light rounded border border-light shadow-sm mb-4">
                         <h4>
                             Codice Caso
@@ -195,7 +195,7 @@
                     </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-lg btn-primary w-50 mt-4"
-                                [disabled]="!(positivoFormValid$ | async)">
+                                [disabled]="!(assenteFormValid$ | async)">
                             <i class="fa fa-save mr-1"></i>
                             Salva Scheda
                         </button>
