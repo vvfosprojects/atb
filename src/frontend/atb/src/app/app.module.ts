@@ -16,8 +16,9 @@ import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { QualificheState } from './shared/store/qualifiche/qualifiche.state';
 import { SearchState } from './features/home/search/store/search.state';
 import { FormAssenteState } from './features/home/form-assente/store/form-assente.state';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AssentiService } from './core/services/assenti/assenti.service';
+import { ErrorInterceptor, JwtInterceptor, LoaderInterceptor } from './core/interceptors';
 
 @NgModule({
     declarations: [
@@ -27,7 +28,7 @@ import { AssentiService } from './core/services/assenti/assenti.service';
         BrowserModule,
         AppRoutingModule,
         NgxsModule.forRoot(
-            [LoadingState, AuthState, QualificheState, FormPositivoState, FormAssenteState, SearchState],
+            [ LoadingState, AuthState, QualificheState, FormPositivoState, FormAssenteState, SearchState ],
             { developmentMode: !environment.production }
         ),
         NgxsRouterPluginModule.forRoot(),
@@ -41,8 +42,13 @@ import { AssentiService } from './core/services/assenti/assenti.service';
         NgbDatepickerModule,
         HttpClientModule
     ],
-    providers: [AssentiService],
-    bootstrap: [AppComponent]
+    providers: [
+        AssentiService,
+        { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }
+    ],
+    bootstrap: [ AppComponent ]
 })
 export class AppModule {
 }
