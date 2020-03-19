@@ -34,7 +34,7 @@ export const formPositivoStateDefaults: FormPositivoStateModel = {
 
 @Injectable()
 @State<FormPositivoStateModel>({
-    name: 'formPositivo',
+    name: 'positivo',
     defaults: formPositivoStateDefaults
 })
 export class FormPositivoState {

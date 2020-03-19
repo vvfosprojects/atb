@@ -35,7 +35,7 @@ export const formAssenteStateDefaults: FormAssenteStateModel = {
 
 @Injectable()
 @State<FormAssenteStateModel>({
-    name: 'formAssente',
+    name: 'assente',
     defaults: formAssenteStateDefaults
 })
 export class FormAssenteState {
@@ -68,11 +68,13 @@ export class FormAssenteState {
         );
         // todo: logica per il save
         const obj = {
+            number: assenteFormValue.caseNumber,
             name: assenteFormValue.name,
             surname: assenteFormValue.surname,
             email: assenteFormValue.email,
-            phone: assenteFormValue.phone,
-            role: assenteFormValue.role
+            phone: assenteFormValue.phone.toString(),
+            role: assenteFormValue.role,
+            closedCase: false
         };
         this.assentiService.newSuspectCase(obj).subscribe((res: any) => {
             console.log(res);

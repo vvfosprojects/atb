@@ -9,6 +9,7 @@ import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SearchAssenteComponent } from './search/search-assente/search-assente.component';
 import { FormAssenteComponent } from './form-assente/form-assente.component';
+import { NgxsFormPluginModule } from '@ngxs/form-plugin';
 
 @NgModule({
     declarations: [SearchComponent, FormPositivoComponent, FormAssenteComponent, SearchPositivoComponent, SearchAssenteComponent],
@@ -17,7 +18,8 @@ import { FormAssenteComponent } from './form-assente/form-assente.component';
         HomeRoutingModule,
         SharedModule,
         NgbDatepickerModule,
-        NgSelectModule
+        NgSelectModule,
+        NgxsFormPluginModule
     ]
 })
 export class HomeModule {
