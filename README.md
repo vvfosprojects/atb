@@ -190,9 +190,11 @@ This action allows to fetch updated suspect data.
 
 ```jsonc
 {
-  "group": "CATANIA", // this is the name of the group the patient belongs to
+  "identifier": {
+    "group": "CATANIA", // this is the name of the group the patient belongs to
+	"number": 1234
+  },
   "data": {
-    "number": 1234,
     "name": "Mario", // this field is stored encrypted
     "surname": "Rossi", // this field is stored encrypted
     "email": "mario.rossi@vigilfuoco.it", // this field is stored encrypted
@@ -230,10 +232,13 @@ The SHA-256 and field encryption can be implemented with the code available [HER
 ## `suspects` collection
 
 ```jsonc
+
 {
-  "group": "CATANIA", // this is the name of the group the patient belongs to
+  "identifier": {
+    "group": "CATANIA", // this is the name of the group the patient belongs to
+	"number": 1234
+  },
   "data": {
-    "number": 1234,
     "name": "Mario", // this field is stored encrypted
     "surname": "Rossi", // this field is stored encrypted
     "email": "mario.rossi@vigilfuoco.it", // this field is stored encrypted
