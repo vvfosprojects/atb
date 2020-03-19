@@ -192,7 +192,7 @@ This action allows to fetch updated suspect data.
 {
   "identifier": {
     "group": "CATANIA", // this is the name of the group the patient belongs to
-	"number": 1234
+    "number": 1234
   },
   "data": {
     "name": "Mario", // this field is stored encrypted
@@ -236,7 +236,7 @@ The SHA-256 and field encryption can be implemented with the code available [HER
 {
   "identifier": {
     "group": "CATANIA", // this is the name of the group the patient belongs to
-	"number": 1234
+    "number": 1234
   },
   "data": {
     "name": "Mario", // this field is stored encrypted
