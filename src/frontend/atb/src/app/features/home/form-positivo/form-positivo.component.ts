@@ -5,7 +5,7 @@ import { FormPositivoState } from './store/form-positivo.state';
 import { Observable } from 'rxjs';
 import { LoadingState } from '../../../shared/store/loading/loading.state';
 import { QualificheState } from '../../../shared/store/qualifiche/qualifiche.state';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SaveNewPositivoCase, SetPageTitleFormPositivo } from './store/form-positivo.actions';
 
 @Component({
@@ -27,7 +27,8 @@ export class FormPositivoComponent implements OnInit {
 
     constructor(private store: Store,
                 private formBuilder: FormBuilder,
-                private route: ActivatedRoute) {
+                private route: ActivatedRoute,
+                private router: Router) {
         if (this.route.snapshot.params.id) {
             this.store.dispatch(new SetPageTitleFormPositivo('modifica positivo'));
         }
@@ -96,5 +97,9 @@ export class FormPositivoComponent implements OnInit {
         }
 
         this.store.dispatch(new SaveNewPositivoCase());
+    }
+
+    goBack() {
+        this.router.navigate(['./home/ricerca']);
     }
 }

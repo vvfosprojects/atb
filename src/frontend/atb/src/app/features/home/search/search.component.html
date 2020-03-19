@@ -1,1 +1,14 @@
-<p>search works!</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 min-vh-100" style="display:flex; justify-content: center; align-items: center">
+            <div class="row min-vh-100" style="display: flex;justify-content: center; align-items: center">
+                <div class="col-12 col-lg-6 p-lg-5">
+                    <app-search-positivo (search)="onSearchPositiveCase($event)"></app-search-positivo>
+                </div>
+                <div class="col-12 col-lg-6 p-lg-5">
+                    <app-search-assente (search)="onSearchSuspectCase($event)"></app-search-assente>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
