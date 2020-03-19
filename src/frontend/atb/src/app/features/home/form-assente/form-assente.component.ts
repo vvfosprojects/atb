@@ -37,9 +37,20 @@ export class FormAssenteComponent implements OnInit {
                 if (suspectCase) {
                     this.store.dispatch(
                         new UpdateFormValue({
-                            path: 'assenti.formAssenti',
+                            path: 'assente.assenteForm',
                             value: {
-                                name: suspectCase.data.name
+                                // Personal Information
+                                name: suspectCase.subject.nome,
+                                surname: suspectCase.subject.cognome,
+                                phone: suspectCase.subject.phone,
+                                email: suspectCase.subject.email,
+                                role: suspectCase.subject.role,
+                                // Personal Data
+                                caseNumber: suspectCase.subject.number,
+                                quarantinePlace: suspectCase.data.quarantinePlace,
+                                expectedWorkReturnDate: suspectCase.data.expectedWorkReturnDate,
+                                actualWorkReturnDate: suspectCase.data.actualWorkReturnDate,
+                                closedCase: suspectCase.data.closedCase
                             }
                         })
                     );
@@ -81,12 +92,8 @@ export class FormAssenteComponent implements OnInit {
             quarantinePlace: [null, Validators.required],
             expectedWorkReturnDate: [null, Validators.required],
             actualWorkReturnDate: [null],
-            closedCase: [null]
+            closedCase: [null, Validators.required]
         });
-    }
-
-    onPatchExpectedWorkReturnDate(event: string) {
-        return;
     }
 
     get f() {

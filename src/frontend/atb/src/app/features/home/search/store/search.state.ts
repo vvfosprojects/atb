@@ -48,7 +48,7 @@ export class SearchState {
             patchState({
                 suspectCase: suspectCaseRes.suspect
             });
-            dispatch(new Navigate(['./home/form-assente/' + suspectCaseRes.suspect.data.number]));
+            dispatch(new Navigate(['./home/form-assente/' + suspectCaseRes.suspect.subject.number]));
         });
     }
 }

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { SaveNewSuspectCase, SetPageTitleFormAssente } from './form-assente.actions';
 import { AssentiService } from '../../../../core/services/assenti/assenti.service';
 import { Navigate } from "@ngxs/router-plugin";
+import { formatDate } from "../../../../shared/functions/functions";
 
 export interface FormAssenteStateModel {
     pageTitle: string;
@@ -64,32 +65,25 @@ export class FormAssenteState {
     @Action(SaveNewSuspectCase)
     saveNewSuspectCase({ getState, dispatch }: StateContext<FormAssenteStateModel>) {
         const assenteFormValue = getState().assenteForm.model;
-        const obj = {
+        const objSubject = {
             number: assenteFormValue.caseNumber,
             name: assenteFormValue.name,
             surname: assenteFormValue.surname,
             email: assenteFormValue.email,
             phone: assenteFormValue.phone.toString(),
             role: assenteFormValue.role,
-            closedCase: false
+            closedCase: assenteFormValue.closedCase
         };
-        this.assentiService.newSuspectCase(obj).subscribe(() => {
-            const obj2 = {
+        this.assentiService.newSuspectCase(objSubject).subscribe(() => {
+            const objData = {
                 caseNumber: assenteFormValue.caseNumber,
                 quarantinePlace: assenteFormValue.quarantinePlace,
                 expectedWorkReturnDate: formatDate(assenteFormValue.expectedWorkReturnDate),
-                closedCase: false
+                closedCase: assenteFormValue.closedCase
             };
-            this.assentiService.newSuspectUpdate(obj2).subscribe(() => {
+            this.assentiService.newSuspectUpdate(objData).subscribe(() => {
                 dispatch(new Navigate(['./home/ricerca']));
             });
         });
     }
-}
-
-function formatDate(data: any) {
-    const year = data.year;
-    const month = data.month.toString().length > 1 ? data.month : '0' + data.month;
-    const day = data.day.toString().length > 1 ? data.day : '0' + data.day;
-    return year + '-' + month + '-' + day;
 }

@@ -1,12 +1,12 @@
 export interface SuspectCaseInterface {
-    data: Subject;
-    updates: Data[];
+    subject: Subject;
+    data: Data;
 }
 
 export interface Subject {
     number: number;
-    name: string;
-    surname: string;
+    nome: string;
+    cognome: string;
     email: string;
     phone: string;
     role: string;

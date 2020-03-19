@@ -1,6 +1,9 @@
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { SaveNewPositivoCase, SetPageTitleFormPositivo } from './form-positivo.actions';
 import { Injectable } from '@angular/core';
+import { formatDate } from "../../../../shared/functions/functions";
+import { Navigate } from "@ngxs/router-plugin";
+import { PositiviService } from "../../../../core/services/positivi/positivi.service";
 
 export interface FormPositivoStateModel {
     pageTitle: string;
@@ -49,6 +52,9 @@ export class FormPositivoState {
         return state.positivoForm.status === 'VALID';
     }
 
+    constructor(private positiviService: PositiviService) {
+    }
+
     @Action(SetPageTitleFormPositivo)
     setPageTitleFormPositivo({ patchState }: StateContext<FormPositivoStateModel>, action: SetPageTitleFormPositivo) {
         patchState({
@@ -57,11 +63,28 @@ export class FormPositivoState {
     }
 
     @Action(SaveNewPositivoCase)
-    saveNewPositivoCase({ getState }: StateContext<FormPositivoStateModel>) {
-        const state = getState();
-        console.log('SaveNewPositivoCase',
-            state.positivoForm.model
-        );
-        // todo: logica per il save
+    saveNewPositivoCase({ getState, dispatch }: StateContext<FormPositivoStateModel>) {
+        const positivoFormValue = getState().positivoForm.model;
+        const objSubject = {
+            number: positivoFormValue.caseNumber,
+            name: positivoFormValue.name,
+            surname: positivoFormValue.surname,
+            email: positivoFormValue.email,
+            phone: positivoFormValue.phone.toString(),
+            role: positivoFormValue.role,
+            closedCase: positivoFormValue.closedCase
+        };
+        this.positiviService.newPositiveCase(objSubject).subscribe(() => {
+            const objData = {
+                caseNumber: positivoFormValue.caseNumber,
+                estremiProvvedimentiASL: positivoFormValue.estremiProvvedimentiASL,
+                quarantinePlace: positivoFormValue.intensiveTerapy && positivoFormValue.intensiveTerapy === true ? 'INTCARE' : positivoFormValue.quarantinePlace,
+                expectedWorkReturnDate: formatDate(positivoFormValue.expectedWorkReturnDate),
+                closedCase: positivoFormValue.closedCase
+            };
+            this.positiviService.newPositiveUpdate(objData).subscribe(() => {
+                dispatch(new Navigate(['./home/ricerca']));
+            });
+        });
     }
 }
