@@ -1,18 +1,20 @@
-﻿namespace DomainModel.Classes
+﻿using System.Collections.Generic;
+
+namespace DomainModel.Classes
 {
     public class Patient
     {
+        public Patient()
+        {
+            Updates = new List<PositiveData>();
+        }
+
         public string Id { get; protected set; }
 
         public string Group { get; set; }
 
         public Anagrafica Data { get; set; }
 
-        public PositiveData[] Updates { get; set; }
-
-        public Patient()
-        {
-            Updates = new PositiveData[] { };
-        }
+        public IList<PositiveData> Updates { get; set; }
     }
 }

@@ -12,12 +12,11 @@ namespace Persistence.InMongo_local
 {
     public class NewPositiveUpdate : INewPositiveUpdate
     {
-
         private readonly DbContext dbContext;
 
         public NewPositiveUpdate(DbContext dbContex)
         {
-            this.dbContext = dbContex;
+            this.dbContext = dbContex ?? throw new ArgumentNullException(nameof(dbContex));
         }
 
         public void Add(NewPositiveUpdateCommand command)
@@ -32,12 +31,14 @@ namespace Persistence.InMongo_local
                 QuarantinePlace = command.QuarantinePlace,
                 ClosedCase = command.ClosedCase,
                 UpdatedBy = loggedUser.GetLoggedUser(),
-                UpdateTime = DateTime.Now
+                UpdateTime = DateTime.UtcNow
             };
 
-            var builder = Builders<Patient>.Filter.Eq("number", command.CaseNumber);
+            var filter = Builders<Patient>.Filter.Eq("number", command.CaseNumber);
+            var update = Builders<Patient>.Update.Push(p => p.Updates, dataToInsert);
+            dbContext.Patients.UpdateOne(filter, update);
 
-            var t = dbContext.Patients.Find(builder).ToList();
+            //var t = dbContext.Patients.Find(builder).ToList();
 
             //var update = Builders<Patient>.Update.SetOnInsert<PositiveData>("updates", dataToInsert);
 
@@ -46,7 +47,7 @@ namespace Persistence.InMongo_local
             //dbContext.Patients.FindOneAndUpdate(
             //        Builders<Patient>.Filter.Eq("number", command.CaseNumber),
             //        Builders<Patient>.Update.AddToSet("updates", dataToInsert)
-            //        ); 
+            //        );
         }
     }
 }
