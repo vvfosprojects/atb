@@ -15,17 +15,17 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { AuthState } from './features/auth/store/auth.state';
 import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { QualificheState } from './shared/store/qualifiche/qualifiche.state';
+import { SearchState } from "./features/home/search/store/search.state";
 
 @NgModule({
     declarations: [
-        AppComponent,
-        FormPositivoComponent
+        AppComponent
     ],
     imports: [
         BrowserModule,
         AppRoutingModule,
         NgxsModule.forRoot(
-            [LoadingState, AuthState, QualificheState, FormPositivoState],
+            [LoadingState, AuthState, QualificheState, FormPositivoState, SearchState],
             { developmentMode: !environment.production }
         ),
         NgxsRouterPluginModule.forRoot(),

@@ -1,0 +1,27 @@
+<div class="row bg-light border border-light shadow-sm p-4">
+    <div class="col-12 text-center">
+        <h3 class="m-0">Casi Assenti</h3>
+    </div>
+    <div class="col-12">
+        <hr class="mt-2 mb-4">
+    </div>
+    <div class="col-12 col-md-10 mx-auto">
+        <div class="input-group">
+            <label for="positiveCaseNumber" class="d-none"></label>
+            <input id="positiveCaseNumber" type="number" class="form-control" placeholder="Inserisci il 'Numero Caso'"
+                   [(ngModel)]="caseNumber">
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="button" (click)="searchSuspectCase()">
+                    <i class="fa fa-search mr-1"></i>
+                    Cerca
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-md-8 mt-4 mx-auto">
+        <button class="btn btn-lg btn-block btn-primary" (click)="addNewAssente()">
+            <i class="fa fa-user-plus mr-1"></i>
+            Aggiungi Nuovo Assente
+        </button>
+    </div>
+</div>

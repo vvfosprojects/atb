@@ -1,4 +1,4 @@
-export interface NewPositiveUpdateInterface {
+export interface DtoNewPositiveUpdateInterface {
     caseNumber: number;
     estremiProvvedimentiASL: string;
     quarantinePlace: string;

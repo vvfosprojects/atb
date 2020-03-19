@@ -185,8 +185,7 @@
                                 <label for="expectedWorkReturnDate" class="d-none">Data Ripresa Servizio</label>
                                 <input id="expectedWorkReturnDate" class="form-control" placeholder="gg-mm-aaaa"
                                        name="expectedWorkReturnDate" formControlName="expectedWorkReturnDate"
-                                       ngbDatepicker #expectedWorkReturnDate="ngbDatepicker"
-                                       [startDate]="{year: today.getFullYear(), month: today.getMonth(), day: today.getDay()}">
+                                       ngbDatepicker #expectedWorkReturnDate="ngbDatepicker">
                                 <div class="input-group-append">
                                     <button class="btn btn-outline-secondary"
                                             (click)="expectedWorkReturnDate.toggle()" type="button">
@@ -198,7 +197,14 @@
                         <div class="text-center">
                             <button type="submit" class="btn btn-lg btn-primary w-50 mt-4"
                                     [disabled]="!(positivoFormValid$ | async)">
-                                Invia Scheda
+                                <i class="fa fa-save mr-1"></i>
+                                Salva Scheda
+                            </button>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-lg btn-danger w-50 mt-2" (click)="goBack()">
+                                <i class="fa fa-arrow-left mr-1"></i>
+                                Indietro
                             </button>
                         </div>
                     </form>
