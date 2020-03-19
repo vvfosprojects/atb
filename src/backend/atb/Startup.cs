@@ -18,6 +18,7 @@ namespace atb
 {
     public class Startup
     {
+        private readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         private Container container = new SimpleInjector.Container();
 
         public Startup(IConfiguration configuration)
@@ -35,6 +36,16 @@ namespace atb
         {
             services.AddControllers();
             services.AddDataProtection(); // see https://stackoverflow.com/a/43936866/1045789
+            services.AddCors(options =>
+            {
+                options.AddPolicy(MyAllowSpecificOrigins,
+                builder =>
+                {
+                    builder.AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+                });
+            });
 
             IntegrateJwtTokenManagement(services);
 
@@ -117,6 +128,7 @@ namespace atb
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseCors(MyAllowSpecificOrigins);
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
