@@ -56,6 +56,15 @@ namespace Persistence.InMongo_local
                     .SetIdGenerator(StringObjectIdGenerator.Instance)
                     .SetSerializer(new StringSerializer(BsonType.ObjectId));
             });
+
+
+            BsonClassMap.RegisterClassMap<User>(cm =>
+            {
+                cm.AutoMap();
+                cm.MapIdMember(c => c.Id)
+                    .SetIdGenerator(StringObjectIdGenerator.Instance)
+                    .SetSerializer(new StringSerializer(BsonType.ObjectId));
+            });
         }
 
         public IMongoCollection<Patient> Patients
@@ -71,6 +80,14 @@ namespace Persistence.InMongo_local
             get
             {
                 return database.GetCollection<Suspect>("Suspects");
+            }
+        }
+
+        public IMongoCollection<User> Users
+        {
+            get
+            {
+                return database.GetCollection<User>("Users");
             }
         }
     }

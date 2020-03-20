@@ -34,6 +34,7 @@ namespace Persistence.InMongo_local
                 patient.Subject.Phone = this.cryptools.Decrypt(patient.Subject.Phone);
                 patient.Subject.Role = this.cryptools.Decrypt(patient.Subject.Role);
             }
+
             return collection;
         }
     }
