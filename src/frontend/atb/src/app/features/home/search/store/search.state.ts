@@ -5,6 +5,7 @@ import { SearchPositiveCase, SearchSuspectCase } from './search.actions';
 import { SuspectCaseInterface } from '../../../../shared/interface/suspect-case.interface';
 import { Navigate } from '@ngxs/router-plugin';
 import { AssentiService } from '../../../../core/services/assenti/assenti.service';
+import { PositiviService } from "../../../../core/services/positivi/positivi.service";
 
 export interface SearchStateModel {
     positiveCase: PositiveCaseInterface;
@@ -33,22 +34,27 @@ export class SearchState {
         return state.suspectCase;
     }
 
-    constructor(private assentiService: AssentiService) {
+    constructor(private assentiService: AssentiService,
+                private positiviService: PositiviService) {
     }
 
     @Action(SearchPositiveCase)
-    setPageTitleFormPositivo({ patchState }: StateContext<SearchStateModel>, action: SearchPositiveCase) {
-        // todo: da fare
-        console.log('SearchPositiveCase', action.caseNumber);
+    setPageTitleFormPositivo({ patchState, dispatch }: StateContext<SearchStateModel>, action: SearchPositiveCase) {
+        this.positiviService.getPositive(action.caseNumber).subscribe((positive: PositiveCaseInterface) => {
+            patchState({
+                positiveCase: positive
+            });
+            dispatch(new Navigate(['./home/form-positivo/' + positive.subject.number]));
+        });
     }
 
     @Action(SearchSuspectCase)
     searchSuspectCase({ patchState, dispatch }: StateContext<SearchStateModel>, action: SearchSuspectCase) {
-        this.assentiService.getSuspect(action.caseNumber).subscribe((suspectCaseRes: { suspect: SuspectCaseInterface }) => {
+        this.assentiService.getSuspect(action.caseNumber).subscribe((suspect: SuspectCaseInterface) => {
             patchState({
-                suspectCase: suspectCaseRes.suspect
+                suspectCase: suspect
             });
-            dispatch(new Navigate(['./home/form-assente/' + suspectCaseRes.suspect.subject.number]));
+            dispatch(new Navigate(['./home/form-assente/' + suspect.subject.number]));
         });
     }
 }

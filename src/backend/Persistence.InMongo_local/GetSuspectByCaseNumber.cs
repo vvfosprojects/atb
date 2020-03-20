@@ -19,14 +19,14 @@ namespace Persistence.InMongo_local
 
         public Suspect GetSuspect(int CaseNumber)
         {
-            var filter = Builders<Suspect>.Filter.Eq(x => x.Data.Number, CaseNumber) & Builders<Suspect>.Filter.Eq(x => x.Group, getSessionContext.GetActiveGroup());
+            var filter = Builders<Suspect>.Filter.Eq(x => x.Subject.Number, CaseNumber) & Builders<Suspect>.Filter.Eq(x => x.Group, getSessionContext.GetActiveGroup());
             var suspect = this.dbContext.Suspects.Find(filter).Single();
 
-            suspect.Data.Nome = this.cryptools.Decrypt(suspect.Data.Nome);
-            suspect.Data.Cognome = this.cryptools.Decrypt(suspect.Data.Cognome);
-            suspect.Data.Email = this.cryptools.Decrypt(suspect.Data.Email);
-            suspect.Data.Phone = this.cryptools.Decrypt(suspect.Data.Phone);
-            suspect.Data.Role = this.cryptools.Decrypt(suspect.Data.Role);
+            suspect.Subject.Nome = this.cryptools.Decrypt(suspect.Subject.Nome);
+            suspect.Subject.Cognome = this.cryptools.Decrypt(suspect.Subject.Cognome);
+            suspect.Subject.Email = this.cryptools.Decrypt(suspect.Subject.Email);
+            suspect.Subject.Phone = this.cryptools.Decrypt(suspect.Subject.Phone);
+            suspect.Subject.Role = this.cryptools.Decrypt(suspect.Subject.Role);
 
             return suspect;
         }

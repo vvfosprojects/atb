@@ -5,8 +5,8 @@ export interface PositiveCaseInterface {
 
 export interface Subject {
     number: number;
-    name: string;
-    surname: string;
+    nome: string;
+    cognome: string;
     email: string;
     phone: string;
     role: string;

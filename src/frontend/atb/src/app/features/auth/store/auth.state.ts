@@ -1,19 +1,16 @@
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { LSNAME } from '../../../core/settings/config';
 import {
-    ClearAuth, GetAuth,
-    SetCurrentJwt,
-    SetCurrentTicket,
+    ClearAuth, SetCurrentJwt,
     SetCurrentUser, SetLogged, SetReturnUrl
 } from './auth.actions';
 import { Injectable } from '@angular/core';
 import { Navigate } from '@ngxs/router-plugin';
 import { UserInterface } from '../../../shared/interface/common/user.interface';
 
-
 export interface AuthStateModel {
     currentJwt: string;
-    currentTicket: string;
+    // currentTicket: string;
     currentUser: UserInterface;
     logged: boolean;
     returnUrl: string;
@@ -21,7 +18,7 @@ export interface AuthStateModel {
 
 export const AuthStateDefaults: AuthStateModel = {
     currentJwt: null,
-    currentTicket: null,
+    // currentTicket: null,
     currentUser: null,
     logged: false,
     returnUrl: '/'
@@ -52,16 +49,6 @@ export class AuthState {
         return state.logged;
     }
 
-    @Action(SetCurrentTicket)
-    setCurrentTicket({ patchState, dispatch }: StateContext<AuthStateModel>, action: SetCurrentTicket) {
-        if (action.currentTicket) {
-            patchState({
-                currentTicket: action.currentTicket
-            });
-            dispatch(new GetAuth());
-        }
-    }
-
     @Action(SetCurrentJwt)
     setCurrentJwt({ patchState, dispatch }: StateContext<AuthStateModel>, action: SetCurrentJwt) {
         if (action.currentJwt) {
@@ -69,7 +56,7 @@ export class AuthState {
             const currentUrl = JSON.parse(localStorage.getItem(LSNAME.redirectUrl));
             patchState({
                 currentJwt: action.currentJwt,
-                currentTicket: null
+                // currentTicket: null
             });
             dispatch([ new SetLogged(), currentUrl && new Navigate([ currentUrl ]) ])
         }

@@ -48,8 +48,10 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     onBack(logged: boolean) {
-        console.log('user already logged');
-        logged && this._location.back();
+        if (logged) {
+            console.log('user already logged');
+            this._location.back();
+        }
     }
 
     onSubmit() {

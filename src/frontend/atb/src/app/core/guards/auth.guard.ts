@@ -4,6 +4,7 @@ import { Store } from '@ngxs/store';
 import { Navigate } from '@ngxs/router-plugin';
 import { AuthState } from '../../features/auth/store/auth.state';
 import { SetReturnUrl } from '../../features/auth/store/auth.actions';
+import { checkRoles } from '../../shared/functions';
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
@@ -11,9 +12,19 @@ export class AuthGuard implements CanActivate {
     }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        console.log('data', route.data);
         const logged = this.store.selectSnapshot(AuthState.logged);
         if (logged) {
+            if (route.data && route.data.roles) {
+                const user = this.store.selectSnapshot(AuthState.currentUser);
+                console.log('User', user);
+                if (user) {
+                    const checkedRoles = checkRoles(route.data.roles, user);
+                    if (!checkedRoles) {
+                        console.log('Back to Url');
+                        this.store.dispatch(new Navigate([ '/' ]));
+                    }
+                }
+            }
             return true;
         }
         console.log('Not logged user', state.url);

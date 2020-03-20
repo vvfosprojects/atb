@@ -8,16 +8,16 @@ namespace DomainModel.Classes
     {
         public Suspect()
         {
-            Updates = new List<SuspectData>();
+            Data = new List<SuspectData>();
         }
 
         public string Id { get; protected set; }
 
         public string Group { get; set; }
 
-        public Anagrafica Data { get; set; }
+        public Anagrafica Subject { get; set; }
 
-        public IList<SuspectData> Updates { get; set; }
+        public IList<SuspectData> Data { get; set; }
 
     }
 }

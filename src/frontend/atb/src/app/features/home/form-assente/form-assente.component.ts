@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
@@ -6,17 +6,18 @@ import { LoadingState } from '../../../shared/store/loading/loading.state';
 import { QualificheState } from '../../../shared/store/qualifiche/qualifiche.state';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormAssenteState } from './store/form-assente.state';
-import { SaveNewSuspectCase, SetPageTitleFormAssente } from './store/form-assente.actions';
+import { SaveNewSuspectCase, SetPageTitleFormAssente, UpdateSuspectCase } from './store/form-assente.actions';
 import { SearchState } from '../search/store/search.state';
 import { SuspectCaseInterface } from '../../../shared/interface/suspect-case.interface';
 import { UpdateFormValue } from "@ngxs/form-plugin";
+import { formatDateForNgbDatePicker } from "../../../shared/functions/functions";
 
 @Component({
     selector: 'app-assente',
     templateUrl: './form-assente.component.html',
     styleUrls: ['./form-assente.component.scss']
 })
-export class FormAssenteComponent implements OnInit {
+export class FormAssenteComponent implements OnInit, OnDestroy {
 
     @Select(LoadingState.loading) loading$: Observable<boolean>;
     @Select(QualificheState.qualifiche) qualifiche$: Observable<any[]>;
@@ -26,12 +27,14 @@ export class FormAssenteComponent implements OnInit {
 
     assenteForm: FormGroup;
     submitted = false;
+    editMode: boolean;
 
     constructor(private store: Store,
                 private formBuilder: FormBuilder,
                 private route: ActivatedRoute,
                 private router: Router) {
         if (this.route.snapshot.params.id) {
+            this.editMode = true;
             this.store.dispatch(new SetPageTitleFormAssente('modifica assente'));
             this.suspectCase$.subscribe((suspectCase: SuspectCaseInterface) => {
                 if (suspectCase) {
@@ -48,7 +51,7 @@ export class FormAssenteComponent implements OnInit {
                                 // Personal Data
                                 caseNumber: suspectCase.subject.number,
                                 quarantinePlace: suspectCase.data.quarantinePlace,
-                                expectedWorkReturnDate: suspectCase.data.expectedWorkReturnDate,
+                                expectedWorkReturnDate: formatDateForNgbDatePicker(suspectCase.data.expectedWorkReturnDate),
                                 actualWorkReturnDate: suspectCase.data.actualWorkReturnDate,
                                 closedCase: suspectCase.data.closedCase
                             }
@@ -63,6 +66,16 @@ export class FormAssenteComponent implements OnInit {
     }
 
     ngOnInit(): void {
+    }
+
+    ngOnDestroy(): void {
+        this.store.dispatch(
+            new UpdateFormValue({
+                    path: 'assente.assenteForm',
+                    value: undefined
+                }
+            )
+        )
     }
 
     initForm() {
@@ -94,6 +107,13 @@ export class FormAssenteComponent implements OnInit {
             actualWorkReturnDate: [null],
             closedCase: [null, Validators.required]
         });
+
+        if (this.editMode) {
+            const fieldsToDisable = ['caseNumber', 'name', 'surname', 'phone', 'email', 'role'];
+            for (let field of fieldsToDisable) {
+                this.f[field].disable();
+            }
+        }
     }
 
     get f() {
@@ -107,7 +127,11 @@ export class FormAssenteComponent implements OnInit {
             return;
         }
 
-        this.store.dispatch(new SaveNewSuspectCase());
+        if (!this.editMode) {
+            this.store.dispatch(new SaveNewSuspectCase());
+        } else {
+            this.store.dispatch(new UpdateSuspectCase());
+        }
     }
 
     goBack() {

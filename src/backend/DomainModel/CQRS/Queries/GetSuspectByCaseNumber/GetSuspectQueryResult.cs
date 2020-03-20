@@ -1,4 +1,5 @@
 ﻿using DomainModel.Classes;
+using System;
 
 namespace DomainModel.CQRS.Queries.GetSuspect
 {

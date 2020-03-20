@@ -14,7 +14,8 @@
                         <hr>
                         <div class="form-group">
                             <label for="caseNumber" class="d-none">Numero caso</label>
-                            <input id="caseNumber" class="form-control" type="number" formControlName="caseNumber"/>
+                            <input id="caseNumber" class="form-control" type="number" formControlName="caseNumber"
+                                   [ngClass]=" {'is-invalid': submitted && f.caseNumber.errors }"/>
                             <small id="caseNumberHelp" class="form-text text-muted">
                                 <i class="fa fa-exclamation-triangle mr-1"></i>
                                 Inserire un numero intero <span class="font-weight-bold">maggiore di zero</span>
@@ -32,28 +33,32 @@
                                 Nome
                                 <span class="font-weight-bold text-danger">*</span>
                             </label>
-                            <input id="name" class="form-control" type="text" formControlName="name"/>
+                            <input id="name" class="form-control" type="text" formControlName="name"
+                                   [ngClass]=" {'is-invalid': submitted && f.name.errors }"/>
                         </div>
                         <div class="form-group">
                             <label for="surname">
                                 Cognome
                                 <span class="font-weight-bold text-danger">*</span>
                             </label>
-                            <input id="surname" class="form-control" type="text" formControlName="surname"/>
+                            <input id="surname" class="form-control" type="text" formControlName="surname"
+                                   [ngClass]=" {'is-invalid': submitted && f.surname.errors }"/>
                         </div>
                         <div class="form-group">
                             <label for="phone">
                                 Numero Cellulare
                                 <span class="font-weight-bold text-danger">*</span>
                             </label>
-                            <input id="phone" class="form-control" type="number" formControlName="phone"/>
+                            <input id="phone" class="form-control" type="number" formControlName="phone"
+                                   [ngClass]=" {'is-invalid': submitted && f.phone.errors }"/>
                         </div>
                         <div class="form-group">
                             <label for="email">
                                 Email
                                 <span class="font-weight-bold text-danger">*</span>
                             </label>
-                            <input id="email" class="form-control" type="text" formControlName="email"/>
+                            <input id="email" class="form-control" type="text" formControlName="email"
+                                   [ngClass]=" {'is-invalid': submitted && f.email.errors }"/>
                         </div>
                         <div class="small">
                             <span class="font-weight-bold text-danger">* Campi Obbligatori</span>
@@ -68,6 +73,8 @@
                         <div class="form-group">
                             <label for="role" class="d-none">Scegliere una delle seguenti voci</label>
                             <ng-select [items]="qualifiche$ | async"
+                                       notFoundText="Nessuna qualifica trovata con i seguenti criteri di ricerca"
+                                       [virtualScroll]="true"
                                        id="role"
                                        placeholder="Selezionare una qualifica"
                                        formControlName="role">
@@ -103,6 +110,8 @@
                                 <label for="quarantinePlaceStrutturaOspedaliera" class="form-check-label">Struttura
                                     Ospedaliera</label>
                             </div>
+                            <small *ngIf="submitted && f.quarantinePlace.errors">"Sede di Isolamento" è un campo
+                                obbligatorio</small>
                         </div>
                         <div class="small">
                             <span class="font-weight-bold text-danger">* Campi Obbligatori</span>
@@ -115,7 +124,8 @@
                             <label for="expectedWorkReturnDate" class="d-none">Data Ripresa Servizio</label>
                             <input id="expectedWorkReturnDate" class="form-control" placeholder="gg-mm-aaaa"
                                    name="expectedWorkReturnDate" formControlName="expectedWorkReturnDate"
-                                   ngbDatepicker #expectedWorkReturnDate="ngbDatepicker">
+                                   ngbDatepicker #expectedWorkReturnDate="ngbDatepicker"
+                                   [ngClass]=" {'is-invalid': submitted && f.expectedWorkReturnDate.errors }">
                             <div class="input-group-append">
                                 <button class="btn btn-outline-secondary"
                                         (click)="expectedWorkReturnDate.toggle()" type="button">
@@ -149,6 +159,8 @@
                                        formControlName="closedCase">
                                 <label for="schedaChiusaNo" class="form-check-label">No</label>
                             </div>
+                            <small *ngIf="submitted && f.closedCase.errors">"Scheda Chiusa" è un campo
+                                obbligatorio</small>
                         </div>
                         <div class="small">
                             <span class="font-weight-bold text-danger">* Campi Obbligatori</span>
@@ -157,14 +169,26 @@
                     <div class="text-center">
                         <button type="submit" class="btn btn-lg btn-primary w-50 mt-4"
                                 [disabled]="!this.assenteForm.valid">
-                            <i class="fa fa-save mr-1"></i>
-                            Salva Scheda
+                            <ng-template [ngIf]="!editMode">
+                                <i class="fa fa-save mr-1"></i>
+                                Salva Scheda
+                            </ng-template>
+                            <ng-template [ngIf]="editMode">
+                                <i class="fa fa-save mr-1"></i>
+                                Salva Modifiche
+                            </ng-template>
                         </button>
                     </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-lg btn-danger w-50 mt-2" (click)="goBack()">
-                            <i class="fa fa-arrow-left mr-1"></i>
-                            Indietro
+                            <ng-template [ngIf]="!editMode">
+                                <i class="fa fa-arrow-left mr-1"></i>
+                                Indietro
+                            </ng-template>
+                            <ng-template [ngIf]="editMode">
+                                <i class="fa fa-close mr-1"></i>
+                                Annulla Modifica
+                            </ng-template>
                         </button>
                     </div>
                 </form>
