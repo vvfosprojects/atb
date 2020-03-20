@@ -6,12 +6,17 @@ import { Roles } from './shared/enum/roles.enum';
 const routes: Routes = [
     {
         path: '',
-        redirectTo: 'home',
+        redirectTo: 'welcome',
         pathMatch: 'full'
     },
     {
         path: '404',
         loadChildren: () => import('./features/not-found/not-found.module').then(m => m.NotFoundModule)
+    },
+    {
+        path: 'welcome',
+        loadChildren: () => import('./features/welcome/welcome.module').then(m => m.WelcomeModule),
+        canActivate: [ AuthGuard ]
     },
     // {
     //     path: '500',

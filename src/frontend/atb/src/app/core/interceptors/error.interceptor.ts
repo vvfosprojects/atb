@@ -21,8 +21,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                 // this.store.dispatch(new Unauthorized());
             }
             if ([ 403 ].indexOf(err.status) !== -1) {
-                // Todo error  forbidden
-                // this.store.dispatch(new Navigate(['/forbidden']));
+                this.store.dispatch(new Navigate(['/forbidden']));
             }
             const response: ErrorResponseInterface = {
                 message: err.error.message,
