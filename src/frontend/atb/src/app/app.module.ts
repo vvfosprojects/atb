@@ -25,7 +25,7 @@ import { NavbarComponent } from './features/navbar/navbar.component';
         BrowserModule,
         AppRoutingModule,
         NgxsModule.forRoot(
-            [ LoadingState, AuthState,  ],
+            [ LoadingState, AuthState ],
             { developmentMode: !environment.production }
         ),
         NgxsRouterPluginModule.forRoot(),

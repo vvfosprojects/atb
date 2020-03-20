@@ -1,12 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { UserInterface } from '../../shared/interface/common/user.interface';
-import { Navigate } from "@ngxs/router-plugin";
-import { Store } from "@ngxs/store";
+import { Navigate } from '@ngxs/router-plugin';
+import { Store } from '@ngxs/store';
 
 @Component({
     selector: 'app-navbar',
     templateUrl: './navbar.component.html',
-    styleUrls: ['./navbar.component.scss']
+    styleUrls: [ './navbar.component.scss' ]
 })
 export class NavbarComponent implements OnInit {
 
@@ -19,11 +19,11 @@ export class NavbarComponent implements OnInit {
     }
 
     goToSearch() {
-        this.store.dispatch(new Navigate(['./home/ricerca']));
+        this.store.dispatch(new Navigate([ '/' ]));
     }
 
     onLogout() {
-        this.store.dispatch(new Navigate(['/logout']))
+        this.store.dispatch(new Navigate([ '/logout' ]))
     }
 
 }
