@@ -74,6 +74,8 @@
                         <div class="form-group">
                             <label for="role" class="d-none">Scegliere una delle seguenti voci</label>
                             <ng-select [items]="qualifiche$ | async"
+                                       notFoundText="Nessuna qualifica trovata con i seguenti criteri di ricerca"
+                                       [virtualScroll]="true"
                                        id="role"
                                        placeholder="Selezionare una qualifica"
                                        formControlName="role">
