@@ -73,7 +73,8 @@ export class LoginState {
                     dispatch(new SetErrorMessage(response.errorMsg));
                 }
             }, (error: HttpErrorResponse) => {
-                dispatch(new SetErrorMessage(error.error.errorMsg));
+                // Todo errore da gestire
+                // dispatch(new SetErrorMessage(error.error.errorMsg));
             });
         }
     }
