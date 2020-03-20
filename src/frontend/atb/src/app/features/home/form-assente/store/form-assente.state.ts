@@ -90,25 +90,14 @@ export class FormAssenteState {
     @Action(UpdateSuspectCase)
     updateSuspectCase({ getState, dispatch }: StateContext<FormAssenteStateModel>) {
         const assenteFormValue = getState().assenteForm.model;
-        const objSubject = {
-            number: assenteFormValue.caseNumber,
-            name: assenteFormValue.name,
-            surname: assenteFormValue.surname,
-            email: assenteFormValue.email,
-            phone: assenteFormValue.phone.toString(),
-            role: assenteFormValue.role,
+        const objData = {
+            caseNumber: assenteFormValue.caseNumber,
+            quarantinePlace: assenteFormValue.quarantinePlace,
+            expectedWorkReturnDate: formatDate(assenteFormValue.expectedWorkReturnDate),
             closedCase: assenteFormValue.closedCase
         };
-        this.assentiService.newSuspectCase(objSubject).subscribe(() => {
-            const objData = {
-                caseNumber: assenteFormValue.caseNumber,
-                quarantinePlace: assenteFormValue.quarantinePlace,
-                expectedWorkReturnDate: formatDate(assenteFormValue.expectedWorkReturnDate),
-                closedCase: assenteFormValue.closedCase
-            };
-            this.assentiService.newSuspectUpdate(objData).subscribe(() => {
-                dispatch(new Navigate(['./home/ricerca']));
-            });
+        this.assentiService.newSuspectUpdate(objData).subscribe(() => {
+            dispatch(new Navigate(['./home/ricerca']));
         });
     }
 }
