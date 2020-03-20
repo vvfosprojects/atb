@@ -11,15 +11,17 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { LoadingState } from './shared/store/loading/loading.state';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { AuthState } from './features/auth/store/auth.state';
-import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDatepickerModule, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ErrorInterceptor, JwtInterceptor, LoaderInterceptor } from './core/interceptors';
 import { NavbarComponent } from './features/navbar/navbar.component';
+import { FooterComponent } from './features/footer/footer.component';
 
 @NgModule({
     declarations: [
         AppComponent,
-        NavbarComponent
+        NavbarComponent,
+        FooterComponent
     ],
     imports: [
         BrowserModule,
@@ -37,7 +39,8 @@ import { NavbarComponent } from './features/navbar/navbar.component';
         ReactiveFormsModule,
         NgSelectModule,
         NgbDatepickerModule,
-        HttpClientModule
+        HttpClientModule,
+        NgbDropdownModule
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
