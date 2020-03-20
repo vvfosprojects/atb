@@ -64,6 +64,8 @@ export class FormPositivoComponent implements OnInit, OnDestroy {
                     this.goBack();
                 }
             });
+        } else {
+            this.store.dispatch(new SetPageTitleFormPositivo('nuovo positivo'));
         }
         this.initForm();
     }
