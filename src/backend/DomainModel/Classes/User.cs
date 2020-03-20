@@ -12,7 +12,6 @@ namespace DomainModel.Classes
         }
 
         public string Id { get; set; }
-
         public string Username { get; set; }
         public string PwdHash { get; set; }
         public string Group { get; set; }

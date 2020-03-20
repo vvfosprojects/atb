@@ -27,7 +27,7 @@ namespace DomainModel.CQRS.Queries.Auth
                 {
                     Success = true,
                     Username = query.Username,
-                    Group = "Catania",
+                    Group = user.Group,
                     Roles = user.Roles.ToArray(),
                 };
 
