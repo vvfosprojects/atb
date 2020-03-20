@@ -48,7 +48,7 @@ export class FormAssenteComponent implements OnInit {
                                 // Personal Data
                                 caseNumber: suspectCase.subject.number,
                                 quarantinePlace: suspectCase.data.quarantinePlace,
-                                expectedWorkReturnDate: suspectCase.data.expectedWorkReturnDate,
+                                expectedWorkReturnDate: suspectCase.data.actualWorkReturnDate,
                                 actualWorkReturnDate: suspectCase.data.actualWorkReturnDate,
                                 closedCase: suspectCase.data.closedCase
                             }

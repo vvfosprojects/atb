@@ -7,7 +7,9 @@ import { LoadingState } from '../../../shared/store/loading/loading.state';
 import { QualificheState } from '../../../shared/store/qualifiche/qualifiche.state';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SaveNewPositivoCase, SetPageTitleFormPositivo } from './store/form-positivo.actions';
-import { UpdateFormStatus } from "@ngxs/form-plugin";
+import { UpdateFormValue } from "@ngxs/form-plugin";
+import { SearchState } from "../search/store/search.state";
+import { PositiveCaseInterface } from "../../../shared/interface/positive-case.interface";
 
 @Component({
     selector: 'app-positivo',
@@ -20,11 +22,10 @@ export class FormPositivoComponent implements OnInit {
     @Select(QualificheState.qualifiche) qualifiche$: Observable<any[]>;
     @Select(FormPositivoState.pageTitle) pageTitle$: Observable<string>;
     @Select(FormPositivoState.positivoFormValid) positivoFormValid$: Observable<boolean>;
+    @Select(SearchState.positiveCase) positiveCase$: Observable<PositiveCaseInterface>;
 
     positivoForm: FormGroup;
     submitted = false;
-
-    today = new Date();
 
     constructor(private store: Store,
                 private formBuilder: FormBuilder,
@@ -32,6 +33,32 @@ export class FormPositivoComponent implements OnInit {
                 private router: Router) {
         if (this.route.snapshot.params.id) {
             this.store.dispatch(new SetPageTitleFormPositivo('modifica positivo'));
+            this.positiveCase$.subscribe((positiveCase: PositiveCaseInterface) => {
+                if (positiveCase) {
+                    this.store.dispatch(
+                        new UpdateFormValue({
+                            path: 'assente.assenteForm',
+                            value: {
+                                // Personal Information
+                                name: positiveCase.subject.nome,
+                                surname: positiveCase.subject.cognome,
+                                phone: positiveCase.subject.phone,
+                                email: positiveCase.subject.email,
+                                role: positiveCase.subject.role,
+                                // Personal Data
+                                caseNumber: positiveCase.subject.number,
+                                quarantinePlace: positiveCase.data.quarantinePlace,
+                                intensiveTerapy: positiveCase.data.quarantinePlace === 'INTCARE' ? true : false,
+                                expectedWorkReturnDate: positiveCase.data.actualWorkReturnDate,
+                                actualWorkReturnDate: positiveCase.data.actualWorkReturnDate,
+                                closedCase: positiveCase.data.closedCase
+                            }
+                        })
+                    );
+                } else {
+                    this.goBack();
+                }
+            });
         }
         this.initForm();
     }
