@@ -19,10 +19,12 @@ import { FormAssenteState } from './features/home/form-assente/store/form-assent
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AssentiService } from './core/services/assenti/assenti.service';
 import { ErrorInterceptor, JwtInterceptor, LoaderInterceptor } from './core/interceptors';
+import { NavbarComponent } from './features/home/navbar/navbar.component';
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
+        NavbarComponent
     ],
     imports: [
         BrowserModule,
@@ -44,7 +46,6 @@ import { ErrorInterceptor, JwtInterceptor, LoaderInterceptor } from './core/inte
     ],
     providers: [
         AssentiService,
-        PositiviService,
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }
