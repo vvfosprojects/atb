@@ -3,6 +3,7 @@ using DomainModel.Classes;
 using DomainModel.CQRS.Queries.GetPatient;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
 
 namespace atb.Controllers
 {
@@ -22,7 +23,7 @@ namespace atb.Controllers
             var query = new GetPatientQuery() { CaseNumber = caseNumber };
 
             var patient = this.handler.Handle(query);
-
+            var lastPatientData = patient.Patient.Data.Last();
             var result = new
             {
                 Group = patient.Patient.Group,
@@ -37,17 +38,17 @@ namespace atb.Controllers
                 },
                 Data = new PositiveData()
                 {
-                    EstremiProvvedimentiASL = patient.Patient.Data[patient.Patient.Data.Count - 1].EstremiProvvedimentiASL,
-                    ActualWorkReturnDate = patient.Patient.Data[patient.Patient.Data.Count - 1].ActualWorkReturnDate,
-                    ClosedCase = patient.Patient.Data[patient.Patient.Data.Count - 1].ClosedCase,
-                    ExpectedWorkReturnDate = patient.Patient.Data[patient.Patient.Data.Count - 1].ExpectedWorkReturnDate,
-                    QuarantinePlace = patient.Patient.Data[patient.Patient.Data.Count - 1].QuarantinePlace,
-                    UpdatedBy = patient.Patient.Data[patient.Patient.Data.Count - 1].UpdatedBy,
-                    UpdateTime = patient.Patient.Data[patient.Patient.Data.Count - 1].UpdateTime
+                    EstremiProvvedimentiASL = lastPatientData.EstremiProvvedimentiASL,
+                    ActualWorkReturnDate = lastPatientData.ActualWorkReturnDate,
+                    ClosedCase = lastPatientData.ClosedCase,
+                    ExpectedWorkReturnDate = lastPatientData.ExpectedWorkReturnDate,
+                    QuarantinePlace = lastPatientData.QuarantinePlace,
+                    UpdatedBy = lastPatientData.UpdatedBy,
+                    UpdateTime = lastPatientData.UpdateTime
                 }
             };
 
-            return Ok(result); 
+            return Ok(result);
         }
     }
 }
