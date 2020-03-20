@@ -9,7 +9,6 @@ using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("CompositionRoot")]
 
-
 namespace Persistence.InMongo_local
 {
     public class DbContext
@@ -56,7 +55,6 @@ namespace Persistence.InMongo_local
                     .SetIdGenerator(StringObjectIdGenerator.Instance)
                     .SetSerializer(new StringSerializer(BsonType.ObjectId));
             });
-
 
             BsonClassMap.RegisterClassMap<User>(cm =>
             {

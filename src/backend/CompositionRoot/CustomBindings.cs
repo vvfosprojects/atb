@@ -40,8 +40,8 @@ namespace CompositionRoot
 
             container.Register<Persistence.InMongo_local.DbContext>(() =>
             {
-                var configurationString = configuration.GetSection("ConnectionString").Value;
-                var databaseName = configuration.GetSection("DatabaseName").Value;
+                var configurationString = configuration.GetSection("mongoDbSettings:connectionString").Value;
+                var databaseName = configuration.GetSection("mongoDbSettings:databaseName").Value;
                 return new Persistence.InMongo_local.DbContext(configurationString, databaseName);
             }, Lifestyle.Singleton);
 
