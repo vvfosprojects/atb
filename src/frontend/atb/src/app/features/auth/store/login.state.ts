@@ -72,9 +72,6 @@ export class LoginState {
                 } else if (!response.success) {
                     dispatch(new SetErrorMessage(response.errorMsg));
                 }
-            }, (error: HttpErrorResponse) => {
-                // Todo errore da gestire
-                // dispatch(new SetErrorMessage(error.error.errorMsg));
             });
         }
     }
