@@ -25,7 +25,7 @@ namespace CompositionRoot
 
             container.Register<
                 DomainModel.Services.Users.IGetUserByUsername,
-                DomainModel.Services.Users.GetUserByUsername_Fake>(Lifestyle.Scoped);
+                Persistence.InMongo_local.GetUserByUsername>(Lifestyle.Scoped);
 
             container.Register<
                 DomainModel.Services.Users.IGetSessionContext,

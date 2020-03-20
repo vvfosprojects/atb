@@ -1,21 +1,22 @@
 ﻿using CQRS.Authorization;
 using CQRS.Commands.Authorizers;
-using DomainModel.CQRS.Commands.AddPatientCommand;
 using DomainModel.Services.Users;
+using System;
 using System.Collections.Generic;
+using System.Text;
 
-namespace DomainModel.CQRS.Commands.NewPositiveCase
+namespace DomainModel.CQRS.Commands.NewPositiveUpdate
 {
-    public class NewPositiveCaseCommandAuthorizer : ICommandAuthorizer<NewPositiveCaseCommand>
+    public class NewPositiveUpdateCommandAuthorizer : ICommandAuthorizer<NewPositiveUpdateCommand>
     {
         private readonly IGetSessionContext getSessionContext;
 
-        public NewPositiveCaseCommandAuthorizer(IGetSessionContext getSessionContext)
+        public NewPositiveUpdateCommandAuthorizer(IGetSessionContext getSessionContext)
         {
             this.getSessionContext = getSessionContext;
         }
 
-        public IEnumerable<AuthorizationResult> Authorize(NewPositiveCaseCommand command)
+        public IEnumerable<AuthorizationResult> Authorize(NewPositiveUpdateCommand command)
         {
             if (!getSessionContext.LoggedUserIsDoctor())
                 yield return new AuthorizationResult("Unauthorized");

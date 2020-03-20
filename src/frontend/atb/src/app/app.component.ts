@@ -39,6 +39,5 @@ export class AppComponent implements OnDestroy {
         const sessionCurrentUser = JSON.parse(sessionStorage.getItem(LSNAME.currentUser));
         sessionToken && this.store.dispatch(new SetCurrentJwt(sessionToken));
         sessionCurrentUser && this.store.dispatch(new SetCurrentUser(sessionCurrentUser));
-
     }
 }

@@ -1,0 +1,22 @@
+<div class="position-absolute w-100 bg-white clearfix px-3">
+    <div class="float-left">
+        <div class="h-100">
+            <h3 class="font-weight-bold mt-2 cursor-pointer atb-title" (click)="goToSearch()">ATB</h3>
+        </div>
+    </div>
+    <div class="float-right">
+        <div class="clearfix">
+            <div class="float-left">
+                <button class="btn btn-sm btn-primary" style="margin-top:.5rem">
+                    <i class="fa fa-user mr-1"></i>
+                    {{currentUser.username}}
+                </button>
+            </div>
+            <div class="float-left">
+                <button class="btn btn-sm btn-danger ml-2" style="margin-top:.5rem" (click)="onLogout()">
+                    Esci
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
