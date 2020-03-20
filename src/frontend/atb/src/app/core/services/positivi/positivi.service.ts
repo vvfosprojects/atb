@@ -12,7 +12,7 @@ export class PositiviService {
     }
 
     getPositive(caseNumber: number) {
-        return this.http.get(APIURL + '/PositiveSheet?caseNumber=' + caseNumber);
+        return this.http.get(APIURL + '/PatientSheet?caseNumber=' + caseNumber);
     }
 
     newPositiveCase(obj: any): Observable<any> {
