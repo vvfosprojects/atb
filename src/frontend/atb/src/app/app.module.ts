@@ -14,10 +14,12 @@ import { AuthState } from './features/auth/store/auth.state';
 import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ErrorInterceptor, JwtInterceptor, LoaderInterceptor } from './core/interceptors';
+import { NavbarComponent } from './features/home/navbar/navbar.component';
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
+        NavbarComponent
     ],
     imports: [
         BrowserModule,
