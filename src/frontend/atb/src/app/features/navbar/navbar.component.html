@@ -1,4 +1,4 @@
-<div class="position-absolute w-100 bg-white clearfix px-3">
+<div class="position-absolute w-100 bg-white clearfix px-3 shadow-sm">
     <div class="float-left">
         <div class="h-100">
             <h3 class="font-weight-bold mt-2 cursor-pointer atb-title" (click)="goToSearch()"><i class="fa fa-hashtag ml-2"></i>ATB</h3>
@@ -7,14 +7,29 @@
     <div class="float-right">
         <div class="clearfix">
             <div class="float-left">
-                <button class="btn btn-sm btn-primary" style="margin-top:.5rem">
+                <!-- <button class="btn btn-sm btn-primary" style="margin-top:.5rem">
                     <i class="fa fa-user mr-1"></i>
                     {{currentUser.username}}
-                </button>
+                </button> -->
+                <div class="d-inline-block" ngbDropdown #dropUser="ngbDropdown">
+                    <button class="btn btn-sm btn-primary" style="margin-top:.5rem" ngbDropdownAnchor
+                            (focus)="dropUser.open()">
+                        <i class="fa fa-user mr-1"></i>
+                        <span class="font-weight-bold">{{currentUser.username}}</span>
+                    </button>
+                    <div ngbDropdownMenu>
+                        <div class="text-center py-1">
+                            <h6 class="font-weight-bold">Gruppo</h6>
+                            <hr class="w-75 mx-auto mt-1 mb-2">
+                            {{currentUser.group}}
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="float-left">
                 <button class="btn btn-sm btn-danger ml-2" style="margin-top:.5rem" (click)="onLogout()">
                     Esci
+                    <i class="fa fa-sign-out mr-1"></i>
                 </button>
             </div>
         </div>
