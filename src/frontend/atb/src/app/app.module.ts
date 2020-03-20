@@ -7,27 +7,25 @@ import { environment } from '../environments/environment';
 import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsFormPluginModule } from '@ngxs/form-plugin';
-import { FormPositivoState } from './features/home/form-positivo/store/form-positivo.state';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoadingState } from './shared/store/loading/loading.state';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { AuthState } from './features/auth/store/auth.state';
 import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
-import { QualificheState } from './shared/store/qualifiche/qualifiche.state';
-import { SearchState } from './features/home/search/store/search.state';
-import { FormAssenteState } from './features/home/form-assente/store/form-assente.state';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ErrorInterceptor, JwtInterceptor, LoaderInterceptor } from './core/interceptors';
+import { NavbarComponent } from './features/home/navbar/navbar.component';
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
+        NavbarComponent
     ],
     imports: [
         BrowserModule,
         AppRoutingModule,
         NgxsModule.forRoot(
-            [ LoadingState, AuthState, QualificheState, FormPositivoState, FormAssenteState, SearchState ],
+            [ LoadingState, AuthState,  ],
             { developmentMode: !environment.production }
         ),
         NgxsRouterPluginModule.forRoot(),

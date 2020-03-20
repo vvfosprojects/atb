@@ -77,6 +77,7 @@ export class AuthState {
 
     @Action(SetCurrentUser)
     setCurrentUser({ patchState }: StateContext<AuthStateModel>, { currentUser }: SetCurrentUser) {
+        sessionStorage.setItem(LSNAME.currentUser, JSON.stringify(currentUser));
         patchState({ currentUser });
     }
 

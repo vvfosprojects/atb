@@ -1,3 +1,6 @@
-<div class="container-fluid bg-light">
+<div *ngIf="currentUser" style="height:5vh">
+    <app-navbar [currentUser]="currentUser"></app-navbar>
+</div>
+<div class="container-fluid bg-light" [ngStyle]="{'min-height': currentUser ? '95vh' : '100vh'}">
     <router-outlet></router-outlet>
 </div>

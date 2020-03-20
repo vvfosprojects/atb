@@ -12,6 +12,11 @@ import { FormAssenteComponent } from './form-assente/form-assente.component';
 import { NgxsFormPluginModule } from '@ngxs/form-plugin';
 import { AssentiService } from '../../core/services/assenti/assenti.service';
 import { PositiviService } from '../../core/services/positivi/positivi.service';
+import { NgxsModule } from '@ngxs/store';
+import { QualificheState } from '../../shared/store/qualifiche/qualifiche.state';
+import { FormPositivoState } from './form-positivo/store/form-positivo.state';
+import { FormAssenteState } from './form-assente/store/form-assente.state';
+import { SearchState } from './search/store/search.state';
 
 @NgModule({
     declarations: [ SearchComponent, FormPositivoComponent, FormAssenteComponent, SearchPositivoComponent, SearchAssenteComponent ],
@@ -21,7 +26,8 @@ import { PositiviService } from '../../core/services/positivi/positivi.service';
         SharedModule,
         NgbDatepickerModule,
         NgSelectModule,
-        NgxsFormPluginModule
+        NgxsFormPluginModule,
+        NgxsModule.forFeature([QualificheState, FormPositivoState, FormAssenteState, SearchState])
     ],
     providers: [
         AssentiService,
