@@ -2,8 +2,8 @@ import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { Injectable } from '@angular/core';
 import { SaveNewSuspectCase, SetPageTitleFormAssente, UpdateSuspectCase } from './form-assente.actions';
 import { AssentiService } from '../../../../core/services/assenti/assenti.service';
-import { Navigate } from "@ngxs/router-plugin";
-import { formatDate } from "../../../../shared/functions/functions";
+import { Navigate } from '@ngxs/router-plugin';
+import { formatDate } from '../../../../shared/functions/functions';
 
 export interface FormAssenteStateModel {
     pageTitle: string;
@@ -21,7 +21,7 @@ export interface FormAssenteStateModel {
             quarantinePlace: string;
             intensiveTerapy: boolean;
             expectedWorkReturnDate: string;
-            actualWorkReturnDate: null;
+            actualWorkReturnDate: string;
             closedCase: boolean;
         };
         status?: string;
@@ -79,6 +79,7 @@ export class FormAssenteState {
                 caseNumber: assenteFormValue.caseNumber,
                 quarantinePlace: assenteFormValue.quarantinePlace,
                 expectedWorkReturnDate: formatDate(assenteFormValue.expectedWorkReturnDate),
+                actualWorkReturnDate: assenteFormValue.actualWorkReturnDate ? formatDate(assenteFormValue.actualWorkReturnDate) : null,
                 closedCase: assenteFormValue.closedCase
             };
             this.assentiService.newSuspectUpdate(objData).subscribe(() => {
@@ -94,6 +95,7 @@ export class FormAssenteState {
             caseNumber: assenteFormValue.caseNumber,
             quarantinePlace: assenteFormValue.quarantinePlace,
             expectedWorkReturnDate: formatDate(assenteFormValue.expectedWorkReturnDate),
+            actualWorkReturnDate: assenteFormValue.actualWorkReturnDate ? formatDate(assenteFormValue.actualWorkReturnDate) : null,
             closedCase: assenteFormValue.closedCase
         };
         this.assentiService.newSuspectUpdate(objData).subscribe(() => {

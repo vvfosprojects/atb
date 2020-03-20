@@ -52,7 +52,7 @@ export class FormAssenteComponent implements OnInit, OnDestroy {
                                 caseNumber: suspectCase.subject.number,
                                 quarantinePlace: suspectCase.data.quarantinePlace,
                                 expectedWorkReturnDate: formatDateForNgbDatePicker(suspectCase.data.expectedWorkReturnDate),
-                                actualWorkReturnDate: suspectCase.data.actualWorkReturnDate,
+                                actualWorkReturnDate: suspectCase.data.actualWorkReturnDate ? formatDateForNgbDatePicker(suspectCase.data.actualWorkReturnDate) : null,
                                 closedCase: suspectCase.data.closedCase
                             }
                         })
@@ -112,7 +112,7 @@ export class FormAssenteComponent implements OnInit, OnDestroy {
 
         if (this.editMode) {
             const fieldsToDisable = ['caseNumber', 'name', 'surname', 'phone', 'email', 'role'];
-            for (let field of fieldsToDisable) {
+            for (const field of fieldsToDisable) {
                 this.f[field].disable();
             }
         }

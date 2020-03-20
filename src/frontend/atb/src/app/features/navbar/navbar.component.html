@@ -7,15 +7,11 @@
     <div class="float-right">
         <div class="clearfix">
             <div class="float-left">
-                <!-- <button class="btn btn-sm btn-primary" style="margin-top:.5rem">
-                    <i class="fa fa-user mr-1"></i>
-                    {{currentUser.username}}
-                </button> -->
                 <div class="d-inline-block" ngbDropdown #dropUser="ngbDropdown">
                     <button class="btn btn-sm btn-primary" style="margin-top:.5rem" ngbDropdownAnchor
                             (focus)="dropUser.open()">
                         <i class="fa fa-user mr-1"></i>
-                        <span class="font-weight-bold">{{currentUser.username}}</span>
+                        <span class="font-weight-bold mr-1">{{currentUser.username}}</span>
                     </button>
                     <div ngbDropdownMenu>
                         <div class="text-center py-1">
@@ -28,8 +24,8 @@
             </div>
             <div class="float-left">
                 <button class="btn btn-sm btn-danger ml-2" style="margin-top:.5rem" (click)="onLogout()">
-                    Esci
-                    <i class="fa fa-sign-out mr-1"></i>
+                    <span class="font-weight-bold">Esci</span>
+                    <i class="fa fa-sign-out ml-1"></i>
                 </button>
             </div>
         </div>

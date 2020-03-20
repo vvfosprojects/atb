@@ -9,6 +9,7 @@
                     <div class="form-group">
                         <label id="username">Username <small class="text-muted"></small></label>
                         <input type="text" formControlName="username" class="form-control"
+                               placeholder="nome.cognome"
                                [ngClass]="{ 'is-invalid': submitted && f.username.errors }"/>
                         <div *ngIf="submitted && f['username'].errors" class="invalid-feedback">
                             <div *ngIf="f['username'].errors">Inserisci un username</div>
@@ -17,6 +18,7 @@
                     <div class="form-group">
                         <label id="password">Password <small class="text-muted"></small></label>
                         <input type="password" formControlName="password" class="form-control"
+                               placeholder="password"
                                [ngClass]="{ 'is-invalid': submitted && f.password.errors }"/>
                         <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
                             <div *ngIf="f['password'].errors">Inserisci una password</div>

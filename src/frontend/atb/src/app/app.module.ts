@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,6 +17,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ErrorInterceptor, JwtInterceptor, LoaderInterceptor } from './core/interceptors';
 import { NavbarComponent } from './features/navbar/navbar.component';
 import { FooterComponent } from './features/footer/footer.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
     declarations: [
@@ -25,6 +27,7 @@ import { FooterComponent } from './features/footer/footer.component';
     ],
     imports: [
         BrowserModule,
+        BrowserAnimationsModule,
         AppRoutingModule,
         NgxsModule.forRoot(
             [ LoadingState, AuthState ],
@@ -36,6 +39,11 @@ import { FooterComponent } from './features/footer/footer.component';
             disabled: environment.production,
         }),
         NgxsFormPluginModule.forRoot(),
+        ToastrModule.forRoot({
+            timeOut: 5000,
+            positionClass: 'toast-bottom-center',
+            maxOpened: 2
+        }),
         ReactiveFormsModule,
         NgSelectModule,
         NgbDatepickerModule,
