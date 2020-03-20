@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { UserInterface } from '../../../shared/interface/common/user.interface';
+import { UserInterface } from '../../shared/interface/common/user.interface';
 import { Navigate } from "@ngxs/router-plugin";
 import { Store } from "@ngxs/store";
 
