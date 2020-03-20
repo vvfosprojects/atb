@@ -11,7 +11,6 @@ import { SearchState } from '../search/store/search.state';
 import { SuspectCaseInterface } from '../../../shared/interface/suspect-case.interface';
 import { UpdateFormValue } from '@ngxs/form-plugin';
 import { formatDateForNgbDatePicker } from '../../../shared/functions/functions';
-import { SetPageTitleFormPositivo } from '../form-positivo/store/form-positivo.actions';
 
 @Component({
     selector: 'app-assente',

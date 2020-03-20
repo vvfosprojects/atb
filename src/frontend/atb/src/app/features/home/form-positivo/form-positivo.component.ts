@@ -7,11 +7,10 @@ import { LoadingState } from '../../../shared/store/loading/loading.state';
 import { QualificheState } from '../../../shared/store/qualifiche/qualifiche.state';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SaveNewPositivoCase, SetPageTitleFormPositivo, UpdatePositivoCase } from './store/form-positivo.actions';
-import { UpdateFormValue } from "@ngxs/form-plugin";
-import { SearchState } from "../search/store/search.state";
-import { PositiveCaseInterface } from "../../../shared/interface/positive-case.interface";
-import { formatDateForNgbDatePicker } from "../../../shared/functions/functions";
-import { SaveNewSuspectCase, UpdateSuspectCase } from "../form-assente/store/form-assente.actions";
+import { UpdateFormValue } from '@ngxs/form-plugin';
+import { SearchState } from '../search/store/search.state';
+import { PositiveCaseInterface } from '../../../shared/interface/positive-case.interface';
+import { formatDateForNgbDatePicker } from '../../../shared/functions/functions';
 
 @Component({
     selector: 'app-positivo',
@@ -80,7 +79,7 @@ export class FormPositivoComponent implements OnInit, OnDestroy {
                     value: undefined
                 }
             )
-        )
+        );
     }
 
     initForm() {
@@ -119,7 +118,7 @@ export class FormPositivoComponent implements OnInit, OnDestroy {
 
         if (this.editMode) {
             const fieldsToDisable = ['caseNumber', 'name', 'surname', 'phone', 'email', 'role'];
-            for (let field of fieldsToDisable) {
+            for (const field of fieldsToDisable) {
                 this.f[field].disable();
             }
         }
