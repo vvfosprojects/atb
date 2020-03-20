@@ -1,9 +1,9 @@
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { SaveNewPositivoCase, SetPageTitleFormPositivo, UpdatePositivoCase } from './form-positivo.actions';
 import { Injectable } from '@angular/core';
-import { formatDate } from "../../../../shared/functions/functions";
-import { Navigate } from "@ngxs/router-plugin";
-import { PositiviService } from "../../../../core/services/positivi/positivi.service";
+import { formatDate } from '../../../../shared/functions/functions';
+import { Navigate } from '@ngxs/router-plugin';
+import { PositiviService } from '../../../../core/services/positivi/positivi.service';
 
 export interface FormPositivoStateModel {
     pageTitle: string;
@@ -21,7 +21,7 @@ export interface FormPositivoStateModel {
             quarantinePlace: string;
             intensiveTerapy: boolean;
             expectedWorkReturnDate: string;
-            actualWorkReturnDate: null;
+            actualWorkReturnDate: string;
             closedCase: boolean;
         };
         status?: string;
@@ -80,6 +80,7 @@ export class FormPositivoState {
                 estremiProvvedimentiASL: positivoFormValue.estremiProvvedimentiASL,
                 quarantinePlace: positivoFormValue.intensiveTerapy && positivoFormValue.intensiveTerapy === true ? 'INTCARE' : positivoFormValue.quarantinePlace,
                 expectedWorkReturnDate: formatDate(positivoFormValue.expectedWorkReturnDate),
+                actualWorkReturnDate: positivoFormValue.actualWorkReturnDate ? formatDate(positivoFormValue.actualWorkReturnDate) : null,
                 closedCase: positivoFormValue.closedCase
             };
             this.positiviService.newPositiveUpdate(objData).subscribe(() => {
@@ -96,6 +97,7 @@ export class FormPositivoState {
             estremiProvvedimentiASL: positivoFormValue.estremiProvvedimentiASL,
             quarantinePlace: positivoFormValue.intensiveTerapy && positivoFormValue.intensiveTerapy === true ? 'INTCARE' : positivoFormValue.quarantinePlace,
             expectedWorkReturnDate: formatDate(positivoFormValue.expectedWorkReturnDate),
+            actualWorkReturnDate: positivoFormValue.actualWorkReturnDate ? formatDate(positivoFormValue.actualWorkReturnDate) : null,
             closedCase: positivoFormValue.closedCase
         };
         this.positiviService.newPositiveUpdate(objData).subscribe(() => {
