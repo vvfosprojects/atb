@@ -34,8 +34,8 @@ namespace Persistence.InMongo_local
                 UpdateTime = DateTime.UtcNow
             };
 
-            var filter = Builders<Suspect>.Filter.Eq(x => x.Data.Number, command.CaseNumber) & Builders<Suspect>.Filter.Eq(x => x.Group, getSessionContext.GetActiveGroup());
-            var update = Builders<Suspect>.Update.Push(p => p.Updates, dataToInsert);
+            var filter = Builders<Suspect>.Filter.Eq(x => x.Subject.Number, command.CaseNumber) & Builders<Suspect>.Filter.Eq(x => x.Group, getSessionContext.GetActiveGroup());
+            var update = Builders<Suspect>.Update.Push(p => p.Data, dataToInsert);
             dbContext.Suspects.UpdateOne(filter, update);
         }
     }

@@ -6,15 +6,15 @@ namespace DomainModel.Classes
     {
         public Patient()
         {
-            Updates = new List<PositiveData>();
+            Data = new List<PositiveData>();
         }
 
         public string Id { get; protected set; }
 
         public string Group { get; set; }
 
-        public Anagrafica Data { get; set; }
+        public Anagrafica Subject { get; set; }
 
-        public IList<PositiveData> Updates { get; set; }
+        public IList<PositiveData> Data { get; set; }
     }
 }

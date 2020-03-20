@@ -22,7 +22,7 @@ namespace Persistence.InMongo_local
         {
             Suspect suspect = new Suspect()
             {
-                Data = new Anagrafica()
+                Subject = new Anagrafica()
                 {
                     Nome = cryptools.Encrypt(command.Name),
                     Cognome = cryptools.Encrypt(command.Surname),
