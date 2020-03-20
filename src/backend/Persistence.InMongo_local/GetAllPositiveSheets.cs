@@ -28,11 +28,11 @@ namespace Persistence.InMongo_local
 
             foreach(var patient in collection)
             {
-                patient.Data.Nome = this.cryptools.Decrypt(patient.Data.Nome);
-                patient.Data.Cognome = this.cryptools.Decrypt(patient.Data.Cognome);
-                patient.Data.Email = this.cryptools.Decrypt(patient.Data.Email);
-                patient.Data.Phone = this.cryptools.Decrypt(patient.Data.Phone);
-                patient.Data.Role = this.cryptools.Decrypt(patient.Data.Role);
+                patient.Subject.Nome = this.cryptools.Decrypt(patient.Subject.Nome);
+                patient.Subject.Cognome = this.cryptools.Decrypt(patient.Subject.Cognome);
+                patient.Subject.Email = this.cryptools.Decrypt(patient.Subject.Email);
+                patient.Subject.Phone = this.cryptools.Decrypt(patient.Subject.Phone);
+                patient.Subject.Role = this.cryptools.Decrypt(patient.Subject.Role);
             }
             return collection;
         }

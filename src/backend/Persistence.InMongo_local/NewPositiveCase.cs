@@ -23,7 +23,7 @@ namespace Persistence.InMongo_local
 
             Patient patient = new Patient()
             {
-                Data = new Anagrafica()
+                Subject = new Anagrafica()
                 {
                     Nome = cryptools.Encrypt(command.Name),
                     Cognome = cryptools.Encrypt(command.Surname),

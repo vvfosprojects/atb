@@ -39,8 +39,8 @@ namespace Persistence.InMongo_local
             
             
 
-            var filter = Builders<Patient>.Filter.Eq(x => x.Data.Number, command.CaseNumber) & Builders<Patient>.Filter.Eq(x => x.Group, getSessionContext.GetActiveGroup());
-            var update = Builders<Patient>.Update.Push(p => p.Updates, dataToInsert);
+            var filter = Builders<Patient>.Filter.Eq(x => x.Subject.Number, command.CaseNumber) & Builders<Patient>.Filter.Eq(x => x.Group, getSessionContext.GetActiveGroup());
+            var update = Builders<Patient>.Update.Push(p => p.Data, dataToInsert);
             dbContext.Patients.UpdateOne(filter, update);
         }
     }
