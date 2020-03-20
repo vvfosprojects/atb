@@ -44,11 +44,11 @@ export class SearchState {
 
     @Action(SearchSuspectCase)
     searchSuspectCase({ patchState, dispatch }: StateContext<SearchStateModel>, action: SearchSuspectCase) {
-        this.assentiService.getSuspect(action.caseNumber).subscribe((suspectCaseRes: { suspect: SuspectCaseInterface }) => {
+        this.assentiService.getSuspect(action.caseNumber).subscribe((suspect: SuspectCaseInterface) => {
             patchState({
-                suspectCase: suspectCaseRes.suspect
+                suspectCase: suspect
             });
-            dispatch(new Navigate(['./home/form-assente/' + suspectCaseRes.suspect.subject.number]));
+            dispatch(new Navigate(['./home/form-assente/' + suspect.subject.number]));
         });
     }
 }
