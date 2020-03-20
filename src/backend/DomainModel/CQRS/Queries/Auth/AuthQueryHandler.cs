@@ -20,24 +20,37 @@ namespace DomainModel.CQRS.Queries.Auth
 
         public AuthQueryResult Handle(AuthQuery query)
         {
-            var user = this.getUserByUsername.Get(query.Username);
+            try
+            {
+                var user = this.getUserByUsername.Get(query.Username);
 
-            if (user != null && user.PwdHash == ShaGenerator.ComputeSha256Hash(query.Password))
+                if (user != null && user.PwdHash == ShaGenerator.ComputeSha256Hash(query.Password))
+                    return new AuthQueryResult()
+                    {
+                        Success = true,
+                        Username = query.Username,
+                        Group = user.Group,
+                        Roles = user.Roles.ToArray(),
+                    };
+
                 return new AuthQueryResult()
                 {
-                    Success = true,
-                    Username = query.Username,
-                    Group = user.Group,
-                    Roles = user.Roles.ToArray(),
+                    Success = false,
+                    Username = string.Empty,
+                    Group = string.Empty,
+                    Roles = new string[0]
                 };
-
-            return new AuthQueryResult()
+            }
+            catch
             {
-                Success = false,
-                Username = string.Empty,
-                Group = string.Empty,
-                Roles = new string[0]
-            };
+                return new AuthQueryResult()
+                {
+                    Success = false,
+                    Username = string.Empty,
+                    Group = string.Empty,
+                    Roles = new string[0]
+                };
+            }
         }
     }
 }
