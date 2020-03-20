@@ -18,10 +18,6 @@ const routes: Routes = [
         loadChildren: () => import('./features/welcome/welcome.module').then(m => m.WelcomeModule),
         canActivate: [ AuthGuard ]
     },
-    // {
-    //     path: '500',
-    //     loadChildren: () => import('./features/wrong/wrong.module').then(m => m.WrongModule)
-    // },
     {
         path: 'forbidden',
         loadChildren: () => import('./features/forbidden/forbidden.module').then(m => m.ForbiddenModule)
