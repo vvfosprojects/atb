@@ -226,14 +226,26 @@
                     <div class="text-center">
                         <button type="submit" class="btn btn-lg btn-primary w-50 mt-4"
                                 [disabled]="!this.positivoForm.valid">
-                            <i class="fa fa-save mr-1"></i>
-                            Salva Scheda
+                            <ng-template [ngIf]="!editMode">
+                                <i class="fa fa-save mr-1"></i>
+                                Salva Scheda
+                            </ng-template>
+                            <ng-template [ngIf]="editMode">
+                                <i class="fa fa-save mr-1"></i>
+                                Salva Modifiche
+                            </ng-template>
                         </button>
                     </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-lg btn-danger w-50 mt-2" (click)="goBack()">
-                            <i class="fa fa-arrow-left mr-1"></i>
-                            Indietro
+                            <ng-template [ngIf]="!editMode">
+                                <i class="fa fa-arrow-left mr-1"></i>
+                                Indietro
+                            </ng-template>
+                            <ng-template [ngIf]="editMode">
+                                <i class="fa fa-close mr-1"></i>
+                                Annulla Modifica
+                            </ng-template>
                         </button>
                     </div>
                 </form>
