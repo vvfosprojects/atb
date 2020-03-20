@@ -1,6 +1,39 @@
 <div class="row py-4" style="min-height:90vh">
     <div class="col-12 col-sm-10 col-md-8 col-lg-7 col-xl-6 mx-auto bg-white">
         <div class="row shadow-sm py-4">
+            <div class="col-12 mb-2">
+                <div class="row">
+                    <div class="col-12 col-lg-6 mx-auto text-center">
+                        <button type="button" class="btn btn-block btn-lg btn-danger" (click)="goBack()">
+                            <ng-template [ngIf]="!editMode">
+                                <i class="fa fa-arrow-left mr-1"></i>
+                                Indietro
+                            </ng-template>
+                            <ng-template [ngIf]="editMode">
+                                <i class="fa fa-close mr-1"></i>
+                                Annulla Modifica
+                            </ng-template>
+                        </button>
+                    </div>
+                    <div class="offset-11 my-2"></div>
+                    <div class="col-12 col-lg-6 mx-auto text-center">
+                        <button type="button" class="btn btn-block btn-lg btn-primary" (click)="onSubmit()"
+                                [disabled]="!this.assenteForm.valid">
+                            <ng-template [ngIf]="!editMode">
+                                <i class="fa fa-save mr-1"></i>
+                                Salva Scheda
+                            </ng-template>
+                            <ng-template [ngIf]="editMode">
+                                <i class="fa fa-save mr-1"></i>
+                                Salva Modifiche
+                            </ng-template>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <hr class="mb-4">
+            </div>
             <div class="col-12 text-center mb-4">
                 <h1>{{(pageTitle$ | async) | titlecase}}</h1>
             </div>
@@ -12,16 +45,23 @@
                             <span class="font-weight-bold text-danger">*</span>
                         </h4>
                         <hr>
-                        <div class="form-group">
-                            <label for="caseNumber" class="d-none">Numero caso</label>
-                            <input id="caseNumber" class="form-control" type="number" formControlName="caseNumber"
-                                   [ngClass]=" {'is-invalid': submitted && f.caseNumber.errors }"/>
-                            <small id="caseNumberHelp" class="form-text text-muted">
-                                <i class="fa fa-exclamation-triangle mr-1"></i>
-                                Inserire un numero intero <span class="font-weight-bold">maggiore di zero</span>
-                            </small>
+                        <div class="row">
+                            <div class="col-12 col-sm-8 col-md-6 col-lg-4">
+                                <div class="form-group mb-1">
+                                    <label for="caseNumber" class="d-none">Numero caso</label>
+                                    <input id="caseNumber" class="form-control" type="number"
+                                           formControlName="caseNumber"
+                                           [ngClass]=" {'is-invalid': submitted && f.caseNumber.errors }"/>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <small id="caseNumberHelp" class="form-text text-muted">
+                                    <i class="fa fa-exclamation-triangle mr-1"></i>
+                                    Inserire un numero intero <span class="font-weight-bold">maggiore di zero</span>
+                                </small>
+                            </div>
                         </div>
-                        <div class="small">
+                        <div class="small mt-2">
                             <span class="font-weight-bold text-danger">* Campi Obbligatori</span>
                         </div>
                     </div>
@@ -118,12 +158,15 @@
                         </div>
                     </div>
                     <div class="px-4 py-3 bg-light rounded border border-light shadow-sm mb-4">
-                        <h4>Data Presunta di ripresa del servizio</h4>
+                        <h4>
+                            Data Presunta di ripresa del servizio
+                            <span class="font-weight-bold text-danger">*</span>
+                        </h4>
                         <hr>
                         <div class="row">
                             <div class="col-12 col-sm-10 col-md-8 col-lg-6">
                                 <div class="input-group">
-                                    <label for="expectedWorkReturnDate" class="d-none">Data Ripresa Servizio</label>
+                                    <label for="expectedWorkReturnDate" class="d-none">Data Prevista Ripresa Servizio</label>
                                     <input id="expectedWorkReturnDate" class="form-control" placeholder="gg-mm-aaaa"
                                            name="expectedWorkReturnDate" formControlName="expectedWorkReturnDate"
                                            ngbDatepicker #expectedWorkReturnDate="ngbDatepicker"
@@ -133,6 +176,32 @@
                                     <div class="input-group-append">
                                         <button class="btn btn-outline-secondary"
                                                 (click)="expectedWorkReturnDate.toggle()" type="button">
+                                            <i class="fa fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="small mt-2">
+                            <span class="font-weight-bold text-danger">* Campi Obbligatori</span>
+                        </div>
+                    </div>
+                    <div class="px-4 py-3 bg-light rounded border border-light shadow-sm mb-4">
+                        <h4>Data Effettiva di ripresa del servizio</h4>
+                        <hr>
+                        <div class="row">
+                            <div class="col-12 col-sm-10 col-md-8 col-lg-6">
+                                <div class="input-group">
+                                    <label for="actualWorkReturnDate" class="d-none">Data Effettiva Ripresa Servizio</label>
+                                    <input id="actualWorkReturnDate" class="form-control" placeholder="gg-mm-aaaa"
+                                           name="actualWorkReturnDate" formControlName="actualWorkReturnDate"
+                                           ngbDatepicker #actualWorkReturnDate="ngbDatepicker"
+                                           (click)="actualWorkReturnDate.open()"
+                                           (ngModelChange)="actualWorkReturnDate.close()"
+                                           [ngClass]=" {'is-invalid': submitted && f.actualWorkReturnDate.errors }">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary"
+                                                (click)="actualWorkReturnDate.toggle()" type="button">
                                             <i class="fa fa-calendar"></i>
                                         </button>
                                     </div>
@@ -172,8 +241,28 @@
                             <span class="font-weight-bold text-danger">* Campi Obbligatori</span>
                         </div>
                     </div>
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-lg btn-primary w-50 mt-4"
+                </form>
+            </div>
+            <div class="col-12">
+                <hr class="mb-4">
+            </div>
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-12 col-lg-6 mx-auto text-center">
+                        <button type="button" class="btn btn-block btn-lg btn-danger" (click)="goBack()">
+                            <ng-template [ngIf]="!editMode">
+                                <i class="fa fa-arrow-left mr-1"></i>
+                                Indietro
+                            </ng-template>
+                            <ng-template [ngIf]="editMode">
+                                <i class="fa fa-close mr-1"></i>
+                                Annulla Modifica
+                            </ng-template>
+                        </button>
+                    </div>
+                    <div class="offset-11 my-2"></div>
+                    <div class="col-12 col-lg-6 mx-auto text-center">
+                        <button type="button" class="btn btn-block btn-lg btn-primary" (click)="onSubmit()"
                                 [disabled]="!this.assenteForm.valid">
                             <ng-template [ngIf]="!editMode">
                                 <i class="fa fa-save mr-1"></i>
@@ -185,19 +274,7 @@
                             </ng-template>
                         </button>
                     </div>
-                    <div class="text-center">
-                        <button type="button" class="btn btn-lg btn-danger w-50 mt-2" (click)="goBack()">
-                            <ng-template [ngIf]="!editMode">
-                                <i class="fa fa-arrow-left mr-1"></i>
-                                Indietro
-                            </ng-template>
-                            <ng-template [ngIf]="editMode">
-                                <i class="fa fa-close mr-1"></i>
-                                Annulla Modifica
-                            </ng-template>
-                        </button>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>

@@ -46,20 +46,22 @@
                         </h4>
                         <hr>
                         <div class="row">
-                            <div class="col-12 col-sm-10 col-md-8 col-lg-6">
-                                <div class="form-group">
+                            <div class="col-12 col-sm-8 col-md-6 col-lg-4">
+                                <div class="form-group mb-1">
                                     <label for="caseNumber" class="d-none">Numero caso</label>
                                     <input id="caseNumber" class="form-control" type="number"
                                            formControlName="caseNumber"
                                            [ngClass]="{ 'is-invalid': submitted && f.caseNumber.errors }"/>
-                                    <small id="caseNumberHelp" class="form-text text-muted">
-                                        <i class="fa fa-exclamation-triangle mr-1"></i>
-                                        Inserire un numero intero <span class="font-weight-bold">maggiore di zero</span>
-                                    </small>
                                 </div>
                             </div>
+                            <div class="col-12">
+                                <small id="caseNumberHelp" class="form-text text-muted">
+                                    <i class="fa fa-exclamation-triangle mr-1"></i>
+                                    Inserire un numero intero <span class="font-weight-bold">maggiore di zero</span>
+                                </small>
+                            </div>
                         </div>
-                        <div class="small">
+                        <div class="small mt-2">
                             <span class="font-weight-bold text-danger">* Campi Obbligatori</span>
                         </div>
                     </div>
