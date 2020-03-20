@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { LSNAME } from './core/settings/config';
 import { SetCurrentJwt, SetCurrentUser } from './features/auth/store/auth.actions';
 import { debounceTime, delay } from 'rxjs/operators';
@@ -23,7 +23,7 @@ export class AppComponent implements OnDestroy {
     private subscription = new Subscription();
 
     constructor(private store: Store) {
-        this.subscription.add(this.currentUser$.pipe(delay(0))
+        this.subscription.add(this.currentUser$.pipe(delay(100))
             .subscribe(r => this.currentUser = r));
         this.subscription.add(this.loading$.pipe(delay(0), debounceTime(100))
             .subscribe(r => this.loading = r));
@@ -36,6 +36,9 @@ export class AppComponent implements OnDestroy {
 
     getSessionData() {
         const sessionToken = JSON.parse(sessionStorage.getItem(LSNAME.token));
+        const sessionCurrentUser = JSON.parse(sessionStorage.getItem(LSNAME.currentUser));
         sessionToken && this.store.dispatch(new SetCurrentJwt(sessionToken));
+        sessionCurrentUser && this.store.dispatch(new SetCurrentUser(sessionCurrentUser));
+
     }
 }
