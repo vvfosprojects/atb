@@ -17,14 +17,11 @@ import { QualificheState } from './shared/store/qualifiche/qualifiche.state';
 import { SearchState } from './features/home/search/store/search.state';
 import { FormAssenteState } from './features/home/form-assente/store/form-assente.state';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { AssentiService } from './core/services/assenti/assenti.service';
 import { ErrorInterceptor, JwtInterceptor, LoaderInterceptor } from './core/interceptors';
-import { NavbarComponent } from './features/home/navbar/navbar.component';
 
 @NgModule({
     declarations: [
-        AppComponent,
-        NavbarComponent
+        AppComponent
     ],
     imports: [
         BrowserModule,
@@ -45,7 +42,6 @@ import { NavbarComponent } from './features/home/navbar/navbar.component';
         HttpClientModule
     ],
     providers: [
-        AssentiService,
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }
