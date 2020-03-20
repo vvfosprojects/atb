@@ -52,9 +52,9 @@ export class FormPositivoComponent implements OnInit, OnDestroy {
                                 caseNumber: positiveCase.subject.number,
                                 estremiProvvedimentiASL: positiveCase.data.estremiProvvedimentiASL,
                                 quarantinePlace: positiveCase.data.quarantinePlace !== 'INTCARE' ? positiveCase.data.quarantinePlace : 'HOSP',
-                                intensiveTerapy: positiveCase.data.quarantinePlace === 'INTCARE' ? true : false,
+                                intensiveTerapy: positiveCase.data.quarantinePlace === 'INTCARE',
                                 expectedWorkReturnDate: formatDateForNgbDatePicker(positiveCase.data.expectedWorkReturnDate),
-                                actualWorkReturnDate: positiveCase.data.actualWorkReturnDate,
+                                actualWorkReturnDate: positiveCase.data.actualWorkReturnDate ? formatDateForNgbDatePicker(positiveCase.data.actualWorkReturnDate) : null,
                                 closedCase: positiveCase.data.closedCase
                             }
                         })
