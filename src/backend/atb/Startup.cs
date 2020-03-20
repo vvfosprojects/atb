@@ -138,7 +138,7 @@ namespace atb
             //app.UseMiddleware<CustomMiddleware1>(container);
             //app.UseMiddleware<CustomMiddleware2>(container);
 
-            LogConfigurator.Configure();
+            LogConfigurator.Configure(Configuration);
 
             container.Verify();
         }
