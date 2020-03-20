@@ -10,9 +10,11 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { SearchAssenteComponent } from './search/search-assente/search-assente.component';
 import { FormAssenteComponent } from './form-assente/form-assente.component';
 import { NgxsFormPluginModule } from '@ngxs/form-plugin';
+import { AssentiService } from '../../core/services/assenti/assenti.service';
+import { PositiviService } from '../../core/services/positivi/positivi.service';
 
 @NgModule({
-    declarations: [SearchComponent, FormPositivoComponent, FormAssenteComponent, SearchPositivoComponent, SearchAssenteComponent],
+    declarations: [ SearchComponent, FormPositivoComponent, FormAssenteComponent, SearchPositivoComponent, SearchAssenteComponent ],
     imports: [
         CommonModule,
         HomeRoutingModule,
@@ -20,6 +22,10 @@ import { NgxsFormPluginModule } from '@ngxs/form-plugin';
         NgbDatepickerModule,
         NgSelectModule,
         NgxsFormPluginModule
+    ],
+    providers: [
+        AssentiService,
+        PositiviService
     ]
 })
 export class HomeModule {
