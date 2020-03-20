@@ -1,5 +1,5 @@
 import { Action, Selector, State, StateContext } from '@ngxs/store';
-import { SaveNewPositivoCase, SetPageTitleFormPositivo } from './form-positivo.actions';
+import { SaveNewPositivoCase, SetPageTitleFormPositivo, UpdatePositivoCase } from './form-positivo.actions';
 import { Injectable } from '@angular/core';
 import { formatDate } from "../../../../shared/functions/functions";
 import { Navigate } from "@ngxs/router-plugin";
@@ -64,6 +64,32 @@ export class FormPositivoState {
 
     @Action(SaveNewPositivoCase)
     saveNewPositivoCase({ getState, dispatch }: StateContext<FormPositivoStateModel>) {
+        const positivoFormValue = getState().positivoForm.model;
+        const objSubject = {
+            number: positivoFormValue.caseNumber,
+            name: positivoFormValue.name,
+            surname: positivoFormValue.surname,
+            email: positivoFormValue.email,
+            phone: positivoFormValue.phone.toString(),
+            role: positivoFormValue.role,
+            closedCase: positivoFormValue.closedCase
+        };
+        this.positiviService.newPositiveCase(objSubject).subscribe(() => {
+            const objData = {
+                caseNumber: positivoFormValue.caseNumber,
+                estremiProvvedimentiASL: positivoFormValue.estremiProvvedimentiASL,
+                quarantinePlace: positivoFormValue.intensiveTerapy && positivoFormValue.intensiveTerapy === true ? 'INTCARE' : positivoFormValue.quarantinePlace,
+                expectedWorkReturnDate: formatDate(positivoFormValue.expectedWorkReturnDate),
+                closedCase: positivoFormValue.closedCase
+            };
+            this.positiviService.newPositiveUpdate(objData).subscribe(() => {
+                dispatch(new Navigate(['./home/ricerca']));
+            });
+        });
+    }
+
+    @Action(UpdatePositivoCase)
+    updatePositivoCase({ getState, dispatch }: StateContext<FormPositivoStateModel>) {
         const positivoFormValue = getState().positivoForm.model;
         const objSubject = {
             number: positivoFormValue.caseNumber,
