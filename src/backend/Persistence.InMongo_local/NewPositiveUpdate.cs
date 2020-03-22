@@ -19,12 +19,12 @@ namespace Persistence.InMongo_local
         public NewPositiveUpdate(DbContext dbContex, IGetSessionContext getSessionContext)
         {
             this.dbContext = dbContex ?? throw new ArgumentNullException(nameof(dbContex));
-            this.getSessionContext = getSessionContext;
+            this.getSessionContext = getSessionContext ?? throw new ArgumentNullException(nameof(getSessionContext));
         }
 
         public void Add(NewPositiveUpdateCommand command)
         {
-            var loggedUser = new GetLoggedUser_fake();
+            var loggedUser = this.getSessionContext.GetLoggedUsername();
 
             var dataToInsert = new PositiveData()
             {
@@ -33,11 +33,9 @@ namespace Persistence.InMongo_local
                 ExpectedWorkReturnDate = command.ExpectedWorkReturnDate,
                 QuarantinePlace = command.QuarantinePlace,
                 ClosedCase = command.ClosedCase,
-                UpdatedBy = loggedUser.GetLoggedUser(),
+                UpdatedBy = loggedUser,
                 UpdateTime = DateTime.UtcNow
             };
-            
-            
 
             var filter = Builders<Patient>.Filter.Eq(x => x.Subject.Number, command.CaseNumber) & Builders<Patient>.Filter.Eq(x => x.Group, getSessionContext.GetActiveGroup());
             var update = Builders<Patient>.Update.Push(p => p.Data, dataToInsert);

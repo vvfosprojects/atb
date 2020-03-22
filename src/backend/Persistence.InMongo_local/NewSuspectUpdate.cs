@@ -13,16 +13,15 @@ namespace Persistence.InMongo_local
         private readonly DbContext dbContext;
         private readonly IGetSessionContext getSessionContext;
 
-
         public NewSuspectUpdate(DbContext dbContex, IGetSessionContext getSessionContext)
         {
             this.dbContext = dbContex ?? throw new ArgumentNullException(nameof(dbContex));
-            this.getSessionContext = getSessionContext;
+            this.getSessionContext = getSessionContext ?? throw new ArgumentNullException(nameof(getSessionContext));
         }
 
         public void Add(NewSuspectUpdateCommand command)
         {
-            var loggedUser = new GetLoggedUser_fake();
+            var loggedUser = this.getSessionContext.GetLoggedUsername();
 
             var dataToInsert = new SuspectData()
             {
@@ -30,7 +29,7 @@ namespace Persistence.InMongo_local
                 ExpectedWorkReturnDate = command.ExpectedWorkReturnDate,
                 QuarantinePlace = command.QuarantinePlace,
                 ClosedCase = command.ClosedCase,
-                UpdatedBy = loggedUser.GetLoggedUser(),
+                UpdatedBy = loggedUser,
                 UpdateTime = DateTime.UtcNow
             };
 
