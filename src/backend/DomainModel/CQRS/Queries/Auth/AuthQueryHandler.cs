@@ -28,7 +28,7 @@ namespace DomainModel.CQRS.Queries.Auth
                     return new AuthQueryResult()
                     {
                         Success = true,
-                        Username = query.Username,
+                        Username = user.Username,
                         Group = user.Group,
                         Roles = user.Roles.ToArray(),
                     };

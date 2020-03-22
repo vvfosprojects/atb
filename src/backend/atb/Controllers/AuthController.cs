@@ -33,7 +33,7 @@ namespace atb.Controllers
             if (authResult.Success)
             {
                 var roles = authResult.Roles;
-                jwt = this.jwtEncoder.Encode(query.Username, authResult.Group, roles);
+                jwt = this.jwtEncoder.Encode(authResult.Username, authResult.Group, roles);
             }
             else
                 jwt = string.Empty;
