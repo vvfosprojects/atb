@@ -1,4 +1,5 @@
 ﻿using DomainModel.Classes;
+using DomainModel.Classes.Exceptions;
 using DomainModel.Services;
 using DomainModel.Services.Users;
 using MongoDB.Driver;
@@ -11,6 +12,7 @@ namespace Persistence.InMongo_local
         private readonly DbContext dbContext;
         private readonly IGetSessionContext getSessionContext;
         private readonly ICryptools cryptools;
+
         public GetPatientByCaseNumber(DbContext dbContext, IGetSessionContext getSessionContext, ICryptools cryptools)
         {
             this.dbContext = dbContext;
@@ -21,7 +23,10 @@ namespace Persistence.InMongo_local
         public Patient GetPatient(int CaseNumber)
         {
             var filter = Builders<Patient>.Filter.Eq(x => x.Subject.Number, CaseNumber) & Builders<Patient>.Filter.Eq(x => x.Group, getSessionContext.GetActiveGroup());
-            var patient = this.dbContext.Patients.Find(filter).Single();
+            var patient = this.dbContext.Patients.Find(filter).SingleOrDefault();
+
+            if (patient == null)
+                throw new AtbNotFoundException("Patient sheet not found");
 
             patient.Subject.Nome = this.cryptools.Decrypt(patient.Subject.Nome);
             patient.Subject.Cognome = this.cryptools.Decrypt(patient.Subject.Cognome);
