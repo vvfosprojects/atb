@@ -32,5 +32,17 @@ namespace DomainModel.Services.Users
         /// </summary>
         /// <returns>True if he is a manager</returns>
         bool LoggedUserIsManager();
+
+        /// <summary>
+        /// Tells if the logged user is an admin.
+        /// </summary>
+        /// <returns>True if he is an admin</returns>
+        bool LoggedUserIsAdmin();
+
+        /// <summary>
+        /// Tells if there is a logged user.
+        /// </summary>
+        /// <returns>True is there is a logged user. False otherwise.</returns>
+        bool IsLogged();
     }
 }

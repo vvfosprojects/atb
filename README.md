@@ -292,6 +292,46 @@ The request is empty.
 
 The logged user must have `manager` privileges.
 
+## Action: `api/changePassword`
+
+This action allows a user to change the password.
+
+### Request
+
+```jsonc
+{
+  "username": "mario.rossi",
+  "oldPassword": "hereTheOldPassword12345",
+  "newPassword": "hereTheNewPassword12345"
+}
+```
+
+### Response
+
+In case of success, the response is empty.
+
+In case of failure the system returns an error in the following form:
+
+```jsonc
+{
+  "error": "Password must contain at least 6 characters.\r\nThe new password must contain at least one digit.\r\nThe new password must contain at least one letter."
+}
+```
+
+### Validation
+
+In case the password is changed by a user belonging to `admin` role, validation is not performed. Otherwise, the password must:
+
+* contain at least 6 characters;
+* contain at least one number;
+* contain at least one letter.
+
+### Authorization
+
+The action can be executed by an authenticated user with reference to his own password. 
+
+The action can be executed in any case by a user belonging to `admin` role, with reference to the password belonging to any user.
+
 # Database collections
 
 ## `patients` collection

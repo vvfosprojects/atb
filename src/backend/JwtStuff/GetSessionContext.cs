@@ -35,6 +35,27 @@ namespace JwtStuff
                 return null;
         }
 
+        public bool IsLogged()
+        {
+            var user = this.httpContextAccessor.HttpContext.User;
+
+            return user.Identity.IsAuthenticated;
+        }
+
+        public bool LoggedUserIsAdmin()
+        {
+            var user = this.httpContextAccessor.HttpContext.User;
+
+            if (user.Identity.IsAuthenticated)
+            {
+                return user.Claims
+                    .Where(c => c.Type == "atbRoles")
+                    .Any(r => r.Value == "admin");
+            }
+            else
+                return false;
+        }
+
         public bool LoggedUserIsDoctor()
         {
             var user = this.httpContextAccessor.HttpContext.User;

@@ -38,6 +38,10 @@ namespace CompositionRoot
                     return new CryptoStuff.Cryptools(provider, appConfSection["dataEncryptionKey"]);
                 }, Lifestyle.Singleton);
 
+            container.Register<
+                DomainModel.Services.Users.IChangePassword,
+                Persistence.InMongo_local.ChangePassword>(Lifestyle.Singleton);
+
             container.Register<Persistence.InMongo_local.DbContext>(() =>
             {
                 var configurationString = configuration.GetSection("mongoDbSettings:connectionString").Value;
