@@ -1,7 +1,6 @@
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { ClearLogin, Login, Logout, SetErrorMessage } from './login.actions';
 import { AuthenticationService } from '../../../core/services/auth';
-import { HttpErrorResponse } from '@angular/common/http';
 import { ClearAuth, SetCurrentJwt, SetCurrentUser } from './auth.actions';
 import { ngxsValidForm } from '../../../shared/functions';
 import { Injectable } from '@angular/core';
