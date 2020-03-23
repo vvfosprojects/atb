@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgxsModule } from '@ngxs/store';
@@ -18,6 +18,11 @@ import { ErrorInterceptor, JwtInterceptor, LoaderInterceptor } from './core/inte
 import { NavbarComponent } from './features/navbar/navbar.component';
 import { FooterComponent } from './features/footer/footer.component';
 import { ToastrModule } from 'ngx-toastr';
+import { registerLocaleData } from '@angular/common';
+import localeIT from '@angular/common/locales/it';
+
+registerLocaleData(localeIT);
+
 
 @NgModule({
     declarations: [
@@ -53,7 +58,8 @@ import { ToastrModule } from 'ngx-toastr';
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-        { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }
+        { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
+        { provide: LOCALE_ID, useValue: 'it-IT' }
     ],
     bootstrap: [ AppComponent ]
 })
