@@ -54,8 +54,7 @@ export class FormPositivoComponent implements OnInit, OnDestroy {
                                 quarantinePlace: positiveCase.data.quarantinePlace !== 'INTCARE' ? positiveCase.data.quarantinePlace : 'HOSP',
                                 intensiveTerapy: positiveCase.data.quarantinePlace === 'INTCARE',
                                 expectedWorkReturnDate: formatDateForNgbDatePicker(positiveCase.data.expectedWorkReturnDate),
-                                actualWorkReturnDate: positiveCase.data.actualWorkReturnDate ? formatDateForNgbDatePicker(positiveCase.data.actualWorkReturnDate) : null,
-                                closedCase: positiveCase.data.closedCase
+                                actualWorkReturnDate: positiveCase.data.actualWorkReturnDate ? formatDateForNgbDatePicker(positiveCase.data.actualWorkReturnDate) : null
                             }
                         })
                     );
@@ -96,24 +95,22 @@ export class FormPositivoComponent implements OnInit, OnDestroy {
             quarantinePlace: new FormControl(),
             intensiveTerapy: new FormControl(),
             expectedWorkReturnDate: new FormControl(),
-            actualWorkReturnDate: new FormControl(),
-            closedCase: new FormControl()
+            actualWorkReturnDate: new FormControl()
         });
         this.positivoForm = this.formBuilder.group({
             // Personal Information
-            name: [''],
-            surname: [''],
-            phone: [''],
-            email: [''],
+            name: [null, Validators.required],
+            surname: [null, Validators.required],
+            phone: [null, Validators.required],
+            email: [null, Validators.required],
             role: [null, Validators.required],
             // Personal Data
             caseNumber: [null, Validators.required],
-            estremiProvvedimentiASL: [null, Validators.required],
+            estremiProvvedimentiASL: [''],
             quarantinePlace: [null, Validators.required],
             intensiveTerapy: [null],
-            expectedWorkReturnDate: [null, Validators.required],
-            actualWorkReturnDate: [null],
-            closedCase: [null, Validators.required]
+            expectedWorkReturnDate: [null],
+            actualWorkReturnDate: [null]
         });
 
         if (this.editMode) {
