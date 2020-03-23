@@ -123,7 +123,11 @@ This action allows to append an update to a suspect infected individual.
   "caseNumber": 1234,
   "quarantinePlace": "HOME", // value in [ "HOME", "HOSP" ]
   "expectedWorkReturnDate": "2020-12-31Z",
-  "actualWorkReturnDate": null // nullable date
+  "actualWorkReturnDate": null, // nullable date
+  "healthMeasure": {
+	code: "12345",
+	by: "DOC" // can be in [ "DOC", "ASL" ]
+  }
 }
 ```
 
