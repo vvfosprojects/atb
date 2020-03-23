@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,6 +32,8 @@ namespace atb.Helpers.Exceptions
 
         private static Task HandleExceptionAsync(HttpContext context, Exception ex)
         {
+            Log.Error(ex, "Application error");
+
             var code = HttpStatusCode.InternalServerError; // 500 if unexpected
             var result = JsonConvert.SerializeObject(new { error = "Server error" });
 
@@ -43,6 +46,7 @@ namespace atb.Helpers.Exceptions
 
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)code;
+
             return context.Response.WriteAsync(result);
         }
     }
