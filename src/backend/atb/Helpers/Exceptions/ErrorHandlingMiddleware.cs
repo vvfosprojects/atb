@@ -40,6 +40,7 @@ namespace atb.Helpers.Exceptions
             if (ex is DomainModel.Classes.Exceptions.AtbNotFoundException) code = HttpStatusCode.NotFound;
             else if (ex is CQRS.Authorization.AuthorizationException) code = HttpStatusCode.Unauthorized;
             else if (ex is CQRS.Validation.ValidationException) code = HttpStatusCode.BadRequest;
+            else if (ex is DomainModel.Classes.Exceptions.AtbApplicationException) code = HttpStatusCode.BadRequest;
 
             if (code != HttpStatusCode.InternalServerError)
                 result = JsonConvert.SerializeObject(new { error = ex.Message });
