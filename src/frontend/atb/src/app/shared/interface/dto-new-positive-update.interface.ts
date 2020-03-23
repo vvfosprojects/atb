@@ -4,5 +4,4 @@ export interface DtoNewPositiveUpdateInterface {
     quarantinePlace: string;
     expectedWorkReturnDate: string;
     actualWorkReturnDate: null;
-    closedCase: boolean;
 }

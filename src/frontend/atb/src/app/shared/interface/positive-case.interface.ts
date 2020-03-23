@@ -17,5 +17,4 @@ export interface Data {
     quarantinePlace: string;
     expectedWorkReturnDate: string;
     actualWorkReturnDate: null;
-    closedCase: boolean;
 }

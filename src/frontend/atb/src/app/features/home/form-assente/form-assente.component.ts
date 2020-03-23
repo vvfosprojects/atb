@@ -52,8 +52,7 @@ export class FormAssenteComponent implements OnInit, OnDestroy {
                                 caseNumber: suspectCase.subject.number,
                                 quarantinePlace: suspectCase.data.quarantinePlace,
                                 expectedWorkReturnDate: formatDateForNgbDatePicker(suspectCase.data.expectedWorkReturnDate),
-                                actualWorkReturnDate: suspectCase.data.actualWorkReturnDate ? formatDateForNgbDatePicker(suspectCase.data.actualWorkReturnDate) : null,
-                                closedCase: suspectCase.data.closedCase
+                                actualWorkReturnDate: suspectCase.data.actualWorkReturnDate ? formatDateForNgbDatePicker(suspectCase.data.actualWorkReturnDate) : null
                             }
                         })
                     );
@@ -92,8 +91,7 @@ export class FormAssenteComponent implements OnInit, OnDestroy {
             caseNumber: new FormControl(),
             quarantinePlace: new FormControl(),
             expectedWorkReturnDate: new FormControl(),
-            actualWorkReturnDate: new FormControl(),
-            closedCase: new FormControl()
+            actualWorkReturnDate: new FormControl()
         });
         this.assenteForm = this.formBuilder.group({
             // Personal Information
@@ -106,8 +104,7 @@ export class FormAssenteComponent implements OnInit, OnDestroy {
             caseNumber: [null, Validators.required],
             quarantinePlace: [null, Validators.required],
             expectedWorkReturnDate: [null, Validators.required],
-            actualWorkReturnDate: [null],
-            closedCase: [null, Validators.required]
+            actualWorkReturnDate: [null]
         });
 
         if (this.editMode) {

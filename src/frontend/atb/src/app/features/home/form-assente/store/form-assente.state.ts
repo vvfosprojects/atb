@@ -22,7 +22,6 @@ export interface FormAssenteStateModel {
             intensiveTerapy: boolean;
             expectedWorkReturnDate: string;
             actualWorkReturnDate: string;
-            closedCase: boolean;
         };
         status?: string;
     };
@@ -71,16 +70,14 @@ export class FormAssenteState {
             surname: assenteFormValue.surname,
             email: assenteFormValue.email,
             phone: assenteFormValue.phone.toString(),
-            role: assenteFormValue.role,
-            closedCase: assenteFormValue.closedCase
+            role: assenteFormValue.role
         };
         this.assentiService.newSuspectCase(objSubject).subscribe(() => {
             const objData = {
                 caseNumber: assenteFormValue.caseNumber,
                 quarantinePlace: assenteFormValue.quarantinePlace,
                 expectedWorkReturnDate: formatDate(assenteFormValue.expectedWorkReturnDate),
-                actualWorkReturnDate: assenteFormValue.actualWorkReturnDate ? formatDate(assenteFormValue.actualWorkReturnDate) : null,
-                closedCase: assenteFormValue.closedCase
+                actualWorkReturnDate: assenteFormValue.actualWorkReturnDate ? formatDate(assenteFormValue.actualWorkReturnDate) : null
             };
             this.assentiService.newSuspectUpdate(objData).subscribe(() => {
                 dispatch(new Navigate(['./home/ricerca']));
@@ -95,8 +92,7 @@ export class FormAssenteState {
             caseNumber: assenteFormValue.caseNumber,
             quarantinePlace: assenteFormValue.quarantinePlace,
             expectedWorkReturnDate: formatDate(assenteFormValue.expectedWorkReturnDate),
-            actualWorkReturnDate: assenteFormValue.actualWorkReturnDate ? formatDate(assenteFormValue.actualWorkReturnDate) : null,
-            closedCase: assenteFormValue.closedCase
+            actualWorkReturnDate: assenteFormValue.actualWorkReturnDate ? formatDate(assenteFormValue.actualWorkReturnDate) : null
         };
         this.assentiService.newSuspectUpdate(objData).subscribe(() => {
             dispatch(new Navigate(['./home/ricerca']));
