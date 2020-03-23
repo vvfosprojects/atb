@@ -23,7 +23,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                 const response: ErrorResponseInterface = {
                     error: err.error.error,
                 };
-                this.toastrService.error(`Messaggio: ${err.error && err.error.error}`, 'Errore');
+                this.toastrService.error(`${err.error && err.error.error}`, 'Errore');
                 return throwError(response);
             }
         }));
