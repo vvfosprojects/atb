@@ -1,4 +1,5 @@
 ﻿using DomainModel.Classes;
+using DomainModel.Classes.Exceptions;
 using DomainModel.CQRS.Commands.NewSuspectCommand;
 using DomainModel.Services;
 using DomainModel.Services.Users;
@@ -33,7 +34,15 @@ namespace Persistence.InMongo_local
                 },
                 Group = getSessionContext.GetActiveGroup(),
             };
-            dbContext.Suspects.InsertOne(suspect);
+
+            try
+            {
+                dbContext.Suspects.InsertOne(suspect);
+            }
+            catch
+            {
+                throw new AtbApplicationException("Inserimento fallito. Numero del caso già esistente?.");
+            }
         }
     }
 }

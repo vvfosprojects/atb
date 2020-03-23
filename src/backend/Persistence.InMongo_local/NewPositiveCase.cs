@@ -1,7 +1,9 @@
 ﻿using DomainModel.Classes;
+using DomainModel.Classes.Exceptions;
 using DomainModel.CQRS.Commands.AddPatientCommand;
 using DomainModel.Services;
 using DomainModel.Services.Users;
+using System;
 
 namespace Persistence.InMongo_local
 {
@@ -20,7 +22,6 @@ namespace Persistence.InMongo_local
 
         public void Add(NewPositiveCaseCommand command)
         {
-
             Patient patient = new Patient()
             {
                 Subject = new Anagrafica()
@@ -34,7 +35,15 @@ namespace Persistence.InMongo_local
                 },
                 Group = getSessionContext.GetActiveGroup(),
             };
-            dbContext.Patients.InsertOne(patient);
+
+            try
+            {
+                dbContext.Patients.InsertOne(patient);
+            }
+            catch
+            {
+                throw new AtbApplicationException("Inserimento fallito. Numero del caso già esistente?.");
+            }
         }
     }
 }
