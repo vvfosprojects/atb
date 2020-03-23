@@ -46,7 +46,7 @@ namespace atb.Helpers.Exceptions
                 result = JsonConvert.SerializeObject(new { error = ex.Message });
             }
             else
-                Log.Error(ex, "Application error");
+                Log.Error(ex, "Unhandled exception");
 
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)code;
