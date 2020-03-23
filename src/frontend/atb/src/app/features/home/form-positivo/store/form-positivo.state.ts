@@ -69,7 +69,7 @@ export class FormPositivoState {
             name: positivoFormValue.name,
             surname: positivoFormValue.surname,
             email: positivoFormValue.email,
-            phone: positivoFormValue.phone,
+            phone: positivoFormValue.phone.toString(),
             role: positivoFormValue.role
         };
         this.positiviService.newPositiveCase(objSubject).subscribe(() => {
