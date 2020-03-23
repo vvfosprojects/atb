@@ -21,9 +21,9 @@ export class ErrorInterceptor implements HttpInterceptor {
                 this.store.dispatch(new Navigate([ '/forbidden' ]));
             } else {
                 const response: ErrorResponseInterface = {
-                    errorMsg: err.error.errorMsg,
+                    error: err.error.error,
                 };
-                this.toastrService.error(`Messaggio: ${err.error && err.error.erroMsg}`, 'Errore');
+                this.toastrService.error(`Messaggio: ${err.error && err.error.error}`, 'Errore');
                 return throwError(response);
             }
         }));

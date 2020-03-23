@@ -24,7 +24,7 @@ import { NgxsModule } from '@ngxs/store';
     providers: [
         {
             provide: AuthenticationService,
-            useClass: environment.production ? AuthenticationService : AuthenticationFakeService
+            // useClass: environment.production ? AuthenticationService : AuthenticationFakeService
         }
     ]
 })

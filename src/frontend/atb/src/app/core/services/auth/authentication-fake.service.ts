@@ -25,15 +25,13 @@ export class AuthenticationFakeService {
         } as AuthResponseInterface);
 
         function error(message) {
-            return throwError({
-                status: 400, error: {
-                    success: false,
-                    errorMsg: message,
-                    jwt: ``,
-                    group: ``,
-                    roles: []
-                } as AuthResponseInterface
-            });
+            return of({
+                success: false,
+                errorMsg: message,
+                jwt: ``,
+                group: ``,
+                roles: []
+            } as AuthResponseInterface);
         }
 
         function testJwt() {
