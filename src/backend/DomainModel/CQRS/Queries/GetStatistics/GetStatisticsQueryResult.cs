@@ -1,9 +1,10 @@
 ﻿using DomainModel.Classes.Stats;
+using System.Collections.Generic;
 
 namespace DomainModel.CQRS.Queries.GetStatistics
 {
     public class GetStatisticsQueryResult
     {
-        public GroupStatistics GroupStatistics { get; set; }
+        public IList<GroupStatistics> GroupStatistics { get; set; }
     }
 }
