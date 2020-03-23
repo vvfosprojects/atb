@@ -23,7 +23,7 @@ namespace Persistence.InMongo_local
 
         public IEnumerable<Patient> Get()
         {
-            var filter = Builders<Patient>.Filter.Eq(x => x.Group, getSessionContext.GetActiveGroup());
+            var filter = Builders<Patient>.Filter.In("Group", getSessionContext.GetActiveGroup());
             var collection = this.dbContext.Patients.Find(filter).ToList();
 
             foreach(var patient in collection)

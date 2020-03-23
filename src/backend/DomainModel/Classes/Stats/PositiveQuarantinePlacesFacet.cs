@@ -1,6 +1,6 @@
 ﻿namespace DomainModel.Classes.Stats
 {
-    public class QuarantinePlacesFacet
+    public class PositiveQuarantinePlacesFacet
     {
         public int Home { get; set; }
 
