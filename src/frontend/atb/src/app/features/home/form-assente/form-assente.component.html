@@ -67,41 +67,30 @@
                     </div>
                     <div class="px-4 py-3 bg-light rounded border border-light shadow-sm mb-4">
                         <h4>Dati relativi al singolo caso</h4>
+                        <h6 class="text-muted">
+                            I dati anagrafici non sono obbligatori in questa sezione.<br>
+                            Se vuoi, puoi comunque inserirli a scopo di promemoria sull'identità del soggetto.
+                        </h6>
                         <hr>
                         <div class="form-group">
-                            <label for="name">
-                                Nome
-                                <span class="font-weight-bold text-danger">*</span>
-                            </label>
+                            <label for="name">Nome</label>
                             <input id="name" class="form-control" type="text" formControlName="name"
                                    [ngClass]=" {'is-invalid': submitted && f.name.errors }"/>
                         </div>
                         <div class="form-group">
-                            <label for="surname">
-                                Cognome
-                                <span class="font-weight-bold text-danger">*</span>
-                            </label>
+                            <label for="surname">Cognome</label>
                             <input id="surname" class="form-control" type="text" formControlName="surname"
                                    [ngClass]=" {'is-invalid': submitted && f.surname.errors }"/>
                         </div>
                         <div class="form-group">
-                            <label for="phone">
-                                Numero Cellulare
-                                <span class="font-weight-bold text-danger">*</span>
-                            </label>
-                            <input id="phone" class="form-control" type="number" formControlName="phone"
+                            <label for="phone">Numero Cellulare</label>
+                            <input id="phone" class="form-control" type="text" formControlName="phone"
                                    [ngClass]=" {'is-invalid': submitted && f.phone.errors }"/>
                         </div>
                         <div class="form-group">
-                            <label for="email">
-                                Email
-                                <span class="font-weight-bold text-danger">*</span>
-                            </label>
+                            <label for="email">Email</label>
                             <input id="email" class="form-control" type="text" formControlName="email"
                                    [ngClass]=" {'is-invalid': submitted && f.email.errors }"/>
-                        </div>
-                        <div class="small">
-                            <span class="font-weight-bold text-danger">* Campi Obbligatori</span>
                         </div>
                     </div>
                     <div class="px-4 py-3 bg-light rounded border border-light shadow-sm mb-4">

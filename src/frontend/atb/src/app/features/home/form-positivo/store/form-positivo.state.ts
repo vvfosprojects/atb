@@ -70,7 +70,7 @@ export class FormPositivoState {
             name: positivoFormValue.name,
             surname: positivoFormValue.surname,
             email: positivoFormValue.email,
-            phone: positivoFormValue.phone.toString(),
+            phone: positivoFormValue.phone,
             role: positivoFormValue.role,
             closedCase: positivoFormValue.closedCase
         };

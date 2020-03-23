@@ -101,10 +101,10 @@ export class FormPositivoComponent implements OnInit, OnDestroy {
         });
         this.positivoForm = this.formBuilder.group({
             // Personal Information
-            name: [null, Validators.required],
-            surname: [null, Validators.required],
-            phone: [null, Validators.required],
-            email: [null, Validators.required],
+            name: [''],
+            surname: [''],
+            phone: [''],
+            email: [''],
             role: [null, Validators.required],
             // Personal Data
             caseNumber: [null, Validators.required],
