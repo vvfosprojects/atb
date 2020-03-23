@@ -25,14 +25,9 @@ export class WelcomeComponent implements OnDestroy {
     dispatchUser(user: UserInterface) {
         if (user) {
             console.log('dispatchUser');
-            // if (!user) {
-            //     return
-            // }
             if (user.roles.length === 0) {
-                console.log('non ci sono ruoli');
-                // Todo user senza ruoli
+                this.store.dispatch(new Navigate([ '/forbidden' ]));
             }
-            (user.roles.includes(Roles.Manager) && user.roles.includes(Roles.Doctor)) && this.store.dispatch(new Navigate([ '/reports' ]));
             user.roles.includes(Roles.Manager) && this.store.dispatch(new Navigate([ '/reports' ]));
             user.roles.includes(Roles.Doctor) && this.store.dispatch(new Navigate([ '/home' ]));
         }
