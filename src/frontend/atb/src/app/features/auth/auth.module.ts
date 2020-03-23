@@ -6,10 +6,10 @@ import { LogoutComponent } from './logout/logout.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { SharedModule } from '../../shared/shared.module';
 import { NgxsFormPluginModule } from '@ngxs/form-plugin';
-import { AuthenticationFakeService, AuthenticationService } from '../../core/services/auth';
-import { environment } from '../../../environments/environment';
-import { LoginState } from './store/login.state';
+import { AuthenticationService } from '../../core/services/auth';
 import { NgxsModule } from '@ngxs/store';
+import { LoginState } from './store/login.state';
+import { ResetState } from './store/reset.state';
 
 
 @NgModule({
@@ -18,14 +18,11 @@ import { NgxsModule } from '@ngxs/store';
         CommonModule,
         AuthRoutingModule,
         SharedModule,
-        NgxsModule.forFeature([ LoginState ]),
+        NgxsModule.forFeature([ LoginState, ResetState ]),
         NgxsFormPluginModule
     ],
     providers: [
-        {
-            provide: AuthenticationService,
-            useClass: environment.production ? AuthenticationService : AuthenticationFakeService
-        }
+        AuthenticationService
     ]
 })
 export class AuthModule {

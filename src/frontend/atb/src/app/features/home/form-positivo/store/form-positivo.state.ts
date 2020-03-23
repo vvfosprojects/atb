@@ -22,7 +22,6 @@ export interface FormPositivoStateModel {
             intensiveTerapy: boolean;
             expectedWorkReturnDate: string;
             actualWorkReturnDate: string;
-            closedCase: boolean;
         };
         status?: string;
     };
@@ -70,9 +69,8 @@ export class FormPositivoState {
             name: positivoFormValue.name,
             surname: positivoFormValue.surname,
             email: positivoFormValue.email,
-            phone: positivoFormValue.phone.toString(),
-            role: positivoFormValue.role,
-            closedCase: positivoFormValue.closedCase
+            phone: positivoFormValue.phone,
+            role: positivoFormValue.role
         };
         this.positiviService.newPositiveCase(objSubject).subscribe(() => {
             const objData = {
@@ -80,8 +78,7 @@ export class FormPositivoState {
                 estremiProvvedimentiASL: positivoFormValue.estremiProvvedimentiASL,
                 quarantinePlace: positivoFormValue.intensiveTerapy && positivoFormValue.intensiveTerapy === true ? 'INTCARE' : positivoFormValue.quarantinePlace,
                 expectedWorkReturnDate: formatDate(positivoFormValue.expectedWorkReturnDate),
-                actualWorkReturnDate: positivoFormValue.actualWorkReturnDate ? formatDate(positivoFormValue.actualWorkReturnDate) : null,
-                closedCase: positivoFormValue.closedCase
+                actualWorkReturnDate: positivoFormValue.actualWorkReturnDate ? formatDate(positivoFormValue.actualWorkReturnDate) : null
             };
             this.positiviService.newPositiveUpdate(objData).subscribe(() => {
                 dispatch(new Navigate(['./home/ricerca']));
@@ -97,8 +94,7 @@ export class FormPositivoState {
             estremiProvvedimentiASL: positivoFormValue.estremiProvvedimentiASL,
             quarantinePlace: positivoFormValue.intensiveTerapy && positivoFormValue.intensiveTerapy === true ? 'INTCARE' : positivoFormValue.quarantinePlace,
             expectedWorkReturnDate: formatDate(positivoFormValue.expectedWorkReturnDate),
-            actualWorkReturnDate: positivoFormValue.actualWorkReturnDate ? formatDate(positivoFormValue.actualWorkReturnDate) : null,
-            closedCase: positivoFormValue.closedCase
+            actualWorkReturnDate: positivoFormValue.actualWorkReturnDate ? formatDate(positivoFormValue.actualWorkReturnDate) : null
         };
         this.positiviService.newPositiveUpdate(objData).subscribe(() => {
             dispatch(new Navigate(['./home/ricerca']));

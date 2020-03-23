@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/guards/auth.guard';
 import { Roles } from './shared/enum/roles.enum';
 
@@ -32,7 +32,7 @@ const routes: Routes = [
         path: 'reports',
         loadChildren: () => import('./features/reports/reports.module').then(m => m.ReportsModule),
         canActivate: [ AuthGuard ],
-        data: { roles: [ Roles.Manager ] }
+        data: { roles: [ Roles.Manager, Roles.Doctor ] }
     },
     {
         path: 'auth',
@@ -46,6 +46,11 @@ const routes: Routes = [
     {
         path: 'logout',
         redirectTo: 'auth/logout',
+        pathMatch: 'full'
+    },
+    {
+        path: 'reset',
+        redirectTo: 'auth/reset',
         pathMatch: 'full'
     },
     {

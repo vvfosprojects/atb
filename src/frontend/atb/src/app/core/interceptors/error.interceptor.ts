@@ -15,17 +15,15 @@ export class ErrorInterceptor implements HttpInterceptor {
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<ErrorResponseInterface>> {
         return next.handle(request).pipe(catchError((err: HttpErrorResponse) => {
-            if ([ 401, 302 ].indexOf(err.status) !== -1) {
-                // Todo error 401,302 Unauthorized
-            } else if ([ 403 ].indexOf(err.status) !== -1) {
+            if ([ 403 ].indexOf(err.status) !== -1) {
                 this.store.dispatch(new Navigate([ '/forbidden' ]));
             } else {
-                const response: ErrorResponseInterface = {
-                    errorMsg: err.error.errorMsg,
-                };
-                this.toastrService.error(`Messaggio: ${err.error && err.error.erroMsg}`, 'Errore');
-                return throwError(response);
+                this.toastrService.error(`${err.error && err.error.error}`, 'Errore');
             }
+            const response: ErrorResponseInterface = {
+                error: err.error.error,
+            };
+            return throwError(response);
         }));
     }
 }

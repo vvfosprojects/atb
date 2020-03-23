@@ -52,8 +52,7 @@ export class FormAssenteComponent implements OnInit, OnDestroy {
                                 caseNumber: suspectCase.subject.number,
                                 quarantinePlace: suspectCase.data.quarantinePlace,
                                 expectedWorkReturnDate: formatDateForNgbDatePicker(suspectCase.data.expectedWorkReturnDate),
-                                actualWorkReturnDate: suspectCase.data.actualWorkReturnDate ? formatDateForNgbDatePicker(suspectCase.data.actualWorkReturnDate) : null,
-                                closedCase: suspectCase.data.closedCase
+                                actualWorkReturnDate: suspectCase.data.actualWorkReturnDate ? formatDateForNgbDatePicker(suspectCase.data.actualWorkReturnDate) : null
                             }
                         })
                     );
@@ -92,22 +91,20 @@ export class FormAssenteComponent implements OnInit, OnDestroy {
             caseNumber: new FormControl(),
             quarantinePlace: new FormControl(),
             expectedWorkReturnDate: new FormControl(),
-            actualWorkReturnDate: new FormControl(),
-            closedCase: new FormControl()
+            actualWorkReturnDate: new FormControl()
         });
         this.assenteForm = this.formBuilder.group({
             // Personal Information
-            name: [null, Validators.required],
-            surname: [null, Validators.required],
-            phone: [null, Validators.required],
-            email: [null, Validators.required],
+            name: [''],
+            surname: [''],
+            phone: [''],
+            email: [''],
             role: [null, Validators.required],
             // Personal Data
             caseNumber: [null, Validators.required],
             quarantinePlace: [null, Validators.required],
             expectedWorkReturnDate: [null, Validators.required],
-            actualWorkReturnDate: [null],
-            closedCase: [null, Validators.required]
+            actualWorkReturnDate: [null]
         });
 
         if (this.editMode) {

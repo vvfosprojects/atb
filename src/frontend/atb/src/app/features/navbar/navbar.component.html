@@ -1,7 +1,8 @@
 <div class="position-absolute w-100 bg-white clearfix px-3 shadow-sm">
     <div class="float-left">
         <div class="h-100">
-            <h3 class="font-weight-bold mt-2 cursor-pointer atb-title" (click)="goToSearch()"><i class="fa fa-hashtag ml-2"></i>ATB</h3>
+            <h3 class="font-weight-bold mt-2 cursor-pointer atb-title" (click)="goToSearch()"><i
+                    class="fa fa-hashtag ml-2"></i>ATB</h3>
         </div>
     </div>
     <div class="float-right">
@@ -15,6 +16,11 @@
                     </button>
                     <div ngbDropdownMenu>
                         <div class="text-center py-1">
+                            <button class="btn btn-sm btn-light" (click)="onReset()">
+                                <span class="font-weight-bold">Cambio password</span>
+                                <i class="fa fa-key ml-1"></i>
+                            </button>
+                            <hr class="w-75 mx-auto mt-1 mb-2">
                             <h6 class="font-weight-bold">Gruppo</h6>
                             <hr class="w-75 mx-auto mt-1 mb-2">
                             {{currentUser.group}}

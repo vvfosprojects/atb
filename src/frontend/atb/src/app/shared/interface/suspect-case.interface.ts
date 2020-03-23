@@ -5,16 +5,15 @@ export interface SuspectCaseInterface {
 
 export interface Subject {
     number: number;
-    nome: string;
-    cognome: string;
-    email: string;
-    phone: string;
+    nome?: string;
+    cognome?: string;
+    email?: string;
+    phone?: string;
     role: string;
 }
 
 export interface Data {
     quarantinePlace: string;
     expectedWorkReturnDate: string;
-    actualWorkReturnDate: null;
-    closedCase: boolean;
+    actualWorkReturnDate?: string;
 }

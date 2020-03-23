@@ -14,6 +14,15 @@ namespace DomainModel.CQRS.Commands.AddPatientCommand
 
         public void Handle(NewPositiveCaseCommand command)
         {
+            if (command.Name == null)
+                command.Name = string.Empty;
+            if (command.Surname == null)
+                command.Surname = string.Empty;
+            if (command.Phone == null)
+                command.Phone = string.Empty;
+            if (command.Email == null)
+                command.Email = string.Empty;
+
             this.addPatient.Add(command);
         }
     }

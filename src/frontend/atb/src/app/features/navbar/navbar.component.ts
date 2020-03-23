@@ -23,7 +23,11 @@ export class NavbarComponent implements OnInit {
     }
 
     onLogout() {
-        this.store.dispatch(new Navigate([ '/logout' ]))
+        this.store.dispatch(new Navigate([ '/logout' ]));
+    }
+
+    onReset() {
+        this.store.dispatch(new Navigate([ '/reset' ]));
     }
 
 }
