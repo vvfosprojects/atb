@@ -109,7 +109,7 @@ export class FormPositivoComponent implements OnInit, OnDestroy {
             estremiProvvedimentiASL: [''],
             quarantinePlace: [null, Validators.required],
             intensiveTerapy: [null],
-            expectedWorkReturnDate: [null, Validators.required],
+            expectedWorkReturnDate: [null],
             actualWorkReturnDate: [null]
         });
 
