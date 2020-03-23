@@ -21,5 +21,4 @@ namespace DomainModel.CQRS.Queries.GetSuspectByCaseNumber
                 yield return new AuthorizationResult("Unauthorized");
         }
     }
-  
 }

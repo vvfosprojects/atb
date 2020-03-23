@@ -1,13 +1,9 @@
-﻿using atb.Helper;
-using DomainModel.Classes;
+﻿using DomainModel.Classes;
 using DomainModel.CQRS.Commands.NewPositiveUpdate;
 using DomainModel.Services;
 using DomainModel.Services.Users;
-using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Persistence.InMongo_local
 {
@@ -32,7 +28,6 @@ namespace Persistence.InMongo_local
                 ActualWorkReturnDate = command.ActualWorkReturnDate,
                 ExpectedWorkReturnDate = command.ExpectedWorkReturnDate,
                 QuarantinePlace = command.QuarantinePlace,
-                ClosedCase = command.ClosedCase,
                 UpdatedBy = loggedUser,
                 UpdateTime = DateTime.UtcNow
             };

@@ -3,6 +3,7 @@ using DomainModel.Classes;
 using DomainModel.CQRS.Queries.GetSuspect;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
 
 namespace atb.Controllers
 {
@@ -36,12 +37,11 @@ namespace atb.Controllers
                 },
                 Data = new SuspectData()
                 {
-                    ActualWorkReturnDate = suspect.Suspect.Data[suspect.Suspect.Data.Count - 1].ActualWorkReturnDate,
-                    ClosedCase = suspect.Suspect.Data[suspect.Suspect.Data.Count - 1].ClosedCase,
-                    ExpectedWorkReturnDate = suspect.Suspect.Data[suspect.Suspect.Data.Count - 1].ExpectedWorkReturnDate,
-                    QuarantinePlace = suspect.Suspect.Data[suspect.Suspect.Data.Count - 1].QuarantinePlace,
-                    UpdatedBy = suspect.Suspect.Data[suspect.Suspect.Data.Count - 1].UpdatedBy,
-                    UpdateTime = suspect.Suspect.Data[suspect.Suspect.Data.Count - 1].UpdateTime
+                    ActualWorkReturnDate = suspect.Suspect.Data.Last().ActualWorkReturnDate,
+                    ExpectedWorkReturnDate = suspect.Suspect.Data.Last().ExpectedWorkReturnDate,
+                    QuarantinePlace = suspect.Suspect.Data.Last().QuarantinePlace,
+                    UpdatedBy = suspect.Suspect.Data.Last().UpdatedBy,
+                    UpdateTime = suspect.Suspect.Data.Last().UpdateTime
                 }
             };
 

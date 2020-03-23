@@ -63,6 +63,7 @@ namespace CompositionRoot
             container.Register<DomainModel.Services.IGetAllPositiveSheets, Persistence.InMongo_local.GetAllPositiveSheets>();
             container.Register<DomainModel.Services.IGetAllSuspectSheets, Persistence.InMongo_local.GetAllSuspectSheets>();
             container.Register<DomainModel.Services.Statistics.IGetStatistics, Persistence.InMongo_local.GetStatistics>();
+            container.Register<DomainModel.Services.IGetCSV, Persistence.InMongo_local.GetCSV>();
         }
     }
 }

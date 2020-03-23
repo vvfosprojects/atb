@@ -15,8 +15,15 @@ namespace DomainModel.Classes
 
         public bool ClosedCase { get; set; }
 
+        public bool Deceased { get; set; } 
+
         public DateTime UpdateTime { get; set; }
 
         public string UpdatedBy { get; set; }
+
+        public PositiveData()
+        {
+            Deceased = false;
+        }
     }
 }

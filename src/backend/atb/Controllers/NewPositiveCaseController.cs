@@ -18,8 +18,14 @@ namespace atb.Controllers
         [HttpPost]
         public ActionResult Add([FromBody] NewPositiveCaseCommand command)
         {
+            var patient = new NewPositiveCaseCommand()
+            {
+                Number = command.Number
+            };
+
             handler.Handle(command);
-            return Ok();
+
+            return Ok(command.Number);
         }
     }
 }

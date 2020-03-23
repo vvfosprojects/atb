@@ -11,16 +11,12 @@ namespace Persistence.InMongo_local
 {
     public class GetStatistics : IGetStatistics
     {
-        private readonly IGetAllSuspectSheets getAllSuspectSheets;
-        private readonly IGetAllPositiveSheets getAllPositiveSheets;
         private readonly DbContext dbContext;
         private readonly IGetSessionContext getSessionContext;
         private readonly ICryptools cryptools;
 
-        public GetStatistics(IGetAllSuspectSheets getAllSuspectSheets, IGetAllPositiveSheets getAllPositiveSheets, IGetSessionContext getSessionContext, DbContext dbContext, ICryptools cryptools)
+        public GetStatistics(IGetSessionContext getSessionContext, DbContext dbContext, ICryptools cryptools)
         {
-            this.getAllPositiveSheets = getAllPositiveSheets;
-            this.getAllSuspectSheets = getAllSuspectSheets;
             this.getSessionContext = getSessionContext;
             this.dbContext = dbContext;
             this.cryptools = cryptools;
@@ -40,8 +36,8 @@ namespace Persistence.InMongo_local
             }
             else
             {
-                positives = this.getAllPositiveSheets.Get().ToList();
-                suspects = this.getAllSuspectSheets.Get().ToList();
+                positives = this.dbContext.Patients.AsQueryable().ToList();
+                suspects = this.dbContext.Suspects.AsQueryable().ToList();
             }
 
             var positivesFilteredList = positives.Select(p => new
@@ -96,7 +92,7 @@ namespace Persistence.InMongo_local
                             Hosp = g.Count(x => x.Data.QuarantinePlace == "HOSP"),
                         },
                         TotalSick = g.Count(),
-                        TotalClosed = g.Where(x => x.Data.ClosedCase == true).Count(),
+                        TotalClosed = g.Where(x => x.Data.ExpectedWorkReturnDate != null).Count(),
                         RoleFacet = g.GroupBy(g2 => this.cryptools.Decrypt(g2.Subject.Role))
                             .OrderBy(g2 => g2.Key)
                             .Select(g2 => new RoleFacet() { Name = g2.Key, Total = g2.Count() }).ToList()
