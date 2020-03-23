@@ -78,7 +78,7 @@ namespace Persistence.InMongo_local
                             IntCare = g.Count(x => x.Data.QuarantinePlace == "INTCARE"),
                         },
                         TotalSick = g.Count(),
-                        TotalClosed = g.Where(x => x.Data.ClosedCase == true).Count(),
+                        TotalClosed = g.Where(x => x.Data.ExpectedWorkReturnDate != null).Count(),
                         RoleFacet = g.GroupBy(g2 => this.cryptools.Decrypt(g2.Subject.Role))
                             .OrderBy(g2 => g2.Key)
                             .Select(g2 => new RoleFacet() { Name = g2.Key, Total = g2.Count() }).ToList()

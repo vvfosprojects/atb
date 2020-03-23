@@ -40,7 +40,6 @@ namespace atb.Controllers
                 {
                     EstremiProvvedimentiASL = lastPatientData.EstremiProvvedimentiASL,
                     ActualWorkReturnDate = lastPatientData.ActualWorkReturnDate,
-                    ClosedCase = lastPatientData.ClosedCase,
                     ExpectedWorkReturnDate = lastPatientData.ExpectedWorkReturnDate,
                     QuarantinePlace = lastPatientData.QuarantinePlace,
                     UpdatedBy = lastPatientData.UpdatedBy,

@@ -36,12 +36,12 @@ namespace Persistence.InMongo_local
 
             foreach(var s in patients)
             {
-                var str = string.Format("{0}|{1}|{2}|{3}|{4}|{5}|{6}",
+                var str = string.Format("{0}|{1}|{2}|{3}|{4}|{5}",
                                   "P",    
                                   s.Subject.Number,
                                   cryptools.Decrypt(s.Subject.Role),
                                   s.Data.Last().QuarantinePlace,
-                                  s.Data.Last().ExpectedWorkReturnDate.ToString("dd/MM/yyyy"),
+                                  //s.Data.Last().ExpectedWorkReturnDate.ToString("dd/MM/yyyy"),
                                   s.Data.First().UpdateTime.ToString("dd/MM/yyyy"),
                                   s.Data.Last().UpdateTime.ToString("dd/MM/yyyy")
                                   );
@@ -50,12 +50,12 @@ namespace Persistence.InMongo_local
 
             foreach (var p in suspects)
             {
-                var str = string.Format("{0}|{1}|{2}|{3}|{4}|{5}|{6}",
+                var str = string.Format("{0}|{1}|{2}|{3}|{4}|{5}",
                                   "S",
                                   p.Subject.Number,
                                   cryptools.Decrypt(p.Subject.Role),
                                   p.Data.Last().QuarantinePlace,
-                                  p.Data.Last().ExpectedWorkReturnDate.ToString("dd/MM/yyyy"),
+                                  //p.Data.Last().ExpectedWorkReturnDate.ToString("dd/MM/yyyy"),
                                   "null",
                                   p.Data.First().UpdateTime.ToString("dd/MM/yyyy"),
                                   p.Data.Last().UpdateTime.ToString("dd/MM/yyyy")
