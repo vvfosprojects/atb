@@ -49,6 +49,11 @@ const routes: Routes = [
         pathMatch: 'full'
     },
     {
+        path: 'reset',
+        redirectTo: 'auth/reset',
+        pathMatch: 'full'
+    },
+    {
         path: '**',
         redirectTo: '404',
     }

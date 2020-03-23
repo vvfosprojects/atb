@@ -18,6 +18,5 @@ namespace DomainModel.CQRS.Queries.GetPatient
                 Patient = this.getPatientByCaseNumber.GetPatient(query.CaseNumber)
             };
         }
-
     }
 }

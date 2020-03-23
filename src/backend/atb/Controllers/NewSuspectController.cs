@@ -18,8 +18,14 @@ namespace atb.Controllers
         [HttpPost]
         public ActionResult Add ([FromBody] NewSuspectCommand command)
         {
+            var suspect = new NewSuspectCommand()
+            {
+                Number = command.Number
+            };
+
             handler.Handle(command);
-            return Ok();
+            
+            return Ok(command.Number);
         }
     }
 }

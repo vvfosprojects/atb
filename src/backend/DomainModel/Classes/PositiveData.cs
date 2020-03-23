@@ -9,11 +9,9 @@ namespace DomainModel.Classes
 
         public string QuarantinePlace { get; set; }
 
-        public DateTime ExpectedWorkReturnDate { get; set; }
+        public DateTime? ExpectedWorkReturnDate { get; set; }
 
         public DateTime? ActualWorkReturnDate { get; set; }
-
-        public bool ClosedCase { get; set; }
 
         public DateTime UpdateTime { get; set; }
 
