@@ -71,8 +71,7 @@ This action allows to append an update to a positive case.
   "estremiProvvedimentiASL": "abcd efgh yxzk",
   "quarantinePlace": "HOME", // value in [ "HOME", "HOSP", "INTCARE" ]
   "expectedWorkReturnDate": "2020-12-31Z",
-  "actualWorkReturnDate": null, // nullable date
-  "closedCase": true // boolean
+  "actualWorkReturnDate": null // nullable date
 }
 ```
 
@@ -125,7 +124,10 @@ This action allows to append an update to a suspect infected individual.
   "quarantinePlace": "HOME", // value in [ "HOME", "HOSP" ]
   "expectedWorkReturnDate": "2020-12-31Z",
   "actualWorkReturnDate": null, // nullable date
-  "closedCase": true // boolean
+  "healthMeasure": {
+	"code": "12345",
+	"by": "DOC" // can be in [ "DOC", "ASL" ]
+  }
 }
 ```
 

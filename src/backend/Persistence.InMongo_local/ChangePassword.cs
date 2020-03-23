@@ -22,7 +22,7 @@ namespace Persistence.InMongo_local
             var update = Builders<User>.Update.Set(p => p.PwdHash, newPwdHash);
 
             var result = this.dbContext.Users.UpdateOne(filter, update);
-            if (result.ModifiedCount != 1)
+            if (result.MatchedCount != 1)
                 throw new InvalidOperationException("Unable to update any record.");
         }
     }
