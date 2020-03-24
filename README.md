@@ -360,6 +360,10 @@ The request is empty.
 
 The action can be executed by authenticated users.
 
+### Notes
+
+The group description is get from the group code converting to uppercase characters.
+
 ## Action: `api/sheets`
 
 This action returns the patients and suspects sheets.
