@@ -22,13 +22,11 @@ namespace Persistence.InMongo_local
         {
             var filter = Builders<Suspect>.Filter.Eq(x => x.Group, getSessionContext.GetActiveGroup());
             var suspectsList = dbContext.Suspects.Find(filter).ToList();
-
             //se la lista è priva di pazienti allora restituisco 0
             if (suspectsList.Count == 0)
             {
                 return 0;
             }
-
             var suspectWithMaxCaseNumber = suspectsList.OrderByDescending(x => x.Subject.Number).First();
             return suspectWithMaxCaseNumber.Subject.Number;
         }
