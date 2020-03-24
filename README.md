@@ -334,9 +334,9 @@ The action can be executed by an authenticated user with reference to his own pa
 
 The action can be executed in any case by a user belonging to `admin` role, with reference to the password belonging to any user.
 
-## Action: `api/report`
+## Action: `api/sheets`
 
-This action allows a user to retrieve data useful to show a report with the current sheet situation.
+This action returns the patients and suspects sheets.
 
 ### Request
 
