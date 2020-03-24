@@ -28,6 +28,7 @@ namespace Persistence.InMongo_local
                 ActualWorkReturnDate = command.ActualWorkReturnDate,
                 ExpectedWorkReturnDate = command.ExpectedWorkReturnDate,
                 QuarantinePlace = command.QuarantinePlace,
+                DiseaseConfirmDate = command.DiseaseConfirmDate,
                 UpdatedBy = loggedUser,
                 UpdateTime = DateTime.UtcNow
             };

@@ -23,31 +23,52 @@ namespace atb.Controllers
             var query = new GetPatientQuery() { CaseNumber = caseNumber };
 
             var patient = this.handler.Handle(query);
-            var lastPatientData = patient.Patient.Data.Last();
-            var result = new
+            if (patient.Patient.Data.Any())
             {
-                Group = patient.Patient.Group,
-                Subject = new Anagrafica()
+                var lastPatientData = patient.Patient.Data.Last();
+                var result = new
                 {
-                    Nome = patient.Patient.Subject.Nome,
-                    Cognome = patient.Patient.Subject.Cognome,
-                    Email = patient.Patient.Subject.Email,
-                    Number = patient.Patient.Subject.Number,
-                    Phone = patient.Patient.Subject.Phone,
-                    Role = patient.Patient.Subject.Role
-                },
-                Data = new PositiveData()
-                {
-                    EstremiProvvedimentiASL = lastPatientData.EstremiProvvedimentiASL,
-                    ActualWorkReturnDate = lastPatientData.ActualWorkReturnDate,
-                    ExpectedWorkReturnDate = lastPatientData.ExpectedWorkReturnDate,
-                    QuarantinePlace = lastPatientData.QuarantinePlace,
-                    UpdatedBy = lastPatientData.UpdatedBy,
-                    UpdateTime = lastPatientData.UpdateTime
-                }
-            };
+                    Group = patient.Patient.Group,
+                    Subject = new Anagrafica()
+                    {
+                        Nome = patient.Patient.Subject.Nome,
+                        Cognome = patient.Patient.Subject.Cognome,
+                        Email = patient.Patient.Subject.Email,
+                        Number = patient.Patient.Subject.Number,
+                        Phone = patient.Patient.Subject.Phone,
+                        Role = patient.Patient.Subject.Role
+                    },
+                    Data = new PositiveData()
+                    {
+                        EstremiProvvedimentiASL = lastPatientData.EstremiProvvedimentiASL,
+                        ActualWorkReturnDate = lastPatientData.ActualWorkReturnDate,
+                        ExpectedWorkReturnDate = lastPatientData.ExpectedWorkReturnDate,
+                        QuarantinePlace = lastPatientData.QuarantinePlace,
+                        DiseaseConfirmDate = lastPatientData.DiseaseConfirmDate,
+                        UpdatedBy = lastPatientData.UpdatedBy,
+                        UpdateTime = lastPatientData.UpdateTime
+                    }
+                };
 
-            return Ok(result);
+                return Ok(result);
+            }
+            else
+            {
+                var result = new
+                {
+                    Group = patient.Patient.Group,
+                    Subject = new Anagrafica()
+                    {
+                        Nome = patient.Patient.Subject.Nome,
+                        Cognome = patient.Patient.Subject.Cognome,
+                        Email = patient.Patient.Subject.Email,
+                        Number = patient.Patient.Subject.Number,
+                        Phone = patient.Patient.Subject.Phone,
+                        Role = patient.Patient.Subject.Role
+                    }
+                };
+                return Ok(result);
+            }
         }
     }
 }

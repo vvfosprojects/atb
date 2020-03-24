@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CQRS.Commands;
+﻿using CQRS.Commands;
 using DomainModel.CQRS.Commands.NewSuspectUpdate;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace atb.Controllers
