@@ -39,7 +39,7 @@ export class SearchState {
     }
 
     @Action(SearchPositiveCase)
-    setPageTitleFormPositivo({ patchState, dispatch }: StateContext<SearchStateModel>, action: SearchPositiveCase) {
+    searchPositiveCase({ patchState, dispatch }: StateContext<SearchStateModel>, action: SearchPositiveCase) {
         this.positiviService.getPositive(action.caseNumber).subscribe((positive: PositiveCaseInterface) => {
             patchState({
                 positiveCase: positive
