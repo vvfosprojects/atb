@@ -2,18 +2,19 @@
 using DomainModel.Services;
 using DomainModel.Services.Users;
 using MongoDB.Driver;
+using System;
 using System.Linq;
 
 namespace Persistence.InMongo_local
 {
     public class GetNextPositiveCaseNumber : IGetNextPositiveCaseNumber
     {
-        private readonly DbContext dbContext;
+        private readonly DbContext dbContext ;
         private readonly IGetSessionContext getSessionContext;
         public GetNextPositiveCaseNumber(DbContext dbContext, IGetSessionContext getSessionContext)
         {
-            this.dbContext = dbContext;
-            this.getSessionContext = getSessionContext;
+            this.dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+            this.getSessionContext = getSessionContext ?? throw new ArgumentNullException(nameof(getSessionContext));
         }
 
         public int Get()

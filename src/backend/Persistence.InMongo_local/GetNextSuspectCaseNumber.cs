@@ -2,6 +2,7 @@
 using DomainModel.Services;
 using DomainModel.Services.Users;
 using MongoDB.Driver;
+using System;
 using System.Linq;
 
 namespace Persistence.InMongo_local
@@ -13,8 +14,8 @@ namespace Persistence.InMongo_local
 
         public GetNextSuspectCaseNumber(DbContext dbContext, IGetSessionContext getSessionContext)
         {
-            this.dbContext = dbContext;
-            this.getSessionContext = getSessionContext;
+            this.dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+            this.getSessionContext = getSessionContext ?? throw new ArgumentNullException(nameof(getSessionContext));
         }
 
         public int Get()

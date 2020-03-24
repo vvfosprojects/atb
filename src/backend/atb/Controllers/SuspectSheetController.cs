@@ -22,31 +22,50 @@ namespace atb.Controllers
         {
             var query = new GetSuspectQuery() { CaseNumber = caseNumber };
             var suspect = this.handler.Handle(query);
-
-            var result = new
+            if (suspect.Suspect.Data.Any())
             {
-                Group = suspect.Suspect.Group,
-                Subject = new Anagrafica()
+                var result = new
                 {
-                    Nome = suspect.Suspect.Subject.Nome,
-                    Cognome = suspect.Suspect.Subject.Cognome,
-                    Email = suspect.Suspect.Subject.Email,
-                    Number = suspect.Suspect.Subject.Number,
-                    Phone = suspect.Suspect.Subject.Phone,
-                    Role = suspect.Suspect.Subject.Role
-                },
-                Data = new SuspectData()
-                {
-                    ActualWorkReturnDate = suspect.Suspect.Data.Last().ActualWorkReturnDate,
-                    ExpectedWorkReturnDate = suspect.Suspect.Data.Last().ExpectedWorkReturnDate,
-                    QuarantinePlace = suspect.Suspect.Data.Last().QuarantinePlace,
-                    HealthMeasure = suspect.Suspect.Data.Last().HealthMeasure,
-                    UpdatedBy = suspect.Suspect.Data.Last().UpdatedBy,
-                    UpdateTime = suspect.Suspect.Data.Last().UpdateTime
-                }
-            };
+                    Group = suspect.Suspect.Group,
+                    Subject = new Anagrafica()
+                    {
+                        Nome = suspect.Suspect.Subject.Nome,
+                        Cognome = suspect.Suspect.Subject.Cognome,
+                        Email = suspect.Suspect.Subject.Email,
+                        Number = suspect.Suspect.Subject.Number,
+                        Phone = suspect.Suspect.Subject.Phone,
+                        Role = suspect.Suspect.Subject.Role
+                    },
+                    Data = new SuspectData()
+                    {
+                        ActualWorkReturnDate = suspect.Suspect.Data.Last().ActualWorkReturnDate,
+                        ExpectedWorkReturnDate = suspect.Suspect.Data.Last().ExpectedWorkReturnDate,
+                        QuarantinePlace = suspect.Suspect.Data.Last().QuarantinePlace,
+                        HealthMeasure = suspect.Suspect.Data.Last().HealthMeasure,
+                        UpdatedBy = suspect.Suspect.Data.Last().UpdatedBy,
+                        UpdateTime = suspect.Suspect.Data.Last().UpdateTime
+                    }
+                };
 
-            return Ok(result);
+                return Ok(result);
+            }
+            else
+            {
+                var result = new
+                {
+                    Group = suspect.Suspect.Group,
+                    Subject = new Anagrafica()
+                    {
+                        Nome = suspect.Suspect.Subject.Nome,
+                        Cognome = suspect.Suspect.Subject.Cognome,
+                        Email = suspect.Suspect.Subject.Email,
+                        Number = suspect.Suspect.Subject.Number,
+                        Phone = suspect.Suspect.Subject.Phone,
+                        Role = suspect.Suspect.Subject.Role
+                    }
+                };
+                return Ok(result);
+            }
         }
     }
 }
