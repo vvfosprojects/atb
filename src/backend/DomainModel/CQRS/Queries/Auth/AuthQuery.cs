@@ -18,7 +18,7 @@ namespace DomainModel.CQRS.Queries.Auth
 
         public override string ToString()
         {
-            return $"{{ Username: \"{ this.Username }\" }}";
+            return $"{{ Username: \"{ this.Username }\", Password: \"***\" }}";
         }
     }
 }
