@@ -68,9 +68,10 @@ This action allows to append an update to a positive case.
 ```jsonc
 {
   "caseNumber": 1234,
-  "estremiProvvedimentiASL": "abcd efgh yxzk",
-  "quarantinePlace": "HOME", // value in [ "HOME", "HOSP", "INTCARE" ]
-  "expectedWorkReturnDate": "2020-12-31Z",
+  "estremiProvvedimentiASL": "abcd efgh yxzk", // required field
+  "diseaseConfirmDate": "2020-05-05T00:00:00.000Z", // required field
+  "quarantinePlace": "HOME", // value in [ "HOME", "HOSP", "INTCARE" ] // required field
+  "expectedWorkReturnDate": "2020-12-31T00:00:00.000Z", // nullable date
   "actualWorkReturnDate": null // nullable date
 }
 ```
@@ -334,6 +335,36 @@ The action can be executed by an authenticated user with reference to his own pa
 
 The action can be executed in any case by a user belonging to `admin` role, with reference to the password belonging to any user.
 
+## Action: `api/groups`
+
+This action returns the groups visible by the authenticated user.
+
+### Request
+
+The request is empty.
+
+### Response
+
+```jsonc
+{
+  groups: [
+    {
+        "code": "theGroup",
+		"description": "the Description"
+	},
+	// ... here the other groups
+  ]
+}
+```
+
+### Authorization
+
+The action can be executed by authenticated users.
+
+### Notes
+
+The group description is get from the group code converting to uppercase characters.
+
 ## Action: `api/sheets`
 
 This action returns the patients and suspects sheets.
@@ -396,19 +427,9 @@ This action returns the patients and suspects sheets.
 }
 ```
 
-### Validation
-
-In case the password is changed by a user belonging to `admin` role, validation is not performed. Otherwise, the password must:
-
-* contain at least 6 characters;
-* contain at least one number;
-* contain at least one letter.
-
 ### Authorization
 
-The action can be executed by an authenticated user with reference to his own password.
-
-The action can be executed in any case by a user belonging to `admin` role, with reference to the password belonging to any user.
+The action can be executed by any authenticated user with reference to his groups. A user belonging to no groups is allowed to retrieve sheets belonging to any group.
 
 # Database collections
 

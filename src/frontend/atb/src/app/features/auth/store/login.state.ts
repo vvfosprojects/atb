@@ -57,6 +57,7 @@ export class LoginState {
         const state = getState();
         patchState({ submittedForm: true });
         if (ngxsValidForm(state.loginForm.status)) {
+            new SetErrorMessage(null);
             this.authenticationService.login(state.loginForm.model.username, state.loginForm.model.password).subscribe((response: AuthResponseInterface) => {
                 if (response && response.success) {
                     dispatch([
