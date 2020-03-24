@@ -1,6 +1,7 @@
 export interface DtoNewPositiveUpdateInterface {
-    caseNumber?: number;
+    caseNumber: number;
     estremiProvvedimentiASL?: string;
+    diseaseConfirmDate: string;
     quarantinePlace: string;
     expectedWorkReturnDate: string;
     actualWorkReturnDate?: string;

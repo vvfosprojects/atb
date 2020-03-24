@@ -20,6 +20,7 @@ export interface FormPositivoStateModel {
             // Personal Data
             caseNumber: number;
             estremiProvvedimentiASL: string;
+            diseaseConfirmDate: string;
             quarantinePlace: string;
             intensiveTerapy: boolean;
             expectedWorkReturnDate: string;
@@ -78,6 +79,7 @@ export class FormPositivoState {
             const objData = {
                 caseNumber: resNewPositiveCase.caseNumber,
                 estremiProvvedimentiASL: positivoFormValue.estremiProvvedimentiASL,
+                diseaseConfirmDate: positivoFormValue.diseaseConfirmDate ? formatDate(positivoFormValue.diseaseConfirmDate) : null,
                 quarantinePlace: positivoFormValue.intensiveTerapy && positivoFormValue.intensiveTerapy === true ? 'INTCARE' : positivoFormValue.quarantinePlace,
                 expectedWorkReturnDate: positivoFormValue.expectedWorkReturnDate ? formatDate(positivoFormValue.expectedWorkReturnDate) : null,
                 actualWorkReturnDate: positivoFormValue.actualWorkReturnDate ? formatDate(positivoFormValue.actualWorkReturnDate) : null
@@ -97,6 +99,7 @@ export class FormPositivoState {
         const objData = {
             caseNumber: positivoFormValue.caseNumber,
             estremiProvvedimentiASL: positivoFormValue.estremiProvvedimentiASL,
+            diseaseConfirmDate: positivoFormValue.diseaseConfirmDate ? formatDate(positivoFormValue.diseaseConfirmDate) : null,
             quarantinePlace: positivoFormValue.intensiveTerapy && positivoFormValue.intensiveTerapy === true ? 'INTCARE' : positivoFormValue.quarantinePlace,
             expectedWorkReturnDate: positivoFormValue.expectedWorkReturnDate ? formatDate(positivoFormValue.expectedWorkReturnDate) : null,
             actualWorkReturnDate: positivoFormValue.actualWorkReturnDate ? formatDate(positivoFormValue.actualWorkReturnDate) : null
