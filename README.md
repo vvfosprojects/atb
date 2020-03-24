@@ -350,9 +350,9 @@ The request is empty.
   groups: [
     {
         "code": "theGroup",
-		"description": "the Description"
-	},
-	// ... here the other groups
+        "description": "the Description"
+    },
+    // ... here the other groups
   ]
 }
 ```
@@ -399,7 +399,7 @@ This action returns the patients and suspects sheets.
           "actualWorkReturnDate": null // nullable date
         }
     },
-	// ... other patients here
+    // ... other patients here
   ],
   suspects: [
     {

@@ -40,7 +40,11 @@ namespace CompositionRoot
 
             container.Register<
                 DomainModel.Services.Users.IChangePassword,
-                Persistence.InMongo_local.ChangePassword>(Lifestyle.Singleton);
+                Persistence.InMongo_local.ChangePassword>(Lifestyle.Scoped);
+
+            container.Register<
+                DomainModel.Services.Groups.IGetAllGroups,
+                Persistence.InMongo_local.GetAllGroups>(Lifestyle.Scoped);
 
             container.Register<Persistence.InMongo_local.DbContext>(() =>
             {
