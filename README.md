@@ -396,19 +396,9 @@ This action returns the patients and suspects sheets.
 }
 ```
 
-### Validation
-
-In case the password is changed by a user belonging to `admin` role, validation is not performed. Otherwise, the password must:
-
-* contain at least 6 characters;
-* contain at least one number;
-* contain at least one letter.
-
 ### Authorization
 
-The action can be executed by an authenticated user with reference to his own password.
-
-The action can be executed in any case by a user belonging to `admin` role, with reference to the password belonging to any user.
+The action can be executed by any authenticated user with reference to his groups. A user belonging to no groups is allowed to retrieve sheets belonging to any group.
 
 # Database collections
 
