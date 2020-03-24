@@ -40,8 +40,7 @@
             <div class="col-12 col-sm-11 col-md-10 mx-auto">
                 <form [formGroup]="assenteForm" ngxsForm="assente.assenteForm" (ngSubmit)="onSubmit()">
                     <div class="px-4 py-3 bg-light rounded border border-light shadow-sm mb-4">
-                        <h4>Codice Caso</h4>
-                        <h6>Se lasci questo campo vuoto, il numero verrà automaticamente assegnato</h6>
+                        <h4>Numero Caso</h4>
                         <hr>
                         <div class="row">
                             <div class="col-12 col-sm-8 col-md-6 col-lg-4">
@@ -53,9 +52,13 @@
                                 </div>
                             </div>
                             <div class="col-12">
-                                <small id="caseNumberHelp" class="form-text text-muted">
+                                <small id="caseNumberHelp1" class="form-text text-muted">
                                     <i class="fa fa-exclamation-triangle mr-1"></i>
-                                    Inserire un numero intero <span class="font-weight-bold">maggiore di zero</span>
+                                    Inserire un numero intero <span class="font-weight-bold">maggiore di zero</span>.
+                                </small>
+                                <small id="caseNumberHelp2" class="form-text text-muted">
+                                    <i class="fa fa-exclamation-triangle mr-1"></i>
+                                    Se lasci questo campo vuoto, il numero verrà <span class="font-weight-bold">automaticamente assegnato</span>.
                                 </small>
                             </div>
                         </div>
