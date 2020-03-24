@@ -14,6 +14,12 @@
 .atb-title {
   opacity: .8;
 }
+
 .atb-title:hover {
   opacity: 1;
+}
+
+.backdrop-custom-black {
+  background-color: black !important;
+  opacity: .8 !important;
 }

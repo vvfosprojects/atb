@@ -53,7 +53,7 @@ export class FormPositivoComponent implements OnInit, OnDestroy {
                                 estremiProvvedimentiASL: positiveCase.data.estremiProvvedimentiASL,
                                 quarantinePlace: positiveCase.data.quarantinePlace !== 'INTCARE' ? positiveCase.data.quarantinePlace : 'HOSP',
                                 intensiveTerapy: positiveCase.data.quarantinePlace === 'INTCARE',
-                                expectedWorkReturnDate: formatDateForNgbDatePicker(positiveCase.data.expectedWorkReturnDate),
+                                expectedWorkReturnDate: positiveCase.data.expectedWorkReturnDate ? formatDateForNgbDatePicker(positiveCase.data.expectedWorkReturnDate) : null,
                                 actualWorkReturnDate: positiveCase.data.actualWorkReturnDate ? formatDateForNgbDatePicker(positiveCase.data.actualWorkReturnDate) : null
                             }
                         })
@@ -105,8 +105,8 @@ export class FormPositivoComponent implements OnInit, OnDestroy {
             email: [null, Validators.required],
             role: [null, Validators.required],
             // Personal Data
-            caseNumber: [null, Validators.required],
-            estremiProvvedimentiASL: [''],
+            caseNumber: [null],
+            estremiProvvedimentiASL: [null],
             quarantinePlace: [null, Validators.required],
             intensiveTerapy: [null],
             expectedWorkReturnDate: [null],
