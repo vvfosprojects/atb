@@ -35,7 +35,7 @@ registerLocaleData(localeIT);
         BrowserAnimationsModule,
         AppRoutingModule,
         NgxsModule.forRoot(
-            [ LoadingState, AuthState ],
+            [LoadingState, AuthState],
             { developmentMode: !environment.production }
         ),
         NgxsRouterPluginModule.forRoot(),
@@ -61,7 +61,7 @@ registerLocaleData(localeIT);
         { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
         { provide: LOCALE_ID, useValue: 'it-IT' }
     ],
-    bootstrap: [ AppComponent ]
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 }
