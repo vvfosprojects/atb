@@ -9,7 +9,7 @@ namespace DbFeeder
 {
     internal class Program
     {
-        private static string key = "mVydIKic47eymT8u8XBrgTSHAGAqjBRM";
+        private static string key = "ZOcmDICigg2NXTQ0vHSXXysNfA47LoqeH7xvNtqIDQ8aJP2tL2NZpQQALTBcivvU".Substring(0, 32);
 
         private static void Main(string[] args)
         {

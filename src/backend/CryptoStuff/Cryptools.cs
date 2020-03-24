@@ -14,7 +14,12 @@ namespace CryptoStuff
                 throw new System.ArgumentException("key cannot be null", nameof(key));
             }
 
-            this.key = key;
+            if (key.Length < 32)
+            {
+                throw new System.ArgumentException("key must be at least 32 chars long", nameof(key));
+            }
+
+            this.key = key.Substring(0, 32);
         }
 
         public string Decrypt(string s)
