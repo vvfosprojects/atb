@@ -4,7 +4,6 @@ using DomainModel.Services.Users;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Persistence.InMongo_local
 {
@@ -16,9 +15,9 @@ namespace Persistence.InMongo_local
 
         public GetAllPositiveSheets(DbContext dbContext, ICryptools cryptools, IGetSessionContext getSessionContext)
         {
-            this.dbContext = dbContext;
-            this.getSessionContext = getSessionContext;
-            this.cryptools = cryptools;
+            this.cryptools = cryptools ?? throw new ArgumentNullException(nameof(cryptools));
+            this.dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+            this.getSessionContext = getSessionContext ?? throw new ArgumentNullException(nameof(getSessionContext));
         }
 
         public IEnumerable<Patient> Get()

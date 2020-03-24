@@ -40,10 +40,8 @@
             <div class="col-12 col-sm-11 col-md-10 mx-auto">
                 <form [formGroup]="positivoForm" ngxsForm="positivo.positivoForm" (ngSubmit)="onSubmit()">
                     <div class="px-4 py-3 bg-light rounded border border-light shadow-sm mb-4">
-                        <h4>
-                            Codice Caso
-                            <span class="font-weight-bold text-danger">*</span>
-                        </h4>
+                        <h4>Codice Caso</h4>
+                        <h6>Se lasci questo campo vuoto, il numero verrà automaticamente assegnato</h6>
                         <hr>
                         <div class="row">
                             <div class="col-12 col-sm-8 col-md-6 col-lg-4">
@@ -60,9 +58,6 @@
                                     Inserire un numero intero <span class="font-weight-bold">maggiore di zero</span>
                                 </small>
                             </div>
-                        </div>
-                        <div class="small mt-2">
-                            <span class="font-weight-bold text-danger">* Campi Obbligatori</span>
                         </div>
                     </div>
                     <div class="px-4 py-3 bg-light rounded border border-light shadow-sm mb-4">
@@ -253,6 +248,39 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <div class="px-4 py-3 bg-light rounded border border-light shadow-sm mb-4">
+                        <h4>
+                            Data di conferma della positività
+                            <span class="font-weight-bold text-danger">*</span>
+                        </h4>
+                        <h6 class="text-muted">
+                            E' la data in cui è stata certificata la positività del soggetto.
+                        </h6>
+                        <hr>
+                        <div class="row">
+                            <div class="col-12 col-sm-10 col-md-8 col-lg-6">
+                                <div class="input-group">
+                                    <label for="diseaseConfirmDate" class="d-none">Data di conferma della
+                                        positività</label>
+                                    <input id="diseaseConfirmDate" class="form-control" placeholder="gg-mm-aaaa"
+                                           name="diseaseConfirmDate" formControlName="diseaseConfirmDate"
+                                           ngbDatepicker #diseaseConfirmDate="ngbDatepicker"
+                                           (click)="diseaseConfirmDate.open()"
+                                           (ngModelChange)="diseaseConfirmDate.close()"
+                                           [ngClass]="{ 'is-invalid': submitted && f.diseaseConfirmDate.errors }">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary"
+                                                (click)="diseaseConfirmDate.toggle()" type="button">
+                                            <i class="fa fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="small mt-2">
+                            <span class="font-weight-bold text-danger">* Campi Obbligatori</span>
                         </div>
                     </div>
                 </form>

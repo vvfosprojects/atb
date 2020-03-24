@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { DtoNewPositiveCaseInterface } from '../../../shared/interface/dto-new-positive-case.interface';
+import { DtoNewPositiveUpdateInterface } from '../../../shared/interface/dto-new-positive-update.interface';
 
 const APIURL = environment.baseUrl;
 
@@ -15,11 +17,11 @@ export class PositiviService {
         return this.http.get(APIURL + '/PatientSheet?caseNumber=' + caseNumber);
     }
 
-    newPositiveCase(obj: any): Observable<any> {
+    newPositiveCase(obj: DtoNewPositiveCaseInterface): Observable<any> {
         return this.http.post(APIURL + '/NewPositiveCase', obj);
     }
 
-    newPositiveUpdate(obj: any): Observable<any> {
+    newPositiveUpdate(obj: DtoNewPositiveUpdateInterface): Observable<any> {
         return this.http.post(APIURL + '/NewPositiveUpdate', obj);
     }
 }

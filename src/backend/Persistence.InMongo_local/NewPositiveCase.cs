@@ -29,7 +29,7 @@ namespace Persistence.InMongo_local
                     Nome = cryptools.Encrypt(command.Name),
                     Cognome = cryptools.Encrypt(command.Surname),
                     Email = cryptools.Encrypt(command.Email),
-                    Number = command.Number,
+                    Number = command.Number.Value,
                     Phone = cryptools.Encrypt(command.Phone),
                     Role = cryptools.Encrypt(command.Role)
                 },

@@ -1,6 +1,8 @@
 ﻿using CQRS.Queries;
 using DomainModel.CQRS.Queries.GetCSV;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
+using System.Net.Http;
 using System.Net.Http.Headers;
 
 namespace atb.Controllers
@@ -17,13 +19,12 @@ namespace atb.Controllers
         }
 
         [HttpGet]
-        public ActionResult<GetCSVQueryResult> Get([FromQuery] GetCSVQuery query)
+        public string Get([FromQuery] GetCSVQuery query)
         {
-            var result = this.handler.Handle(query);
-            return Ok(result);
+            var csv = this.handler.Handle(query).CSV;
 
-            //var t.Content.Headers.ContentType = new MediaTypeHeaderValue("text/plain");
-            //return result.ToString();
+            Response.ContentType = "text/plain";
+            return csv;
         }
     }
 }

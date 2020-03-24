@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using DomainModel.Classes;
+using System;
 
 namespace DomainModel.CQRS.Commands.NewSuspectUpdate
 {
@@ -9,6 +8,8 @@ namespace DomainModel.CQRS.Commands.NewSuspectUpdate
         public int CaseNumber { get; set; }
 
         public string QuarantinePlace { get; set; }
+
+        public HealthMeasure HealthMeasure { get; set; }
 
         public DateTime ExpectedWorkReturnDate { get; set; }
 

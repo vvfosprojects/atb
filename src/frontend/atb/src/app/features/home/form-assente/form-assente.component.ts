@@ -35,7 +35,7 @@ export class FormAssenteComponent implements OnInit, OnDestroy {
                 private router: Router) {
         if (this.route.snapshot.params.id) {
             this.editMode = true;
-            this.store.dispatch(new SetPageTitleFormAssente('modifica assente'));
+            this.store.dispatch(new SetPageTitleFormAssente('modifica sorvegliato'));
             this.suspectCase$.subscribe((suspectCase: SuspectCaseInterface) => {
                 if (suspectCase) {
                     this.store.dispatch(
@@ -52,7 +52,9 @@ export class FormAssenteComponent implements OnInit, OnDestroy {
                                 caseNumber: suspectCase.subject.number,
                                 quarantinePlace: suspectCase.data.quarantinePlace,
                                 expectedWorkReturnDate: formatDateForNgbDatePicker(suspectCase.data.expectedWorkReturnDate),
-                                actualWorkReturnDate: suspectCase.data.actualWorkReturnDate ? formatDateForNgbDatePicker(suspectCase.data.actualWorkReturnDate) : null
+                                actualWorkReturnDate: suspectCase.data.actualWorkReturnDate ? formatDateForNgbDatePicker(suspectCase.data.actualWorkReturnDate) : null,
+                                healthMeasureCode: suspectCase.data.healthMeasure.code,
+                                healthMeasureBy: suspectCase.data.healthMeasure.by
                             }
                         })
                     );
@@ -61,7 +63,7 @@ export class FormAssenteComponent implements OnInit, OnDestroy {
                 }
             });
         } else {
-            this.store.dispatch(new SetPageTitleFormAssente('nuovo assente'));
+            this.store.dispatch(new SetPageTitleFormAssente('nuovo sorvegliato'));
         }
         this.initForm();
     }
@@ -91,20 +93,24 @@ export class FormAssenteComponent implements OnInit, OnDestroy {
             caseNumber: new FormControl(),
             quarantinePlace: new FormControl(),
             expectedWorkReturnDate: new FormControl(),
-            actualWorkReturnDate: new FormControl()
+            actualWorkReturnDate: new FormControl(),
+            healthMeasureCode: new FormControl(),
+            healthMeasureBy: new FormControl()
         });
         this.assenteForm = this.formBuilder.group({
             // Personal Information
-            name: [''],
-            surname: [''],
-            phone: [''],
-            email: [''],
+            name: [null],
+            surname: [null],
+            phone: [null],
+            email: [null],
             role: [null, Validators.required],
             // Personal Data
-            caseNumber: [null, Validators.required],
+            caseNumber: [null],
             quarantinePlace: [null, Validators.required],
             expectedWorkReturnDate: [null, Validators.required],
-            actualWorkReturnDate: [null]
+            actualWorkReturnDate: [null],
+            healthMeasureCode: [null, Validators.required],
+            healthMeasureBy: [null, Validators.required]
         });
 
         if (this.editMode) {

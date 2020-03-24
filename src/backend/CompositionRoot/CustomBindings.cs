@@ -40,7 +40,11 @@ namespace CompositionRoot
 
             container.Register<
                 DomainModel.Services.Users.IChangePassword,
-                Persistence.InMongo_local.ChangePassword>(Lifestyle.Singleton);
+                Persistence.InMongo_local.ChangePassword>(Lifestyle.Scoped);
+
+            container.Register<
+                DomainModel.Services.Groups.IGetAllGroups,
+                Persistence.InMongo_local.GetAllGroups>(Lifestyle.Scoped);
 
             container.Register<Persistence.InMongo_local.DbContext>(() =>
             {
@@ -64,6 +68,8 @@ namespace CompositionRoot
             container.Register<DomainModel.Services.IGetAllSuspectSheets, Persistence.InMongo_local.GetAllSuspectSheets>();
             container.Register<DomainModel.Services.Statistics.IGetStatistics, Persistence.InMongo_local.GetStatistics>();
             container.Register<DomainModel.Services.IGetCSV, Persistence.InMongo_local.GetCSV>();
+            container.Register<DomainModel.Services.IGetNextPositiveCaseNumber, Persistence.InMongo_local.GetNextPositiveCaseNumber>();
+            container.Register<DomainModel.Services.IGetNextSuspectCaseNumber, Persistence.InMongo_local.GetNextSuspectCaseNumber>();
         }
     }
 }

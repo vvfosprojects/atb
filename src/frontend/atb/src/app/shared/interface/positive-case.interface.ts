@@ -4,7 +4,7 @@ export interface PositiveCaseInterface {
 }
 
 export interface Subject {
-    number: number;
+    number?: number;
     nome?: string;
     cognome?: string;
     email?: string;
@@ -14,6 +14,7 @@ export interface Subject {
 
 export interface Data {
     estremiProvvedimentiASL?: string;
+    diseaseConfirmDate: string;
     quarantinePlace: string;
     expectedWorkReturnDate: string;
     actualWorkReturnDate?: string;
