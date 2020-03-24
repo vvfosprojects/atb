@@ -1,9 +1,6 @@
 ﻿using CQRS.Queries;
 using DomainModel.CQRS.Queries.GetCSV;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
 
 namespace atb.Controllers
 {
