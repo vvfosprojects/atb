@@ -40,6 +40,7 @@ namespace atb.Controllers
                     ActualWorkReturnDate = suspect.Suspect.Data.Last().ActualWorkReturnDate,
                     ExpectedWorkReturnDate = suspect.Suspect.Data.Last().ExpectedWorkReturnDate,
                     QuarantinePlace = suspect.Suspect.Data.Last().QuarantinePlace,
+                    HealthMeasure = suspect.Suspect.Data.Last().HealthMeasure,
                     UpdatedBy = suspect.Suspect.Data.Last().UpdatedBy,
                     UpdateTime = suspect.Suspect.Data.Last().UpdateTime
                 }

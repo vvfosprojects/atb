@@ -28,6 +28,11 @@ namespace Persistence.InMongo_local
                 ActualWorkReturnDate = command.ActualWorkReturnDate,
                 ExpectedWorkReturnDate = command.ExpectedWorkReturnDate,
                 QuarantinePlace = command.QuarantinePlace,
+                HealthMeasure = new HealthMeasure()
+                {
+                    By = command.HealthMeasure.By,
+                    Code = command.HealthMeasure.Code
+                },
                 UpdatedBy = loggedUser,
                 UpdateTime = DateTime.UtcNow
             };

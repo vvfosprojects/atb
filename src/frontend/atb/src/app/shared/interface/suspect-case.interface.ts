@@ -1,3 +1,5 @@
+import { HealthMeasureInterface } from './health-measure.interface';
+
 export interface SuspectCaseInterface {
     subject: Subject;
     data: Data;
@@ -16,4 +18,5 @@ export interface Data {
     quarantinePlace: string;
     expectedWorkReturnDate: string;
     actualWorkReturnDate?: string;
+    healthMeasure: HealthMeasureInterface;
 }

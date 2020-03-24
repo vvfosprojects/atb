@@ -4,7 +4,7 @@ namespace DomainModel.CQRS.Commands.AddPatientCommand
 {
     public class NewPositiveCaseCommand : IHasCustomAudit
     {
-        public int Number { get; set; }
+        public int? Number { get; set; }
 
         public string Group { get; set; }
 
