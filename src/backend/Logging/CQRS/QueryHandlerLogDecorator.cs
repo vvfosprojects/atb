@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
+using CQRS.Logging;
 using CQRS.Queries;
 using Newtonsoft.Json;
 using Serilog;
@@ -19,10 +20,15 @@ namespace Logging.CQRS
 
         public TResult Handle(TQuery query)
         {
-            var jsonQuery = JsonConvert.SerializeObject(query);
-            var queryClass = query.GetType().ToString();
+            Type queryType = query.GetType();
+            string jsonQuery;
+            if (!typeof(IHasCustomAudit).IsAssignableFrom(query.GetType()))
+                jsonQuery = JsonConvert.SerializeObject(query);
+            else
+                jsonQuery = ((IHasCustomAudit)query).SerializeForAudit();
+            var sQueryType = queryType.ToString();
 
-            Log.Information("Action starting {queryClass}: {jsonQuery}", queryClass, jsonQuery);
+            Log.Information("Action starting {queryClass}: {jsonQuery}", sQueryType, jsonQuery);
 
             var stopwatch = new Stopwatch();
             stopwatch.Start();

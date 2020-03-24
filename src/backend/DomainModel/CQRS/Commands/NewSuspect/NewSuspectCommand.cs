@@ -1,6 +1,8 @@
-﻿namespace DomainModel.CQRS.Commands.NewSuspectCommand
+﻿using CQRS.Logging;
+
+namespace DomainModel.CQRS.Commands.NewSuspectCommand
 {
-    public class NewSuspectCommand
+    public class NewSuspectCommand : IHasCustomAudit
     {
         public int Number { get; set; }
 
@@ -15,5 +17,15 @@
         public string Phone { get; set; }
 
         public string Role { get; set; }
+
+        public string SerializeForAudit()
+        {
+            return this.ToString();
+        }
+
+        public override string ToString()
+        {
+            return $"{{ Number: { this.Number }, ... <suppressed> }}";
+        }
     }
 }

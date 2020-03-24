@@ -1,6 +1,8 @@
-﻿namespace DomainModel.CQRS.Commands.AddPatientCommand
+﻿using CQRS.Logging;
+
+namespace DomainModel.CQRS.Commands.AddPatientCommand
 {
-    public class NewPositiveCaseCommand
+    public class NewPositiveCaseCommand : IHasCustomAudit
     {
         public int Number { get; set; }
 
@@ -16,5 +18,14 @@
 
         public string Role { get; set; }
 
+        public string SerializeForAudit()
+        {
+            return this.ToString();
+        }
+
+        public override string ToString()
+        {
+            return $"{{ Number: { this.Number }, ... <suppressed> }}";
+        }
     }
 }

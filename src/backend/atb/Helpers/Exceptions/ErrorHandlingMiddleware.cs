@@ -32,8 +32,6 @@ namespace atb.Helpers.Exceptions
 
         private static Task HandleExceptionAsync(HttpContext context, Exception ex)
         {
-            Log.Error(ex, "Application error");
-
             var code = HttpStatusCode.InternalServerError; // 500 if unexpected
             var result = JsonConvert.SerializeObject(new { error = "Server error" });
 
@@ -43,7 +41,12 @@ namespace atb.Helpers.Exceptions
             else if (ex is DomainModel.Classes.Exceptions.AtbApplicationException) code = HttpStatusCode.BadRequest;
 
             if (code != HttpStatusCode.InternalServerError)
+            {
+                Log.Information($"{ex.GetType().ToString()} - {ex.Message}");
                 result = JsonConvert.SerializeObject(new { error = ex.Message });
+            }
+            else
+                Log.Error(ex, "Unhandled exception");
 
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)code;
