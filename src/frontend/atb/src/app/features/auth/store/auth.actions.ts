@@ -36,6 +36,10 @@ export class SetReturnUrl {
     }
 }
 
+export class RecoveryUrl {
+    static readonly type = '[Auth] Recovery Url';
+}
+
 // export class CasLogin {
 //     static readonly type = '[Auth] Cas Login';
 // }
