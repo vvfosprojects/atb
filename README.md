@@ -334,6 +334,32 @@ The action can be executed by an authenticated user with reference to his own pa
 
 The action can be executed in any case by a user belonging to `admin` role, with reference to the password belonging to any user.
 
+## Action: `api/groups`
+
+This action returns the groups visible by the authenticated user.
+
+### Request
+
+The request is empty.
+
+### Response
+
+```jsonc
+{
+  groups: [
+    {
+        "code": "theGroup",
+		"description": "the Description"
+	},
+	// ... here the other groups
+  ]
+}
+```
+
+### Authorization
+
+The action can be executed by authenticated users.
+
 ## Action: `api/sheets`
 
 This action returns the patients and suspects sheets.
