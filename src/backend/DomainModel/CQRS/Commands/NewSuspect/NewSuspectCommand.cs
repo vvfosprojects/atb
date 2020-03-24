@@ -4,7 +4,7 @@ namespace DomainModel.CQRS.Commands.NewSuspectCommand
 {
     public class NewSuspectCommand : IHasCustomAudit
     {
-        public int Number { get; set; }
+        public int? Number { get; set; }
 
         public string Group { get; set; }
 

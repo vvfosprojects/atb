@@ -6,14 +6,19 @@ namespace DomainModel.CQRS.Commands.AddPatientCommand
     public class NewPositiveCaseCommandHandler : ICommandHandler<NewPositiveCaseCommand>
     {
         private readonly INewPositiveCase addPatient;
+        private readonly IGetNextPositiveCaseNumber getNextPositiveCaseNumber;
 
-        public NewPositiveCaseCommandHandler(INewPositiveCase addPatient)
+
+        public NewPositiveCaseCommandHandler(INewPositiveCase addPatient, IGetNextPositiveCaseNumber getNextPositiveCaseNumber)
         {
             this.addPatient = addPatient;
+            this.getNextPositiveCaseNumber = getNextPositiveCaseNumber;
         }
 
         public void Handle(NewPositiveCaseCommand command)
         {
+            if (command.Number == null)
+                command.Number = getNextPositiveCaseNumber.Get() + 1;
             if (command.Name == null)
                 command.Name = string.Empty;
             if (command.Surname == null)

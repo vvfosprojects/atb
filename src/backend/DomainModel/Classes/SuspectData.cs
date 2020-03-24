@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DomainModel.Classes
 {
@@ -11,6 +9,8 @@ namespace DomainModel.Classes
         public DateTime ExpectedWorkReturnDate { get; set; }
 
         public DateTime? ActualWorkReturnDate { get; set; }
+
+        public HealthMeasure HealthMeasure { get; set; }
 
         public DateTime UpdateTime { get; set; }
 

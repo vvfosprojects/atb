@@ -25,7 +25,7 @@ namespace atb.Controllers
 
             handler.Handle(command);
             
-            return Ok(command.Number);
+            return Ok(new { CaseNumber = command.Number });
         }
     }
 }
