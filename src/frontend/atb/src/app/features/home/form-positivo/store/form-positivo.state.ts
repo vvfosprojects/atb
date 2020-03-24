@@ -77,7 +77,7 @@ export class FormPositivoState {
                 caseNumber: positivoFormValue.caseNumber,
                 estremiProvvedimentiASL: positivoFormValue.estremiProvvedimentiASL,
                 quarantinePlace: positivoFormValue.intensiveTerapy && positivoFormValue.intensiveTerapy === true ? 'INTCARE' : positivoFormValue.quarantinePlace,
-                expectedWorkReturnDate: positivoFormValue.expectedWorkReturnDate ? formatDate(positivoFormValue.expectedWorkReturnDate) : '',
+                expectedWorkReturnDate: positivoFormValue.expectedWorkReturnDate ? formatDate(positivoFormValue.expectedWorkReturnDate) : null,
                 actualWorkReturnDate: positivoFormValue.actualWorkReturnDate ? formatDate(positivoFormValue.actualWorkReturnDate) : null
             };
             this.positiviService.newPositiveUpdate(objData).subscribe(() => {
