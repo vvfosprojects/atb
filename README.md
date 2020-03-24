@@ -68,9 +68,10 @@ This action allows to append an update to a positive case.
 ```jsonc
 {
   "caseNumber": 1234,
-  "estremiProvvedimentiASL": "abcd efgh yxzk",
-  "quarantinePlace": "HOME", // value in [ "HOME", "HOSP", "INTCARE" ]
-  "expectedWorkReturnDate": "2020-12-31Z",
+  "estremiProvvedimentiASL": "abcd efgh yxzk", // required field
+  "diseaseConfirmDate": "2020-05-05T00:00:00.000Z", // required field
+  "quarantinePlace": "HOME", // value in [ "HOME", "HOSP", "INTCARE" ] // required field
+  "expectedWorkReturnDate": "2020-12-31T00:00:00.000Z", // nullable date
   "actualWorkReturnDate": null // nullable date
 }
 ```
