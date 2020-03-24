@@ -4,7 +4,6 @@ namespace DomainModel.Classes
 {
     public class PositiveData
     {
-        //public int CaseNumbe
         public string EstremiProvvedimentiASL { get; set; }
 
         public string QuarantinePlace { get; set; }
