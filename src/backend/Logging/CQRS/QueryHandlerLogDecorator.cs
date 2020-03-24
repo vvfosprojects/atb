@@ -26,9 +26,9 @@ namespace Logging.CQRS
                 jsonQuery = JsonConvert.SerializeObject(query);
             else
                 jsonQuery = ((IHasCustomAudit)query).SerializeForAudit();
-            var sQuerType = queryType.ToString();
+            var sQueryType = queryType.ToString();
 
-            Log.Information("Action starting {queryClass}: {jsonQuery}", sQuerType, jsonQuery);
+            Log.Information("Action starting {queryClass}: {jsonQuery}", sQueryType, jsonQuery);
 
             var stopwatch = new Stopwatch();
             stopwatch.Start();
