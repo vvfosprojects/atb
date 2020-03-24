@@ -75,7 +75,7 @@ export class FormAssenteState {
             name: assenteFormValue.name,
             surname: assenteFormValue.surname,
             email: assenteFormValue.email,
-            phone: assenteFormValue.phone.toString(),
+            phone: assenteFormValue.phone ? assenteFormValue.phone.toString() : assenteFormValue.phone,
             role: assenteFormValue.role
         };
         this.assentiService.newSuspectCase(objSubject).subscribe((resNewSuspectCase: { caseNumber: number }) => {

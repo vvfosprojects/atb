@@ -99,10 +99,10 @@ export class FormAssenteComponent implements OnInit, OnDestroy {
         });
         this.assenteForm = this.formBuilder.group({
             // Personal Information
-            name: [''],
-            surname: [''],
-            phone: [''],
-            email: [''],
+            name: [null],
+            surname: [null],
+            phone: [null],
+            email: [null],
             role: [null, Validators.required],
             // Personal Data
             caseNumber: [null],

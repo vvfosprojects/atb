@@ -196,16 +196,21 @@
                         </div>
                     </div>
                     <div class="px-4 py-3 bg-light rounded border border-light shadow-sm mb-4">
-                        <h4>
-                            Provvedimento sanitario di sorveglianza
-                            <span class="font-weight-bold text-danger">*</span>
-                        </h4>
+                        <h4>Provvedimento sanitario di sorveglianza</h4>
                         <hr>
                         <div class="form-group">
-                            <label for="healthMeasureCode">Estremi</label>
-                            <input id="healthMeasureCode" class="form-control" type="text" formControlName="healthMeasureCode"
+                            <label for="healthMeasureCode">
+                                Estremi
+                                <span class="font-weight-bold text-danger">*</span>
+                            </label>
+                            <input id="healthMeasureCode" class="form-control" type="text"
+                                   formControlName="healthMeasureCode"
                                    [ngClass]=" {'is-invalid': submitted && f.healthMeasureCode.errors }"/>
                         </div>
+                        <small class="d-inline-block mb-2">
+                            Seleziona una voce
+                            <span class="font-weight-bold text-danger">*</span>
+                        </small>
                         <div class="form-check mb-2">
                             <div>
                                 <input id="healthMeasureByDOC"
@@ -225,7 +230,8 @@
                                        formControlName="healthMeasureBy">
                                 <label for="healthMeasureByASL" class="form-check-label">ASL</label>
                             </div>
-                            <small *ngIf="submitted && f.healthMeasureBy.errors">"Provvedimento sanitario di sorveglianza" è un campo
+                            <small *ngIf="submitted && f.healthMeasureBy.errors">"Provvedimento sanitario di
+                                sorveglianza" è un campo
                                 obbligatorio</small>
                         </div>
                         <div class="small mt-2">
