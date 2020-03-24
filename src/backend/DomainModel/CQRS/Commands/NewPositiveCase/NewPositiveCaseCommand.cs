@@ -25,7 +25,7 @@ namespace DomainModel.CQRS.Commands.AddPatientCommand
 
         public override string ToString()
         {
-            return $"{{ Number: { this.Number } }}";
+            return $"{{ Number: { this.Number }, ... <suppressed> }}";
         }
     }
 }
