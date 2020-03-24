@@ -34,8 +34,7 @@ namespace CompositionRoot
             container.Register<
                 DomainModel.Services.ICryptools>(() =>
                 {
-                    var provider = container.GetInstance<Microsoft.AspNetCore.DataProtection.IDataProtectionProvider>();
-                    return new CryptoStuff.Cryptools(provider, appConfSection["dataEncryptionKey"]);
+                    return new CryptoStuff.Cryptools(appConfSection["dataEncryptionKey"]);
                 }, Lifestyle.Singleton);
 
             container.Register<

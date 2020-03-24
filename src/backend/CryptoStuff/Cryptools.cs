@@ -1,33 +1,30 @@
 ﻿using DomainModel.Services;
-using Microsoft.AspNetCore.DataProtection;
+using NETCore.Encrypt;
 
 namespace CryptoStuff
 {
     internal class Cryptools : ICryptools
     {
-        private readonly IDataProtector protector;
         private readonly string key;
 
-        public Cryptools(IDataProtectionProvider dataProtectionProvider,
-            string key)
+        public Cryptools(string key)
         {
             if (string.IsNullOrWhiteSpace(key))
             {
-                throw new System.ArgumentException("encryption key cannot be null", nameof(key));
+                throw new System.ArgumentException("key cannot be null", nameof(key));
             }
 
-            protector = dataProtectionProvider.CreateProtector(key);
             this.key = key;
         }
 
-        public string Encrypt(string input)
+        public string Decrypt(string s)
         {
-            return protector.Protect(input);
+            return EncryptProvider.AESDecrypt(s, key);
         }
 
-        public string Decrypt(string cipherText)
+        public string Encrypt(string s)
         {
-            return protector.Unprotect(cipherText);
+            return EncryptProvider.AESEncrypt(s, key);
         }
     }
 }
