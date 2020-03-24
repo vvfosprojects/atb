@@ -42,7 +42,7 @@ namespace atb.Helpers.Exceptions
 
             if (code != HttpStatusCode.InternalServerError)
             {
-                Log.Debug(ex, "Exception handled.");
+                Log.Information($"{ex.GetType().ToString()} - {ex.Message}");
                 result = JsonConvert.SerializeObject(new { error = ex.Message });
             }
             else
