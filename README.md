@@ -125,8 +125,8 @@ This action allows to append an update to a suspect infected individual.
   "expectedWorkReturnDate": "2020-12-31Z",
   "actualWorkReturnDate": null, // nullable date
   "healthMeasure": {
-	"code": "12345",
-	"by": "DOC" // can be in [ "DOC", "ASL" ]
+    "code": "12345",
+    "by": "DOC" // can be in [ "DOC", "ASL" ]
   }
 }
 ```
@@ -331,6 +331,82 @@ In case the password is changed by a user belonging to `admin` role, validation 
 ### Authorization
 
 The action can be executed by an authenticated user with reference to his own password. 
+
+The action can be executed in any case by a user belonging to `admin` role, with reference to the password belonging to any user.
+
+## Action: `api/report`
+
+This action allows a user to retrieve data useful to show a report with the current sheet situation.
+
+### Request
+
+```jsonc
+{
+  "group": "theGroup"
+}
+```
+
+### Response
+
+```jsonc
+{
+  patients: [
+    {
+        "group": "theGroup",
+        "subject": {
+          "number": 1234,
+          "name": "Mario",
+          "surname": "Rossi",
+          "email": "mario.rossi@vigilfuoco.it",
+          "phone": "3331234567",
+          "role": "VIGILE DEL FUOCO"
+        },
+        "data": {
+          "estremiProvvedimentiASL": "abcd efgh yxzk",
+          "quarantinePlace": "HOME", // value in [ "HOME", "HOSP", "INTCARE" ]
+          "expectedWorkReturnDate": "2020-12-31Z",
+          "actualWorkReturnDate": null // nullable date
+        }
+    },
+	// ... other patients here
+  ],
+  suspects: [
+    {
+        "group": "theGroup",
+        "subject": {
+          "number": 1234,
+          "name": "Giuseppe",
+          "surname": "Verdi",
+          "email": "giuseppe.verdi@vigilfuoco.it",
+          "phone": "3337654321",
+          "role": "ASSISTENTE AMMINISTRATIVO"
+        },
+        "data": {
+          "quarantinePlace": "HOME", // value in [ "HOME", "HOSP" ]
+          "expectedWorkReturnDate": "2020-12-31Z",
+          "actualWorkReturnDate": null, // nullable date
+          "healthMeasure": {
+            code: "12345",
+            by: "DOC" // can be in [ "DOC", "ASL" ]
+          }
+        }
+    },
+    // ... other suspects here
+  ]
+}
+```
+
+### Validation
+
+In case the password is changed by a user belonging to `admin` role, validation is not performed. Otherwise, the password must:
+
+* contain at least 6 characters;
+* contain at least one number;
+* contain at least one letter.
+
+### Authorization
+
+The action can be executed by an authenticated user with reference to his own password.
 
 The action can be executed in any case by a user belonging to `admin` role, with reference to the password belonging to any user.
 
