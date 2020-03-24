@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using CQRS.Commands;
+using CQRS.Logging;
 using Newtonsoft.Json;
 using Serilog;
 
@@ -19,10 +20,15 @@ namespace Logging.CQRS
 
         public void Handle(TCommand command)
         {
-            var jsonCommand = JsonConvert.SerializeObject(command);
-            var commandClass = command.GetType().ToString();
+            Type queryType = command.GetType();
+            string jsonCommand;
+            if (!typeof(IHasCustomAudit).IsAssignableFrom(command.GetType()))
+                jsonCommand = JsonConvert.SerializeObject(command);
+            else
+                jsonCommand = ((IHasCustomAudit)command).SerializeForAudit();
+            var sCommandType = queryType.ToString();
 
-            Log.Information("Action starting {commandClass}: {jsonCommand}", commandClass, jsonCommand);
+            Log.Information("Action starting {commandClass}: {jsonCommand}", sCommandType, jsonCommand);
 
             var stopwatch = new Stopwatch();
             stopwatch.Start();
