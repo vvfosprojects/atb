@@ -5,7 +5,7 @@ import { FormPositivoState } from '../store/form-positivo.state';
 import { Observable, Subscription } from 'rxjs';
 import { LoadingState } from '../../../shared/store/loading/loading.state';
 import { QualificheState } from '../../../shared/store/qualifiche/qualifiche.state';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { SaveNewPositivoCase, SetPageTitleFormPositivo, UpdatePositivoCase } from '../store/form-positivo.actions';
 import { UpdateFormValue } from '@ngxs/form-plugin';
 import { SearchState } from '../store/search.state';
@@ -13,6 +13,7 @@ import { PositiveCaseInterface } from '../../../shared/interface/positive-case.i
 import { formatDateForNgbDatePicker } from '../../../shared/functions/functions';
 import { ClearPositiveCase, SearchPositiveCase } from '../store/search.actions';
 import { delay } from 'rxjs/operators';
+import { Navigate } from '@ngxs/router-plugin';
 
 @Component({
     selector: 'app-positivo',
@@ -36,8 +37,7 @@ export class FormPositivoComponent implements OnDestroy {
 
     constructor(private store: Store,
                 private formBuilder: FormBuilder,
-                private route: ActivatedRoute,
-                private router: Router) {
+                private route: ActivatedRoute) {
         this.initForm();
         if (this.route.snapshot.params.id) {
             this.editMode = true;
@@ -133,7 +133,7 @@ export class FormPositivoComponent implements OnDestroy {
     }
 
     goBack() {
-        this.router.navigate([ './home/ricerca' ]);
+        this.store.dispatch(new Navigate(['./home/ricerca']));
     }
 
     searchCase(): void {
