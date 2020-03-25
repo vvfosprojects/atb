@@ -1,6 +1,7 @@
 export interface PositiveCaseInterface {
     subject: Subject;
     data: Data;
+    group?: string;
 }
 
 export interface Subject {

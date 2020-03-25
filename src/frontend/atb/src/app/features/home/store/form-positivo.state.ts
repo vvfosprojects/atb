@@ -1,11 +1,11 @@
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { SaveNewPositivoCase, SetPageTitleFormPositivo, UpdatePositivoCase } from './form-positivo.actions';
 import { Injectable } from '@angular/core';
-import { formatDate } from '../../../../shared/functions/functions';
+import { formatDate } from '../../../shared/functions/functions';
 import { Navigate } from '@ngxs/router-plugin';
-import { PositiviService } from '../../../../core/services/positivi/positivi.service';
+import { PositiviService } from '../../../core/services/positivi/positivi.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { CaseNumberModalComponent } from '../../../../shared/components/case-number-modal/case-number-modal.component';
+import { CaseNumberModalComponent } from '../../../shared/components/case-number-modal/case-number-modal.component';
 
 export interface FormPositivoStateModel {
     pageTitle: string;

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
-import { SearchPositiveCase, SearchSuspectCase } from './store/search.actions';
+import { SearchPositiveCase, SearchSuspectCase } from '../store/search.actions';
 import { LoadingState } from '../../../shared/store/loading/loading.state';
 import { Observable } from 'rxjs';
 

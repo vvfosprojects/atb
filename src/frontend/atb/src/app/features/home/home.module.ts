@@ -14,10 +14,12 @@ import { AssentiService } from '../../core/services/assenti/assenti.service';
 import { PositiviService } from '../../core/services/positivi/positivi.service';
 import { NgxsModule } from '@ngxs/store';
 import { QualificheState } from '../../shared/store/qualifiche/qualifiche.state';
-import { FormPositivoState } from './form-positivo/store/form-positivo.state';
-import { FormAssenteState } from './form-assente/store/form-assente.state';
-import { SearchState } from './search/store/search.state';
+import { FormPositivoState } from './store/form-positivo.state';
+import { FormAssenteState } from './store/form-assente.state';
+import { SearchState } from './store/search.state';
 import { DataTablesComponent } from './data-tables/data-tables.component';
+import { PermessiState } from '../../shared/store/permessi/permessi.state';
+import { DataTablesService } from '../../core/services/data-tables/data-tables.service';
 
 @NgModule({
     declarations: [ SearchComponent, FormPositivoComponent, FormAssenteComponent, SearchPositivoComponent, SearchAssenteComponent, DataTablesComponent ],
@@ -28,11 +30,12 @@ import { DataTablesComponent } from './data-tables/data-tables.component';
         NgbDatepickerModule,
         NgSelectModule,
         NgxsFormPluginModule,
-        NgxsModule.forFeature([QualificheState, FormPositivoState, FormAssenteState, SearchState])
+        NgxsModule.forFeature([PermessiState, QualificheState, FormPositivoState, FormAssenteState, SearchState])
     ],
     providers: [
         AssentiService,
-        PositiviService
+        PositiviService,
+        DataTablesService
     ]
 })
 export class HomeModule {

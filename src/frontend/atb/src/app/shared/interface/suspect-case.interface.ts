@@ -3,6 +3,7 @@ import { HealthMeasureInterface } from './health-measure.interface';
 export interface SuspectCaseInterface {
     subject: Subject;
     data: Data;
+    group?: string;
 }
 
 export interface Subject {
