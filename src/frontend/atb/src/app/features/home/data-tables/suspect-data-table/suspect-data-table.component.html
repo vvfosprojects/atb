@@ -1,18 +1,27 @@
 <table *ngIf="suspectList && suspectList.length > 0" class="table table-bordered mb-0">
     <thead class="bg-light">
     <tr>
+        <th class="text-center" scope="row">Numero</th>
         <th scope="col">Gruppo</th>
         <th scope="col">Cognome</th>
         <th scope="col">Nome</th>
         <th scope="col">Qualifica</th>
         <th scope="col">Luogo Isolamento</th>
-        <th scope="col">Data Effettiva Ripresa Servizio</th>
-        <th scope="col">Data Presunta Ripresa Servizio</th>
-        <th scope="col">Dettaglio</th>
+        <th scope="col">Data Eff. Ripresa Servizio</th>
+        <th scope="col">Data Pres. Ripresa Servizio</th>
+        <th class="text-center" scope="col">Dettaglio</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let s of suspectList">
+        <td class="text-center font-weight-bold">
+            <ng-template [ngIf]="s.subject.number">
+                {{s.subject.number}}
+            </ng-template>
+            <ng-template [ngIf]="!s.subject.number">
+                <span class="text-muted">Non presente</span>
+            </ng-template>
+        </td>
         <td>
             <ng-template [ngIf]="s.group">
                 {{s.group | uppercase}}
@@ -70,9 +79,9 @@
             </ng-template>
         </td>
         <td>
-            <button class="btn btn-sm btn-primary" (click)="goToDetail(s.subject.number)">
+            <button class="btn btn-sm btn-block btn-primary" (click)="goToDetail(s.subject.number)">
                 <i class="fa fa-file-text mr-1"></i>
-                Vai alla scheda
+                Visualizza
             </button>
         </td>
     </tr>

@@ -24,11 +24,19 @@ const routes: Routes = [
         component: FormPositivoComponent
     },
     {
+        path: 'form-positivo/detail/:id',
+        component: FormPositivoComponent
+    },
+    {
         path: 'form-assente',
         component: FormAssenteComponent
     },
     {
         path: 'form-assente/:id',
+        component: FormAssenteComponent
+    },
+    {
+        path: 'form-assente/detail/:id',
         component: FormAssenteComponent
     },
     {
