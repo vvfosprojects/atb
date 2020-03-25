@@ -34,8 +34,7 @@ namespace CompositionRoot
             container.Register<
                 DomainModel.Services.ICryptools>(() =>
                 {
-                    var provider = container.GetInstance<Microsoft.AspNetCore.DataProtection.IDataProtectionProvider>();
-                    return new CryptoStuff.Cryptools(provider, appConfSection["dataEncryptionKey"]);
+                    return new CryptoStuff.Cryptools(appConfSection["dataEncryptionKey"]);
                 }, Lifestyle.Singleton);
 
             container.Register<
@@ -71,6 +70,7 @@ namespace CompositionRoot
             container.Register<DomainModel.Services.IGetNextPositiveCaseNumber, Persistence.InMongo_local.GetNextPositiveCaseNumber>();
             container.Register<DomainModel.Services.IGetNextSuspectCaseNumber, Persistence.InMongo_local.GetNextSuspectCaseNumber>();
             container.Register<DomainModel.Services.IGetAllSheetsByGroup, Persistence.InMongo_local.GetAllSheetsByGroup>();
+            container.Register<DomainModel.Helpers.SubjectHash>(Lifestyle.Scoped);
         }
     }
 }
