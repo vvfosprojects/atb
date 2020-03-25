@@ -1,0 +1,34 @@
+<table *ngIf="suspectList && suspectList.length > 0" class="table">
+    <thead>
+    <tr>
+        <th scope="col">Gruppo</th>
+        <th scope="col">Cognome</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Qualifica</th>
+        <th scope="col">Luogo Isolamento</th>
+        <th scope="col">Data Effettiva Ripresa Servizio</th>
+        <th scope="col">Data Presunta Ripresa Servizio</th>
+        <th scope="col">Dettaglio</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let s of suspectList">
+        <td>{{s.group}}</td>
+        <td>{{s.subject.cognome}}</td>
+        <td>{{s.subject.nome}}</td>
+        <td>{{s.subject.role}}</td>
+        <td>{{getLuogoIsolamento(s.data.quarantinePlace)}}</td>
+        <td>{{s.data.actualWorkReturnDate | date: 'dd/MM/yyyy'}}</td>
+        <td>{{s.data.expectedWorkReturnDate | date: 'dd/MM/yyyy'}}</td>
+        <td>
+            <button class="btn btn-sm btn-primary" (click)="goToDetail(s.subject.number)">
+                <i class="fa fa-file-text mr-1"></i>
+                Vai alla scheda
+            </button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<div *ngIf="!loading && (!suspectList || suspectList.length <= 0)" class="alert alert-danger mt-3">
+    Nessun Dato Disponibile
+</div>

@@ -1,0 +1,35 @@
+<table *ngIf="positiveList && positiveList.length > 0" class="table">
+    <thead>
+    <tr>
+        <th scope="col">Gruppo</th>
+        <th scope="col">Cognome</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Qualifica</th>
+        <th scope="col">Luogo Isolamento</th>
+        <th scope="col">Data Effettiva Ripresa Servizio</th>
+        <th scope="col">Data Presunta Ripresa Servizio</th>
+        <th scope="col">Dettaglio</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let p of positiveList">
+        <td>{{p.group}}</td>
+        <td>{{p.subject.cognome}}</td>
+        <td>{{p.subject.nome}}</td>
+        <td>{{p.subject.role}}</td>
+        <td>{{getLuogoIsolamento(p.data.quarantinePlace)}}</td>
+        <td>{{p.data.actualWorkReturnDate | date: 'dd/MM/yyyy'}}</td>
+        <td>{{p.data.expectedWorkReturnDate | date: 'dd/MM/yyyy'}}</td>
+        <td>
+            <button class="btn btn-sm btn-primary" (click)="goToDetail(p.subject.number)">
+                <i class="fa fa-file-text mr-1"></i>
+                Vai alla scheda
+            </button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<div *ngIf="!loading && (!positiveList || positiveList.length <= 0)" class="alert alert-danger mt-3">
+    Nessun Dato Disponibile
+</div>
+
