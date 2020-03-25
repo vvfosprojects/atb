@@ -20,7 +20,7 @@ export class LuogoIsolamentoPipe implements PipeTransform {
                 case 'HOSP':
                     luogoIsolamentoReturn = 'Struttura Ospedaliera';
                     break;
-                case 'HOUSE':
+                case 'HOME':
                     luogoIsolamentoReturn = 'Domicilio';
                     break;
             }
