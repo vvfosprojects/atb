@@ -28,15 +28,15 @@ namespace DomainModel.CQRS.Commands.ChangePassword
 
             // new password must be at least n digits long
             if (command.NewPassword.Length < 6)
-                yield return new ValidationResult("Password must contain at least 6 characters.");
+                yield return new ValidationResult("La password deve contenere almeno 6 caratteri.");
 
             // new password must contain at least one digit
             if (!command.NewPassword.Any(c => char.IsDigit(c)))
-                yield return new ValidationResult("The new password must contain at least one digit.");
+                yield return new ValidationResult("La nuova password deve contenere almeno un numero.");
 
             // new password must contain at least one letter
             if (!command.NewPassword.Any(c => char.IsLetter(c)))
-                yield return new ValidationResult("The new password must contain at least one letter.");
+                yield return new ValidationResult("La nuova password deve contenere almeno una lettera.");
         }
     }
 }
