@@ -53,14 +53,13 @@ export class AuthState {
     setCurrentJwt({ patchState, dispatch }: StateContext<AuthStateModel>, action: SetCurrentJwt) {
         if (action.currentJwt) {
             sessionStorage.setItem(LSNAME.token, JSON.stringify(action.currentJwt));
-            const currentUrl = JSON.parse(localStorage.getItem(LSNAME.redirectUrl));
             patchState({
                 currentJwt: action.currentJwt,
                 // currentTicket: null
             });
             dispatch([
                 new SetLogged(),
-                currentUrl && new RecoveryUrl
+                new RecoveryUrl
             ])
         }
     }
@@ -86,9 +85,12 @@ export class AuthState {
 
     @Action(RecoveryUrl)
     recoveryUrl({ getState, dispatch, patchState }: StateContext<AuthStateModel>) {
-        localStorage.removeItem(LSNAME.redirectUrl);
-        dispatch(new Navigate([ getState().returnUrl ]));
-        patchState({returnUrl: AuthStateDefaults.returnUrl})
+        const currentUrl = JSON.parse(localStorage.getItem(LSNAME.redirectUrl));
+        if (currentUrl) {
+            localStorage.removeItem(LSNAME.redirectUrl);
+            dispatch(new Navigate([ getState().returnUrl ]));
+            patchState({ returnUrl: AuthStateDefaults.returnUrl })
+        }
     }
 
     @Action(ClearAuth)
