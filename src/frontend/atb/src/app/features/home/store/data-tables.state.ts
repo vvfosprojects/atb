@@ -4,17 +4,19 @@ import { DataTablesService } from '../../../core/services/data-tables/data-table
 import { GroupInterface } from '../../../shared/interface/group.interface';
 import { PositiveCaseInterface } from '../../../shared/interface/positive-case.interface';
 import { SuspectCaseInterface } from '../../../shared/interface/suspect-case.interface';
-import { ClearDataTables, GetGroupList } from './data-tables.actions';
-import { GroupsResponseInterface } from '../../../shared/interface/common';
+import { ClearDataTables, GetDataSheets, GetGroupList, SetGroup } from './data-tables.actions';
+import { GroupsResponseInterface, SheetsResponseInterface } from '../../../shared/interface/common';
 
 export interface DataTablesStateModel {
     groupsList: GroupInterface[];
+    selectedGroup: string;
     patients: PositiveCaseInterface[];
     suspects: SuspectCaseInterface[];
 }
 
 export const DataTablesStateDefaults: DataTablesStateModel = {
     groupsList: [],
+    selectedGroup: null,
     patients: [],
     suspects: []
 };
@@ -44,6 +46,11 @@ export class DataTablesState {
         return state.suspects;
     }
 
+    @Selector()
+    static selectedGroup(state: DataTablesStateModel) {
+        return state.selectedGroup;
+    }
+
     @Action(GetGroupList)
     getGroupList({ patchState }: StateContext<DataTablesStateModel>) {
         this.dataTablesService.getGroups().subscribe((res: GroupsResponseInterface) => {
@@ -51,6 +58,27 @@ export class DataTablesState {
                 patchState({ groupsList: res.groups });
             }
         });
+    }
+
+    @Action(SetGroup)
+    setGroup({ patchState, dispatch }: StateContext<DataTablesStateModel>, { selectedGroup }: SetGroup) {
+        patchState({ selectedGroup });
+        dispatch(new GetDataSheets());
+    }
+
+    @Action(GetDataSheets)
+    getDataSheets({ getState, patchState }: StateContext<DataTablesStateModel>) {
+        const selectedGroup = getState().selectedGroup;
+        if (selectedGroup) {
+            this.dataTablesService.getSheets(selectedGroup).subscribe((res: SheetsResponseInterface) => {
+                if (res) {
+                    patchState({
+                        suspects: res.suspects,
+                        patients: res.patients
+                    });
+                }
+            });
+        }
     }
 
     @Action(ClearDataTables)

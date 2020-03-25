@@ -5,7 +5,7 @@ export class GetGroupList {
 export class SetGroup {
     static readonly type = '[DataTables] Set Group';
 
-    constructor(public group: string) {
+    constructor(public selectedGroup: string) {
     }
 }
 
