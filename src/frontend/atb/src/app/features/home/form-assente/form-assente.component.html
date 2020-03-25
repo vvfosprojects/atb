@@ -113,39 +113,6 @@
                     </div>
                     <div class="px-4 py-3 bg-light rounded border border-light shadow-sm mb-4">
                         <h4>
-                            Sede di Isolamento
-                            <span class="font-weight-bold text-danger">*</span>
-                        </h4>
-                        <hr>
-                        <div class="form-check mb-2">
-                            <div>
-                                <input id="quarantinePlaceDomicilio"
-                                       class="form-check-input"
-                                       type="radio"
-                                       name="quarantinePlace"
-                                       value="HOME"
-                                       formControlName="quarantinePlace">
-                                <label for="quarantinePlaceDomicilio" class="form-check-label">Domicilio</label>
-                            </div>
-                            <div>
-                                <input id="quarantinePlaceStrutturaOspedaliera"
-                                       class="form-check-input"
-                                       type="radio"
-                                       name="quarantinePlace"
-                                       value="HOSP"
-                                       formControlName="quarantinePlace">
-                                <label for="quarantinePlaceStrutturaOspedaliera" class="form-check-label">Struttura
-                                    Ospedaliera</label>
-                            </div>
-                            <small *ngIf="submitted && f.quarantinePlace.errors">"Sede di Isolamento" è un campo
-                                obbligatorio</small>
-                        </div>
-                        <div class="small">
-                            <span class="font-weight-bold text-danger">* Campi Obbligatori</span>
-                        </div>
-                    </div>
-                    <div class="px-4 py-3 bg-light rounded border border-light shadow-sm mb-4">
-                        <h4>
                             Data Presunta di ripresa del servizio
                             <span class="font-weight-bold text-danger">*</span>
                         </h4>
