@@ -20,6 +20,8 @@ export class DataTablesComponent implements OnDestroy {
     groupsList: GroupInterface[];
 
     @Select(LoadingState.loading) loading$: Observable<boolean>;
+    loading: boolean;
+
     @Select(DataTablesState.patients) positiveList$: Observable<PositiveCaseInterface[]>;
     @Select(DataTablesState.suspects) suspectList$: Observable<SuspectCaseInterface[]>;
 
@@ -28,10 +30,20 @@ export class DataTablesComponent implements OnDestroy {
     constructor(private store: Store) {
         this.store.dispatch(new GetGroupList());
         this.subscription.add(this.groupsList$.subscribe(res => this.groupsList = res));
+        this.getLoading();
     }
 
     ngOnDestroy(): void {
         this.subscription.unsubscribe();
+    }
+
+    getLoading() {
+        this.subscription.add(
+            this.loading$.subscribe((value: boolean) => {
+                console.log('loading', value);
+                this.loading = value;
+            })
+        );
     }
 
     onSearch(groupCode: string) {

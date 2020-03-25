@@ -3,7 +3,7 @@
         <app-filters-data-tables [groups]="groupsList" [selectedGroup]="selectedGroup$ | async"
                                  (search)="onSearch($event)"></app-filters-data-tables>
     </div>
-    <div class="col-12 col-lg-10 mx-auto mt-5 bg-white border border-light shadow-sm p-4">
+    <div *ngIf="!loading" class="col-12 col-lg-10 mx-auto mt-5 bg-white border border-light shadow-sm p-4">
         <ngb-tabset [destroyOnHide]="true">
             <ngb-tab>
                 <ng-template ngbTabTitle>
@@ -12,7 +12,7 @@
                 <ng-template ngbTabContent>
                     <div class="p-3">
                         <app-positive-data-table [positiveList]="positiveList$ | async"
-                                                 [loading]="loading$ | async"></app-positive-data-table>
+                                                 [loading]="loading"></app-positive-data-table>
                     </div>
                 </ng-template>
             </ngb-tab>
@@ -23,7 +23,7 @@
                 <ng-template ngbTabContent>
                     <div class="p-3">
                         <app-suspect-data-table [suspectList]="suspectList$ | async"
-                                                [loading]="loading$ | async"></app-suspect-data-table>
+                                                [loading]="loading"></app-suspect-data-table>
                     </div>
                 </ng-template>
             </ngb-tab>

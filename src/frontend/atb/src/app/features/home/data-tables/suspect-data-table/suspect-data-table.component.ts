@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { SuspectCaseInterface } from '../../../../shared/interface/suspect-case.interface';
-import { getLuogoIsolamento } from '../../../../shared/functions/functions';
 
 @Component({
     selector: 'app-suspect-data-table',
@@ -20,10 +19,6 @@ export class SuspectDataTableComponent implements OnInit {
 
     goToDetail(caseNumber: number) {
         return;
-    }
-
-    getLuogoIsolamento(type: string) {
-        return getLuogoIsolamento(type);
     }
 
 }

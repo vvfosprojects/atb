@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { PositiveCaseInterface } from '../../../../shared/interface/positive-case.interface';
-import { getLuogoIsolamento } from '../../../../shared/functions/functions';
 
 @Component({
     selector: 'app-positive-data-table',
@@ -20,9 +19,5 @@ export class PositiveDataTableComponent implements OnInit {
 
     goToDetail(caseNumber: number) {
         return;
-    }
-
-    getLuogoIsolamento(type: string) {
-        return getLuogoIsolamento(type);
     }
 }
