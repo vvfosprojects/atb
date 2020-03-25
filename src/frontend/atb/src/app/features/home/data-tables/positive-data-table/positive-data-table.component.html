@@ -13,13 +13,62 @@
     </thead>
     <tbody>
     <tr *ngFor="let p of positiveList">
-        <td>{{p.group}}</td>
-        <td>{{p.subject.cognome}}</td>
-        <td>{{p.subject.nome}}</td>
-        <td>{{p.subject.role}}</td>
-        <td>{{getLuogoIsolamento(p.data.quarantinePlace)}}</td>
-        <td>{{p.data.actualWorkReturnDate | date: 'dd/MM/yyyy'}}</td>
-        <td>{{p.data.expectedWorkReturnDate | date: 'dd/MM/yyyy'}}</td>
+        <td>
+            <ng-template [ngIf]="p.group">
+                {{p.group}}
+            </ng-template>
+            <ng-template [ngIf]="!p.group">
+                <span class="text-muted">Non presente</span>
+            </ng-template>
+        </td>
+        <td>
+            <ng-template [ngIf]="p.subject.cognome">
+                {{p.subject.cognome}}
+            </ng-template>
+            <ng-template [ngIf]="!p.subject.cognome">
+                <span class="text-muted">Non presente</span>
+            </ng-template>
+        </td>
+        <td>
+            <ng-template [ngIf]="p.subject.nome">
+                {{p.subject.nome}}
+            </ng-template>
+            <ng-template [ngIf]="!p.subject.nome">
+                <span class="text-muted">Non presente</span>
+            </ng-template>
+        </td>
+        <td>
+            <ng-template [ngIf]="p.subject.role">
+                {{p.subject.role}}
+            </ng-template>
+            <ng-template [ngIf]="!p.subject.role">
+                <span class="text-muted">Non presente</span>
+            </ng-template>
+        </td>
+        <td>
+            <ng-template [ngIf]="p.data.quarantinePlace">
+                {{getLuogoIsolamento(p.data.quarantinePlace)}}
+            </ng-template>
+            <ng-template [ngIf]="!p.data.quarantinePlace">
+                <span class="text-muted">Non presente</span>
+            </ng-template>
+        </td>
+        <td>
+            <ng-template [ngIf]="p.data.actualWorkReturnDate">
+                {{p.data.actualWorkReturnDate | date: 'dd/MM/yyyy'}}
+            </ng-template>
+            <ng-template [ngIf]="!p.data.actualWorkReturnDate">
+                <span class="text-muted">Non presente</span>
+            </ng-template>
+        </td>
+        <td>
+            <ng-template [ngIf]="p.data.expectedWorkReturnDate">
+                {{p.data.expectedWorkReturnDate | date: 'dd/MM/yyyy'}}
+            </ng-template>
+            <ng-template [ngIf]="!p.data.expectedWorkReturnDate">
+                <span class="text-muted">Non presente</span>
+            </ng-template>
+        </td>
         <td>
             <button class="btn btn-sm btn-primary" (click)="goToDetail(p.subject.number)">
                 <i class="fa fa-file-text mr-1"></i>
