@@ -1,15 +1,33 @@
-<div class="position-absolute w-100 bg-white clearfix px-3 shadow-sm">
+<div class="nav-custom position-absolute w-100 bg-white clearfix px-3 shadow-sm">
     <div class="float-left">
-        <div class="h-100">
-            <h3 class="font-weight-bold mt-2 cursor-pointer atb-title" (click)="goToSearch()"><i
-                    class="fa fa-hashtag ml-2"></i>ATB</h3>
+        <div class="clearfix">
+            <div class="float-left">
+                <h3 class="font-weight-bold mt-2 cursor-pointer atb-title" (click)="goToSearch()"><i
+                        class="fa fa-hashtag ml-2"></i>ATB</h3>
+            </div>
+            <div class="float-left ml-4 px-2">
+                <button class="btn btn-sm btn-outline-primary mr-2 nav-link-custom-left" [routerLink]="['/'+ routesPath.CreateAndSearch]"
+                        [routerLinkActive]="['active']">
+                    <i class="fa fa-search mr-1"></i>
+                    Ricerca
+                </button>
+                <button class="btn btn-sm btn-outline-primary mr-2 nav-link-custom-left" [routerLink]="['/'+ routesPath.GroupSearch]"
+                        [routerLinkActive]="['active']">
+                    <i class="fa fa-group mr-1"></i>
+                    Ricerca Per Gruppo
+                </button>
+                <!-- <button class="btn btn-sm btn-outline-primary">
+                    <i class="fa fa-line-chart mr-1"></i>
+                    Statistiche
+                </button> -->
+            </div>
         </div>
     </div>
     <div class="float-right">
         <div class="clearfix">
             <div class="float-left">
                 <div class="d-inline-block" ngbDropdown #dropUser="ngbDropdown">
-                    <button class="btn btn-sm btn-primary" style="margin-top:.5rem" ngbDropdownAnchor
+                    <button class="btn btn-sm btn-primary nav-link-custom-right" ngbDropdownAnchor
                             (focus)="dropUser.open()">
                         <i class="fa fa-user mr-1"></i>
                         <span class="font-weight-bold mr-1">{{currentUser.username}}</span>
@@ -29,7 +47,7 @@
                 </div>
             </div>
             <div class="float-left">
-                <button class="btn btn-sm btn-danger ml-2" style="margin-top:.5rem" (click)="onLogout()">
+                <button class="btn btn-sm btn-danger ml-2 nav-link-custom-right" (click)="onLogout()">
                     <span class="font-weight-bold">Esci</span>
                     <i class="fa fa-sign-out ml-1"></i>
                 </button>

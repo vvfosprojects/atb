@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { UserInterface } from '../../shared/interface/common';
 import { Navigate } from '@ngxs/router-plugin';
 import { Store } from '@ngxs/store';
+import { RoutesPath } from '../../shared/enum/routes-path.enum';
 
 @Component({
     selector: 'app-navbar',
@@ -11,6 +12,7 @@ import { Store } from '@ngxs/store';
 export class NavbarComponent implements OnInit {
 
     @Input() currentUser: UserInterface;
+    routesPath = RoutesPath;
 
     constructor(private store: Store) {
     }
