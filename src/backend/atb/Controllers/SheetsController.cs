@@ -24,29 +24,30 @@ namespace atb.Controllers
         public ActionResult<Object> Get(GetSheetsByGroupQuery query)
         {
             var collection = this.handler.Handle(query).AllSheets;
-            var result = new List<Object>();
+            var patients = new List<Object>();
+            var suspects = new List<Object>();
 
             foreach(var patient in collection.Patients)
             {
-                result.Add(new 
+                patients.Add(new 
                 {
-                    Group = patient.Group,
-                    Subject = patient.Subject,
+                    patient.Group,
+                    patient.Subject,
                     Data = patient.Data.Last()
                 });
             };
 
             foreach(var suspect in collection.Suspects)
             {
-                result.Add(new
+                suspects.Add(new
                 {
-                    Group = suspect.Group,
-                    Subject = suspect.Subject,
+                    suspect.Group,
+                    suspect.Subject,
                     Data = suspect.Data.Last()
                 });
             }
 
-            return Ok(result);
+            return Ok(new SubjectSheets() { Patients = patients.ToArray(), Suspects = suspects.ToArray()});
         }
     }
 }

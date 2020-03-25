@@ -1,9 +1,8 @@
 ﻿using CQRS.Authorization;
 using CQRS.Queries.Authorizers;
 using DomainModel.Services.Users;
-using System;
+using Serilog;
 using System.Collections.Generic;
-using System.Text;
 
 namespace DomainModel.CQRS.Queries.GetSheetsByGroup
 {
@@ -18,11 +17,18 @@ namespace DomainModel.CQRS.Queries.GetSheetsByGroup
 
         public IEnumerable<AuthorizationResult> Authorize(GetSheetsByGroupQuery query)
         {
-           if (string.IsNullOrEmpty(this.getSessionContext.GetLoggedUsername()))
+            if (!this.getSessionContext.IsLogged())
+            {
                 yield return new AuthorizationResult("Unauthorized");
-            else if (this.getSessionContext.LoggedUserIsDoctor() && this.getSessionContext.GetActiveGroup() != query.Group)
+                yield break;
+            }
+
+            // se l'utente ha un gruppo e non è quello che sta chiedendo
+            if (!string.IsNullOrWhiteSpace(this.getSessionContext.GetActiveGroup()) && (this.getSessionContext.GetActiveGroup() != query.Group))
+            {
+                Log.Warning("Probabile attacco.");
                 yield return new AuthorizationResult("Unauthorized");
+            }
         }
     }
 }
-
