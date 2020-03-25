@@ -1,7 +1,7 @@
 export class SearchPositiveCase {
     static readonly type = '[Search] Search Positive Case';
 
-    constructor(public caseNumber: number) {
+    constructor(public caseNumber: number, public bookmark?: boolean) {
     }
 }
 
@@ -12,7 +12,7 @@ export class ClearPositiveCase {
 export class SearchSuspectCase {
     static readonly type = '[Search] Search Suspect Case';
 
-    constructor(public caseNumber: number) {
+    constructor(public caseNumber: number, public bookmark?: boolean) {
     }
 }
 
