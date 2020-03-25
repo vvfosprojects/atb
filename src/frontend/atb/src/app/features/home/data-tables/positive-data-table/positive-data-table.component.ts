@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { PositiveCaseInterface } from '../../../../shared/interface/positive-case.interface';
 
 @Component({
@@ -11,6 +11,8 @@ export class PositiveDataTableComponent implements OnInit {
     @Input() positiveList: PositiveCaseInterface[];
     @Input() loading: boolean;
 
+    @Output() detail: EventEmitter<number> = new EventEmitter<number>();
+
     constructor() {
     }
 
@@ -18,6 +20,6 @@ export class PositiveDataTableComponent implements OnInit {
     }
 
     goToDetail(caseNumber: number) {
-        return;
+        this.detail.emit(caseNumber);
     }
 }

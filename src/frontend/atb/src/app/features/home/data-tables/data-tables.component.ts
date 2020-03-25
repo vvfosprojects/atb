@@ -7,6 +7,7 @@ import { GroupInterface } from '../../../shared/interface/group.interface';
 import { PositiveCaseInterface } from '../../../shared/interface/positive-case.interface';
 import { SuspectCaseInterface } from '../../../shared/interface/suspect-case.interface';
 import { LoadingState } from '../../../shared/store/loading/loading.state';
+import { Navigate } from '@ngxs/router-plugin';
 
 @Component({
     selector: 'app-data-tables',
@@ -48,6 +49,14 @@ export class DataTablesComponent implements OnDestroy {
 
     onSearch(groupCode: string) {
         this.store.dispatch(new SetGroup(groupCode));
+    }
+
+    onPositiveDetail(caseNumber: number) {
+        this.store.dispatch(new Navigate(['/home/form-positivo/detail/' + caseNumber]));
+    }
+
+    onSuspectDetail(caseNumber: number) {
+        this.store.dispatch(new Navigate(['/home/form-assente/detail/' + caseNumber]));
     }
 
 }
