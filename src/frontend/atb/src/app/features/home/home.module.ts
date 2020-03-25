@@ -20,6 +20,7 @@ import { SearchState } from './store/search.state';
 import { DataTablesComponent } from './data-tables/data-tables.component';
 import { PermessiState } from '../../shared/store/permessi/permessi.state';
 import { DataTablesService } from '../../core/services/data-tables/data-tables.service';
+import { DataTablesState } from './store/data-tables.state';
 
 @NgModule({
     declarations: [ SearchComponent, FormPositivoComponent, FormAssenteComponent, SearchPositivoComponent, SearchAssenteComponent, DataTablesComponent ],
@@ -30,7 +31,14 @@ import { DataTablesService } from '../../core/services/data-tables/data-tables.s
         NgbDatepickerModule,
         NgSelectModule,
         NgxsFormPluginModule,
-        NgxsModule.forFeature([PermessiState, QualificheState, FormPositivoState, FormAssenteState, SearchState])
+        NgxsModule.forFeature([
+            PermessiState,
+            QualificheState,
+            FormPositivoState,
+            FormAssenteState,
+            SearchState,
+            DataTablesState
+        ])
     ],
     providers: [
         AssentiService,
