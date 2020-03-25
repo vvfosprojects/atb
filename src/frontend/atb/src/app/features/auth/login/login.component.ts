@@ -7,6 +7,7 @@ import { LoginState } from '../store/login.state';
 import { ClearLogin, Login } from '../store/login.actions';
 import { AuthState } from '../store/auth.state';
 import { Location } from '@angular/common';
+import { delay } from 'rxjs/operators';
 
 
 @Component({
@@ -27,7 +28,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private subscription = new Subscription();
 
     constructor(private _location: Location, private store: Store, private formBuilder: FormBuilder) {
-        this.subscription.add(this.logged$.subscribe( r => this.onBack(r)));
+        this.subscription.add(this.logged$.pipe(delay(100)).subscribe( r => this.onBack(r)));
         this.subscription.add(this.submittedForm$.subscribe(r => this.submitted = r));
     }
 

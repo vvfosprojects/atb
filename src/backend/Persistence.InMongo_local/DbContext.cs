@@ -8,6 +8,7 @@ using MongoDB.Driver;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("CompositionRoot")]
+[assembly: InternalsVisibleTo("DbFeeder")]
 
 namespace Persistence.InMongo_local
 {
