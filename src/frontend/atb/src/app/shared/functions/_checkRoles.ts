@@ -1,5 +1,5 @@
 import { Roles } from '../enum/roles.enum';
-import { UserInterface } from '../interface/common/user.interface';
+import { UserInterface } from '../interface/common';
 
 export function checkRoles(roles: Roles[], user: UserInterface): boolean {
     for (let role of roles) {

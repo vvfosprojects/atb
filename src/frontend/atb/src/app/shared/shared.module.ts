@@ -4,12 +4,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ErrorPageComponent } from './components/error-page/error-page.component';
 import { LocationButtonComponent } from './components/location-button/location-button.component';
 import { CaseNumberModalComponent } from './components/case-number-modal/case-number-modal.component';
+import { PipeModule } from './pipes/pipe.module';
 
 const COMPONENTS = [ ErrorPageComponent, LocationButtonComponent, CaseNumberModalComponent ];
 
 const MODULES = [
     FormsModule,
     ReactiveFormsModule,
+    PipeModule
 ];
 
 @NgModule({
