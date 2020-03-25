@@ -3,6 +3,8 @@ export const environment = {
     baseUrl: '$serverbckend',
     apiUrl: {
         login: '/auth',
-        changePassword: '/changePassword'
+        changePassword: '/changePassword',
+        sheets: '/sheets',
+        groups: '/groups'
     }
 };
