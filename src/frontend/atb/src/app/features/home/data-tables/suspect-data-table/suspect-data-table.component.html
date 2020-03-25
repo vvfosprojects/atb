@@ -1,5 +1,5 @@
-<table *ngIf="suspectList && suspectList.length > 0" class="table">
-    <thead>
+<table *ngIf="suspectList && suspectList.length > 0" class="table table-bordered mb-0">
+    <thead class="bg-light">
     <tr>
         <th scope="col">Gruppo</th>
         <th scope="col">Cognome</th>
@@ -15,7 +15,7 @@
     <tr *ngFor="let s of suspectList">
         <td>
             <ng-template [ngIf]="s.group">
-                {{s.group}}
+                {{s.group | uppercase}}
             </ng-template>
             <ng-template [ngIf]="!s.group">
                 <span class="text-muted">Non presente</span>
@@ -79,5 +79,5 @@
     </tbody>
 </table>
 <div *ngIf="!loading && (!suspectList || suspectList.length <= 0)" class="alert alert-danger mt-3">
-    Nessun Dato Disponibile
+    Nessun <span class="font-weight-bold">Caso di Sorveglianza</span> trovato.
 </div>

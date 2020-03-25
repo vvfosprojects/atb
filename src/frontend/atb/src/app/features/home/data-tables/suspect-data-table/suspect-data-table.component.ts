@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SuspectCaseInterface } from '../../../../shared/interface/suspect-case.interface';
 
 @Component({
@@ -11,6 +11,8 @@ export class SuspectDataTableComponent implements OnInit {
     @Input() suspectList: SuspectCaseInterface[];
     @Input() loading: boolean;
 
+    @Output() detail: EventEmitter<number> = new EventEmitter<number>();
+
     constructor() {
     }
 
@@ -18,7 +20,7 @@ export class SuspectDataTableComponent implements OnInit {
     }
 
     goToDetail(caseNumber: number) {
-        return;
+        this.detail.emit(caseNumber);
     }
 
 }
