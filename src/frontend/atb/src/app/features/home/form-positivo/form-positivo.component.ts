@@ -43,31 +43,7 @@ export class FormPositivoComponent implements OnDestroy {
             this.store.dispatch(new SetPageTitleFormPositivo('modifica positivo'));
             this.subscription.add(
                 this.positiveCase$.pipe(delay(100)).subscribe((positiveCase: PositiveCaseInterface) => {
-                    if (positiveCase) {
-                        this.store.dispatch(
-                            new UpdateFormValue({
-                                path: 'positivo.positivoForm',
-                                value: {
-                                    // Personal Information
-                                    name: positiveCase.subject.nome,
-                                    surname: positiveCase.subject.cognome,
-                                    phone: positiveCase.subject.phone,
-                                    email: positiveCase.subject.email,
-                                    role: positiveCase.subject.role,
-                                    // Personal Data
-                                    caseNumber: positiveCase.subject.number,
-                                    estremiProvvedimentiASL: positiveCase.data.estremiProvvedimentiASL,
-                                    diseaseConfirmDate: positiveCase.data.diseaseConfirmDate ? formatDateForNgbDatePicker(positiveCase.data.diseaseConfirmDate) : null,
-                                    quarantinePlace: positiveCase.data.quarantinePlace !== 'INTCARE' ? positiveCase.data.quarantinePlace : 'HOSP',
-                                    intensiveTerapy: positiveCase.data.quarantinePlace === 'INTCARE',
-                                    expectedWorkReturnDate: positiveCase.data.expectedWorkReturnDate ? formatDateForNgbDatePicker(positiveCase.data.expectedWorkReturnDate) : null,
-                                    actualWorkReturnDate: positiveCase.data.actualWorkReturnDate ? formatDateForNgbDatePicker(positiveCase.data.actualWorkReturnDate) : null
-                                }
-                            })
-                        );
-                    } else {
-                        this.store.dispatch(new SearchPositiveCase(this.route.snapshot.params.id, true));
-                    }
+                    positiveCase ? this.updateForm(positiveCase) : this.searchCase();
                 }));
         } else {
             this.store.dispatch(new SetPageTitleFormPositivo('nuovo positivo'));
@@ -157,4 +133,34 @@ export class FormPositivoComponent implements OnDestroy {
     goBack() {
         this.router.navigate([ './home/ricerca' ]);
     }
+
+    searchCase(): void {
+        this.store.dispatch(new SearchPositiveCase(this.route.snapshot.params.id, true));
+    }
+
+    updateForm(positiveCase: PositiveCaseInterface): void {
+        this.store.dispatch(
+            new UpdateFormValue({
+                path: 'positivo.positivoForm',
+                value: {
+                    // Personal Information
+                    name: positiveCase.subject.nome,
+                    surname: positiveCase.subject.cognome,
+                    phone: positiveCase.subject.phone,
+                    email: positiveCase.subject.email,
+                    role: positiveCase.subject.role,
+                    // Personal Data
+                    caseNumber: positiveCase.subject.number,
+                    estremiProvvedimentiASL: positiveCase.data.estremiProvvedimentiASL,
+                    diseaseConfirmDate: positiveCase.data.diseaseConfirmDate ? formatDateForNgbDatePicker(positiveCase.data.diseaseConfirmDate) : null,
+                    quarantinePlace: positiveCase.data.quarantinePlace !== 'INTCARE' ? positiveCase.data.quarantinePlace : 'HOSP',
+                    intensiveTerapy: positiveCase.data.quarantinePlace === 'INTCARE',
+                    expectedWorkReturnDate: positiveCase.data.expectedWorkReturnDate ? formatDateForNgbDatePicker(positiveCase.data.expectedWorkReturnDate) : null,
+                    actualWorkReturnDate: positiveCase.data.actualWorkReturnDate ? formatDateForNgbDatePicker(positiveCase.data.actualWorkReturnDate) : null
+                }
+            })
+        );
+    }
+
+
 }

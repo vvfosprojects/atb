@@ -43,30 +43,7 @@ export class FormAssenteComponent implements OnDestroy {
             this.store.dispatch(new SetPageTitleFormAssente('modifica sorvegliato'));
             this.subscription.add(
                 this.suspectCase$.pipe(delay(100)).subscribe((suspectCase: SuspectCaseInterface) => {
-                    if (suspectCase) {
-                        this.store.dispatch(
-                            new UpdateFormValue({
-                                path: 'assente.assenteForm',
-                                value: {
-                                    // Personal Information
-                                    name: suspectCase.subject.nome,
-                                    surname: suspectCase.subject.cognome,
-                                    phone: suspectCase.subject.phone,
-                                    email: suspectCase.subject.email,
-                                    role: suspectCase.subject.role,
-                                    // Personal Data
-                                    caseNumber: suspectCase.subject.number,
-                                    quarantinePlace: suspectCase.data.quarantinePlace,
-                                    expectedWorkReturnDate: formatDateForNgbDatePicker(suspectCase.data.expectedWorkReturnDate),
-                                    actualWorkReturnDate: suspectCase.data.actualWorkReturnDate ? formatDateForNgbDatePicker(suspectCase.data.actualWorkReturnDate) : null,
-                                    healthMeasureCode: suspectCase.data.healthMeasure.code,
-                                    healthMeasureBy: suspectCase.data.healthMeasure.by
-                                }
-                            })
-                        );
-                    } else {
-                        this.store.dispatch(new SearchSuspectCase(this.route.snapshot.params.id, true));
-                    }
+                    suspectCase ? this.updateForm(suspectCase) : this.searchCase();
                 }));
         } else {
             this.store.dispatch(new SetPageTitleFormAssente('nuovo sorvegliato'));
@@ -145,5 +122,32 @@ export class FormAssenteComponent implements OnDestroy {
 
     goBack() {
         this.router.navigate([ './home/ricerca' ]);
+    }
+
+    searchCase(): void {
+        this.store.dispatch(new SearchSuspectCase(this.route.snapshot.params.id, true));
+    }
+
+    updateForm(suspectCase: SuspectCaseInterface): void {
+        this.store.dispatch(
+            new UpdateFormValue({
+                path: 'assente.assenteForm',
+                value: {
+                    // Personal Information
+                    name: suspectCase.subject.nome,
+                    surname: suspectCase.subject.cognome,
+                    phone: suspectCase.subject.phone,
+                    email: suspectCase.subject.email,
+                    role: suspectCase.subject.role,
+                    // Personal Data
+                    caseNumber: suspectCase.subject.number,
+                    quarantinePlace: suspectCase.data.quarantinePlace,
+                    expectedWorkReturnDate: formatDateForNgbDatePicker(suspectCase.data.expectedWorkReturnDate),
+                    actualWorkReturnDate: suspectCase.data.actualWorkReturnDate ? formatDateForNgbDatePicker(suspectCase.data.actualWorkReturnDate) : null,
+                    healthMeasureCode: suspectCase.data.healthMeasure.code,
+                    healthMeasureBy: suspectCase.data.healthMeasure.by
+                }
+            })
+        );
     }
 }
