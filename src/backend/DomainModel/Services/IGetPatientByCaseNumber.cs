@@ -1,10 +1,9 @@
 ﻿using DomainModel.Classes;
-using System;
 
 namespace DomainModel.Services
 {
     public interface IGetPatientByCaseNumber
     {
-        Patient GetPatient(int CaseNumber);
+        Patient GetPatient(int CaseNumber, string group);
     }
 }

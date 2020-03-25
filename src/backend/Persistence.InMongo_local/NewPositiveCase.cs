@@ -15,9 +15,9 @@ namespace Persistence.InMongo_local
 
         public NewPositiveCase(DbContext dbContext, ICryptools cryptools, IGetSessionContext getSessionContext)
         {
-            this.dbContext = dbContext;
-            this.cryptools = cryptools;
-            this.getSessionContext = getSessionContext;
+            this.dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+            this.cryptools = cryptools ?? throw new ArgumentNullException(nameof(cryptools));
+            this.getSessionContext = getSessionContext ?? throw new ArgumentNullException(nameof(getSessionContext));
         }
 
         public void Add(NewPositiveCaseCommand command)

@@ -3,6 +3,7 @@ using DomainModel.Classes.Exceptions;
 using DomainModel.CQRS.Commands.NewSuspectCommand;
 using DomainModel.Services;
 using DomainModel.Services.Users;
+using System;
 
 namespace Persistence.InMongo_local
 {
@@ -14,9 +15,9 @@ namespace Persistence.InMongo_local
 
         public NewSuspect(DbContext dbContext, ICryptools cryptools, IGetSessionContext getSessionContext)
         {
-            this.dbContext = dbContext;
-            this.getSessionContext = getSessionContext;
-            this.cryptools = cryptools;
+            this.dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+            this.getSessionContext = getSessionContext ?? throw new ArgumentNullException(nameof(getSessionContext));
+            this.cryptools = cryptools ?? throw new ArgumentNullException(nameof(cryptools));
         }
 
         public void Add(NewSuspectCommand command)

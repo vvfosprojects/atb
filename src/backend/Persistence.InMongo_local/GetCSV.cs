@@ -11,16 +11,12 @@ namespace Persistence.InMongo_local
     public class GetCSV : IGetCSV
     {
         private readonly DbContext dbContext;
-        private readonly IGetAllPositiveSheets getAllPositiveSheets;
-        private readonly IGetAllSuspectSheets getAllSuspectSheets;
         private readonly ICryptools cryptools;
 
-        public GetCSV(DbContext dbContext, IGetAllSuspectSheets getAllSuspectSheets, IGetAllPositiveSheets getAllPositiveSheets, ICryptools cryptools)
+        public GetCSV(DbContext dbContext, ICryptools cryptools)
         {
-            this.dbContext = dbContext;
-            this.getAllSuspectSheets = getAllSuspectSheets;
-            this.getAllPositiveSheets = getAllPositiveSheets;
-            this.cryptools = cryptools;
+            this.dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+            this.cryptools = cryptools ?? throw new ArgumentNullException(nameof(cryptools));
         }
 
         public string GenerateCSV(GetCSVQuery query)
@@ -31,7 +27,7 @@ namespace Persistence.InMongo_local
             //Attualmente non è presente il campo Data Di rientro effettivo poichè essendo nullable devo gestire il parsing
 
             StringBuilder sw = new StringBuilder();
-            sw.AppendFormat("Paziente | Gruppo | Numero Caso | Ruolo | Quarantine Place | Data Attesa Di Rientro | Data Effettiva Di Rientro | Data Creazione | Data Aggiornamento");
+            sw.AppendFormat("Paziente|Gruppo|Numero Caso|Ruolo|Quarantine Place|Data Attesa Di Rientro|Data Effettiva Di Rientro|Data Creazione|Data Aggiornamento");
             sw.AppendLine();
 
             foreach(var s in patients)

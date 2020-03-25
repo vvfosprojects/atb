@@ -1,6 +1,7 @@
 ﻿using DomainModel.Classes;
 using DomainModel.Services;
 using MongoDB.Driver;
+using System;
 
 namespace Persistence.InMongo_local
 {
@@ -10,7 +11,7 @@ namespace Persistence.InMongo_local
 
         public GetAllSheetsByGroup(DbContext dbContext)
         {
-            this.dbContext = dbContext;
+            this.dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
 
         public AllSheets Get(string group)
