@@ -11,19 +11,3 @@ export function formatDateForNgbDatePicker(data: any) {
     const day = +data.substr(8, 2);
     return { year, month, day };
 }
-
-export function getLuogoIsolamento(type: string) {
-    let luogoIsolamento = '';
-    switch (type) {
-        case 'INTCARE':
-            luogoIsolamento = 'Terapia Intensiva';
-            break;
-        case 'HOSP':
-            luogoIsolamento = 'Struttura Ospedaliera';
-            break;
-        case 'HOUSE':
-            luogoIsolamento = 'Domicilio';
-            break;
-    }
-    return luogoIsolamento;
-}

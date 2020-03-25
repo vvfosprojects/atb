@@ -47,7 +47,7 @@
         </td>
         <td>
             <ng-template [ngIf]="s.data.quarantinePlace">
-                {{getLuogoIsolamento(s.data.quarantinePlace)}}
+                {{s.data.quarantinePlace | luogoIsolamento}}
             </ng-template>
             <ng-template [ngIf]="!s.data.quarantinePlace">
                 <span class="text-muted">Non presente</span>
