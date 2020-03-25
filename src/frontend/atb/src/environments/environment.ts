@@ -3,6 +3,8 @@ export const environment = {
     baseUrl: 'http://localhost:53062/api',
     apiUrl: {
         login: '/auth',
-        changePassword: '/changePassword'
+        changePassword: '/changePassword',
+        sheets: '/sheets',
+        groups: '/groups'
     }
 };

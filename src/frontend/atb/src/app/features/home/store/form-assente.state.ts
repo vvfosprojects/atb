@@ -1,12 +1,12 @@
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { Injectable } from '@angular/core';
 import { SaveNewSuspectCase, SetPageTitleFormAssente, UpdateSuspectCase } from './form-assente.actions';
-import { AssentiService } from '../../../../core/services/assenti/assenti.service';
+import { AssentiService } from '../../../core/services/assenti/assenti.service';
 import { Navigate } from '@ngxs/router-plugin';
-import { formatDate } from '../../../../shared/functions/functions';
-import { DtoNewSuspectCaseInterface } from '../../../../shared/interface/dto-new-suspect-case.interface';
-import { DtoNewSuspectUpdateInterface } from '../../../../shared/interface/dto-new-suspect-update.interface';
-import { CaseNumberModalComponent } from '../../../../shared/components/case-number-modal/case-number-modal.component';
+import { formatDate } from '../../../shared/functions/functions';
+import { DtoNewSuspectCaseInterface } from '../../../shared/interface/dto-new-suspect-case.interface';
+import { DtoNewSuspectUpdateInterface } from '../../../shared/interface/dto-new-suspect-update.interface';
+import { CaseNumberModalComponent } from '../../../shared/components/case-number-modal/case-number-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 export interface FormAssenteStateModel {

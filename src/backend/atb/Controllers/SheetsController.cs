@@ -21,7 +21,7 @@ namespace atb.Controllers
         }
 
         [HttpGet]
-        public ActionResult<Object> Get(GetSheetsByGroupQuery query)
+        public ActionResult<SubjectSheets> Get(GetSheetsByGroupQuery query)
         {
             var collection = this.handler.Handle(query).AllSheets;
             var patients = new List<Object>();
