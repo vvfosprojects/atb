@@ -12,6 +12,7 @@ import { SuspectCaseInterface } from '../../../shared/interface/suspect-case.int
 import { UpdateFormValue } from '@ngxs/form-plugin';
 import { formatDateForNgbDatePicker } from '../../../shared/functions/functions';
 import { ClearSuspectCase } from '../store/search.actions';
+import { delay } from 'rxjs/operators';
 
 @Component({
     selector: 'app-assente',
@@ -37,7 +38,7 @@ export class FormAssenteComponent implements OnDestroy {
         if (this.route.snapshot.params.id) {
             this.editMode = true;
             this.store.dispatch(new SetPageTitleFormAssente('modifica sorvegliato'));
-            this.suspectCase$.subscribe((suspectCase: SuspectCaseInterface) => {
+            this.suspectCase$.pipe(delay(100)).subscribe((suspectCase: SuspectCaseInterface) => {
                 if (suspectCase) {
                     this.store.dispatch(
                         new UpdateFormValue({

@@ -12,6 +12,7 @@ import { SearchState } from '../store/search.state';
 import { PositiveCaseInterface } from '../../../shared/interface/positive-case.interface';
 import { formatDateForNgbDatePicker } from '../../../shared/functions/functions';
 import { ClearPositiveCase } from '../store/search.actions';
+import { delay } from 'rxjs/operators';
 
 @Component({
     selector: 'app-positivo',
@@ -37,7 +38,7 @@ export class FormPositivoComponent implements OnDestroy {
         if (this.route.snapshot.params.id) {
             this.editMode = true;
             this.store.dispatch(new SetPageTitleFormPositivo('modifica positivo'));
-            this.positiveCase$.subscribe((positiveCase: PositiveCaseInterface) => {
+            this.positiveCase$.pipe(delay(100)).subscribe((positiveCase: PositiveCaseInterface) => {
                 if (positiveCase) {
                     this.store.dispatch(
                         new UpdateFormValue({
