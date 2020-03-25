@@ -1,4 +1,5 @@
+import { GroupInterface } from '../group.interface';
+
 export interface GroupsResponseInterface {
-    code: string;
-    description: string
+    groups: GroupInterface[];
 }
