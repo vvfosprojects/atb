@@ -2,6 +2,6 @@
 {
     public interface IGetNextSuspectCaseNumber
     {
-        int Get();
+        int Get(string group);
     }
 }

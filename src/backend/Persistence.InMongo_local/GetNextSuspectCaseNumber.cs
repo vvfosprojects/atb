@@ -10,17 +10,15 @@ namespace Persistence.InMongo_local
     internal class GetNextSuspectCaseNumber : IGetNextSuspectCaseNumber
     {
         private readonly DbContext dbContext;
-        private readonly IGetSessionContext getSessionContext;
 
         public GetNextSuspectCaseNumber(DbContext dbContext, IGetSessionContext getSessionContext)
         {
             this.dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
-            this.getSessionContext = getSessionContext ?? throw new ArgumentNullException(nameof(getSessionContext));
         }
 
-        public int Get()
+        public int Get(string group)
         {
-            var filter = Builders<Suspect>.Filter.Eq(x => x.Group, getSessionContext.GetActiveGroup());
+            var filter = Builders<Suspect>.Filter.Eq(x => x.Group, group);
             var suspectsList = dbContext.Suspects.Find(filter).ToList();
             //se la lista è priva di pazienti allora restituisco 0
             if (suspectsList.Count == 0)

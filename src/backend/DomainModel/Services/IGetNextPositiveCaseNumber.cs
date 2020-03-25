@@ -2,6 +2,6 @@
 {
     public interface IGetNextPositiveCaseNumber
     {
-        int Get();
+        int Get(string group);
     }
 }

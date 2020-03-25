@@ -1,5 +1,4 @@
-﻿using DomainModel.Classes;
-using DomainModel.CQRS.Queries.GetCSV;
+﻿using DomainModel.CQRS.Queries.GetCSV;
 using DomainModel.Services;
 using MongoDB.Driver;
 using System;
@@ -23,8 +22,6 @@ namespace Persistence.InMongo_local
         {
             var patients = this.dbContext.Patients.AsQueryable().ToList();
             var suspects = this.dbContext.Suspects.AsQueryable().ToList();
-
-            //Attualmente non è presente il campo Data Di rientro effettivo poichè essendo nullable devo gestire il parsing
 
             StringBuilder sw = new StringBuilder();
             sw.AppendFormat("Paziente|Gruppo|Numero Caso|Ruolo|Quarantine Place|Data Attesa Di Rientro|Data Effettiva Di Rientro|Data Creazione|Data Aggiornamento");
