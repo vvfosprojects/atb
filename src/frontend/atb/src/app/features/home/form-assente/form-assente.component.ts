@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
@@ -11,13 +11,14 @@ import { SearchState } from '../store/search.state';
 import { SuspectCaseInterface } from '../../../shared/interface/suspect-case.interface';
 import { UpdateFormValue } from '@ngxs/form-plugin';
 import { formatDateForNgbDatePicker } from '../../../shared/functions/functions';
+import { ClearSuspectCase } from '../store/search.actions';
 
 @Component({
     selector: 'app-assente',
     templateUrl: './form-assente.component.html',
     styleUrls: ['./form-assente.component.scss']
 })
-export class FormAssenteComponent implements OnInit, OnDestroy {
+export class FormAssenteComponent implements OnDestroy {
 
     @Select(LoadingState.loading) loading$: Observable<boolean>;
     @Select(QualificheState.qualifiche) qualifiche$: Observable<any[]>;
@@ -68,16 +69,14 @@ export class FormAssenteComponent implements OnInit, OnDestroy {
         this.initForm();
     }
 
-    ngOnInit(): void {
-    }
-
     ngOnDestroy(): void {
-        this.store.dispatch(
+        this.store.dispatch([
             new UpdateFormValue({
                     path: 'assente.assenteForm',
                     value: undefined
-                }
-            )
+                }),
+            new ClearSuspectCase()
+            ]
         );
     }
 

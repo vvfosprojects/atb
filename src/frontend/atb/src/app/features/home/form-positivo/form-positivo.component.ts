@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Select, Store } from '@ngxs/store';
 import { FormPositivoState } from '../store/form-positivo.state';
@@ -11,13 +11,14 @@ import { UpdateFormValue } from '@ngxs/form-plugin';
 import { SearchState } from '../store/search.state';
 import { PositiveCaseInterface } from '../../../shared/interface/positive-case.interface';
 import { formatDateForNgbDatePicker } from '../../../shared/functions/functions';
+import { ClearPositiveCase } from '../store/search.actions';
 
 @Component({
     selector: 'app-positivo',
     templateUrl: './form-positivo.component.html',
     styleUrls: ['./form-positivo.component.scss']
 })
-export class FormPositivoComponent implements OnInit, OnDestroy {
+export class FormPositivoComponent implements OnDestroy {
 
     @Select(LoadingState.loading) loading$: Observable<boolean>;
     @Select(QualificheState.qualifiche) qualifiche$: Observable<any[]>;
@@ -69,16 +70,14 @@ export class FormPositivoComponent implements OnInit, OnDestroy {
         this.initForm();
     }
 
-    ngOnInit(): void {
-    }
-
     ngOnDestroy(): void {
-        this.store.dispatch(
+        this.store.dispatch([
             new UpdateFormValue({
                     path: 'positivo.positivoForm',
                     value: undefined
-                }
-            )
+                }),
+            new ClearPositiveCase()
+            ]
         );
     }
 
