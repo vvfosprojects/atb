@@ -44,7 +44,7 @@ export class SearchState {
             patchState({
                 positiveCase: positive
             });
-            dispatch(new Navigate([ './home/form-positivo/' + positive.subject.number ]));
+            !action.bookmark && dispatch(new Navigate([ './home/form-positivo/' + positive.subject.number ]));
         });
     }
 
@@ -59,7 +59,7 @@ export class SearchState {
             patchState({
                 suspectCase: suspect
             });
-            dispatch(new Navigate([ './home/form-assente/' + suspect.subject.number ]));
+            !action.bookmark && dispatch(new Navigate([ './home/form-assente/' + suspect.subject.number ]));
         });
     }
 
