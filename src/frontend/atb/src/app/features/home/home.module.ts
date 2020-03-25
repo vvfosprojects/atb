@@ -17,9 +17,10 @@ import { QualificheState } from '../../shared/store/qualifiche/qualifiche.state'
 import { FormPositivoState } from './form-positivo/store/form-positivo.state';
 import { FormAssenteState } from './form-assente/store/form-assente.state';
 import { SearchState } from './search/store/search.state';
+import { DataTablesComponent } from './data-tables/data-tables.component';
 
 @NgModule({
-    declarations: [ SearchComponent, FormPositivoComponent, FormAssenteComponent, SearchPositivoComponent, SearchAssenteComponent ],
+    declarations: [ SearchComponent, FormPositivoComponent, FormAssenteComponent, SearchPositivoComponent, SearchAssenteComponent, DataTablesComponent ],
     imports: [
         CommonModule,
         HomeRoutingModule,

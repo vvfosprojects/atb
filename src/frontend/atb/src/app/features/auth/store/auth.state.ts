@@ -1,7 +1,7 @@
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { LSNAME } from '../../../core/settings/config';
 import {
-    ClearAuth, SetCurrentJwt,
+    ClearAuth, RecoveryUrl, SetCurrentJwt,
     SetCurrentUser, SetLogged, SetReturnUrl
 } from './auth.actions';
 import { Injectable } from '@angular/core';
@@ -58,7 +58,10 @@ export class AuthState {
                 currentJwt: action.currentJwt,
                 // currentTicket: null
             });
-            dispatch([new SetLogged(), currentUrl && new Navigate([currentUrl])])
+            dispatch([
+                new SetLogged(),
+                currentUrl && new RecoveryUrl
+            ])
         }
     }
 
@@ -79,6 +82,13 @@ export class AuthState {
             localStorage.setItem(LSNAME.redirectUrl, JSON.stringify(returnUrl));
             patchState({ returnUrl });
         }
+    }
+
+    @Action(RecoveryUrl)
+    recoveryUrl({ getState, dispatch, patchState }: StateContext<AuthStateModel>) {
+        localStorage.removeItem(LSNAME.redirectUrl);
+        dispatch(new Navigate([ getState().returnUrl ]));
+        patchState({returnUrl: AuthStateDefaults.returnUrl})
     }
 
     @Action(ClearAuth)
