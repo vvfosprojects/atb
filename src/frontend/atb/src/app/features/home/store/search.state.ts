@@ -1,7 +1,7 @@
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { Injectable } from '@angular/core';
 import { PositiveCaseInterface } from '../../../shared/interface/positive-case.interface';
-import { SearchPositiveCase, SearchSuspectCase } from './search.actions';
+import { ClearPositiveCase, ClearSuspectCase, SearchPositiveCase, SearchSuspectCase } from './search.actions';
 import { SuspectCaseInterface } from '../../../shared/interface/suspect-case.interface';
 import { Navigate } from '@ngxs/router-plugin';
 import { AssentiService } from '../../../core/services/assenti/assenti.service';
@@ -44,8 +44,13 @@ export class SearchState {
             patchState({
                 positiveCase: positive
             });
-            dispatch(new Navigate(['./home/form-positivo/' + positive.subject.number]));
+            dispatch(new Navigate([ './home/form-positivo/' + positive.subject.number ]));
         });
+    }
+
+    @Action(ClearPositiveCase)
+    clearPositiveCase({ patchState }: StateContext<SearchStateModel>) {
+        patchState({ positiveCase: searchStateDefaults.positiveCase })
     }
 
     @Action(SearchSuspectCase)
@@ -54,7 +59,14 @@ export class SearchState {
             patchState({
                 suspectCase: suspect
             });
-            dispatch(new Navigate(['./home/form-assente/' + suspect.subject.number]));
+            dispatch(new Navigate([ './home/form-assente/' + suspect.subject.number ]));
         });
     }
+
+    @Action(ClearSuspectCase)
+    clearSuspectCase({ patchState }: StateContext<SearchStateModel>) {
+        patchState({ suspectCase: searchStateDefaults.suspectCase })
+    }
+
+
 }
