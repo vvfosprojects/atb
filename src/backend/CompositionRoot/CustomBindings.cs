@@ -71,6 +71,7 @@ namespace CompositionRoot
             container.Register<DomainModel.Services.IGetNextPositiveCaseNumber, Persistence.InMongo_local.GetNextPositiveCaseNumber>();
             container.Register<DomainModel.Services.IGetNextSuspectCaseNumber, Persistence.InMongo_local.GetNextSuspectCaseNumber>();
             container.Register<DomainModel.Services.IGetAllSheetsByGroup, Persistence.InMongo_local.GetAllSheetsByGroup>();
+            container.Register<DomainModel.Helpers.SubjectHash>(Lifestyle.Scoped);
         }
     }
 }
