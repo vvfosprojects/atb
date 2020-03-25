@@ -6,7 +6,7 @@ import {
 } from './auth.actions';
 import { Injectable } from '@angular/core';
 import { Navigate } from '@ngxs/router-plugin';
-import { UserInterface } from '../../../shared/interface/common/user.interface';
+import { UserInterface } from '../../../shared/interface/common';
 
 export interface AuthStateModel {
     currentJwt: string;

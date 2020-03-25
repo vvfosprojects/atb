@@ -1,5 +1,5 @@
-import { of, throwError } from 'rxjs';
-import { UserInterface } from '../../../shared/interface/common/user.interface';
+import { of } from 'rxjs';
+import { UserInterface } from '../../../shared/interface/common';
 import { AuthResponseInterface } from '../../../shared/interface/common';
 import { Roles } from '../../../shared/enum/roles.enum';
 

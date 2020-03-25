@@ -19,6 +19,7 @@ import { FormAssenteState } from './form-assente/store/form-assente.state';
 import { SearchState } from './search/store/search.state';
 import { DataTablesComponent } from './data-tables/data-tables.component';
 import { PermessiState } from '../../shared/store/permessi/permessi.state';
+import { DataTablesService } from '../../core/services/data-tables/data-tables.service';
 
 @NgModule({
     declarations: [ SearchComponent, FormPositivoComponent, FormAssenteComponent, SearchPositivoComponent, SearchAssenteComponent, DataTablesComponent ],
@@ -33,7 +34,8 @@ import { PermessiState } from '../../shared/store/permessi/permessi.state';
     ],
     providers: [
         AssentiService,
-        PositiviService
+        PositiviService,
+        DataTablesService
     ]
 })
 export class HomeModule {
