@@ -1,11 +1,11 @@
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { Injectable } from '@angular/core';
-import { PositiveCaseInterface } from '../../../../shared/interface/positive-case.interface';
+import { PositiveCaseInterface } from '../../../shared/interface/positive-case.interface';
 import { SearchPositiveCase, SearchSuspectCase } from './search.actions';
-import { SuspectCaseInterface } from '../../../../shared/interface/suspect-case.interface';
+import { SuspectCaseInterface } from '../../../shared/interface/suspect-case.interface';
 import { Navigate } from '@ngxs/router-plugin';
-import { AssentiService } from '../../../../core/services/assenti/assenti.service';
-import { PositiviService } from '../../../../core/services/positivi/positivi.service';
+import { AssentiService } from '../../../core/services/assenti/assenti.service';
+import { PositiviService } from '../../../core/services/positivi/positivi.service';
 
 export interface SearchStateModel {
     positiveCase: PositiveCaseInterface;

@@ -1,14 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Select, Store } from '@ngxs/store';
-import { FormPositivoState } from './store/form-positivo.state';
+import { FormPositivoState } from '../store/form-positivo.state';
 import { Observable } from 'rxjs';
 import { LoadingState } from '../../../shared/store/loading/loading.state';
 import { QualificheState } from '../../../shared/store/qualifiche/qualifiche.state';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SaveNewPositivoCase, SetPageTitleFormPositivo, UpdatePositivoCase } from './store/form-positivo.actions';
+import { SaveNewPositivoCase, SetPageTitleFormPositivo, UpdatePositivoCase } from '../store/form-positivo.actions';
 import { UpdateFormValue } from '@ngxs/form-plugin';
-import { SearchState } from '../search/store/search.state';
+import { SearchState } from '../store/search.state';
 import { PositiveCaseInterface } from '../../../shared/interface/positive-case.interface';
 import { formatDateForNgbDatePicker } from '../../../shared/functions/functions';
 
