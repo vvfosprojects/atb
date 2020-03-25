@@ -1,4 +1,4 @@
-import { UserInterface } from '../../../shared/interface/common/user.interface';
+import { UserInterface } from '../../../shared/interface/common';
 
 // export class GetAuth {
 //     static readonly type = '[Auth] Get Auth';

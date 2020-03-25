@@ -18,6 +18,7 @@ import { FormPositivoState } from './form-positivo/store/form-positivo.state';
 import { FormAssenteState } from './form-assente/store/form-assente.state';
 import { SearchState } from './search/store/search.state';
 import { DataTablesComponent } from './data-tables/data-tables.component';
+import { DataTablesService } from '../../core/services/data-tables/data-tables.service';
 
 @NgModule({
     declarations: [ SearchComponent, FormPositivoComponent, FormAssenteComponent, SearchPositivoComponent, SearchAssenteComponent, DataTablesComponent ],
@@ -32,7 +33,8 @@ import { DataTablesComponent } from './data-tables/data-tables.component';
     ],
     providers: [
         AssentiService,
-        PositiviService
+        PositiviService,
+        DataTablesService
     ]
 })
 export class HomeModule {

@@ -6,7 +6,7 @@ import { Select, Store } from '@ngxs/store';
 import { LoadingState } from './shared/store/loading/loading.state';
 import { Observable, Subscription } from 'rxjs';
 import { AuthState } from './features/auth/store/auth.state';
-import { UserInterface } from './shared/interface/common/user.interface';
+import { UserInterface } from './shared/interface/common';
 
 @Component({
     selector: 'app-root',
