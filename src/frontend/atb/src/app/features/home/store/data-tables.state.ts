@@ -52,10 +52,13 @@ export class DataTablesState {
     }
 
     @Action(GetGroupList)
-    getGroupList({ patchState }: StateContext<DataTablesStateModel>) {
+    getGroupList({ patchState, dispatch }: StateContext<DataTablesStateModel>) {
         this.dataTablesService.getGroups().subscribe((res: GroupsResponseInterface) => {
             if (res) {
                 patchState({ groupsList: res.groups });
+                if (res.groups && res.groups.length > 0) {
+                    dispatch(new SetGroup(res.groups[0].code));``
+                }
             }
         });
     }

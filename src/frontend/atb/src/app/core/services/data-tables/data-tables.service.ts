@@ -19,7 +19,7 @@ export class DataTablesService {
     }
 
     getSheets(group: string): Observable<SheetsResponseInterface> {
-        return this.http.post<SheetsResponseInterface>(APIURL + APISHEETS, { group });
+        return this.http.get<SheetsResponseInterface>(APIURL + APISHEETS + `?group=${group}`);
     }
 
 }
