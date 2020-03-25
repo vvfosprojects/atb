@@ -19,3 +19,7 @@ export class SearchSuspectCase {
 export class ClearSuspectCase {
     static readonly type = '[Search] Clear Suspect Case';
 }
+
+export class SetNotFound {
+    static readonly type = '[Search] Case Not Found';
+}

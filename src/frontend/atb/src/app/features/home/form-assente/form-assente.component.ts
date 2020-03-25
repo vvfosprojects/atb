@@ -26,6 +26,7 @@ export class FormAssenteComponent implements OnDestroy {
     @Select(FormAssenteState.pageTitle) pageTitle$: Observable<string>;
     @Select(FormAssenteState.assenteFormValid) assenteFormValid$: Observable<boolean>;
     @Select(SearchState.suspectCase) suspectCase$: Observable<SuspectCaseInterface>;
+    @Select(SearchState.notFound) notFound$: Observable<boolean>;
 
     assenteForm: FormGroup;
     submitted = false;
@@ -45,9 +46,11 @@ export class FormAssenteComponent implements OnDestroy {
                 this.suspectCase$.pipe(delay(100)).subscribe((suspectCase: SuspectCaseInterface) => {
                     suspectCase ? this.updateForm(suspectCase) : this.searchCase();
                 }));
+            this.subscription.add(this.notFound$.subscribe( res => res && this.goBack()));
         } else {
             this.store.dispatch(new SetPageTitleFormAssente('nuovo sorvegliato'));
         }
+
     }
 
     ngOnDestroy(): void {

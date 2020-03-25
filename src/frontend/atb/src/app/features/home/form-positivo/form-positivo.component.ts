@@ -26,6 +26,7 @@ export class FormPositivoComponent implements OnDestroy {
     @Select(FormPositivoState.pageTitle) pageTitle$: Observable<string>;
     @Select(FormPositivoState.positivoFormValid) positivoFormValid$: Observable<boolean>;
     @Select(SearchState.positiveCase) positiveCase$: Observable<PositiveCaseInterface>;
+    @Select(SearchState.notFound) notFound$: Observable<boolean>;
 
     positivoForm: FormGroup;
     submitted = false;
@@ -45,6 +46,7 @@ export class FormPositivoComponent implements OnDestroy {
                 this.positiveCase$.pipe(delay(100)).subscribe((positiveCase: PositiveCaseInterface) => {
                     positiveCase ? this.updateForm(positiveCase) : this.searchCase();
                 }));
+            this.subscription.add(this.notFound$.subscribe( res => res && this.goBack()));
         } else {
             this.store.dispatch(new SetPageTitleFormPositivo('nuovo positivo'));
         }
