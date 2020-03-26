@@ -1,0 +1,13 @@
+<div class="card shadow-sm">
+    <div class="card-header bg-primary">
+        <h5 class="card-title mb-0 text-white">Novità</h5>
+    </div>
+    <div class="card-body">
+        <ng-container *ngFor="let rss of rssData">
+            <p class="card-text">
+                <i class="fa fa-rss mr-1"></i>
+                <span [innerHTML]="rss.text"></span>
+            </p>
+        </ng-container>
+    </div>
+</div>

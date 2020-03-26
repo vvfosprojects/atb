@@ -1,24 +1,38 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { SearchPositiveCase, SearchSuspectCase } from '../store/search.actions';
 import { LoadingState } from '../../../shared/store/loading/loading.state';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import { ClearRssData, GetRssData } from '../store/rss.actions';
+import { RssState } from '../store/rss.state';
+import { RssInterface } from '../../../shared/interface/rss.interface';
 
 @Component({
     selector: 'app-search',
     templateUrl: './search.component.html',
     styleUrls: ['./search.component.scss']
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnDestroy {
 
     @Select(LoadingState.loading) loading$: Observable<boolean>;
+    @Select(RssState.rssData) rssData$: Observable<RssInterface[]>;
+
     loading: boolean;
 
+    private subscription = new Subscription();
+
     constructor(private store: Store) {
-        this.getLoading();
+        this.subscription.add(
+            this.loading$.subscribe((loading: boolean) => {
+                this.loading = loading;
+            })
+        );
+        this.store.dispatch(new GetRssData());
     }
 
-    ngOnInit(): void {
+    ngOnDestroy(): void {
+        this.store.dispatch(new ClearRssData());
+        this.subscription.unsubscribe();
     }
 
     onSearchPositiveCase(search: number) {
@@ -29,9 +43,4 @@ export class SearchComponent implements OnInit {
         this.store.dispatch(new SearchSuspectCase(search));
     }
 
-    getLoading() {
-        this.loading$.subscribe((loading: boolean) => {
-            this.loading = loading;
-        });
-    }
 }
