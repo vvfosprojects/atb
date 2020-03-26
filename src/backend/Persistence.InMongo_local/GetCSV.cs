@@ -24,7 +24,7 @@ namespace Persistence.InMongo_local
             var suspects = this.dbContext.Suspects.AsQueryable().ToList();
 
             StringBuilder sw = new StringBuilder();
-            sw.AppendFormat("Paziente|Gruppo|Numero Caso|Ruolo|Quarantine Place|Data Attesa Di Rientro|Data Effettiva Di Rientro|Data Creazione|Data Aggiornamento");
+            sw.AppendFormat("Paziente|Gruppo|Numero Caso|Ruolo|Quarantine Place|Data Attesa Di Rientro|Data Effettiva Di Rientro|Data Del Contaggio |Data Creazione|Data Aggiornamento");
             sw.AppendLine();
 
             foreach(var s in patients)
@@ -36,7 +36,7 @@ namespace Persistence.InMongo_local
                 if (s.Data.Last().ActualWorkReturnDate.HasValue)
                     actualDate = s.Data.Last().ActualWorkReturnDate.Value.ToString("dd/MM/yyyy");
 
-                var str = string.Format("{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}",
+                var str = string.Format("{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|{9}",
                                   "P",    
                                   s.Group,
                                   s.Subject.Number,
@@ -44,6 +44,7 @@ namespace Persistence.InMongo_local
                                   s.Data.Last().QuarantinePlace,
                                   expectedDate,
                                   actualDate,
+                                  s.Data.Last().DiseaseConfirmDate.ToString("dd/MM/yyyy"),
                                   s.Data.First().UpdateTime.ToString("dd/MM/yyyy"),
                                   s.Data.Last().UpdateTime.ToString("dd/MM/yyyy")
                                   );
@@ -56,7 +57,7 @@ namespace Persistence.InMongo_local
                 if (p.Data.Last().ActualWorkReturnDate.HasValue)
                     actualDate = p.Data.Last().ActualWorkReturnDate.Value.ToString("dd/MM/yyyy");
 
-                var str = string.Format("{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}",
+                var str = string.Format("{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|{9}",
                                   "S",
                                   p.Group,
                                   p.Subject.Number,
@@ -64,6 +65,7 @@ namespace Persistence.InMongo_local
                                   p.Data.Last().QuarantinePlace,
                                   p.Data.Last().ExpectedWorkReturnDate.ToString("dd/MM/yyyy"),
                                   actualDate,
+                                  "null",
                                   p.Data.First().UpdateTime.ToString("dd/MM/yyyy"),
                                   p.Data.Last().UpdateTime.ToString("dd/MM/yyyy")
                                   );
