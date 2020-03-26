@@ -20,6 +20,8 @@ import { FooterComponent } from './features/footer/footer.component';
 import { ToastrModule } from 'ngx-toastr';
 import { registerLocaleData } from '@angular/common';
 import localeIT from '@angular/common/locales/it';
+import { PipeModule } from './shared/pipes/pipe.module';
+import { PermessiState } from './shared/store/permessi/permessi.state';
 
 registerLocaleData(localeIT);
 
@@ -35,7 +37,7 @@ registerLocaleData(localeIT);
         BrowserAnimationsModule,
         AppRoutingModule,
         NgxsModule.forRoot(
-            [LoadingState, AuthState],
+            [ LoadingState, AuthState, PermessiState ],
             { developmentMode: !environment.production }
         ),
         NgxsRouterPluginModule.forRoot(),
@@ -53,7 +55,8 @@ registerLocaleData(localeIT);
         NgSelectModule,
         NgbDatepickerModule,
         HttpClientModule,
-        NgbDropdownModule
+        NgbDropdownModule,
+        PipeModule
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
