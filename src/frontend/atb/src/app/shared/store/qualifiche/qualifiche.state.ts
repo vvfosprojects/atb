@@ -22,6 +22,7 @@ export const qualificheStateDefaults: QualificheStateModel = {
         "CAPO SQUADRA ESPERTO",
         "CAPO SQUADRA VOLONTARIO",
         "CAPO SQUADRA",
+        "ALLIEVO VIGILE DEL FUOCO",
 		"ASSISTENTE",
         "ATLETA",
         "DIRETTORE AGGIUNTO",
