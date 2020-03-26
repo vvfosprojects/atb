@@ -5,7 +5,7 @@ import { SearchComponent } from './search/search.component';
 import { SharedModule } from '../../shared/shared.module';
 import { SearchPositivoComponent } from './search/search-positivo/search-positivo.component';
 import { FormPositivoComponent } from './form-positivo/form-positivo.component';
-import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDatepickerModule, NgbTabsetModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SearchAssenteComponent } from './search/search-assente/search-assente.component';
 import { FormAssenteComponent } from './form-assente/form-assente.component';
@@ -20,9 +20,25 @@ import { SearchState } from './store/search.state';
 import { DataTablesComponent } from './data-tables/data-tables.component';
 import { PermessiState } from '../../shared/store/permessi/permessi.state';
 import { DataTablesService } from '../../core/services/data-tables/data-tables.service';
+import { DataTablesState } from './store/data-tables.state';
+import { FiltersDataTablesComponent } from './data-tables/filters-data-tables/filters-data-tables.component';
+import { PositiveDataTableComponent } from './data-tables/positive-data-table/positive-data-table.component';
+import { SuspectDataTableComponent } from './data-tables/suspect-data-table/suspect-data-table.component';
+import { RssState } from './store/rss.state';
+import { RssService } from '../../core/services/rss/rss.service';
 
 @NgModule({
-    declarations: [ SearchComponent, FormPositivoComponent, FormAssenteComponent, SearchPositivoComponent, SearchAssenteComponent, DataTablesComponent ],
+    declarations: [
+        SearchComponent,
+        FormPositivoComponent,
+        FormAssenteComponent,
+        SearchPositivoComponent,
+        SearchAssenteComponent,
+        DataTablesComponent,
+        FiltersDataTablesComponent,
+        PositiveDataTableComponent,
+        SuspectDataTableComponent
+    ],
     imports: [
         CommonModule,
         HomeRoutingModule,
@@ -30,12 +46,22 @@ import { DataTablesService } from '../../core/services/data-tables/data-tables.s
         NgbDatepickerModule,
         NgSelectModule,
         NgxsFormPluginModule,
-        NgxsModule.forFeature([PermessiState, QualificheState, FormPositivoState, FormAssenteState, SearchState])
+        NgxsModule.forFeature([
+            QualificheState,
+            FormPositivoState,
+            FormAssenteState,
+            SearchState,
+            DataTablesState,
+            RssState
+        ]),
+        NgbTabsetModule,
+        NgbTooltipModule
     ],
     providers: [
         AssentiService,
         PositiviService,
-        DataTablesService
+        DataTablesService,
+        RssService
     ]
 })
 export class HomeModule {

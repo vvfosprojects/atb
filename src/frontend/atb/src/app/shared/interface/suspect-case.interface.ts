@@ -1,4 +1,5 @@
 import { HealthMeasureInterface } from './health-measure.interface';
+import { QuarantinePlaceEnum } from '../enum/quarantine-place.enum';
 
 export interface SuspectCaseInterface {
     subject: Subject;
@@ -16,7 +17,7 @@ export interface Subject {
 }
 
 export interface Data {
-    quarantinePlace: string;
+    quarantinePlace: QuarantinePlaceEnum;
     expectedWorkReturnDate: string;
     actualWorkReturnDate?: string;
     healthMeasure: HealthMeasureInterface;

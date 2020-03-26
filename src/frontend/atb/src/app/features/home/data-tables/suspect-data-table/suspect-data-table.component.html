@@ -1,0 +1,92 @@
+<table *ngIf="suspectList && suspectList.length > 0" class="table table-bordered mb-0">
+    <thead class="bg-light">
+    <tr>
+        <th class="text-center" scope="row">Numero</th>
+        <th scope="col">Gruppo</th>
+        <th scope="col">Cognome</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Qualifica</th>
+        <th scope="col">Luogo Isolamento</th>
+        <th scope="col">Data Eff. Ripresa Servizio</th>
+        <th scope="col">Data Pres. Ripresa Servizio</th>
+        <th class="text-center" scope="col">Dettaglio</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let s of suspectList">
+        <td class="text-center font-weight-bold">
+            <ng-template [ngIf]="s.subject.number">
+                {{s.subject.number}}
+            </ng-template>
+            <ng-template [ngIf]="!s.subject.number">
+                <span class="text-muted">Non presente</span>
+            </ng-template>
+        </td>
+        <td>
+            <ng-template [ngIf]="s.group">
+                {{s.group | uppercase}}
+            </ng-template>
+            <ng-template [ngIf]="!s.group">
+                <span class="text-muted">Non presente</span>
+            </ng-template>
+        </td>
+        <td>
+            <ng-template [ngIf]="s.subject.cognome">
+                {{s.subject.cognome}}
+            </ng-template>
+            <ng-template [ngIf]="!s.subject.cognome">
+                <span class="text-muted">Non presente</span>
+            </ng-template>
+        </td>
+        <td>
+            <ng-template [ngIf]="s.subject.nome">
+                {{s.subject.nome}}
+            </ng-template>
+            <ng-template [ngIf]="!s.subject.nome">
+                <span class="text-muted">Non presente</span>
+            </ng-template>
+        </td>
+        <td>
+            <ng-template [ngIf]="s.subject.role">
+                {{s.subject.role}}
+            </ng-template>
+            <ng-template [ngIf]="!s.subject.role">
+                <span class="text-muted">Non presente</span>
+            </ng-template>
+        </td>
+        <td>
+            <ng-template [ngIf]="s.data.quarantinePlace">
+                {{s.data.quarantinePlace | luogoIsolamento}}
+            </ng-template>
+            <ng-template [ngIf]="!s.data.quarantinePlace">
+                <span class="text-muted">Non presente</span>
+            </ng-template>
+        </td>
+        <td>
+            <ng-template [ngIf]="s.data.actualWorkReturnDate">
+                {{s.data.actualWorkReturnDate | date: 'dd/MM/yyyy'}}
+            </ng-template>
+            <ng-template [ngIf]="!s.data.actualWorkReturnDate">
+                <span class="text-muted">Non presente</span>
+            </ng-template>
+        </td>
+        <td>
+            <ng-template [ngIf]="s.data.expectedWorkReturnDate">
+                {{s.data.expectedWorkReturnDate | date: 'dd/MM/yyyy'}}
+            </ng-template>
+            <ng-template [ngIf]="!s.data.expectedWorkReturnDate">
+                <span class="text-muted">Non presente</span>
+            </ng-template>
+        </td>
+        <td>
+            <button class="btn btn-sm btn-block btn-primary" (click)="goToDetail(s.subject.number)">
+                <i class="fa fa-file-text mr-1"></i>
+                Visualizza
+            </button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<div *ngIf="!loading && (!suspectList || suspectList.length <= 0)" class="alert alert-danger mt-3">
+    Nessun <span class="font-weight-bold">Caso di Sorveglianza</span> trovato.
+</div>

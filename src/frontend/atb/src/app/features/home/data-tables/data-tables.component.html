@@ -1,1 +1,39 @@
-<p>data-tables works!</p>
+<div class="row py-4">
+    <div class="col-12 col-sm-9 col-md-7 col-lg-5 mx-auto bg-white border border-light shadow-sm p-4">
+        <app-filters-data-tables [groups]="groupsList" [selectedGroup]="selectedGroup$ | async"
+                                 (search)="onSearch($event)"></app-filters-data-tables>
+    </div>
+    <div *ngIf="!loading" class="col-12 col-lg-10 mx-auto mt-5">
+        <!-- <div class="mb-4">
+            <h3>Stai visualizzando i risultati per: <span
+                    class="font-weight-bold">{{(selectedGroup$ | async) | uppercase}}</span>
+            </h3>
+        </div> -->
+        <ngb-tabset [activeId]="selectedTab$ | async" [destroyOnHide]="true" (tabChange)="onSelectTab($event)">
+            <ngb-tab [id]="'positivi'">
+                <ng-template ngbTabTitle>
+                    <span class="font-weight-bold">Casi positivi COVID</span>
+                </ng-template>
+                <ng-template ngbTabContent>
+                    <div class="p-3 bg-white border shadow-sm overflow-auto">
+                        <app-positive-data-table [positiveList]="positiveList$ | async"
+                                                 [loading]="loading"
+                                                 (detail)="onPositiveDetail($event)"></app-positive-data-table>
+                    </div>
+                </ng-template>
+            </ngb-tab>
+            <ngb-tab [id]="'sorvegliati'">
+                <ng-template ngbTabTitle>
+                    <span class="font-weight-bold">Casi di sorveglianza attiva dovuti a COVID</span>
+                </ng-template>
+                <ng-template ngbTabContent>
+                    <div class="p-3 bg-white border shadow-sm overflow-auto">
+                        <app-suspect-data-table [suspectList]="suspectList$ | async"
+                                                [loading]="loading"
+                                                (detail)="onSuspectDetail($event)"></app-suspect-data-table>
+                    </div>
+                </ng-template>
+            </ngb-tab>
+        </ngb-tabset>
+    </div>
+</div>

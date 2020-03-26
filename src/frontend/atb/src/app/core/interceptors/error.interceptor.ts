@@ -15,13 +15,14 @@ export class ErrorInterceptor implements HttpInterceptor {
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<ErrorResponseInterface>> {
         return next.handle(request).pipe(catchError((err: HttpErrorResponse) => {
+            const errorMsg = err.error && err.error.error ? err.error.error : `Errore applicativo. Si prega di riprovare più tardi. Se l'errore persiste si prega di segnalare a assistenza.atb@vigilfuoco.it`;
             if ([ 403 ].indexOf(err.status) !== -1) {
                 this.store.dispatch(new Navigate([ '/forbidden' ]));
             } else {
-                this.toastrService.error(`${err.error && err.error.error}`, 'Errore');
+                this.toastrService.error(`${errorMsg}`, 'Errore');
             }
             const response: ErrorResponseInterface = {
-                error: err.error.error,
+                error: errorMsg,
             };
             return throwError(response);
         }));

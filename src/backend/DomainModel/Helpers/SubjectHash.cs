@@ -1,5 +1,6 @@
 ﻿using DomainModel.Classes;
 using DomainModel.Services;
+using System;
 
 namespace DomainModel.Helpers
 {
@@ -9,7 +10,7 @@ namespace DomainModel.Helpers
 
         public SubjectHash(ICryptools cryptools)
         {
-            this.cryptools = cryptools;
+            this.cryptools = cryptools ?? throw new ArgumentNullException(nameof(cryptools));
         }
 
         public Patient PatientEncrypt(Patient patient)

@@ -16,7 +16,7 @@
                         </button>
                     </div>
                     <div class="offset-11 my-2"></div>
-                    <div class="col-12 col-lg-6 mx-auto text-center">
+                    <div *ngIf="!detailMode" class="col-12 col-lg-6 mx-auto text-center">
                         <button type="button" class="btn btn-block btn-lg btn-primary" (click)="onSubmit()"
                                 [disabled]="!this.positivoForm.valid">
                             <ng-template [ngIf]="!editMode">
@@ -87,7 +87,7 @@
                                 Numero Cellulare
                                 <span class="font-weight-bold text-danger">*</span>
                             </label>
-                            <input id="phone" class="form-control" type="number" formControlName="phone"
+                            <input id="phone" class="form-control" type="text" formControlName="phone"
                                    [ngClass]="{ 'is-invalid': submitted && f.phone.errors }"/>
                         </div>
                         <div class="form-group">
@@ -309,7 +309,7 @@
                         </button>
                     </div>
                     <div class="offset-11 my-2"></div>
-                    <div class="col-12 col-lg-6 mx-auto text-center">
+                    <div  *ngIf="!detailMode" class="col-12 col-lg-6 mx-auto text-center">
                         <button type="button" class="btn btn-block btn-lg btn-primary" (click)="onSubmit()"
                                 [disabled]="!this.positivoForm.valid">
                             <ng-template [ngIf]="!editMode">

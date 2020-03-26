@@ -4,6 +4,7 @@ using DomainModel.Services;
 using DomainModel.Services.Statistics;
 using DomainModel.Services.Users;
 using MongoDB.Driver;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,9 +18,9 @@ namespace Persistence.InMongo_local
 
         public GetStatistics(IGetSessionContext getSessionContext, DbContext dbContext, ICryptools cryptools)
         {
-            this.getSessionContext = getSessionContext;
-            this.dbContext = dbContext;
-            this.cryptools = cryptools;
+            this.getSessionContext = getSessionContext ?? throw new ArgumentNullException(nameof(getSessionContext));
+            this.dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+            this.cryptools = cryptools ?? throw new ArgumentNullException(nameof(cryptools));
         }
 
         public List<GroupStatistics> Get()

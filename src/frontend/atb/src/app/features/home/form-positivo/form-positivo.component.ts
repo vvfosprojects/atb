@@ -1,84 +1,74 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Select, Store } from '@ngxs/store';
 import { FormPositivoState } from '../store/form-positivo.state';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { LoadingState } from '../../../shared/store/loading/loading.state';
 import { QualificheState } from '../../../shared/store/qualifiche/qualifiche.state';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { SaveNewPositivoCase, SetPageTitleFormPositivo, UpdatePositivoCase } from '../store/form-positivo.actions';
 import { UpdateFormValue } from '@ngxs/form-plugin';
 import { SearchState } from '../store/search.state';
 import { PositiveCaseInterface } from '../../../shared/interface/positive-case.interface';
 import { formatDateForNgbDatePicker } from '../../../shared/functions/functions';
+import { ClearPositiveCase, SearchPositiveCase } from '../store/search.actions';
+import { delay } from 'rxjs/operators';
+import { Navigate } from '@ngxs/router-plugin';
 
 @Component({
     selector: 'app-positivo',
     templateUrl: './form-positivo.component.html',
-    styleUrls: ['./form-positivo.component.scss']
+    styleUrls: [ './form-positivo.component.scss' ]
 })
-export class FormPositivoComponent implements OnInit, OnDestroy {
+export class FormPositivoComponent implements OnDestroy {
 
     @Select(LoadingState.loading) loading$: Observable<boolean>;
     @Select(QualificheState.qualifiche) qualifiche$: Observable<any[]>;
     @Select(FormPositivoState.pageTitle) pageTitle$: Observable<string>;
     @Select(FormPositivoState.positivoFormValid) positivoFormValid$: Observable<boolean>;
     @Select(SearchState.positiveCase) positiveCase$: Observable<PositiveCaseInterface>;
+    @Select(SearchState.notFound) notFound$: Observable<boolean>;
 
     positivoForm: FormGroup;
     submitted = false;
     editMode: boolean;
+    detailMode: boolean;
+
+    private subscription = new Subscription();
 
     constructor(private store: Store,
                 private formBuilder: FormBuilder,
-                private route: ActivatedRoute,
-                private router: Router) {
+                private route: ActivatedRoute) {
         if (this.route.snapshot.params.id) {
+            this.subscription.add(
+                this.positiveCase$.pipe(delay(100)).subscribe((positiveCase: PositiveCaseInterface) => {
+                    positiveCase ? this.updateForm(positiveCase) : this.searchCase();
+                }));
+            this.subscription.add(this.notFound$.subscribe(res => res && this.goBack()));
+        }
+
+        if (this.route.snapshot.url.length > 1 && this.route.snapshot.url[1].path === 'detail' && this.route.snapshot.params.id) {
+            this.detailMode = true;
+            this.store.dispatch(new SetPageTitleFormPositivo('visualizza positivo'));
+        } else if (this.route.snapshot.url.length > 1 && this.route.snapshot.url[1].path !== 'detail' && this.route.snapshot.params.id) {
             this.editMode = true;
             this.store.dispatch(new SetPageTitleFormPositivo('modifica positivo'));
-            this.positiveCase$.subscribe((positiveCase: PositiveCaseInterface) => {
-                if (positiveCase) {
-                    this.store.dispatch(
-                        new UpdateFormValue({
-                            path: 'positivo.positivoForm',
-                            value: {
-                                // Personal Information
-                                name: positiveCase.subject.nome,
-                                surname: positiveCase.subject.cognome,
-                                phone: positiveCase.subject.phone,
-                                email: positiveCase.subject.email,
-                                role: positiveCase.subject.role,
-                                // Personal Data
-                                caseNumber: positiveCase.subject.number,
-                                estremiProvvedimentiASL: positiveCase.data.estremiProvvedimentiASL,
-                                diseaseConfirmDate: positiveCase.data.diseaseConfirmDate ? formatDateForNgbDatePicker(positiveCase.data.diseaseConfirmDate) : null,
-                                quarantinePlace: positiveCase.data.quarantinePlace !== 'INTCARE' ? positiveCase.data.quarantinePlace : 'HOSP',
-                                intensiveTerapy: positiveCase.data.quarantinePlace === 'INTCARE',
-                                expectedWorkReturnDate: positiveCase.data.expectedWorkReturnDate ? formatDateForNgbDatePicker(positiveCase.data.expectedWorkReturnDate) : null,
-                                actualWorkReturnDate: positiveCase.data.actualWorkReturnDate ? formatDateForNgbDatePicker(positiveCase.data.actualWorkReturnDate) : null
-                            }
-                        })
-                    );
-                } else {
-                    this.goBack();
-                }
-            });
         } else {
             this.store.dispatch(new SetPageTitleFormPositivo('nuovo positivo'));
         }
+
         this.initForm();
     }
 
-    ngOnInit(): void {
-    }
-
     ngOnDestroy(): void {
-        this.store.dispatch(
-            new UpdateFormValue({
+        this.subscription.unsubscribe();
+        this.store.dispatch([
+                new UpdateFormValue({
                     path: 'positivo.positivoForm',
                     value: undefined
-                }
-            )
+                }),
+                new ClearPositiveCase()
+            ]
         );
     }
 
@@ -101,26 +91,30 @@ export class FormPositivoComponent implements OnInit, OnDestroy {
         });
         this.positivoForm = this.formBuilder.group({
             // Personal Information
-            name: [null, Validators.required],
-            surname: [null, Validators.required],
-            phone: [null, Validators.required],
-            email: [null, Validators.required],
-            role: [null, Validators.required],
+            name: [ null, Validators.required ],
+            surname: [ null, Validators.required ],
+            phone: [ null, Validators.required ],
+            email: [ null, Validators.required ],
+            role: [ null, Validators.required ],
             // Personal Data
-            caseNumber: [null],
-            estremiProvvedimentiASL: [null],
-            diseaseConfirmDate: [null, Validators.required],
-            quarantinePlace: [null, Validators.required],
-            intensiveTerapy: [null],
-            expectedWorkReturnDate: [null],
-            actualWorkReturnDate: [null]
+            caseNumber: [ null ],
+            estremiProvvedimentiASL: [ null ],
+            diseaseConfirmDate: [ null, Validators.required ],
+            quarantinePlace: [ null, Validators.required ],
+            intensiveTerapy: [ null ],
+            expectedWorkReturnDate: [ null ],
+            actualWorkReturnDate: [ null ]
         });
 
         if (this.editMode) {
-            const fieldsToDisable = ['caseNumber', 'name', 'surname', 'phone', 'email', 'role'];
+            const fieldsToDisable = [ 'caseNumber', 'name', 'surname', 'phone', 'email', 'role' ];
             for (const field of fieldsToDisable) {
                 this.f[field].disable();
             }
+        }
+
+        if (this.detailMode) {
+            this.positivoForm.disable();
         }
     }
 
@@ -151,6 +145,34 @@ export class FormPositivoComponent implements OnInit, OnDestroy {
     }
 
     goBack() {
-        this.router.navigate(['./home/ricerca']);
+        this.detailMode ? this.store.dispatch(new Navigate([ './home/data-tables' ])) : this.store.dispatch(new Navigate([ './home/ricerca' ]));
+    }
+
+    searchCase(): void {
+        this.store.dispatch(new SearchPositiveCase(this.route.snapshot.params.id, true));
+    }
+
+    updateForm(positiveCase: PositiveCaseInterface): void {
+        this.store.dispatch(
+            new UpdateFormValue({
+                path: 'positivo.positivoForm',
+                value: {
+                    // Personal Information
+                    name: positiveCase.subject.nome,
+                    surname: positiveCase.subject.cognome,
+                    phone: positiveCase.subject.phone,
+                    email: positiveCase.subject.email,
+                    role: positiveCase.subject.role,
+                    // Personal Data
+                    caseNumber: positiveCase.subject.number,
+                    estremiProvvedimentiASL: positiveCase.data.estremiProvvedimentiASL,
+                    diseaseConfirmDate: positiveCase.data.diseaseConfirmDate ? formatDateForNgbDatePicker(positiveCase.data.diseaseConfirmDate) : null,
+                    quarantinePlace: positiveCase.data.quarantinePlace !== 'INTCARE' ? positiveCase.data.quarantinePlace : 'HOSP',
+                    intensiveTerapy: positiveCase.data.quarantinePlace === 'INTCARE',
+                    expectedWorkReturnDate: positiveCase.data.expectedWorkReturnDate ? formatDateForNgbDatePicker(positiveCase.data.expectedWorkReturnDate) : null,
+                    actualWorkReturnDate: positiveCase.data.actualWorkReturnDate ? formatDateForNgbDatePicker(positiveCase.data.actualWorkReturnDate) : null
+                }
+            })
+        );
     }
 }

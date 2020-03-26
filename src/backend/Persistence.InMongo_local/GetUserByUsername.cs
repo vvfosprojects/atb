@@ -1,6 +1,7 @@
 ﻿using DomainModel.Classes;
 using DomainModel.Services.Users;
 using MongoDB.Driver;
+using System;
 
 namespace Persistence.InMongo_local
 {
@@ -10,7 +11,7 @@ namespace Persistence.InMongo_local
 
         public GetUserByUsername(DbContext dbContext)
         {
-            this.dbContext = dbContext;
+            this.dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
 
         public User Get(string username)

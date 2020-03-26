@@ -1,15 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Store } from '@ngxs/store';
+import { Navigate } from '@ngxs/router-plugin';
 
 @Component({
   selector: 'app-statistics',
   templateUrl: './statistics.component.html',
   styleUrls: ['./statistics.component.scss']
 })
-export class StatisticsComponent implements OnInit {
+export class StatisticsComponent {
 
-  constructor() { }
+    constructor(private store: Store) {
+    }
 
-  ngOnInit(): void {
-  }
+    onHome() {
+        this.store.dispatch(new Navigate(['/']));
+    }
 
 }

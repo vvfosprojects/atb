@@ -15,7 +15,7 @@ namespace atb.Controllers
 
         public SuspectSheetController(IQueryHandler<GetSuspectQuery, GetSuspectQueryResult> handler)
         {
-            this.handler = handler;
+            this.handler = handler ?? throw new ArgumentNullException(nameof(handler));
         }
 
         public ActionResult<Object> Get([FromQuery]int caseNumber)
@@ -26,7 +26,7 @@ namespace atb.Controllers
             {
                 var result = new
                 {
-                    Group = suspect.Suspect.Group,
+                    suspect.Suspect.Group,
                     Subject = new Anagrafica()
                     {
                         Nome = suspect.Suspect.Subject.Nome,

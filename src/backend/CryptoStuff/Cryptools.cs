@@ -24,11 +24,17 @@ namespace CryptoStuff
 
         public string Decrypt(string s)
         {
+            if (string.IsNullOrWhiteSpace(s))
+                return s;
+
             return EncryptProvider.AESDecrypt(s, key);
         }
 
         public string Encrypt(string s)
         {
+            if (string.IsNullOrWhiteSpace(s))
+                return s;
+
             return EncryptProvider.AESEncrypt(s, key);
         }
     }

@@ -2,6 +2,7 @@
 using DomainModel.Services;
 using DomainModel.Services.Users;
 using MongoDB.Driver;
+using System;
 using System.Collections.Generic;
 
 namespace Persistence.InMongo_local
@@ -14,9 +15,9 @@ namespace Persistence.InMongo_local
 
         public GetAllSuspectSheets(DbContext dbContext, ICryptools cryptools, IGetSessionContext getSessionContext)
         {
-            this.dbContext = dbContext;
-            this.getSessionContext = getSessionContext;
-            this.cryptools = cryptools;
+            this.dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+            this.getSessionContext = getSessionContext ?? throw new ArgumentNullException(nameof(getSessionContext));
+            this.cryptools = cryptools ?? throw new ArgumentNullException(nameof(cryptools));
         }
 
         public IEnumerable<Suspect> Get()
