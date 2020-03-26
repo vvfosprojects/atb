@@ -47,7 +47,6 @@ import { RssService } from '../../core/services/rss/rss.service';
         NgSelectModule,
         NgxsFormPluginModule,
         NgxsModule.forFeature([
-            PermessiState,
             QualificheState,
             FormPositivoState,
             FormAssenteState,

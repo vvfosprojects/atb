@@ -5,22 +5,22 @@ import { Roles } from '../../enum/roles.enum';
 import { Injectable } from '@angular/core';
 
 export interface PermessiStateModel {
-    permessi: Array<PermessiFeatureInterface>;
+    permessi: PermessiFeatureInterface[];
 }
 
 export const PermessiStateDefaults: PermessiStateModel = {
     permessi: [
         {
             feature: PermissionFeatures.CreateAndSearch,
-            roles: []
+            roles: [ Roles.Doctor ]
         },
         {
             feature: PermissionFeatures.GroupSearch,
-            roles: []
+            roles: [ Roles.Doctor ]
         },
         {
             feature: PermissionFeatures.Report,
-            roles: []
+            roles: [ Roles.Doctor, Roles.Manager ]
         }
     ]
 };

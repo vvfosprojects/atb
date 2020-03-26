@@ -6,7 +6,7 @@ import { PositiveCaseInterface } from '../../../shared/interface/positive-case.i
 import { SuspectCaseInterface } from '../../../shared/interface/suspect-case.interface';
 import { ClearDataTables, GetDataSheets, GetGroupList, SetGroup, SetTab } from './data-tables.actions';
 import { GroupsResponseInterface, SheetsResponseInterface } from '../../../shared/interface/common';
-import { sorterHome, sorterHospital, sorterNumber, sorterQuarantinePlace } from '../../../shared/functions/sorter-case';
+import { globalSorter } from '../../../shared/functions/sorter-case';
 
 export interface DataTablesStateModel {
     groupsList: GroupInterface[];
@@ -66,7 +66,6 @@ export class DataTablesState {
                 patchState({ groupsList: res.groups });
                 if (res.groups && res.groups.length > 0) {
                     dispatch(new SetGroup(res.groups[0].code));
-                    ``
                 }
             }
         });
@@ -90,8 +89,8 @@ export class DataTablesState {
             this.dataTablesService.getSheets(selectedGroup).subscribe((res: SheetsResponseInterface) => {
                 if (res) {
                     patchState({
-                        suspects: res.suspects.sort(sorterNumber).sort(sorterQuarantinePlace).sort(sorterHospital).sort(sorterHome),
-                        patients: res.patients.sort(sorterNumber).sort(sorterQuarantinePlace).sort(sorterHospital).sort(sorterHome)
+                        suspects: res.suspects.sort(globalSorter),
+                        patients: res.patients.sort(globalSorter)
                     });
                 }
             });

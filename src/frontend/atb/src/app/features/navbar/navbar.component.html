@@ -6,20 +6,21 @@
                         class="fa fa-hashtag ml-2"></i>ATB</h3>
             </div>
             <div class="float-left ml-4 px-2">
-                <button class="btn btn-sm btn-outline-primary mr-2 nav-link-custom-left" [routerLink]="['/'+ routesPath.CreateAndSearch]"
+                <button *ngIf="permissionFeatures.CreateAndSearch | checkPermission" class="btn btn-sm btn-outline-primary mr-2 nav-link-custom-left" [routerLink]="['/'+ routesPath.CreateAndSearch]"
                         [routerLinkActive]="['active']">
-                    <i class="fa fa-search mr-1"></i>
+                    <i class="fa fa-file-text-o mr-1"></i>
                     Inserimento
                 </button>
-                <button class="btn btn-sm btn-outline-primary mr-2 nav-link-custom-left" [routerLink]="['/'+ routesPath.GroupSearch]"
+                <button *ngIf="permissionFeatures.GroupSearch | checkPermission" class="btn btn-sm btn-outline-primary mr-2 nav-link-custom-left" [routerLink]="['/'+ routesPath.GroupSearch]"
                         [routerLinkActive]="['active']">
                     <i class="fa fa-address-card-o mr-1"></i>
                     Schede
                 </button>
-                <!-- <button class="btn btn-sm btn-outline-primary">
-                    <i class="fa fa-line-chart mr-1"></i>
-                    Statistiche
-                </button> -->
+<!--                <button *ngIf="permissionFeatures.Report | checkPermission" class="btn btn-sm btn-outline-primary mr-2 nav-link-custom-left" [routerLink]="['/'+ routesPath.Report]"-->
+<!--                        [routerLinkActive]="['active']">-->
+<!--                    <i class="fa fa-line-chart mr-1"></i>-->
+<!--                    Statistiche-->
+<!--                </button>-->
             </div>
         </div>
     </div>
