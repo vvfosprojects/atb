@@ -66,7 +66,6 @@ export class DataTablesState {
                 patchState({ groupsList: res.groups });
                 if (res.groups && res.groups.length > 0) {
                     dispatch(new SetGroup(res.groups[0].code));
-                    ``
                 }
             }
         });
