@@ -295,6 +295,39 @@ The request is empty.
 
 The logged user must have `manager` privileges.
 
+## Action: `api/sheetCounters`
+
+This action allows to fetch sheets counters.
+
+### Request
+
+The request is empty.
+
+### Response
+
+```jsonc
+{
+    counters: {
+		patients: {
+		    total: 200,
+			open: 121
+		},
+		suspects: {
+			total: 800,
+			open: 426
+		}
+	}
+}
+```
+
+### Authorization
+
+The user must be authenticated.
+
+### Notes
+
+The numbers refer to the group of the authenticated user. In case of empty group, the numbers refer to all the sheets.
+
 ## Action: `api/changePassword`
 
 This action allows a user to change the password.
