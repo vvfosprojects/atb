@@ -90,7 +90,7 @@ export class FormAssenteComponent implements OnDestroy {
             role: [null, Validators.required],
             // Personal Data
             caseNumber: [null],
-            quarantinePlace: [null, Validators.required],
+            quarantinePlace: ['HOME'],
             expectedWorkReturnDate: [null, Validators.required],
             actualWorkReturnDate: [null],
             healthMeasureCode: [null, Validators.required],

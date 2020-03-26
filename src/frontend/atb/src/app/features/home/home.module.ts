@@ -24,6 +24,8 @@ import { DataTablesState } from './store/data-tables.state';
 import { FiltersDataTablesComponent } from './data-tables/filters-data-tables/filters-data-tables.component';
 import { PositiveDataTableComponent } from './data-tables/positive-data-table/positive-data-table.component';
 import { SuspectDataTableComponent } from './data-tables/suspect-data-table/suspect-data-table.component';
+import { RssState } from './store/rss.state';
+import { RssService } from '../../core/services/rss/rss.service';
 
 @NgModule({
     declarations: [
@@ -50,7 +52,8 @@ import { SuspectDataTableComponent } from './data-tables/suspect-data-table/susp
             FormPositivoState,
             FormAssenteState,
             SearchState,
-            DataTablesState
+            DataTablesState,
+            RssState
         ]),
         NgbTabsetModule,
         NgbTooltipModule
@@ -58,7 +61,8 @@ import { SuspectDataTableComponent } from './data-tables/suspect-data-table/susp
     providers: [
         AssentiService,
         PositiviService,
-        DataTablesService
+        DataTablesService,
+        RssService
     ]
 })
 export class HomeModule {

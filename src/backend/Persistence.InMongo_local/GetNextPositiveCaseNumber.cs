@@ -1,6 +1,5 @@
 ﻿using DomainModel.Classes;
 using DomainModel.Services;
-using DomainModel.Services.Users;
 using MongoDB.Driver;
 using System;
 using System.Linq;
@@ -9,17 +8,15 @@ namespace Persistence.InMongo_local
 {
     public class GetNextPositiveCaseNumber : IGetNextPositiveCaseNumber
     {
-        private readonly DbContext dbContext ;
-        private readonly IGetSessionContext getSessionContext;
-        public GetNextPositiveCaseNumber(DbContext dbContext, IGetSessionContext getSessionContext)
+        private readonly DbContext dbContext;
+        public GetNextPositiveCaseNumber(DbContext dbContext)
         {
             this.dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
-            this.getSessionContext = getSessionContext ?? throw new ArgumentNullException(nameof(getSessionContext));
         }
 
-        public int Get()
+        public int Get(string group)
         {
-            var filter = Builders<Patient>.Filter.Eq(x => x.Group, getSessionContext.GetActiveGroup());
+            var filter = Builders<Patient>.Filter.Eq(x => x.Group, group);
             var patientsList = dbContext.Patients.Find(filter).ToList();
             
             //se la lista è priva di pazienti allora restituisco 0

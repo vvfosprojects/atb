@@ -2,6 +2,7 @@
 using CQRS.Queries;
 using DomainModel.Services;
 using DomainModel.Services.Users;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +34,7 @@ namespace DomainModel.CQRS.Queries.Auth
                         Roles = user.Roles.ToArray(),
                     };
 
+                Log.Information($"Authentication failed. Username: { query.Username }");
                 return new AuthQueryResult()
                 {
                     Success = false,
