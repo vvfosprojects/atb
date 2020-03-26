@@ -9,6 +9,13 @@ export class SetGroup {
     }
 }
 
+export class SetTab {
+    static readonly type = '[DataTables] Set Tab';
+
+    constructor(public selectedTab: string) {
+    }
+}
+
 export class GetDataSheets {
     static readonly type = '[DataTables] Get Data Sheets';
 }

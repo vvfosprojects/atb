@@ -9,8 +9,8 @@
                     class="font-weight-bold">{{(selectedGroup$ | async) | uppercase}}</span>
             </h3>
         </div> -->
-        <ngb-tabset [destroyOnHide]="true">
-            <ngb-tab>
+        <ngb-tabset [activeId]="selectedTab$ | async" [destroyOnHide]="true" (tabChange)="onSelectTab($event)">
+            <ngb-tab [id]="'positivi'">
                 <ng-template ngbTabTitle>
                     <span class="font-weight-bold">Casi positivi COVID</span>
                 </ng-template>
@@ -22,7 +22,7 @@
                     </div>
                 </ng-template>
             </ngb-tab>
-            <ngb-tab>
+            <ngb-tab [id]="'sorvegliati'">
                 <ng-template ngbTabTitle>
                     <span class="font-weight-bold">Casi di sorveglianza attiva dovuti a COVID</span>
                 </ng-template>

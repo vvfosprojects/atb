@@ -4,7 +4,7 @@ import { DataTablesService } from '../../../core/services/data-tables/data-table
 import { GroupInterface } from '../../../shared/interface/group.interface';
 import { PositiveCaseInterface } from '../../../shared/interface/positive-case.interface';
 import { SuspectCaseInterface } from '../../../shared/interface/suspect-case.interface';
-import { ClearDataTables, GetDataSheets, GetGroupList, SetGroup } from './data-tables.actions';
+import { ClearDataTables, GetDataSheets, GetGroupList, SetGroup, SetTab } from './data-tables.actions';
 import { GroupsResponseInterface, SheetsResponseInterface } from '../../../shared/interface/common';
 import { sorterHome, sorterHospital, sorterNumber, sorterQuarantinePlace } from '../../../shared/functions/sorter-case';
 
@@ -13,13 +13,15 @@ export interface DataTablesStateModel {
     selectedGroup: string;
     patients: PositiveCaseInterface[];
     suspects: SuspectCaseInterface[];
+    selectedTab: string;
 }
 
 export const DataTablesStateDefaults: DataTablesStateModel = {
     groupsList: [],
     selectedGroup: null,
     patients: [],
-    suspects: []
+    suspects: [],
+    selectedTab: 'positivi'
 };
 
 @Injectable()
@@ -52,13 +54,19 @@ export class DataTablesState {
         return state.selectedGroup;
     }
 
+    @Selector()
+    static selectedTab(state: DataTablesStateModel) {
+        return state.selectedTab;
+    }
+
     @Action(GetGroupList)
     getGroupList({ patchState, dispatch }: StateContext<DataTablesStateModel>) {
         this.dataTablesService.getGroups().subscribe((res: GroupsResponseInterface) => {
             if (res) {
                 patchState({ groupsList: res.groups });
                 if (res.groups && res.groups.length > 0) {
-                    dispatch(new SetGroup(res.groups[0].code));``
+                    dispatch(new SetGroup(res.groups[0].code));
+                    ``
                 }
             }
         });
@@ -68,6 +76,11 @@ export class DataTablesState {
     setGroup({ patchState, dispatch }: StateContext<DataTablesStateModel>, { selectedGroup }: SetGroup) {
         patchState({ selectedGroup });
         dispatch(new GetDataSheets());
+    }
+
+    @Action(SetTab)
+    setTab({ patchState }: StateContext<DataTablesStateModel>, { selectedTab }: SetTab) {
+        patchState({ selectedTab });
     }
 
     @Action(GetDataSheets)
