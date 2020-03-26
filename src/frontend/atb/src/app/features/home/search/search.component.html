@@ -1,33 +1,19 @@
-<div class="row h-25">
-    <div class="col-12" style="min-height:30vh; display:flex; justify-content: center; align-items: center">
-        <div class="row" style="min-height:40vh; display: flex;justify-content: center; align-items: center">
-            <div class="card" style="width: 36rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Novità</h5>
-                    <p class="card-text">
-                        <i class="fa fa-rss mr-1"></i>
-                        E' ora disponibile la qualifica di <i>Allievo Vigile del Fuoco</i>.
-                    </p>
-                    <p class="card-text">
-                        <i class="fa fa-rss mr-1"></i>
-                        Sono ora disponibili le qualifiche del personale volontario.
-                    </p>
-                    <p class="card-text">
-                        <i class="fa fa-rss mr-1"></i>
-                        Lo sapevi che puoi aggiornare la situazione di un soggetto in una scheda ricercandola per <i>Numero Caso</i> e modificandone i campi?
-                    </p>
-                </div>
+<div class="row">
+    <div class="col-12" style="min-height:40vh; display:flex; justify-content: center; align-items: center">
+        <div class="row" style="min-height:40vh; display: flex; justify-content: center; align-items: center">
+            <div class="col-12 col-sm-10 col-md-8 col-lg-7 mx-auto py-3">
+                <app-news-card [rssData]="rssData$ | async"></app-news-card>
             </div>
         </div>
     </div>
 </div>
-<div class="row h-75">
-    <div class="col-12" style="min-height:40vh; display:flex; justify-content: center; align-items: center">
-        <div class="row" style="min-height:40vh; display: flex;justify-content: center; align-items: center">
-            <div class="col-12 py-3 col-lg-6 p-lg-5">
+<div class="row">
+    <div class="col-12" style="min-height:50vh; display:flex; justify-content: center; align-items: center">
+        <div class="row" style="min-height:50vh; display: flex; justify-content: center; align-items: center">
+            <div class="col-12 col-lg-6 py-3 p-lg-5">
                 <app-search-positivo [loading]="loading" (search)="onSearchPositiveCase($event)"></app-search-positivo>
             </div>
-            <div class="col-12 py-3 col-lg-6 p-lg-5">
+            <div class="col-12 col-lg-6 py-3 p-lg-5">
                 <app-search-assente [loading]="loading" (search)="onSearchSuspectCase($event)"></app-search-assente>
             </div>
         </div>

@@ -21,6 +21,8 @@ import { DataTablesComponent } from './data-tables/data-tables.component';
 import { PermessiState } from '../../shared/store/permessi/permessi.state';
 import { DataTablesService } from '../../core/services/data-tables/data-tables.service';
 import { DataTablesState } from './store/data-tables.state';
+import { RssState } from './store/rss.state';
+import { RssService } from '../../core/services/rss/rss.service';
 
 @NgModule({
     declarations: [ SearchComponent, FormPositivoComponent, FormAssenteComponent, SearchPositivoComponent, SearchAssenteComponent, DataTablesComponent ],
@@ -37,13 +39,15 @@ import { DataTablesState } from './store/data-tables.state';
             FormPositivoState,
             FormAssenteState,
             SearchState,
-            DataTablesState
+            DataTablesState,
+            RssState
         ])
     ],
     providers: [
         AssentiService,
         PositiviService,
-        DataTablesService
+        DataTablesService,
+        RssService
     ]
 })
 export class HomeModule {
