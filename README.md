@@ -308,15 +308,15 @@ The request is empty.
 ```jsonc
 {
     counters: {
-		patients: {
-		    total: 200,
-			open: 121
-		},
-		suspects: {
-			total: 800,
-			open: 426
-		}
-	}
+        patients: {
+            total: 200,
+            open: 121
+        },
+        suspects: {
+            total: 800,
+            open: 426
+        }
+    }
 }
 ```
 
