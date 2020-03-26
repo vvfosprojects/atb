@@ -32,8 +32,6 @@ namespace atb
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
-            services.AddDataProtection(); // see https://stackoverflow.com/a/43936866/1045789
             services.AddCors(options =>
             {
                 options.AddPolicy(MyAllowSpecificOrigins,
@@ -44,6 +42,8 @@ namespace atb
                     .AllowAnyMethod();
                 });
             });
+            services.AddControllers();
+            services.AddDataProtection(); // see https://stackoverflow.com/a/43936866/1045789
 
             IntegrateJwtTokenManagement(services);
 
@@ -123,11 +123,11 @@ namespace atb
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            app.UseCors(MyAllowSpecificOrigins);
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseMiddleware(typeof(Helpers.Exceptions.ErrorHandlingMiddleware));
-            app.UseCors(MyAllowSpecificOrigins);
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
