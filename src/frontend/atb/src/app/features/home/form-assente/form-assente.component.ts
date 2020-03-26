@@ -32,24 +32,32 @@ export class FormAssenteComponent implements OnDestroy {
     assenteForm: FormGroup;
     submitted = false;
     editMode: boolean;
+    detailMode: boolean;
 
     private subscription = new Subscription();
 
     constructor(private store: Store,
                 private formBuilder: FormBuilder,
                 private route: ActivatedRoute) {
-        this.initForm();
         if (this.route.snapshot.params.id) {
-            this.editMode = true;
-            this.store.dispatch(new SetPageTitleFormAssente('modifica sorvegliato'));
             this.subscription.add(
                 this.suspectCase$.pipe(delay(100)).subscribe((suspectCase: SuspectCaseInterface) => {
                     suspectCase ? this.updateForm(suspectCase) : this.searchCase();
                 }));
             this.subscription.add(this.notFound$.subscribe(res => res && this.goBack()));
+        }
+
+        if (this.route.snapshot.url.length > 1 && this.route.snapshot.url[1].path === 'detail' && this.route.snapshot.params.id) {
+            this.detailMode = true;
+            this.store.dispatch(new SetPageTitleFormAssente('visualizza sorvegliato'));
+        } else if (this.route.snapshot.url.length > 1 && this.route.snapshot.url[1].path !== 'detail' && this.route.snapshot.params.id) {
+            this.editMode = true;
+            this.store.dispatch(new SetPageTitleFormAssente('modifica sorvegliato'));
         } else {
             this.store.dispatch(new SetPageTitleFormAssente('nuovo sorvegliato'));
         }
+
+        this.initForm();
 
     }
 
@@ -103,6 +111,10 @@ export class FormAssenteComponent implements OnDestroy {
                 this.f[field].disable();
             }
         }
+
+        if (this.detailMode) {
+            this.assenteForm.disable();
+        }
     }
 
     get f() {
@@ -124,7 +136,7 @@ export class FormAssenteComponent implements OnDestroy {
     }
 
     goBack() {
-        this.store.dispatch(new Navigate(['./home/ricerca']));
+        this.detailMode ? this.store.dispatch(new Navigate([ './home/data-tables' ])) : this.store.dispatch(new Navigate([ './home/ricerca' ]));
     }
 
     searchCase(): void {

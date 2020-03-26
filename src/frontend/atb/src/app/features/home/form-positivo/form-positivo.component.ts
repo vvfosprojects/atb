@@ -18,7 +18,7 @@ import { Navigate } from '@ngxs/router-plugin';
 @Component({
     selector: 'app-positivo',
     templateUrl: './form-positivo.component.html',
-    styleUrls: ['./form-positivo.component.scss']
+    styleUrls: [ './form-positivo.component.scss' ]
 })
 export class FormPositivoComponent implements OnDestroy {
 
@@ -91,23 +91,23 @@ export class FormPositivoComponent implements OnDestroy {
         });
         this.positivoForm = this.formBuilder.group({
             // Personal Information
-            name: [null, Validators.required],
-            surname: [null, Validators.required],
-            phone: [null, Validators.required],
-            email: [null, Validators.required],
-            role: [null, Validators.required],
+            name: [ null, Validators.required ],
+            surname: [ null, Validators.required ],
+            phone: [ null, Validators.required ],
+            email: [ null, Validators.required ],
+            role: [ null, Validators.required ],
             // Personal Data
-            caseNumber: [null],
-            estremiProvvedimentiASL: [null],
-            diseaseConfirmDate: [null, Validators.required],
-            quarantinePlace: [null, Validators.required],
-            intensiveTerapy: [null],
-            expectedWorkReturnDate: [null],
-            actualWorkReturnDate: [null]
+            caseNumber: [ null ],
+            estremiProvvedimentiASL: [ null ],
+            diseaseConfirmDate: [ null, Validators.required ],
+            quarantinePlace: [ null, Validators.required ],
+            intensiveTerapy: [ null ],
+            expectedWorkReturnDate: [ null ],
+            actualWorkReturnDate: [ null ]
         });
 
         if (this.editMode) {
-            const fieldsToDisable = ['caseNumber', 'name', 'surname', 'phone', 'email', 'role'];
+            const fieldsToDisable = [ 'caseNumber', 'name', 'surname', 'phone', 'email', 'role' ];
             for (const field of fieldsToDisable) {
                 this.f[field].disable();
             }
@@ -145,7 +145,7 @@ export class FormPositivoComponent implements OnDestroy {
     }
 
     goBack() {
-        this.store.dispatch(new Navigate(['./home/ricerca']));
+        this.detailMode ? this.store.dispatch(new Navigate([ './home/data-tables' ])) : this.store.dispatch(new Navigate([ './home/ricerca' ]));
     }
 
     searchCase(): void {

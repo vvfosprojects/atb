@@ -16,7 +16,7 @@
                         </button>
                     </div>
                     <div class="offset-11 my-2"></div>
-                    <div class="col-12 col-lg-6 mx-auto text-center">
+                    <div *ngIf="!detailMode" class="col-12 col-lg-6 mx-auto text-center">
                         <button type="button" class="btn btn-block btn-lg btn-primary" (click)="onSubmit()"
                                 [disabled]="!this.positivoForm.valid">
                             <ng-template [ngIf]="!editMode">
@@ -309,7 +309,7 @@
                         </button>
                     </div>
                     <div class="offset-11 my-2"></div>
-                    <div class="col-12 col-lg-6 mx-auto text-center">
+                    <div  *ngIf="!detailMode" class="col-12 col-lg-6 mx-auto text-center">
                         <button type="button" class="btn btn-block btn-lg btn-primary" (click)="onSubmit()"
                                 [disabled]="!this.positivoForm.valid">
                             <ng-template [ngIf]="!editMode">
