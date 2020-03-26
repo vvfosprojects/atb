@@ -4,6 +4,6 @@ namespace DomainModel.Services
 {
     public interface IGetSuspectByCaseNumber
     {
-        Suspect GetSuspect(int CaseNumber);
+        Suspect GetSuspect(int CaseNumber, string group);
     }
 }

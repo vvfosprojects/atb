@@ -1,0 +1,24 @@
+<div class="row">
+    <div class="col-12 mb-3">
+        <h3 class="mb-0">Filtra Ricerca</h3>
+    </div>
+    <div class="col-12 mb-3">
+        <ng-select [items]="groups"
+                   [multiple]="false"
+                   [clearable]="false"
+                   [(ngModel)]="selectedGroup"
+                   bindLabel="description"
+                   bindValue="code"
+                   placeholder="Seleziona un gruppo dalla lista"
+                   notFoundText="Nessun gruppo trovato con i seguenti criteri di ricerca"></ng-select>
+    </div>
+    <div class="col-5 mx-auto">
+        <span ngbTooltip="Seleziona un gruppo dalla lista" [disableTooltip]="selectedGroup" placement="bottom">
+            <button class="btn btn-lg btn-block btn-primary font-weight-bold" style="margin-top:.1rem"
+                    [disabled]="!selectedGroup" (click)="onSearch()">
+                <i class="fa fa-search mr-1"></i>
+                {{'cerca' | titlecase}}
+            </button>
+        </span>
+    </div>
+</div>

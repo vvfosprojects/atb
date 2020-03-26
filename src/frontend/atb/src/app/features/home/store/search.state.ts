@@ -1,7 +1,13 @@
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { Injectable } from '@angular/core';
 import { PositiveCaseInterface } from '../../../shared/interface/positive-case.interface';
-import { SearchPositiveCase, SearchSuspectCase } from './search.actions';
+import {
+    ClearPositiveCase,
+    ClearSuspectCase,
+    SearchPositiveCase,
+    SearchSuspectCase,
+    SetNotFound
+} from './search.actions';
 import { SuspectCaseInterface } from '../../../shared/interface/suspect-case.interface';
 import { Navigate } from '@ngxs/router-plugin';
 import { AssentiService } from '../../../core/services/assenti/assenti.service';
@@ -10,11 +16,13 @@ import { PositiviService } from '../../../core/services/positivi/positivi.servic
 export interface SearchStateModel {
     positiveCase: PositiveCaseInterface;
     suspectCase: SuspectCaseInterface;
+    notFound: boolean;
 }
 
 export const searchStateDefaults: SearchStateModel = {
     positiveCase: null,
-    suspectCase: null
+    suspectCase: null,
+    notFound: false
 };
 
 @Injectable()
@@ -34,6 +42,11 @@ export class SearchState {
         return state.suspectCase;
     }
 
+    @Selector()
+    static notFound(state: SearchStateModel) {
+        return state.notFound;
+    }
+
     constructor(private assentiService: AssentiService,
                 private positiviService: PositiviService) {
     }
@@ -44,8 +57,13 @@ export class SearchState {
             patchState({
                 positiveCase: positive
             });
-            dispatch(new Navigate(['./home/form-positivo/' + positive.subject.number]));
-        });
+            !action.bookmark && dispatch(new Navigate([ './home/form-positivo/' + positive.subject.number ]));
+        }, () => dispatch(new SetNotFound()));
+    }
+
+    @Action(ClearPositiveCase)
+    clearPositiveCase({ patchState }: StateContext<SearchStateModel>) {
+        patchState({ positiveCase: searchStateDefaults.positiveCase, notFound: searchStateDefaults.notFound })
     }
 
     @Action(SearchSuspectCase)
@@ -54,7 +72,18 @@ export class SearchState {
             patchState({
                 suspectCase: suspect
             });
-            dispatch(new Navigate(['./home/form-assente/' + suspect.subject.number]));
-        });
+            !action.bookmark && dispatch(new Navigate([ './home/form-assente/' + suspect.subject.number ]));
+        }, () => dispatch(new SetNotFound()));
     }
+
+    @Action(ClearSuspectCase)
+    clearSuspectCase({ patchState }: StateContext<SearchStateModel>) {
+        patchState({ suspectCase: searchStateDefaults.suspectCase, notFound: searchStateDefaults.notFound })
+    }
+
+    @Action(SetNotFound)
+    setNotFound({ patchState }: StateContext<SearchStateModel>) {
+        patchState({ notFound: true })
+    }
+
 }

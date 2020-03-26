@@ -39,13 +39,13 @@ namespace DomainModel.CQRS.Commands.ChangePassword
             if (loggedUsername != command.Username)
             {
                 Log.Warning("Attack! Someone is trying to change someone other's password.");
-                yield return new AuthorizationResult("You are not authorized to change too many passwords! :-o");
+                yield return new AuthorizationResult("Non sei autorizzato a cambiare troppe password! :-o");
             }
 
             var user = this.getUserByUsername.Get(loggedUsername);
             var oldPwdHash = ShaGenerator.ComputeSha256Hash(command.OldPassword);
             if (user.PwdHash != oldPwdHash)
-                yield return new AuthorizationResult("Invalid old password.");
+                yield return new AuthorizationResult("La vecchia password è invalida.");
         }
     }
 }

@@ -22,7 +22,7 @@ namespace atb.Controllers
 
         // GET: api/Groups
         [HttpGet]
-        public ActionResult Get(GetGroupsQuery query)
+        public ActionResult Get([FromQuery] GetGroupsQuery query)
         {
             var groups = this.handler.Handle(query);
 

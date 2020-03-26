@@ -1,0 +1,16 @@
+.nav-custom button.nav-link-custom-right {
+  margin-top: .6rem;
+}
+.nav-custom button.nav-link-custom-left {
+   margin-top: .6rem;
+ }
+
+.nav-custom button.nav-link-custom-left {
+   opacity: .7;
+ }
+
+.active {
+  font-weight: bold !important;
+  opacity: 1 !important;
+  transition: opacity 800ms;
+}

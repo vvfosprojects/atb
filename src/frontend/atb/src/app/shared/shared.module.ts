@@ -5,8 +5,9 @@ import { ErrorPageComponent } from './components/error-page/error-page.component
 import { LocationButtonComponent } from './components/location-button/location-button.component';
 import { CaseNumberModalComponent } from './components/case-number-modal/case-number-modal.component';
 import { PipeModule } from './pipes/pipe.module';
+import { NewsCardComponent } from './components/news-card/news-card.component';
 
-const COMPONENTS = [ ErrorPageComponent, LocationButtonComponent, CaseNumberModalComponent ];
+const COMPONENTS = [ ErrorPageComponent, LocationButtonComponent, CaseNumberModalComponent, NewsCardComponent ];
 
 const MODULES = [
     FormsModule,
