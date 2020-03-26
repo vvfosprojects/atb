@@ -18,7 +18,7 @@ import { Navigate } from '@ngxs/router-plugin';
 @Component({
     selector: 'app-assente',
     templateUrl: './form-assente.component.html',
-    styleUrls: [ './form-assente.component.scss' ]
+    styleUrls: ['./form-assente.component.scss']
 })
 export class FormAssenteComponent implements OnDestroy {
 
@@ -46,7 +46,7 @@ export class FormAssenteComponent implements OnDestroy {
                 this.suspectCase$.pipe(delay(100)).subscribe((suspectCase: SuspectCaseInterface) => {
                     suspectCase ? this.updateForm(suspectCase) : this.searchCase();
                 }));
-            this.subscription.add(this.notFound$.subscribe( res => res && this.goBack()));
+            this.subscription.add(this.notFound$.subscribe(res => res && this.goBack()));
         } else {
             this.store.dispatch(new SetPageTitleFormAssente('nuovo sorvegliato'));
         }
@@ -83,22 +83,22 @@ export class FormAssenteComponent implements OnDestroy {
         });
         this.assenteForm = this.formBuilder.group({
             // Personal Information
-            name: [ null ],
-            surname: [ null ],
-            phone: [ null ],
-            email: [ null ],
-            role: [ null, Validators.required ],
+            name: [null],
+            surname: [null],
+            phone: [null],
+            email: [null],
+            role: [null, Validators.required],
             // Personal Data
-            caseNumber: [ null ],
-            quarantinePlace: [ null, Validators.required ],
-            expectedWorkReturnDate: [ null, Validators.required ],
-            actualWorkReturnDate: [ null ],
-            healthMeasureCode: [ null, Validators.required ],
-            healthMeasureBy: [ null, Validators.required ]
+            caseNumber: [null],
+            quarantinePlace: [null, Validators.required],
+            expectedWorkReturnDate: [null, Validators.required],
+            actualWorkReturnDate: [null],
+            healthMeasureCode: [null, Validators.required],
+            healthMeasureBy: [null, Validators.required]
         });
 
         if (this.editMode) {
-            const fieldsToDisable = [ 'caseNumber', 'name', 'surname', 'phone', 'email', 'role' ];
+            const fieldsToDisable = ['caseNumber', 'name', 'surname', 'phone', 'email', 'role'];
             for (const field of fieldsToDisable) {
                 this.f[field].disable();
             }

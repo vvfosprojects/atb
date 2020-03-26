@@ -18,7 +18,7 @@ import { Navigate } from '@ngxs/router-plugin';
 @Component({
     selector: 'app-positivo',
     templateUrl: './form-positivo.component.html',
-    styleUrls: [ './form-positivo.component.scss' ]
+    styleUrls: ['./form-positivo.component.scss']
 })
 export class FormPositivoComponent implements OnDestroy {
 
@@ -32,24 +32,32 @@ export class FormPositivoComponent implements OnDestroy {
     positivoForm: FormGroup;
     submitted = false;
     editMode: boolean;
+    detailMode: boolean;
 
     private subscription = new Subscription();
 
     constructor(private store: Store,
                 private formBuilder: FormBuilder,
                 private route: ActivatedRoute) {
-        this.initForm();
         if (this.route.snapshot.params.id) {
-            this.editMode = true;
-            this.store.dispatch(new SetPageTitleFormPositivo('modifica positivo'));
             this.subscription.add(
                 this.positiveCase$.pipe(delay(100)).subscribe((positiveCase: PositiveCaseInterface) => {
                     positiveCase ? this.updateForm(positiveCase) : this.searchCase();
                 }));
-            this.subscription.add(this.notFound$.subscribe( res => res && this.goBack()));
+            this.subscription.add(this.notFound$.subscribe(res => res && this.goBack()));
+        }
+
+        if (this.route.snapshot.url.length > 1 && this.route.snapshot.url[1].path === 'detail' && this.route.snapshot.params.id) {
+            this.detailMode = true;
+            this.store.dispatch(new SetPageTitleFormPositivo('visualizza positivo'));
+        } else if (this.route.snapshot.url.length > 1 && this.route.snapshot.url[1].path !== 'detail' && this.route.snapshot.params.id) {
+            this.editMode = true;
+            this.store.dispatch(new SetPageTitleFormPositivo('modifica positivo'));
         } else {
             this.store.dispatch(new SetPageTitleFormPositivo('nuovo positivo'));
         }
+
+        this.initForm();
     }
 
     ngOnDestroy(): void {
@@ -83,26 +91,30 @@ export class FormPositivoComponent implements OnDestroy {
         });
         this.positivoForm = this.formBuilder.group({
             // Personal Information
-            name: [ null, Validators.required ],
-            surname: [ null, Validators.required ],
-            phone: [ null, Validators.required ],
-            email: [ null, Validators.required ],
-            role: [ null, Validators.required ],
+            name: [null, Validators.required],
+            surname: [null, Validators.required],
+            phone: [null, Validators.required],
+            email: [null, Validators.required],
+            role: [null, Validators.required],
             // Personal Data
-            caseNumber: [ null ],
-            estremiProvvedimentiASL: [ null ],
-            diseaseConfirmDate: [ null, Validators.required ],
-            quarantinePlace: [ null, Validators.required ],
-            intensiveTerapy: [ null ],
-            expectedWorkReturnDate: [ null ],
-            actualWorkReturnDate: [ null ]
+            caseNumber: [null],
+            estremiProvvedimentiASL: [null],
+            diseaseConfirmDate: [null, Validators.required],
+            quarantinePlace: [null, Validators.required],
+            intensiveTerapy: [null],
+            expectedWorkReturnDate: [null],
+            actualWorkReturnDate: [null]
         });
 
         if (this.editMode) {
-            const fieldsToDisable = [ 'caseNumber', 'name', 'surname', 'phone', 'email', 'role' ];
+            const fieldsToDisable = ['caseNumber', 'name', 'surname', 'phone', 'email', 'role'];
             for (const field of fieldsToDisable) {
                 this.f[field].disable();
             }
+        }
+
+        if (this.detailMode) {
+            this.positivoForm.disable();
         }
     }
 
@@ -163,6 +175,4 @@ export class FormPositivoComponent implements OnDestroy {
             })
         );
     }
-
-
 }
