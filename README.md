@@ -308,7 +308,7 @@ The request is empty.
 ```jsonc
 {
     counters: {
-        patients: {
+        positives: {
             total: 200,
             open: 121
         },
