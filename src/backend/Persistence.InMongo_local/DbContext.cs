@@ -1,4 +1,5 @@
 ﻿using DomainModel.Classes;
+using DomainModel.CQRS.Queries.GetNews;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Conventions;
@@ -64,6 +65,14 @@ namespace Persistence.InMongo_local
                     .SetIdGenerator(StringObjectIdGenerator.Instance)
                     .SetSerializer(new StringSerializer(BsonType.ObjectId));
             });
+
+            BsonClassMap.RegisterClassMap<News>(cm =>
+            {
+                cm.AutoMap();
+                cm.MapIdMember(c => c.Id)
+                    .SetIdGenerator(StringObjectIdGenerator.Instance)
+                    .SetSerializer(new StringSerializer(BsonType.ObjectId));
+            });
         }
 
         public IMongoCollection<Patient> Patients
@@ -87,6 +96,14 @@ namespace Persistence.InMongo_local
             get
             {
                 return database.GetCollection<User>("Users");
+            }
+        }
+
+        public IMongoCollection<News> News
+        {
+            get
+            {
+                return database.GetCollection<News>("News");
             }
         }
     }
