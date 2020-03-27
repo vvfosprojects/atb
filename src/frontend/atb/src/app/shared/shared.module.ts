@@ -8,7 +8,7 @@ import { PipeModule } from './pipes/pipe.module';
 import { NewsCardComponent } from './components/news-card/news-card.component';
 import { CounterComponent } from './components/counter/counter.component';
 
-const COMPONENTS = [ ErrorPageComponent, LocationButtonComponent, CaseNumberModalComponent, NewsCardComponent ];
+const COMPONENTS = [ ErrorPageComponent, LocationButtonComponent, CaseNumberModalComponent, NewsCardComponent, CounterComponent ];
 
 const MODULES = [
     FormsModule,
@@ -17,7 +17,7 @@ const MODULES = [
 ];
 
 @NgModule({
-    declarations: [ ...COMPONENTS, CounterComponent ],
+    declarations: [ ...COMPONENTS ],
     imports: [
         CommonModule
     ],
