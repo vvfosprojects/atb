@@ -1,1 +1,8 @@
-{{counter | json}}
+<div class="row pt-1">
+    <div class="col-6">
+        <span class="badge badge-light px-3 py-2">Aperti: <span class="badge badge-danger">{{counter?.open}}</span></span>
+    </div>
+    <div class="col-6">
+        <span class="badge badge-light px-3 py-2">Chiusi: <span class="badge badge-success">{{counter?.closed}}</span></span>
+    </div>
+</div>
