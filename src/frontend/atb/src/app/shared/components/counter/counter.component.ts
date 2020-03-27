@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CounterInterface } from '../../interface/counters.interface';
 
 @Component({
@@ -8,6 +8,6 @@ import { CounterInterface } from '../../interface/counters.interface';
 })
 export class CounterComponent {
 
-    counter: CounterInterface;
+    @Input() counter: CounterInterface;
 
 }
