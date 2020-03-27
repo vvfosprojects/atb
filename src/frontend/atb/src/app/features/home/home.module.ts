@@ -5,7 +5,12 @@ import { SearchComponent } from './search/search.component';
 import { SharedModule } from '../../shared/shared.module';
 import { SearchPositivoComponent } from './search/search-positivo/search-positivo.component';
 import { FormPositivoComponent } from './form-positivo/form-positivo.component';
-import { NgbDatepickerModule, NgbTabsetModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+    NgbDateParserFormatter,
+    NgbDatepickerModule,
+    NgbTabsetModule,
+    NgbTooltipModule
+} from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SearchAssenteComponent } from './search/search-assente/search-assente.component';
 import { FormAssenteComponent } from './form-assente/form-assente.component';
@@ -24,6 +29,7 @@ import { FiltersDataTablesComponent } from './data-tables/filters-data-tables/fi
 import { PositiveDataTableComponent } from './data-tables/positive-data-table/positive-data-table.component';
 import { SuspectDataTableComponent } from './data-tables/suspect-data-table/suspect-data-table.component';
 import { CountersService } from '../../core/services/counters/counters.service';
+import { CustomDateParserFormatter } from '../../core/adapters/custom-date-parser-formatter.service';
 
 @NgModule({
     declarations: [
@@ -58,7 +64,8 @@ import { CountersService } from '../../core/services/counters/counters.service';
         AssentiService,
         PositiviService,
         DataTablesService,
-        CountersService
+        CountersService,
+        { provide: NgbDateParserFormatter, useClass: CustomDateParserFormatter }
     ]
 })
 export class HomeModule {
