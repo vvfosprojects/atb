@@ -9,11 +9,11 @@
                    [(ngModel)]="selectedGroup"
                    bindLabel="description"
                    bindValue="code"
-                   placeholder="Seleziona un gruppo dalla lista"
-                   notFoundText="Nessun gruppo trovato con i seguenti criteri di ricerca"></ng-select>
+                   placeholder="Seleziona una sede dalla lista"
+                   notFoundText="Nessuna sede trovato con i seguenti criteri di ricerca"></ng-select>
     </div>
     <div class="col-5 mx-auto">
-        <span ngbTooltip="Seleziona un gruppo dalla lista" [disableTooltip]="selectedGroup" placement="bottom">
+        <span ngbTooltip="Seleziona una sede dalla lista" [disableTooltip]="!!selectedGroup" placement="bottom">
             <button class="btn btn-lg btn-block btn-primary font-weight-bold" style="margin-top:.1rem"
                     [disabled]="!selectedGroup" (click)="onSearch()">
                 <i class="fa fa-search mr-1"></i>
