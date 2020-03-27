@@ -19,8 +19,8 @@ export interface DataTablesStateModel {
 export const DataTablesStateDefaults: DataTablesStateModel = {
     groupsList: [],
     selectedGroup: null,
-    patients: [],
-    suspects: [],
+    patients: null,
+    suspects: null,
     selectedTab: 'positivi'
 };
 

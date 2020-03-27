@@ -87,6 +87,6 @@
     </tr>
     </tbody>
 </table>
-<div *ngIf="!loading && (!suspectList || suspectList.length <= 0)" class="alert alert-danger mt-3">
+<div *ngIf="!loading && (suspectList && suspectList.length === 0)" class="alert alert-danger mt-3">
     Nessun <span class="font-weight-bold">Caso di Sorveglianza</span> trovato.
 </div>
