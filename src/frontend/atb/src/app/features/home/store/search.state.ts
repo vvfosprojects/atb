@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { PositiveCaseInterface } from '../../../shared/interface/positive-case.interface';
 import {
     ClearPositiveCase,
-    ClearSuspectCase,
+    ClearSuspectCase, GetSheetCounters,
     SearchPositiveCase,
     SearchSuspectCase,
     SetNotFound
@@ -12,16 +12,20 @@ import { SuspectCaseInterface } from '../../../shared/interface/suspect-case.int
 import { Navigate } from '@ngxs/router-plugin';
 import { AssentiService } from '../../../core/services/assenti/assenti.service';
 import { PositiviService } from '../../../core/services/positivi/positivi.service';
+import { CountersInterface } from '../../../shared/interface/counters.interface';
+import { CountersService } from '../../../core/services/counters/counters.service';
 
 export interface SearchStateModel {
     positiveCase: PositiveCaseInterface;
     suspectCase: SuspectCaseInterface;
+    sheetCounters: CountersInterface;
     notFound: boolean;
 }
 
 export const searchStateDefaults: SearchStateModel = {
     positiveCase: null,
     suspectCase: null,
+    sheetCounters: null,
     notFound: false
 };
 
@@ -43,12 +47,18 @@ export class SearchState {
     }
 
     @Selector()
+    static counters(state: SearchStateModel) {
+        return state.sheetCounters;
+    }
+
+    @Selector()
     static notFound(state: SearchStateModel) {
         return state.notFound;
     }
 
     constructor(private assentiService: AssentiService,
-                private positiviService: PositiviService) {
+                private positiviService: PositiviService,
+                private countersService: CountersService) {
     }
 
     @Action(SearchPositiveCase)
@@ -79,6 +89,15 @@ export class SearchState {
     @Action(ClearSuspectCase)
     clearSuspectCase({ patchState }: StateContext<SearchStateModel>) {
         patchState({ suspectCase: searchStateDefaults.suspectCase, notFound: searchStateDefaults.notFound })
+    }
+
+    @Action(GetSheetCounters)
+    getSheetCounters({ patchState }: StateContext<SearchStateModel>) {
+        this.countersService.getCounters().subscribe( res => {
+            if (res) {
+                patchState({sheetCounters: res.counters})
+            }
+        });
     }
 
     @Action(SetNotFound)

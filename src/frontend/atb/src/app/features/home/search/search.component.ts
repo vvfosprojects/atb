@@ -1,6 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
-import { SearchPositiveCase, SearchSuspectCase } from '../store/search.actions';
+import { GetSheetCounters, SearchPositiveCase, SearchSuspectCase } from '../store/search.actions';
 import { LoadingState } from '../../../shared/store/loading/loading.state';
 import { Observable, Subscription } from 'rxjs';
 import { RssState } from '../store/rss.state';
@@ -9,7 +9,7 @@ import { RssInterface } from '../../../shared/interface/rss.interface';
 @Component({
     selector: 'app-search',
     templateUrl: './search.component.html',
-    styleUrls: ['./search.component.scss']
+    styleUrls: [ './search.component.scss' ]
 })
 export class SearchComponent implements OnDestroy {
 
@@ -26,6 +26,7 @@ export class SearchComponent implements OnDestroy {
                 this.loading = loading;
             })
         );
+        this.store.dispatch(new GetSheetCounters());
     }
 
     ngOnDestroy(): void {
