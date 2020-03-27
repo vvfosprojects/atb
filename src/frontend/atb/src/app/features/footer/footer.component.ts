@@ -11,7 +11,7 @@ export class FooterComponent {
     version: string;
 
     constructor() {
-        this.version = environment.productionTest ? ' (test)' : '';
+        this.version = environment.productionTest ? ' (ATTENZIONE QUESTA E\' UNA VERSIONE DI TEST) ' : '';
     }
 
 }
