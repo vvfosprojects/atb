@@ -1,10 +1,13 @@
 {
   "data": [
     {
-      "text": "E' ora disponibile la qualifica di <i>Allievo Vigile del Fuoco</i>."
+      "text": "Disponibile la funzionalità di consultazione schede. In alto a sinistra, pulsante <i>Schede</i>."
     },
     {
-      "text": "Sono ora disponibili le qualifiche del personale volontario."
+      "text": "Per assistenza scrivere a <a href='mailto:assistenza.atb@vigilfuoco.it'>assistenza.atb@vigilfuoco.it</a>."
+    },
+    {
+      "text": "Sono ora disponibili le qualifiche di <i>Allievo Vigile del Fuoco</i> e del personale volontario."
     },
     {
       "text": "Lo sapevi che puoi aggiornare la situazione di un soggetto in una scheda ricercandola per <i>Numero Caso</i> e modificandone i campi?"

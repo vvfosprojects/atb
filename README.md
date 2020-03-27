@@ -309,12 +309,12 @@ The request is empty.
 {
     counters: {
         positives: {
-            total: 200,
+            closed: 200,
             open: 121
         },
         suspects: {
-            total: 800,
-            open: 426
+            closed: 800,
+            open: 226
         }
     }
 }
