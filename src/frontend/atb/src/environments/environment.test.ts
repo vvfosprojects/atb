@@ -1,7 +1,7 @@
 export const environment = {
-    production: false,
-    productionTest: false,
-    baseUrl: 'http://localhost:53062/api',
+    production: true,
+    productionTest: true,
+    baseUrl: '$serverbckend',
     apiUrl: {
         login: '/auth',
         changePassword: '/changePassword',
