@@ -3,7 +3,6 @@ import { Select, Store } from '@ngxs/store';
 import { SearchPositiveCase, SearchSuspectCase } from '../store/search.actions';
 import { LoadingState } from '../../../shared/store/loading/loading.state';
 import { Observable, Subscription } from 'rxjs';
-import { ClearRssData, GetRssData } from '../store/rss.actions';
 import { RssState } from '../store/rss.state';
 import { RssInterface } from '../../../shared/interface/rss.interface';
 
@@ -27,11 +26,9 @@ export class SearchComponent implements OnDestroy {
                 this.loading = loading;
             })
         );
-        this.store.dispatch(new GetRssData());
     }
 
     ngOnDestroy(): void {
-        this.store.dispatch(new ClearRssData());
         this.subscription.unsubscribe();
     }
 

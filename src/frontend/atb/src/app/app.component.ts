@@ -7,6 +7,7 @@ import { LoadingState } from './shared/store/loading/loading.state';
 import { Observable, Subscription } from 'rxjs';
 import { AuthState } from './features/auth/store/auth.state';
 import { UserInterface } from './shared/interface/common';
+import { ClearRssData, GetRssData } from './features/home/store/rss.actions';
 
 @Component({
     selector: 'app-root',
@@ -28,10 +29,13 @@ export class AppComponent implements OnDestroy {
         this.subscription.add(this.loading$.pipe(delay(0), debounceTime(100))
             .subscribe(r => this.loading = r));
         this.getSessionData();
+        this.store.dispatch(new GetRssData());
+
     }
 
     ngOnDestroy(): void {
         this.subscription.unsubscribe();
+        this.store.dispatch(new ClearRssData());
     }
 
     getSessionData() {

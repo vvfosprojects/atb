@@ -22,6 +22,7 @@ import { registerLocaleData } from '@angular/common';
 import localeIT from '@angular/common/locales/it';
 import { PipeModule } from './shared/pipes/pipe.module';
 import { PermessiState } from './shared/store/permessi/permessi.state';
+import { RssState } from './features/home/store/rss.state';
 
 registerLocaleData(localeIT);
 
@@ -37,7 +38,7 @@ registerLocaleData(localeIT);
         BrowserAnimationsModule,
         AppRoutingModule,
         NgxsModule.forRoot(
-            [ LoadingState, AuthState, PermessiState ],
+            [ LoadingState, AuthState, PermessiState, RssState ],
             { developmentMode: !environment.production }
         ),
         NgxsRouterPluginModule.forRoot(),
