@@ -6,6 +6,7 @@ export const environment = {
         login: '/auth',
         changePassword: '/changePassword',
         sheets: '/sheets',
+        sheetCounters: '/sheetCounters',
         groups: '/groups'
     }
 };
