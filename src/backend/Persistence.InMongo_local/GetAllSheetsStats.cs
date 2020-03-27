@@ -43,18 +43,23 @@ namespace Persistence.InMongo_local
             var resultSuspects = dbContext.Suspects.Aggregate<BsonDocument>(pipeline)
                 .ToList();
 
+            var positivesClosed = resultPatients.Count > 0 ? (int)resultPatients[0][1] : 0;
+            var positivesOpen= resultPatients.Count > 0 ? (int)resultPatients[1][1] : 0;
+
+            var suspectsClosed = resultSuspects.Count > 0 ? (int)resultSuspects[0][1] : 0;
+            var suspectsOpen = resultSuspects.Count > 0 ? (int)resultSuspects[1][1] : 0;
 
             return new Counters()
             {
                 Positives = new Counters.PositiveCounter()
                 {
-                    Closed = (int)resultPatients[0][1],
-                    Open = (int)resultPatients[1][1]
+                    Closed = positivesClosed,
+                    Open = positivesOpen
                 },
                 Suspects = new Counters.SuspectCounter()
                 {
-                    Closed = (int)resultSuspects[0][1],
-                    Open = (int)resultSuspects[1][1]
+                    Closed = suspectsClosed,
+                    Open = suspectsOpen
                 }
             };
         }
