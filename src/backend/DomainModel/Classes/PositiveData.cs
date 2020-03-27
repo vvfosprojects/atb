@@ -10,6 +10,8 @@ namespace DomainModel.Classes
 
         public DateTime DiseaseConfirmDate { get; set; }
 
+        public DateTime? DateOfDeath { get; set; }
+
         public DateTime? ExpectedWorkReturnDate { get; set; }
 
         public DateTime? ActualWorkReturnDate { get; set; }
