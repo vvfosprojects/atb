@@ -16,7 +16,7 @@ export const PermessiStateDefaults: PermessiStateModel = {
         },
         {
             feature: PermissionFeatures.GroupSearch,
-            roles: [ Roles.Doctor ]
+            roles: [ Roles.Doctor, Roles.Supervisor ]
         },
         {
             feature: PermissionFeatures.Report,
