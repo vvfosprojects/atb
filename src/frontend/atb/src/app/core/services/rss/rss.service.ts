@@ -3,7 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { RssResponseInterface } from '../../../shared/interface/common/rss-response.interface';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class RssService {
 
     constructor(private http: HttpClient) {

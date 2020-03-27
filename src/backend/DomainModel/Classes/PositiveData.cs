@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using System;
 
 namespace DomainModel.Classes
 {
@@ -9,6 +10,8 @@ namespace DomainModel.Classes
         public string QuarantinePlace { get; set; }
 
         public DateTime DiseaseConfirmDate { get; set; }
+
+        public DateTime? DateOfDeath { get; set; }
 
         public DateTime? ExpectedWorkReturnDate { get; set; }
 
