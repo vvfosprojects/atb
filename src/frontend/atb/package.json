@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build --prod -c production",
-    "build-test": "ng build --prod -c productionTest",
+    "build-test": "ng build --prod -c production",
     "lite-server": "lite-server --baseDir=\"./dist/atb\"",
     "test": "ng test",
     "lint": "ng lint",
