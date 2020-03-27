@@ -24,10 +24,10 @@ namespace Persistence.InMongo_local
             var suspects = this.dbContext.Suspects.AsQueryable().ToList();
 
             StringBuilder sw = new StringBuilder();
-            sw.AppendFormat("Paziente|Gruppo|Numero Caso|Ruolo|Quarantine Place|Data Attesa Di Rientro|Data Effettiva Di Rientro|Data Del Contaggio|Data Del Decesso |Data Creazione|Data Aggiornamento");
+            sw.AppendFormat("Paziente|Gruppo|Numero Caso|Ruolo|Quarantine Place|Data Attesa Di Rientro|Data Effettiva Di Rientro|Data Del Contaggio|Data Del Decesso|Data Creazione|Data Aggiornamento");
             sw.AppendLine();
 
-            foreach(var s in patients)
+            foreach (var s in patients)
             {
                 string expectedDate = "null";
                 string actualDate = "null";
@@ -40,7 +40,7 @@ namespace Persistence.InMongo_local
                     dateOfDeath = s.Data.Last().DateOfDeath.Value.ToString("dd/MM/yyyy");
 
                 var str = string.Format("{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|{9}|{10}",
-                                  "P",    
+                                  "P",
                                   s.Group,
                                   s.Subject.Number,
                                   cryptools.Decrypt(s.Subject.Role),
