@@ -20,6 +20,10 @@ export class ClearSuspectCase {
     static readonly type = '[Search] Clear Suspect Case';
 }
 
+export class GetSheetCounters {
+    static readonly type = '[Search] Get Sheet Counters';
+}
+
 export class SetNotFound {
     static readonly type = '[Search] Case Not Found';
 }

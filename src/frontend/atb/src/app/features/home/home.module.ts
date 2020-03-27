@@ -18,14 +18,12 @@ import { FormPositivoState } from './store/form-positivo.state';
 import { FormAssenteState } from './store/form-assente.state';
 import { SearchState } from './store/search.state';
 import { DataTablesComponent } from './data-tables/data-tables.component';
-import { PermessiState } from '../../shared/store/permessi/permessi.state';
 import { DataTablesService } from '../../core/services/data-tables/data-tables.service';
 import { DataTablesState } from './store/data-tables.state';
 import { FiltersDataTablesComponent } from './data-tables/filters-data-tables/filters-data-tables.component';
 import { PositiveDataTableComponent } from './data-tables/positive-data-table/positive-data-table.component';
 import { SuspectDataTableComponent } from './data-tables/suspect-data-table/suspect-data-table.component';
-import { RssState } from './store/rss.state';
-import { RssService } from '../../core/services/rss/rss.service';
+import { CountersService } from '../../core/services/counters/counters.service';
 
 @NgModule({
     declarations: [
@@ -51,8 +49,7 @@ import { RssService } from '../../core/services/rss/rss.service';
             FormPositivoState,
             FormAssenteState,
             SearchState,
-            DataTablesState,
-            RssState
+            DataTablesState
         ]),
         NgbTabsetModule,
         NgbTooltipModule
@@ -61,7 +58,7 @@ import { RssService } from '../../core/services/rss/rss.service';
         AssentiService,
         PositiviService,
         DataTablesService,
-        RssService
+        CountersService
     ]
 })
 export class HomeModule {

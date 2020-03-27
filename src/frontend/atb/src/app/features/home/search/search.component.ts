@@ -1,37 +1,39 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
-import { SearchPositiveCase, SearchSuspectCase } from '../store/search.actions';
-import { LoadingState } from '../../../shared/store/loading/loading.state';
+import { GetSheetCounters, SearchPositiveCase, SearchSuspectCase } from '../store/search.actions';
 import { Observable, Subscription } from 'rxjs';
-import { ClearRssData, GetRssData } from '../store/rss.actions';
 import { RssState } from '../store/rss.state';
 import { RssInterface } from '../../../shared/interface/rss.interface';
+import { SearchState } from '../store/search.state';
+import { CountersInterface } from '../../../shared/interface/counters.interface';
 
 @Component({
     selector: 'app-search',
     templateUrl: './search.component.html',
-    styleUrls: ['./search.component.scss']
+    styleUrls: [ './search.component.scss' ]
 })
 export class SearchComponent implements OnDestroy {
 
-    @Select(LoadingState.loading) loading$: Observable<boolean>;
+    @Select(SearchState.isLooking) isLooking$: Observable<boolean>;
+    @Select(SearchState.counters) counters$: Observable<CountersInterface>;
     @Select(RssState.rssData) rssData$: Observable<RssInterface[]>;
 
-    loading: boolean;
+    isLooking: boolean;
+    counters: CountersInterface;
 
     private subscription = new Subscription();
 
     constructor(private store: Store) {
         this.subscription.add(
-            this.loading$.subscribe((loading: boolean) => {
-                this.loading = loading;
-            })
+            this.isLooking$.subscribe(res => this.isLooking = res)
         );
-        this.store.dispatch(new GetRssData());
+        this.subscription.add(
+            this.counters$.subscribe( res => this.counters = res)
+        );
+        this.store.dispatch(new GetSheetCounters());
     }
 
     ngOnDestroy(): void {
-        this.store.dispatch(new ClearRssData());
         this.subscription.unsubscribe();
     }
 

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { CounterInterface } from '../../../../shared/interface/counters.interface';
 
 @Component({
     selector: 'app-search-assente',
@@ -9,6 +10,7 @@ import { Router } from '@angular/router';
 export class SearchAssenteComponent implements OnInit {
 
     @Input() loading: boolean;
+    @Input() counter: CounterInterface;
     @Output() search: EventEmitter<number> = new EventEmitter<number>();
 
     caseNumber: number;
