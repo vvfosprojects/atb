@@ -24,20 +24,23 @@ namespace Persistence.InMongo_local
             var suspects = this.dbContext.Suspects.AsQueryable().ToList();
 
             StringBuilder sw = new StringBuilder();
-            sw.AppendFormat("Paziente|Gruppo|Numero Caso|Ruolo|Quarantine Place|Data Attesa Di Rientro|Data Effettiva Di Rientro|Data Del Contaggio |Data Creazione|Data Aggiornamento");
+            sw.AppendFormat("Paziente|Gruppo|Numero Caso|Ruolo|Quarantine Place|Data Attesa Di Rientro|Data Effettiva Di Rientro|Data Del Contaggio|Data Del Decesso|Data Creazione|Data Aggiornamento");
             sw.AppendLine();
 
-            foreach(var s in patients)
+            foreach (var s in patients)
             {
                 string expectedDate = "null";
                 string actualDate = "null";
+                string dateOfDeath = "null";
                 if (s.Data.Last().ExpectedWorkReturnDate.HasValue)
                     expectedDate = s.Data.Last().ExpectedWorkReturnDate.Value.ToString("dd/MM/yyyy");
                 if (s.Data.Last().ActualWorkReturnDate.HasValue)
                     actualDate = s.Data.Last().ActualWorkReturnDate.Value.ToString("dd/MM/yyyy");
+                if (s.Data.Last().DateOfDeath.HasValue)
+                    dateOfDeath = s.Data.Last().DateOfDeath.Value.ToString("dd/MM/yyyy");
 
-                var str = string.Format("{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|{9}",
-                                  "P",    
+                var str = string.Format("{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|{9}|{10}",
+                                  "P",
                                   s.Group,
                                   s.Subject.Number,
                                   cryptools.Decrypt(s.Subject.Role),
@@ -45,6 +48,7 @@ namespace Persistence.InMongo_local
                                   expectedDate,
                                   actualDate,
                                   s.Data.Last().DiseaseConfirmDate.ToString("dd/MM/yyyy"),
+                                  dateOfDeath,
                                   s.Data.First().UpdateTime.ToString("dd/MM/yyyy"),
                                   s.Data.Last().UpdateTime.ToString("dd/MM/yyyy")
                                   );
@@ -57,7 +61,7 @@ namespace Persistence.InMongo_local
                 if (p.Data.Last().ActualWorkReturnDate.HasValue)
                     actualDate = p.Data.Last().ActualWorkReturnDate.Value.ToString("dd/MM/yyyy");
 
-                var str = string.Format("{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|{9}",
+                var str = string.Format("{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|{9}|{10}",
                                   "S",
                                   p.Group,
                                   p.Subject.Number,
@@ -65,6 +69,7 @@ namespace Persistence.InMongo_local
                                   p.Data.Last().QuarantinePlace,
                                   p.Data.Last().ExpectedWorkReturnDate.ToString("dd/MM/yyyy"),
                                   actualDate,
+                                  "null",
                                   "null",
                                   p.Data.First().UpdateTime.ToString("dd/MM/yyyy"),
                                   p.Data.Last().UpdateTime.ToString("dd/MM/yyyy")
