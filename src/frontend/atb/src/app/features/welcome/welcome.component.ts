@@ -30,6 +30,8 @@ export class WelcomeComponent implements OnDestroy {
             }
             user.roles.includes(Roles.Manager) && this.store.dispatch(new Navigate([ '/reports' ]));
             user.roles.includes(Roles.Doctor) && this.store.dispatch(new Navigate([ '/home' ]));
+            user.roles.includes(Roles.Supervisor) && this.store.dispatch(new Navigate([ '/home/data-tables' ]));
+
         }
     }
 }

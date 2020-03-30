@@ -4,6 +4,8 @@ import { SearchComponent } from './search/search.component';
 import { FormPositivoComponent } from './form-positivo/form-positivo.component';
 import { FormAssenteComponent } from './form-assente/form-assente.component';
 import { DataTablesComponent } from './data-tables/data-tables.component';
+import { AuthGuard } from '../../core/guards/auth.guard';
+import { Roles } from '../../shared/enum/roles.enum';
 
 const routes: Routes = [
     {
@@ -13,35 +15,51 @@ const routes: Routes = [
     },
     {
         path: 'ricerca',
-        component: SearchComponent
+        component: SearchComponent,
+        canActivate: [ AuthGuard ],
+        data: { roles: [ Roles.Doctor ] }
     },
     {
         path: 'form-positivo',
-        component: FormPositivoComponent
+        component: FormPositivoComponent,
+        canActivate: [ AuthGuard ],
+        data: { roles: [ Roles.Doctor ] }
     },
     {
         path: 'form-positivo/:id',
-        component: FormPositivoComponent
+        component: FormPositivoComponent,
+        canActivate: [ AuthGuard ],
+        data: { roles: [ Roles.Doctor ] }
     },
     {
         path: 'form-positivo/detail/:id',
-        component: FormPositivoComponent
+        component: FormPositivoComponent,
+        canActivate: [ AuthGuard ],
+        data: { roles: [ Roles.Doctor, Roles.Supervisor ] }
     },
     {
         path: 'form-assente',
-        component: FormAssenteComponent
+        component: FormAssenteComponent,
+        canActivate: [ AuthGuard ],
+        data: { roles: [ Roles.Doctor ] }
     },
     {
         path: 'form-assente/:id',
-        component: FormAssenteComponent
+        component: FormAssenteComponent,
+        canActivate: [ AuthGuard ],
+        data: { roles: [ Roles.Doctor ] }
     },
     {
         path: 'form-assente/detail/:id',
-        component: FormAssenteComponent
+        component: FormAssenteComponent,
+        canActivate: [ AuthGuard ],
+        data: { roles: [ Roles.Doctor, Roles.Supervisor ] }
     },
     {
         path: 'data-tables',
-        component: DataTablesComponent
+        component: DataTablesComponent,
+        canActivate: [ AuthGuard ],
+        data: { roles: [ Roles.Doctor, Roles.Supervisor ] }
     }
 ];
 

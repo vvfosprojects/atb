@@ -26,13 +26,13 @@ const routes: Routes = [
         path: 'home',
         loadChildren: () => import('./features/home/home.module').then(m => m.HomeModule),
         canActivate: [ AuthGuard ],
-        data: { roles: [ Roles.Doctor ] }
+        data: { roles: [ Roles.Doctor, Roles.Supervisor ] }
     },
     {
         path: 'reports',
         loadChildren: () => import('./features/reports/reports.module').then(m => m.ReportsModule),
         canActivate: [ AuthGuard ],
-        data: { roles: [ Roles.Manager, Roles.Doctor ] }
+        data: { roles: [ Roles.Manager ] }
     },
     {
         path: 'auth',
