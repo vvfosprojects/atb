@@ -168,9 +168,17 @@ This action allows to fetch updated patient data.
       "estremiProvvedimentiASL": "abcd efgh yxzk",
       "quarantinePlace": "HOME",
       "expectedWorkReturnDate": "2020-12-31Z",
-      "actualWorkReturnDate": null,
-      "closedCase": true
-    }
+      "actualWorkReturnDate": null
+    },
+	"history": [
+		{
+		    "quarantinePlace": "HOME",
+			"expectedWorkReturnDate": "2020-12-31Z",
+			"updatedAt": "2020-03-31T18:31:24.287Z",
+			"updatedBy": "mario.rossi",
+		},
+		// ... other items here
+	]
 }
 ```
 
