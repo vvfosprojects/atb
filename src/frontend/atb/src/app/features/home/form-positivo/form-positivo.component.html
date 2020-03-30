@@ -289,6 +289,9 @@
                             </div>
                         </div>
                     </div>
+                    <ng-container *ngIf="detailMode || editMode">
+                        <app-history-case [historyCase]="historyCase"></app-history-case>
+                    </ng-container>
                 </form>
             </div>
             <div class="col-12">

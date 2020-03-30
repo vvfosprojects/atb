@@ -29,7 +29,8 @@ const MODULES = [
 @NgModule({
     declarations: [ ...COMPONENTS ],
     imports: [
-        CommonModule
+        CommonModule,
+        PipeModule
     ],
     exports: [ ...COMPONENTS, ...MODULES ]
 })

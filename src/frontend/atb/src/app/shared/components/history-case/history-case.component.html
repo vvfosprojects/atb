@@ -1,1 +1,10 @@
-<p>history-case works!</p>
+<div *ngIf="historyCase && historyCase.length > 0"
+     class="px-4 py-3 bg-light rounded border border-light shadow-sm mb-4">
+    <h4>Ultime modifiche</h4>
+    <hr>
+    <ul class="list-group">
+        <li *ngFor="let _case of historyCase" class="list-group-item">
+            <span [ngClass]="{'int-care-bg': _case.quarantinePlace === 'INTCARE', 'hosp-bg': _case.quarantinePlace === 'HOSP'}">In data: {{_case.updateTime | date:'medium'}} - {{_case.quarantinePlace | luogoIsolamento}} - modificato da {{_case.updatedBy}}</span>
+        </li>
+    </ul>
+</div>
