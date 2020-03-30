@@ -1,7 +1,7 @@
 export interface QuarantinePlacesFacet {
-    HOME: number;
-    HOSP: number;
-    INTCARE?: number;
+    home: number;
+    hosp: number;
+    intCare?: number;
 }
 
 export interface RoleFacet {

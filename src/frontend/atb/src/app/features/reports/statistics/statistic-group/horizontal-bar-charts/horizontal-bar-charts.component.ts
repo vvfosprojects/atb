@@ -11,7 +11,7 @@ export class HorizontalBarChartsComponent implements OnChanges {
     @Input() roleFacet: RoleFacet[];
 
     data: any[];
-    view: any[] = [500, 1000];
+    view: any[] = [ 500, 1000 ];
 
     showXAxis: boolean = true;
     showYAxis: boolean = true;
@@ -23,7 +23,7 @@ export class HorizontalBarChartsComponent implements OnChanges {
     xAxisLabel: string = 'Numero di casi';
 
     colorScheme = {
-        domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
+        domain: [ '#5AA454', '#A10A28', '#C7B42C', '#AAAAAA' ]
     };
 
 
