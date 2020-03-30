@@ -2,9 +2,10 @@ import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { Injectable } from '@angular/core';
 import { ClearStatisticsData, GetStatisticsData } from './statistics.actions';
 import { StatisticsService } from '../../../core/services/statistics/statistics.service';
+import { GroupStatistic } from '../../../shared/interface/statistics.interface';
 
 export interface StatisticsStateModel {
-    groupStatistics: any[];
+    groupStatistics: GroupStatistic[];
 }
 
 export const StatisticsStateDefaults: StatisticsStateModel = {
@@ -28,9 +29,10 @@ export class StatisticsState {
 
     @Action(GetStatisticsData)
     getStatisticsData({ patchState }: StateContext<StatisticsStateModel>) {
-        // this.statisticsService.getStatisticsData().subscribe(res => {
-        //     console.log('GetStatisticsData', res);
-        // })
+        this.statisticsService.getStatisticsData().subscribe(res => {
+            console.log('GetStatisticsData', res);
+            patchState({ groupStatistics: res.groupStatistics });
+        })
     }
 
     @Action(ClearStatisticsData)
