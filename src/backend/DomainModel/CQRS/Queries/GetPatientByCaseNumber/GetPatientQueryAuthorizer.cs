@@ -18,7 +18,7 @@ namespace DomainModel.CQRS.Queries.GetPatientByCaseNumber
 
         public IEnumerable<AuthorizationResult> Authorize(GetPatientQuery query)
         {
-            if (!getSessionContext.LoggedUserIsDoctor() || !getSessionContext.LoggedUserIsSupervisor())
+            if (!getSessionContext.LoggedUserIsDoctor() && !getSessionContext.LoggedUserIsSupervisor())
                 yield return new AuthorizationResult("Unauthorized");
         }
     }

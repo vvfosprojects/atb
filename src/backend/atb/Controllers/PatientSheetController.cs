@@ -3,6 +3,7 @@ using DomainModel.Classes;
 using DomainModel.CQRS.Queries.GetPatient;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace atb.Controllers
@@ -18,17 +19,30 @@ namespace atb.Controllers
             this.handler = handler;
         }
 
-        public ActionResult<Object> Get([FromQuery]int caseNumber)
+        public ActionResult<Object> Get([FromQuery]int caseNumber, string group)
         {
-            var query = new GetPatientQuery() { CaseNumber = caseNumber };
+            var query = new GetPatientQuery() { CaseNumber = caseNumber, Group = group };
+            var history = new List<Object>();
 
             var patient = this.handler.Handle(query);
             if (patient.Patient.Data.Any())
             {
+
+                foreach (var update in patient.Patient.Data.OrderByDescending(x => x.UpdateTime))
+                {
+                    history.Add(new
+                    {
+                        update.QuarantinePlace,
+                        update.ExpectedWorkReturnDate,
+                        update.UpdateTime,
+                        update.UpdatedBy
+                    });
+                }
+
                 var lastPatientData = patient.Patient.Data.Last();
                 var result = new
                 {
-                    Group = patient.Patient.Group,
+                    patient.Patient.Group,
                     Subject = new Anagrafica()
                     {
                         Nome = patient.Patient.Subject.Nome,
@@ -47,7 +61,8 @@ namespace atb.Controllers
                         DiseaseConfirmDate = lastPatientData.DiseaseConfirmDate,
                         UpdatedBy = lastPatientData.UpdatedBy,
                         UpdateTime = lastPatientData.UpdateTime
-                    }
+                    },
+                    History = history
                 };
 
                 return Ok(result);
@@ -56,7 +71,7 @@ namespace atb.Controllers
             {
                 var result = new
                 {
-                    Group = patient.Patient.Group,
+                    patient.Patient.Group,
                     Subject = new Anagrafica()
                     {
                         Nome = patient.Patient.Subject.Nome,
