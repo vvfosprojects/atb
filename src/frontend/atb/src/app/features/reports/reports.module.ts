@@ -7,9 +7,10 @@ import { StatisticsService } from '../../core/services/statistics/statistics.ser
 import { NgxsModule } from '@ngxs/store';
 import { StatisticsState } from './store/statistics.state';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { GroupStatisticComponent } from './statistics/statistic-group/group-statistic.component';
 
 @NgModule({
-    declarations: [ StatisticsComponent ],
+    declarations: [ StatisticsComponent, GroupStatisticComponent ],
     imports: [
         CommonModule,
         ReportsRoutingModule,
