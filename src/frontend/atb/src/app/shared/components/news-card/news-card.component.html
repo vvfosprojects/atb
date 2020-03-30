@@ -8,7 +8,7 @@
                 <ng-container *ngFor="let rss of rssData">
                     <p class="card-text">
                         <i class="fa fa-rss mr-1"></i>
-                        <span [innerHTML]="rss.text"></span>
+                        <span [innerHTML]="rss.text" [ngClass]="{'highlight': rss.highlight}"></span>
                     </p>
                 </ng-container>
             </div>
