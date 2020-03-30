@@ -9,9 +9,10 @@ import { StatisticsState } from './store/statistics.state';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { GroupStatisticComponent } from './statistics/statistic-group/group-statistic.component';
 import { GroupCaseComponent } from './statistics/group-case/group-case.component';
+import { HorizontalBarChartsComponent } from './statistics/horizontal-bar-charts/horizontal-bar-charts.component';
 
 @NgModule({
-    declarations: [ StatisticsComponent, GroupStatisticComponent, GroupCaseComponent ],
+    declarations: [ StatisticsComponent, GroupStatisticComponent, GroupCaseComponent, HorizontalBarChartsComponent ],
     imports: [
         CommonModule,
         ReportsRoutingModule,
