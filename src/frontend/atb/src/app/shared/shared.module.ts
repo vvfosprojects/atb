@@ -8,8 +8,17 @@ import { PipeModule } from './pipes/pipe.module';
 import { NewsCardComponent } from './components/news-card/news-card.component';
 import { CounterComponent } from './components/counter/counter.component';
 import { GroupCaseComponent } from './components/group-case/group-case.component';
+import { HistoryCaseComponent } from './components/history-case/history-case.component';
 
-const COMPONENTS = [ ErrorPageComponent, LocationButtonComponent, CaseNumberModalComponent, NewsCardComponent, CounterComponent, GroupCaseComponent ];
+const COMPONENTS = [
+    ErrorPageComponent,
+    LocationButtonComponent,
+    CaseNumberModalComponent,
+    NewsCardComponent,
+    CounterComponent,
+    GroupCaseComponent,
+    HistoryCaseComponent
+];
 
 const MODULES = [
     FormsModule,
