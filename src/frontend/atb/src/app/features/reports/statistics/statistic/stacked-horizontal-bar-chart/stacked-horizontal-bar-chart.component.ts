@@ -16,9 +16,10 @@ export class StackedHorizontalBarChartComponent {
     showXAxis: boolean = true;
     showYAxis: boolean = true;
     gradient: boolean = false;
-    showLegend: boolean = false;
+    showLegend: boolean = true;
     showXAxisLabel: boolean = true;
     @Input() yAxisLabel: string = 'Gruppi';
+    @Input() tooltipDisabled: boolean = false;
     showYAxisLabel: boolean = true;
     @Input() xAxisLabel: string = 'Tipo ospedalizzazione';
 
