@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { RoleFacet } from '../../../../../shared/interface/statistics.interface';
+import { roleSorter } from '../../../../../shared/functions';
 
 @Component({
     selector: 'app-horizontal-bar-charts',
@@ -23,7 +24,7 @@ export class HorizontalBarChartsComponent implements OnChanges {
     xAxisLabel: string = 'Numero di casi';
 
     colorScheme = {
-        domain: [ '#5AA454', '#A10A28', '#C7B42C', '#AAAAAA' ]
+        name: 'vivid'
     };
 
 
@@ -39,7 +40,7 @@ export class HorizontalBarChartsComponent implements OnChanges {
                         name: value.name,
                         value: value.total
                     };
-                });
+                }).sort(roleSorter);
             }
         }
     }
