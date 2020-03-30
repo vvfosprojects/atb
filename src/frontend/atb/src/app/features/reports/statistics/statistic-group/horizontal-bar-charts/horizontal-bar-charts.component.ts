@@ -37,7 +37,7 @@ export class HorizontalBarChartsComponent implements OnChanges {
                 this.data = facet.map(value => {
                     return {
                         name: value.name,
-                        value: value.total,
+                        value: value.total
                     };
                 });
             }

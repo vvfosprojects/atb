@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { GroupStatistic, QuarantinePlacesFacet } from '../../../../shared/interface/statistics.interface';
-import { QuarantineGroupFacetInterface, Series } from '../../../../shared/interface/quarantine-group-facet.interface';
+import { GroupStatistic } from '../../../../shared/interface/statistics.interface';
+import { QuarantineGroupFacetInterface } from '../../../../shared/interface/quarantine-group-facet.interface';
+import { countTotalSeries, quarantineSorter, seriesPositive, seriesSuspects } from '../../../../shared/functions/';
 
 @Component({
     selector: 'app-statistic',
@@ -50,9 +51,10 @@ export class StatisticComponent implements OnChanges {
             return _statistics.map(value => {
                 return {
                     name: value.group,
-                    series: seriesPositive(value.positives.quarantinePlacesFacet)
+                    series: seriesPositive(value.positives.quarantinePlacesFacet),
+                    total: countTotalSeries(seriesPositive(value.positives.quarantinePlacesFacet))
                 }
-            });
+            }).sort(quarantineSorter);
         }
     }
 
@@ -61,25 +63,11 @@ export class StatisticComponent implements OnChanges {
             return _statistics.map(value => {
                 return {
                     name: value.group,
-                    series: seriesSuspects(value.suspects.quarantinePlacesFacet)
+                    series: seriesSuspects(value.suspects.quarantinePlacesFacet),
+                    total: countTotalSeries(seriesSuspects(value.suspects.quarantinePlacesFacet))
                 }
-            });
+            }).sort(quarantineSorter);
         }
     }
 
-}
-
-export function seriesPositive(quarantineFacet: QuarantinePlacesFacet): Series[] {
-    const quarantineSeries: Series[] = [];
-    quarantineSeries.push({ name: 'Domicilio', value: quarantineFacet.home });
-    quarantineSeries.push({ name: 'Ospedale', value: quarantineFacet.hosp });
-    quarantineSeries.push({ name: 'Terapia Intensiva', value: quarantineFacet.intCare });
-    return quarantineSeries;
-}
-
-export function seriesSuspects(quarantineFacet: QuarantinePlacesFacet): Series[] {
-    const quarantineSeries: Series[] = [];
-    quarantineSeries.push({ name: 'Domicilio', value: quarantineFacet.home });
-    // quarantineSeries.push({ name: 'Ospedale', value: quarantineFacet.hosp });
-    return quarantineSeries;
 }
