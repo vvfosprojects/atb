@@ -7,8 +7,9 @@ import { CaseNumberModalComponent } from './components/case-number-modal/case-nu
 import { PipeModule } from './pipes/pipe.module';
 import { NewsCardComponent } from './components/news-card/news-card.component';
 import { CounterComponent } from './components/counter/counter.component';
+import { GroupCaseComponent } from './components/group-case/group-case.component';
 
-const COMPONENTS = [ ErrorPageComponent, LocationButtonComponent, CaseNumberModalComponent, NewsCardComponent, CounterComponent ];
+const COMPONENTS = [ ErrorPageComponent, LocationButtonComponent, CaseNumberModalComponent, NewsCardComponent, CounterComponent, GroupCaseComponent ];
 
 const MODULES = [
     FormsModule,

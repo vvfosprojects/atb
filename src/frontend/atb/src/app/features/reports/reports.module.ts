@@ -8,12 +8,12 @@ import { NgxsModule } from '@ngxs/store';
 import { StatisticsState } from './store/statistics.state';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { GroupStatisticComponent } from './statistics/statistic-group/group-statistic.component';
-import { GroupCaseComponent } from './statistics/statistic-group/group-case/group-case.component';
 import { HorizontalBarChartsComponent } from './statistics/statistic-group/horizontal-bar-charts/horizontal-bar-charts.component';
 import { StatisticComponent } from './statistics/statistic/statistic.component';
+import { StackedHorizontalBarChartComponent } from './statistics/statistic/stacked-horizontal-bar-chart/stacked-horizontal-bar-chart.component';
 
 @NgModule({
-    declarations: [ StatisticsComponent, GroupStatisticComponent, GroupCaseComponent, HorizontalBarChartsComponent, StatisticComponent ],
+    declarations: [ StatisticsComponent, GroupStatisticComponent, HorizontalBarChartsComponent, StatisticComponent, StackedHorizontalBarChartComponent ],
     imports: [
         CommonModule,
         ReportsRoutingModule,
