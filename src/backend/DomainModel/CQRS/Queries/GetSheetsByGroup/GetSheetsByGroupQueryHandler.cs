@@ -3,6 +3,7 @@ using DomainModel.Classes;
 using DomainModel.Helpers;
 using DomainModel.Services;
 using DomainModel.Services.Users;
+using System;
 
 namespace DomainModel.CQRS.Queries.GetSheetsByGroup
 {
@@ -15,10 +16,10 @@ namespace DomainModel.CQRS.Queries.GetSheetsByGroup
 
         public GetSheetsByGroupQueryHandler(IGetAllSheetsByGroup getAllSheetsByGroup, IGetSessionContext getSessionContext, ICryptools cryptools, SubjectHash subjectHash)
         {
-            this.getAllSheetsByGroup = getAllSheetsByGroup;
-            this.getSessionContext = getSessionContext;
-            this.cryptools = cryptools;
-            this.subjectHash = subjectHash;
+            this.getAllSheetsByGroup = getAllSheetsByGroup ?? throw new ArgumentNullException(nameof(getAllSheetsByGroup));
+            this.getSessionContext = getSessionContext ?? throw new ArgumentNullException(nameof(getSessionContext));
+            this.cryptools = cryptools ?? throw new ArgumentNullException(nameof(cryptools));
+            this.subjectHash = subjectHash ?? throw new ArgumentNullException(nameof(subjectHash));
         }
 
         public GetSheetsByGroupQueryResult Handle(GetSheetsByGroupQuery query)

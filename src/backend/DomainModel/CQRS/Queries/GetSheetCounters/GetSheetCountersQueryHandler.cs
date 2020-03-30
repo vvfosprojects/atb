@@ -1,6 +1,7 @@
 ﻿using CQRS.Queries;
 using DomainModel.Services.Statistics;
 using DomainModel.Services.Users;
+using System;
 
 namespace DomainModel.CQRS.Queries.GetSheetCounters
 {
@@ -12,8 +13,8 @@ namespace DomainModel.CQRS.Queries.GetSheetCounters
 
         public GetSheetCountersQueryHandler(IGetAllSheetsStats getAllSheetsStats, IGetSessionContext getSessionContext)
         {
-            this.getAllSheetsStats = getAllSheetsStats;
-            this.getSessionContext = getSessionContext;
+            this.getAllSheetsStats = getAllSheetsStats ?? throw new ArgumentNullException(nameof(getAllSheetsStats));
+            this.getSessionContext = getSessionContext ?? throw new ArgumentNullException(nameof(getSessionContext));
         }
 
         public GetSheetCountersQueryResult Handle(GetSheetCountersQuery query)

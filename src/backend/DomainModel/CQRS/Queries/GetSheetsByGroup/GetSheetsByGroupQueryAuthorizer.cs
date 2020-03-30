@@ -17,7 +17,7 @@ namespace DomainModel.CQRS.Queries.GetSheetsByGroup
 
         public IEnumerable<AuthorizationResult> Authorize(GetSheetsByGroupQuery query)
         {
-            if (!this.getSessionContext.IsLogged())
+            if (!this.getSessionContext.IsLogged() || this.getSessionContext.LoggedUserIsManager())
             {
                 yield return new AuthorizationResult("Unauthorized");
                 yield break;

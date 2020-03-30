@@ -1,5 +1,6 @@
 ﻿using CQRS.Queries;
 using DomainModel.Services;
+using System;
 
 namespace DomainModel.CQRS.Queries.GetAllPositive
 {
@@ -9,7 +10,7 @@ namespace DomainModel.CQRS.Queries.GetAllPositive
 
         public GetAllPositiveSheetsQueryHandler (IGetAllPositiveSheets getAllPositiveSheet)
         {
-            this.getAllPositiveSheets = getAllPositiveSheet;
+            this.getAllPositiveSheets = getAllPositiveSheet ?? throw new ArgumentNullException(nameof(getAllPositiveSheet));
         }
 
         public GetAllPositiveSheetsQueryResult Handle(GetAllPositiveSheetsQuery query)

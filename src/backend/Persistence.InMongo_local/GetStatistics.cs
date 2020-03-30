@@ -28,30 +28,20 @@ namespace Persistence.InMongo_local
             var positives = new List<Patient> ();
             var suspects = new List<Suspect>();
 
-            if (! string.IsNullOrWhiteSpace(this.getSessionContext.GetActiveGroup()))
-            {
-                var filterPatient = Builders<Patient>.Filter.Eq(x => x.Group, this.getSessionContext.GetActiveGroup());
-                var filterSuspect = Builders<Suspect>.Filter.Eq(x => x.Group, this.getSessionContext.GetActiveGroup());
-                positives = dbContext.Patients.Find(filterPatient).ToList();
-                suspects = dbContext.Suspects.Find(filterSuspect).ToList();
-            }
-            else
-            {
-                positives = this.dbContext.Patients.AsQueryable().ToList();
-                suspects = this.dbContext.Suspects.AsQueryable().ToList();
-            }
+            positives = this.dbContext.Patients.AsQueryable().ToList();
+            suspects = this.dbContext.Suspects.AsQueryable().ToList();
 
             var positivesFilteredList = positives.Select(p => new
             {
-                Group = p.Group,
-                Subject = p.Subject,
+                p.Group,
+                p.Subject,
                 Data = p.Data.Last()
             });
 
             var suspectsFilteredList = suspects.Select(s => new
             {
-                Group = s.Group,
-                Subject = s.Subject,
+                s.Group,
+                s.Subject,
                 Data = s.Data.Last()
             });
 

@@ -10,7 +10,7 @@ namespace DomainModel.CQRS.Queries.GetNews
         private readonly IGetNews getNews;
         public GetNewsQueryHandler(IGetNews getNews)
         {
-            this.getNews = getNews;
+            this.getNews = getNews ?? throw new ArgumentNullException(nameof(getNews)); 
         }
 
         public GetNewsQueryResult Handle(GetNewsQuery query)
