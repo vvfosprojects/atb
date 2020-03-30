@@ -1,15 +1,16 @@
 ﻿using CQRS.Queries;
 using DomainModel.Services.Statistics;
+using System;
 
 namespace DomainModel.CQRS.Queries.GetStatistics
 {
-    public class GetStatisticsQueryResultHandler : IQueryHandler<GetStatisticsQuery, GetStatisticsQueryResult>
+    public class GetStatisticsQueryHandler : IQueryHandler<GetStatisticsQuery, GetStatisticsQueryResult>
     {
         private readonly IGetStatistics getStatistics;
 
-        public GetStatisticsQueryResultHandler(IGetStatistics getStatistics)
+        public GetStatisticsQueryHandler(IGetStatistics getStatistics)
         {
-            this.getStatistics = getStatistics;
+            this.getStatistics = getStatistics ?? throw new ArgumentNullException(nameof(getStatistics));
         }
 
         public GetStatisticsQueryResult Handle(GetStatisticsQuery query)
