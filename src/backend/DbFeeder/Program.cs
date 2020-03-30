@@ -1,4 +1,5 @@
 ﻿using Bogus;
+using System.Linq;
 using DomainModel.Classes;
 using NETCore.Encrypt;
 using Persistence.InMongo_local;
@@ -79,16 +80,17 @@ namespace DbFeeder
                 .RuleFor(a => a.EstremiProvvedimentiASL, f => "Prov. n. " + f.Random.Number(1000, 9999) + " del " + f.Date.Recent(38).ToString("dd/MM/yyyy"))
                 .RuleFor(a => a.QuarantinePlace, f => f.PickRandom(new[] { "HOME", "HOSP", "INTCARE" }))
                 .RuleFor(a => a.DiseaseConfirmDate, f => f.Date.Recent(38))
-                .RuleFor(a => a.ExpectedWorkReturnDate, f => f.Random.Float() < .6f ? f.Date.Future(40) : (DateTime?)null)
-                .RuleFor(a => a.ActualWorkReturnDate, f => f.Random.Float() < .6f ? f.Date.Future(40) : (DateTime?)null)
+                .RuleFor(a => a.ExpectedWorkReturnDate, f => f.Random.Float() < .6f ? f.Date.Soon(60) : (DateTime?)null)
+                .RuleFor(a => a.ActualWorkReturnDate, f => f.Random.Float() < .6f ? f.Date.Soon(60) : (DateTime?)null)
                 .RuleFor(a => a.UpdateTime, f => f.Date.Recent(15))
-                .RuleFor(a => a.UpdatedBy, f => f.Internet.UserName());
+                .RuleFor(a => a.UpdatedBy, f => f.Internet.UserName())
+                .Ignore(p => p.DateOfDeath);
 
             var positiveFaker = new Faker<Patient>()
                 .StrictMode(true)
                 .Ignore(p => p.Id)
                 .RuleFor(p => p.Subject, f => positiveAnaFaker.Generate())
-                .RuleFor(p => p.Data, f => dataFaker.Generate(1))
+                .RuleFor(p => p.Data, f => dataFaker.Generate(f.Random.WeightedRandom(new int[] { 1, 2, 3, 4, 5, 6 }, new[] { .3f, .2f, .1f, .1f, .1f, .1f })).OrderBy(data => data.UpdateTime).ToList())
                 .RuleFor(p => p.Group, f => f.PickRandom(province))
                 .FinishWith((f, p) =>
                 {
@@ -128,8 +130,8 @@ namespace DbFeeder
             var data2Faker = new Faker<SuspectData>()
                 .StrictMode(true)
                 .RuleFor(a => a.QuarantinePlace, f => f.PickRandom(new[] { "HOME", "HOSP" }))
-                .RuleFor(a => a.ExpectedWorkReturnDate, f => f.Date.Future(40))
-                .RuleFor(a => a.ActualWorkReturnDate, f => f.Random.Float() < .6f ? f.Date.Future(40) : (DateTime?)null)
+                .RuleFor(a => a.ExpectedWorkReturnDate, f => f.Date.Soon(60))
+                .RuleFor(a => a.ActualWorkReturnDate, f => f.Random.Float() < .6f ? f.Date.Soon(60) : (DateTime?)null)
                 .RuleFor(a => a.HealthMeasure, f => healthMeasureFaker.Generate())
                 .RuleFor(a => a.UpdateTime, f => f.Date.Recent(15))
                 .RuleFor(a => a.UpdatedBy, f => f.Internet.UserName());
@@ -138,7 +140,7 @@ namespace DbFeeder
                 .StrictMode(true)
                 .Ignore(p => p.Id)
                 .RuleFor(p => p.Subject, f => suspectAnaFaker.Generate())
-                .RuleFor(p => p.Data, f => data2Faker.Generate(1))
+                .RuleFor(p => p.Data, f => data2Faker.Generate(f.Random.WeightedRandom(new[] { 1, 2, 3, 4, 5, 6 }, new[] { .4f, .1f, .1f, .1f, .1f, .1f })).OrderBy(data => data.UpdateTime).ToList())
                 .RuleFor(p => p.Group, f => f.PickRandom(province))
                 .FinishWith((f, s) =>
                 {
