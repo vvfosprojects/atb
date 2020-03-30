@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { RoleFacet } from '../../../../shared/interface/statistics.interface';
+import { RoleFacet } from '../../../../../shared/interface/statistics.interface';
 
 @Component({
     selector: 'app-horizontal-bar-charts',

@@ -1,5 +1,13 @@
 <div class="row py-4">
     <div *ngIf="!loading" class="col-12 col-lg-10 mx-auto mt-5">
+        <div class="h3">Statistiche</div>
+        <ng-container *ngIf="statistics">
+            <app-statistic [statistics]="statistics"></app-statistic>
+        </ng-container>
+    </div>
+    <hr>
+    <div *ngIf="!loading" class="col-12 col-lg-10 mx-auto mt-5">
+        <div class="h3">Statistiche per gruppo</div>
         <ng-container *ngFor="let group of statistics">
             <app-statistic-group [statisticGroup]="group"></app-statistic-group>
         </ng-container>
