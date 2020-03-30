@@ -40,6 +40,12 @@ namespace DomainModel.Services.Users
         bool LoggedUserIsAdmin();
 
         /// <summary>
+        /// Tells if the logged user is an supervisor.
+        /// </summary>
+        /// <returns>True if he is an supervisor</returns>
+        bool LoggedUserIsSupervisor();
+
+        /// <summary>
         /// Tells if there is a logged user.
         /// </summary>
         /// <returns>True is there is a logged user. False otherwise.</returns>

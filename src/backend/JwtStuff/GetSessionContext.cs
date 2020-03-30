@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Linq;
-using System.Security.Claims;
 
 namespace JwtStuff
 {
@@ -79,6 +78,20 @@ namespace JwtStuff
                 return user.Claims
                     .Where(c => c.Type == "atbRoles")
                     .Any(r => r.Value == "manager");
+            }
+            else
+                return false;
+        }
+
+        public bool LoggedUserIsSupervisor()
+        {
+            var user = this.httpContextAccessor.HttpContext.User;
+
+            if (user.Identity.IsAuthenticated)
+            {
+                return user.Claims
+                    .Where(c => c.Type == "atbRoles")
+                    .Any(r => r.Value == "supervisor");
             }
             else
                 return false;
