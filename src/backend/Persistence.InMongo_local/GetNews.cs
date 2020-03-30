@@ -19,7 +19,7 @@ namespace Persistence.InMongo_local
 
         public List<News> Get()
         {
-            return this.dbContext.News.AsQueryable().OrderByDescending(x => x.Number).ToList();
+            return this.dbContext.News.AsQueryable().OrderByDescending(x => x.Order).ToList();
         }
     }
 }

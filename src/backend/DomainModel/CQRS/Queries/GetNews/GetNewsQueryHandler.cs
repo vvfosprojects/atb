@@ -25,7 +25,7 @@ namespace DomainModel.CQRS.Queries.GetNews
                 { 
                     news.Highlight,
                     news.Text,
-                    news.Number
+                    news.Order
                 });
             }
 
