@@ -1,1 +1,18 @@
-<p>{{statisticGroup?.group}}</p>
+<div class="row py-3">
+    <div class="col-12">
+        <div class="h4">{{statisticGroup?.group}}</div>
+        <hr>
+        <div class="row">
+            <div class="col-12 col-lg-6 py-3 p-lg-5">
+                <app-group-case title="Casi positivi COVID" [totalClosed]="statisticGroup.positives.totalClosed" [totalSick]="statisticGroup.positives.totalSick">
+                    GRAFICO
+                </app-group-case>
+            </div>
+            <div class="col-12 col-lg-6 py-3 p-lg-5">
+                <app-group-case title="Casi di sorveglianza attiva dovuti a COVID" [totalClosed]="statisticGroup.suspects.totalClosed" [totalSick]="statisticGroup.suspects.totalSick">
+                    GRAFICO
+                </app-group-case>
+            </div>
+        </div>
+    </div>
+</div>
