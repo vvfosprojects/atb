@@ -1,5 +1,6 @@
 ﻿using CQRS.Authorization;
 using DomainModel.Services.Users;
+using System;
 using System.Collections.Generic;
 
 namespace DomainModel.CQRS.Queries.GetSheetCounters
@@ -10,7 +11,7 @@ namespace DomainModel.CQRS.Queries.GetSheetCounters
 
         public GetSheetCountersQueryAuthorizer(IGetSessionContext getSessionContext)
         {
-            this.getSessionContext = getSessionContext;
+            this.getSessionContext = getSessionContext ?? throw new ArgumentNullException(nameof(getSessionContext));
         }
 
         public IEnumerable<AuthorizationResult> Authorize(GetSheetCountersQuery query)

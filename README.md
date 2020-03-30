@@ -398,6 +398,37 @@ The action can be executed by authenticated users.
 
 The group description is get from the group code converting to uppercase characters.
 
+## Action: `api/news`
+
+This action returns the current news to display to the users.
+
+### Request (GET)
+
+The request is empty.
+
+### Response
+
+```jsonc
+{
+  news: [
+    {
+        highlight: false, // [true|false]
+        text: "here the news text in HTML format...",
+        order: 230 // integer value
+    },
+    // ... other news here
+  ]
+}
+```
+
+### Authorization
+
+The action can be executed by any authenticated user.
+
+### Notes
+
+The action returns the news ordered by `order` fields in descending order.
+
 ## Action: `api/sheets`
 
 This action returns the patients and suspects sheets.

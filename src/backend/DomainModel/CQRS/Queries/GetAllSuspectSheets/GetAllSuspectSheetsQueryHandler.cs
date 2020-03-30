@@ -1,5 +1,6 @@
 ﻿using CQRS.Queries;
 using DomainModel.Services;
+using System;
 
 namespace DomainModel.CQRS.Queries.GetAllSuspect
 {
@@ -9,7 +10,7 @@ namespace DomainModel.CQRS.Queries.GetAllSuspect
 
         public GetAllSuspectSheetsQueryHandler(IGetAllSuspectSheets getAllSuspectSheets)
         {
-            this.getAllSuspectSheets = getAllSuspectSheets;
+            this.getAllSuspectSheets = getAllSuspectSheets ?? throw new ArgumentNullException(nameof(getAllSuspectSheets));
         }
 
         public GetAllSuspectSheetsQueryResult Handle(GetAllSuspectSheetsQuery query)

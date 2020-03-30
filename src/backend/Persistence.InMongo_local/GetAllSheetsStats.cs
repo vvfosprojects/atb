@@ -43,11 +43,79 @@ namespace Persistence.InMongo_local
             var resultSuspects = dbContext.Suspects.Aggregate<BsonDocument>(pipeline)
                 .ToList();
 
-            var positivesClosed = resultPatients.Count > 0 ? (int)resultPatients[0][1] : 0;
-            var positivesOpen= resultPatients.Count > 0 ? (int)resultPatients[1][1] : 0;
+            var dictPos = new Dictionary<string, int>();
+            var dictSusp = new Dictionary<string, int>();
 
-            var suspectsClosed = resultSuspects.Count > 0 ? (int)resultSuspects[0][1] : 0;
-            var suspectsOpen = resultSuspects.Count > 0 ? (int)resultSuspects[1][1] : 0;
+
+            if (resultPatients.Count > 0)
+            {
+                dictPos.Add(resultPatients[0][0].ToString(),(int)resultPatients[0][1]);
+                dictPos.Add(resultPatients[1][0].ToString(), (int)resultPatients[1][1]);
+            }
+
+
+            if (resultSuspects.Count > 0)
+            {
+                dictSusp.Add(resultSuspects[0][0].ToString(), (int)resultSuspects[0][1]);
+                dictSusp.Add(resultSuspects[1][0].ToString(), (int)resultSuspects[1][1]);
+            }
+
+            int positivesClosed = 0;
+            int positivesOpen = 0;
+            int suspectsClosed = 0;
+            int suspectsOpen = 0;
+
+            if (resultPatients.Count > 0)
+            {
+                positivesClosed = dictPos.GetValueOrDefault("true");
+                positivesOpen = dictPos.GetValueOrDefault("false");
+            }
+
+            if (resultSuspects.Count > 0)
+            {
+                suspectsClosed = dictSusp.GetValueOrDefault("true");
+                suspectsOpen = dictSusp.GetValueOrDefault("false");
+            }
+
+            //int positivesClosed;
+            //try
+            //{
+            //    positivesClosed = resultPatients.Count > 0 ? (int)resultPatients[0][1] : 0;
+            //}
+            //catch
+            //{
+            //    positivesClosed = 0;
+            //}
+
+            //int positivesOpen;
+            //try
+            //{
+            //    positivesOpen = resultPatients.Count > 0 ? (int)resultPatients[1][1] : 0;
+            //}
+            //catch
+            //{
+            //    positivesOpen = 0;
+            //}
+
+            //int suspectsClosed;
+            //try
+            //{
+            //    suspectsClosed = resultSuspects.Count > 0 ? (int)resultSuspects[0][1] : 0;
+            //}
+            //catch
+            //{
+            //    suspectsClosed = 0;
+            //}
+
+            //int suspectsOpen;
+            //try
+            //{
+            //    suspectsOpen = resultSuspects.Count > 0 ? (int)resultSuspects[1][1] : 0;
+            //}
+            //catch
+            //{
+            //    suspectsOpen = 0;
+            //}
 
             return new Counters()
             {

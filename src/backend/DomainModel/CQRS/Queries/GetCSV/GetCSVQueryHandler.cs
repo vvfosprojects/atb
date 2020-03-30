@@ -1,5 +1,6 @@
 ﻿using CQRS.Queries;
 using DomainModel.Services;
+using System;
 
 namespace DomainModel.CQRS.Queries.GetCSV
 {
@@ -9,7 +10,7 @@ namespace DomainModel.CQRS.Queries.GetCSV
 
         public GetCSVQueryHandler(IGetCSV getCSV)
         {
-            this.getCSV = getCSV;
+            this.getCSV = getCSV ?? throw new ArgumentNullException(nameof(getCSV));
         }
 
         public GetCSVQueryResult Handle(GetCSVQuery query)

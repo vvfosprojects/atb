@@ -4,7 +4,6 @@ using DomainModel.CQRS.Queries.GetPatient;
 using DomainModel.Services.Users;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace DomainModel.CQRS.Queries.GetPatientByCaseNumber
 {
@@ -14,7 +13,7 @@ namespace DomainModel.CQRS.Queries.GetPatientByCaseNumber
 
         public GetPatientQueryAuthorizer(IGetSessionContext getSessionContext)
         {
-            this.getSessionContext = getSessionContext;
+            this.getSessionContext = getSessionContext ?? throw new ArgumentNullException(nameof(getSessionContext));
         }
 
         public IEnumerable<AuthorizationResult> Authorize(GetPatientQuery query)

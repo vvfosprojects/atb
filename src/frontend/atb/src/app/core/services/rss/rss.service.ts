@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { RssResponseInterface } from '../../../shared/interface/common/rss-response.interface';
+import { environment } from '../../../../environments/environment';
+
+const APIURL = environment.baseUrl;
+const APIRSS = environment.apiUrl.rss;
 
 @Injectable({
     providedIn: 'root'
@@ -12,7 +16,7 @@ export class RssService {
     }
 
     getRssData(): Observable<RssResponseInterface> {
-        return this.http.get<RssResponseInterface>('/assets/rss/feeds.json');
+        return this.http.get<RssResponseInterface>(APIURL + APIRSS);
     }
 
 }

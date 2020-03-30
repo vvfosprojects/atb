@@ -29,8 +29,6 @@ export class AppComponent implements OnDestroy {
         this.subscription.add(this.loading$.pipe(delay(0), debounceTime(100))
             .subscribe(r => this.loading = r));
         this.getSessionData();
-        this.store.dispatch(new GetRssData());
-
     }
 
     ngOnDestroy(): void {

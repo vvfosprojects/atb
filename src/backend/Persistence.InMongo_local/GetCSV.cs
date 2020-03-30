@@ -24,7 +24,7 @@ namespace Persistence.InMongo_local
             var suspects = this.dbContext.Suspects.AsQueryable().ToList();
 
             StringBuilder sw = new StringBuilder();
-            sw.AppendFormat("Paziente|Gruppo|Numero Caso|Ruolo|Quarantine Place|Data Attesa Di Rientro|Data Effettiva Di Rientro|Data Del Contaggio|Data Del Decesso|Data Creazione|Data Aggiornamento");
+            sw.AppendFormat("Paziente|Gruppo|Numero Caso|Ruolo|Quarantine Place|Data Attesa Di Rientro|Data Effettiva Di Rientro|Data Del Contagio|Data Del Decesso|Data Creazione|Data Aggiornamento");
             sw.AppendLine();
 
             foreach (var s in patients)

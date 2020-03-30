@@ -6,7 +6,7 @@ import { PositiveCaseInterface } from '../../../shared/interface/positive-case.i
 import { SuspectCaseInterface } from '../../../shared/interface/suspect-case.interface';
 import { ClearDataTables, GetDataSheets, GetGroupList, SetGroup, SetTab } from './data-tables.actions';
 import { GroupsResponseInterface, SheetsResponseInterface } from '../../../shared/interface/common';
-import { globalSorter } from '../../../shared/functions/sorter-case';
+import { globalSorter } from '../../../shared/functions/_sorter';
 
 export interface DataTablesStateModel {
     groupsList: GroupInterface[];
