@@ -32,7 +32,7 @@ const routes: Routes = [
         path: 'reports',
         loadChildren: () => import('./features/reports/reports.module').then(m => m.ReportsModule),
         canActivate: [ AuthGuard ],
-        data: { roles: [ Roles.Manager, Roles.Doctor ] }
+        data: { roles: [ Roles.Manager, Roles.Supervisor ] }
     },
     {
         path: 'auth',

@@ -20,7 +20,7 @@ export const PermessiStateDefaults: PermessiStateModel = {
         },
         {
             feature: PermissionFeatures.Report,
-            roles: [ Roles.Doctor, Roles.Manager ]
+            roles: [ Roles.Supervisor, Roles.Manager ]
         }
     ]
 };
