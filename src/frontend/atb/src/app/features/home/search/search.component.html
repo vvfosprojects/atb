@@ -1,16 +1,21 @@
 <div class="row">
-    <div class="col-12" style="min-height:40vh; display:flex; justify-content: center; align-items: center">
-        <app-news-card [rssData]="rssData$ | async"></app-news-card>
+    <div class="col-12" style="min-height:50vh; display:flex; justify-content: center; align-items: center">
+        <div class="col-12 col-lg-6 py-3 p-lg-5"
+             style="min-height:40vh; display:flex; justify-content: center; align-items: center">
+            <app-news-card [rssData]="rssData$ | async"></app-news-card>
+        </div>
     </div>
 </div>
 <div class="row">
     <div class="col-12" style="min-height:50vh; display:flex; justify-content: center; align-items: center">
         <div class="row" style="min-height:50vh; display: flex; justify-content: center; align-items: center">
             <div class="col-12 col-lg-6 py-3 p-lg-5">
-                <app-search-positivo [loading]="isLooking" [counter]="counters?.positives" (search)="onSearchPositiveCase($event)"></app-search-positivo>
+                <app-search-positivo [loading]="isLooking" [counter]="counters?.positives"
+                                     (search)="onSearchPositiveCase($event)"></app-search-positivo>
             </div>
             <div class="col-12 col-lg-6 py-3 p-lg-5">
-                <app-search-assente [loading]="isLooking" [counter]="counters?.suspects" (search)="onSearchSuspectCase($event)"></app-search-assente>
+                <app-search-assente [loading]="isLooking" [counter]="counters?.suspects"
+                                    (search)="onSearchSuspectCase($event)"></app-search-assente>
             </div>
         </div>
     </div>

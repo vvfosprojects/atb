@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { RssService } from '../../../core/services/rss/rss.service';
 import { RssInterface } from '../../../shared/interface/rss.interface';
 import { ClearRssData, GetRssData } from './rss.actions';
+import { rssSorter } from '../../../shared/functions/_sorter';
 
 export interface RssStateModel {
     rssData: RssInterface[];
@@ -37,7 +38,7 @@ export class RssState implements NgxsOnInit {
             console.log('GetRssData', res);
             if (res && res.news && res.news.length > 0) {
                 patchState({
-                    rssData: res.news
+                    rssData: res.news.sort(rssSorter)
                 })
             } else {
                 patchState({
