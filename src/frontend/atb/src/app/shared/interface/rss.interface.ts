@@ -1,3 +1,5 @@
 export interface RssInterface {
-    text: string
+    text: string,
+    highlight: boolean,
+    order: number
 }

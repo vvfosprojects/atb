@@ -1,4 +1,4 @@
-import { Action, Selector, State, StateContext } from '@ngxs/store';
+import { Action, NgxsOnInit, Selector, State, StateContext } from '@ngxs/store';
 import { Injectable } from '@angular/core';
 import { RssService } from '../../../core/services/rss/rss.service';
 import { RssInterface } from '../../../shared/interface/rss.interface';
@@ -17,11 +17,15 @@ export const RssStateDefaults: RssStateModel = {
     name: 'rss',
     defaults: RssStateDefaults
 })
-export class RssState {
+export class RssState implements NgxsOnInit {
 
     @Selector()
     static rssData(state: RssStateModel) {
         return state.rssData;
+    }
+
+    ngxsOnInit(ctx?: StateContext<any>): void | any {
+        ctx.dispatch(new GetRssData());
     }
 
     constructor(private rssService: RssService) {
@@ -30,10 +34,20 @@ export class RssState {
     @Action(GetRssData)
     getRssData({ patchState }: StateContext<RssStateModel>) {
         this.rssService.getRssData().subscribe(res => {
-            console.log('GetRssData', res)
-            if (res) {
+            console.log('GetRssData', res);
+            if (res && res.news && res.news.length > 0) {
                 patchState({
-                    rssData: res.data
+                    rssData: res.news
+                })
+            } else {
+                patchState({
+                    rssData: [
+                        {
+                            text: "Siamo spiacenti, ma al momento non ci sono <i>news</i>.",
+                            highlight: true,
+                            order: 0
+                        }
+                    ]
                 })
             }
         })

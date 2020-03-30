@@ -7,6 +7,7 @@ export const environment = {
         changePassword: '/changePassword',
         sheets: '/sheets',
         sheetCounters: '/sheetCounters',
-        groups: '/groups'
+        groups: '/groups',
+        rss: '/news'
     }
 };
