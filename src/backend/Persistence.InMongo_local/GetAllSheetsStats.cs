@@ -2,6 +2,7 @@
 using DomainModel.Services.Statistics;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -18,16 +19,22 @@ namespace Persistence.InMongo_local
 
         public Counters Get(string group)
         {
+            var dateTime = DateTime.Parse("2100-12-31");
             var pipeline = new List<BsonDocument>()
             {
                 new BsonDocument { { "$unwind", "$data" } },
                 new BsonDocument { { "$group",
-                    new BsonDocument { { "_id", "$_id" }, { "lastDate", new BsonDocument { { "$last", "$data.actualWorkReturnDate" } } } }
+                    new BsonDocument { { "_id", "$_id" }, { "lastData", new BsonDocument { { "$last", "$data.actualWorkReturnDate" } } } }
                 } },
+                new BsonDocument {{ "$project",
+                    new BsonDocument {{"nonNullData", 
+                            new BsonDocument { {"$ifNull", new BsonArray {"$lastData", new BsonDateTime(dateTime) } } } 
+                        }}
+                    }},
                 new BsonDocument { { "$project",
                     new BsonDocument { { "closed",
                         new BsonDocument { { "$lt",
-                            new BsonArray { "$lastDate", "Date()" }
+                            new BsonArray { "$nonNullData", new BsonDocument{ { "$add", new BsonArray { DateTime.UtcNow, 13*60*60000 } } } }
                         } }
                     } }
                 } },
