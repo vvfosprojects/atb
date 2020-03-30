@@ -84,46 +84,6 @@ namespace Persistence.InMongo_local
                 suspectsOpen = dictSusp.GetValueOrDefault("false");
             }
 
-            //int positivesClosed;
-            //try
-            //{
-            //    positivesClosed = resultPatients.Count > 0 ? (int)resultPatients[0][1] : 0;
-            //}
-            //catch
-            //{
-            //    positivesClosed = 0;
-            //}
-
-            //int positivesOpen;
-            //try
-            //{
-            //    positivesOpen = resultPatients.Count > 0 ? (int)resultPatients[1][1] : 0;
-            //}
-            //catch
-            //{
-            //    positivesOpen = 0;
-            //}
-
-            //int suspectsClosed;
-            //try
-            //{
-            //    suspectsClosed = resultSuspects.Count > 0 ? (int)resultSuspects[0][1] : 0;
-            //}
-            //catch
-            //{
-            //    suspectsClosed = 0;
-            //}
-
-            //int suspectsOpen;
-            //try
-            //{
-            //    suspectsOpen = resultSuspects.Count > 0 ? (int)resultSuspects[1][1] : 0;
-            //}
-            //catch
-            //{
-            //    suspectsOpen = 0;
-            //}
-
             return new Counters()
             {
                 Positives = new Counters.PositiveCounter()
