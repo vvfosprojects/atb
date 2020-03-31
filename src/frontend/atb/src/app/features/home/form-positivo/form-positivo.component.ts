@@ -24,7 +24,7 @@ import { HistoryCaseInterface } from '../../../shared/interface/history-case.int
 export class FormPositivoComponent implements OnDestroy {
 
     @Select(LoadingState.loading) loading$: Observable<boolean>;
-    @Select(QualificheState.qualifiche) qualifiche$: Observable<any[]>;
+    @Select(QualificheState.qualifiche) qualifiche$: Observable<string[]>;
     @Select(FormPositivoState.pageTitle) pageTitle$: Observable<string>;
     @Select(FormPositivoState.positivoFormValid) positivoFormValid$: Observable<boolean>;
     @Select(SearchState.positiveCase) positiveCase$: Observable<PositiveCaseInterface>;
