@@ -1,12 +1,11 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { Observable, Subscription } from 'rxjs';
-import { GetStatisticsData } from '../store/statistics.actions';
+import { GetStatisticsData, SetStatisticsTab } from '../store/statistics.actions';
 import { StatisticsState } from '../store/statistics.state';
 import { GroupStatistic } from '../../../shared/interface/statistics.interface';
 import { LoadingState } from '../../../shared/store/loading/loading.state';
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
-import { SetTab } from '../../home/store/data-tables.actions';
 
 @Component({
     selector: 'app-statistics',
@@ -36,7 +35,7 @@ export class StatisticsComponent implements OnDestroy {
     }
 
     onSelectTab($event: NgbTabChangeEvent) {
-        this.store.dispatch(new SetTab($event.nextId));
+        this.store.dispatch(new SetStatisticsTab($event.nextId));
     }
 
 }

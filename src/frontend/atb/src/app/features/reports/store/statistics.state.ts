@@ -43,7 +43,7 @@ export class StatisticsState {
     }
 
     @Action(SetStatisticsTab)
-    setTab({ patchState }: StateContext<StatisticsStateModel>, { selectedTab }: SetStatisticsTab) {
+    setStatisticsTab({ patchState }: StateContext<StatisticsStateModel>, { selectedTab }: SetStatisticsTab) {
         patchState({ selectedTab });
     }
 
