@@ -1,5 +1,5 @@
 <div class="row py-4">
-    <div *ngIf="!loading" class="col-12 col-lg-10 mx-auto mt-5">
+    <div *ngIf="!loading" class="col-12 mx-auto mt-5">
     <ngb-tabset [activeId]="selectedTab$ | async" [destroyOnHide]="true" (tabChange)="onSelectTab($event)">
         <ngb-tab [id]="'generali'">
             <ng-template ngbTabTitle>
