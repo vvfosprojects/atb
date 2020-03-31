@@ -3,7 +3,6 @@ using CQRS.Commands.Authorizers;
 using DomainModel.Services.Users;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace DomainModel.CQRS.Commands.UpdateSuspect
 {
@@ -13,7 +12,7 @@ namespace DomainModel.CQRS.Commands.UpdateSuspect
 
         public UpdateSuspectCommandAuthorizer(IGetSessionContext getSessionContext)
         {
-            this.getSessionContext = getSessionContext;
+            this.getSessionContext = getSessionContext ?? throw new ArgumentNullException(nameof(getSessionContext));
         }
 
         public IEnumerable<AuthorizationResult> Authorize(UpdateSuspectCommand command)

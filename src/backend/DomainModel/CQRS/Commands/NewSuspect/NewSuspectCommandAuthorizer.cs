@@ -1,6 +1,7 @@
 ﻿using CQRS.Authorization;
 using CQRS.Commands.Authorizers;
 using DomainModel.Services.Users;
+using System;
 using System.Collections.Generic;
 
 namespace DomainModel.CQRS.Commands.NewSuspectCommand
@@ -11,7 +12,7 @@ namespace DomainModel.CQRS.Commands.NewSuspectCommand
 
         public NewSuspectCommandAuthorizer(IGetSessionContext getSessionContext)
         {
-            this.getSessionContext = getSessionContext;
+            this.getSessionContext = getSessionContext ?? throw new ArgumentNullException(nameof(getSessionContext));
         }
 
         public IEnumerable<AuthorizationResult> Authorize(NewSuspectCommand command)
