@@ -17,11 +17,12 @@ export class StackedHorizontalBarChartComponent {
     showYAxis: boolean = true;
     gradient: boolean = false;
     showLegend: boolean = true;
-    showXAxisLabel: boolean = true;
+    showXAxisLabel: boolean = false;
     @Input() yAxisLabel: string = 'Gruppi';
     @Input() tooltipDisabled: boolean = false;
     showYAxisLabel: boolean = true;
-    @Input() xAxisLabel: string = 'Tipo ospedalizzazione';
+    @Input() xAxisLabel: string;
+    @Input() legendTitle: string;
 
     colorScheme = {
         domain: [ '#5AA454', '#C7B42C', '#aa2623' ]
