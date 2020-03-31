@@ -1,8 +1,5 @@
 ﻿using CQRS.Commands;
 using DomainModel.Services;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DomainModel.CQRS.Commands.NewSuspectUpdate
 {
