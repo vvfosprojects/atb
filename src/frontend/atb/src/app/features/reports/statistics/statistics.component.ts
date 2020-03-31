@@ -5,7 +5,8 @@ import { GetStatisticsData } from '../store/statistics.actions';
 import { StatisticsState } from '../store/statistics.state';
 import { GroupStatistic } from '../../../shared/interface/statistics.interface';
 import { LoadingState } from '../../../shared/store/loading/loading.state';
-
+import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
+import { SetTab } from '../../home/store/data-tables.actions';
 
 @Component({
     selector: 'app-statistics',
@@ -20,6 +21,8 @@ export class StatisticsComponent implements OnDestroy {
     @Select(StatisticsState.statistics) statistics$: Observable<GroupStatistic[]>;
     statistics: GroupStatistic[];
 
+    @Select(StatisticsState.selectedTab) selectedTab$: Observable<string>;
+
     private subscription = new Subscription();
 
     constructor(private store: Store) {
@@ -30,6 +33,10 @@ export class StatisticsComponent implements OnDestroy {
 
     ngOnDestroy(): void {
         this.subscription.unsubscribe();
+    }
+
+    onSelectTab($event: NgbTabChangeEvent) {
+        this.store.dispatch(new SetTab($event.nextId));
     }
 
 }
