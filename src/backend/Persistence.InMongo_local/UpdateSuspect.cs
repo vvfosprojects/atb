@@ -17,8 +17,8 @@ namespace Persistence.InMongo_local
 
         public void Update(UpdateSuspectCommand command, string group)
         {
-            var filter = Builders<Suspect>.Filter.Eq(x => x.Group, group) & Builders<Suspect>.Filter.Eq(x => x.Subject.Number, command.CaseNumber);
-            var update = Builders<Suspect>.Update.Set(x => x.Subject.Nome, command.Nome).Set(x => x.Subject.Cognome, command.Cognome).Set(x => x.Subject.Email, command.Email).Set(x => x.Subject.Phone, command.Phone).Set(x => x.Subject.Role, command.Role);
+            var filter = Builders<Suspect>.Filter.Eq(x => x.Group, group) & Builders<Suspect>.Filter.Eq(x => x.Subject.Number, command.Number);
+            var update = Builders<Suspect>.Update.Set(x => x.Subject.Nome, command.Name).Set(x => x.Subject.Cognome, command.Surname).Set(x => x.Subject.Email, command.Email).Set(x => x.Subject.Phone, command.Phone).Set(x => x.Subject.Role, command.Role);
             this.dbContext.Suspects.UpdateOne(filter, update);
         }
     }

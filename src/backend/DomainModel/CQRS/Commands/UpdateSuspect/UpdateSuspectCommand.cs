@@ -2,11 +2,11 @@
 {
     public class UpdateSuspectCommand
     {
-        public int CaseNumber { get;  set; }
+        public int Number { get;  set; }
 
-        public string Nome { get; set; }
+        public string Name { get; set; }
 
-        public string Cognome { get; set; }
+        public string Surname { get; set; }
 
         public string Email { get; set; }
 

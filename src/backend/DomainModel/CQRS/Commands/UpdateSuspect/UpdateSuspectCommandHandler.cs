@@ -20,8 +20,8 @@ namespace DomainModel.CQRS.Commands.UpdateSuspect
 
         public void Handle(UpdateSuspectCommand command)
         {
-            command.Nome = this.cryptools.Encrypt(command.Nome);
-            command.Cognome = this.cryptools.Encrypt(command.Cognome);
+            command.Name = this.cryptools.Encrypt(command.Name);
+            command.Surname = this.cryptools.Encrypt(command.Surname);
             command.Email = this.cryptools.Encrypt(command.Email);
             command.Phone = this.cryptools.Encrypt(command.Phone);
             command.Role = this.cryptools.Encrypt(command.Role);

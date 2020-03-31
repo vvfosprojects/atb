@@ -19,14 +19,14 @@ namespace DomainModel.CQRS.Commands.UpdateSuspect
                 yield break;
             }
 
-            if (!Regex.IsMatch(command.Nome, regex))
+            if (!Regex.IsMatch(command.Name, regex))
             {
                 yield return new ValidationResult("The Name is not in a valid format");
                 yield break;
             }
 
 
-            if (!Regex.IsMatch(command.Cognome, regex))
+            if (!Regex.IsMatch(command.Surname, regex))
             {
                 yield return new ValidationResult("The Surname is not in a valid format");
                 yield break;
