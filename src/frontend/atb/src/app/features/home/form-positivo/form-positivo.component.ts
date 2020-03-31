@@ -111,7 +111,7 @@ export class FormPositivoComponent implements OnDestroy {
         });
 
         if (this.editMode) {
-            const fieldsToDisable = [ 'caseNumber', 'name', 'surname', 'phone', 'email', 'role' ];
+            const fieldsToDisable = [ 'caseNumber' ];
             for (const field of fieldsToDisable) {
                 this.f[field].disable();
             }

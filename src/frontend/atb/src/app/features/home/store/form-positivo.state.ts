@@ -6,6 +6,9 @@ import { Navigate } from '@ngxs/router-plugin';
 import { PositiviService } from '../../../core/services/positivi/positivi.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CaseNumberModalComponent } from '../../../shared/components/case-number-modal/case-number-modal.component';
+import { DtoNewPositiveCaseInterface } from '../../../shared/interface/dto-new-positive-case.interface';
+import { DtoNewPositiveUpdateInterface } from '../../../shared/interface/dto-new-positive-update.interface';
+import { forkJoin } from 'rxjs';
 
 export interface FormPositivoStateModel {
     pageTitle: string;
@@ -67,16 +70,16 @@ export class FormPositivoState {
     @Action(SaveNewPositivoCase)
     saveNewPositivoCase({ getState, dispatch }: StateContext<FormPositivoStateModel>) {
         const positivoFormValue = getState().positivoForm.model;
-        const objSubject = {
+        const objSubject: DtoNewPositiveCaseInterface = {
             number: positivoFormValue.caseNumber,
             name: positivoFormValue.name,
             surname: positivoFormValue.surname,
             email: positivoFormValue.email,
-            phone: positivoFormValue.phone.toString(),
+            phone: '' + positivoFormValue.phone,
             role: positivoFormValue.role
         };
         this.positiviService.newPositiveCase(objSubject).subscribe((resNewPositiveCase: { caseNumber: number }) => {
-            const objData = {
+            const objData: DtoNewPositiveUpdateInterface = {
                 caseNumber: resNewPositiveCase.caseNumber,
                 estremiProvvedimentiASL: positivoFormValue.estremiProvvedimentiASL,
                 diseaseConfirmDate: positivoFormValue.diseaseConfirmDate ? formatDate(positivoFormValue.diseaseConfirmDate) : null,
@@ -96,7 +99,7 @@ export class FormPositivoState {
     @Action(UpdatePositivoCase)
     updatePositivoCase({ getState, dispatch }: StateContext<FormPositivoStateModel>) {
         const positivoFormValue = getState().positivoForm.model;
-        const objData = {
+        const objData: DtoNewPositiveUpdateInterface = {
             caseNumber: positivoFormValue.caseNumber,
             estremiProvvedimentiASL: positivoFormValue.estremiProvvedimentiASL,
             diseaseConfirmDate: positivoFormValue.diseaseConfirmDate ? formatDate(positivoFormValue.diseaseConfirmDate) : null,
@@ -104,8 +107,21 @@ export class FormPositivoState {
             expectedWorkReturnDate: positivoFormValue.expectedWorkReturnDate ? formatDate(positivoFormValue.expectedWorkReturnDate) : null,
             actualWorkReturnDate: positivoFormValue.actualWorkReturnDate ? formatDate(positivoFormValue.actualWorkReturnDate) : null
         };
-        this.positiviService.newPositiveUpdate(objData).subscribe(() => {
-            dispatch(new Navigate(['./home/ricerca']));
+        const objSubject: DtoNewPositiveCaseInterface = {
+            number: positivoFormValue.caseNumber,
+            name: positivoFormValue.name,
+            surname: positivoFormValue.surname,
+            email: positivoFormValue.email,
+            phone: '' + positivoFormValue.phone,
+            role: positivoFormValue.role
+        };
+        console.log('UpdatePositivoCase', objSubject, objData);
+        const updatePositiveCase = this.positiviService.updatePositiveCase(objSubject);
+        const newPositiveUpdate = this.positiviService.newPositiveUpdate(objData);
+        forkJoin([ updatePositiveCase, newPositiveUpdate ]).subscribe(result => {
+            if (result) {
+                dispatch(new Navigate(['./home/ricerca']));
+            }
         });
     }
 }
