@@ -1,5 +1,5 @@
 ﻿using CQRS.Commands;
-using DomainModel.CQRS.Commands.AddPatientCommand;
+using DomainModel.CQRS.Commands.NewPositiveCase;
 using Microsoft.AspNetCore.Mvc;
 
 namespace atb.Controllers

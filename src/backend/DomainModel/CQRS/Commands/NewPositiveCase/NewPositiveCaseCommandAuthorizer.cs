@@ -1,6 +1,5 @@
 ﻿using CQRS.Authorization;
 using CQRS.Commands.Authorizers;
-using DomainModel.CQRS.Commands.AddPatientCommand;
 using DomainModel.Services.Users;
 using System.Collections.Generic;
 

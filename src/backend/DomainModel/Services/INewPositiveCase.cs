@@ -1,4 +1,4 @@
-﻿using DomainModel.CQRS.Commands.AddPatientCommand;
+﻿using DomainModel.CQRS.Commands.NewPositiveCase;
 
 namespace DomainModel.Services
 {

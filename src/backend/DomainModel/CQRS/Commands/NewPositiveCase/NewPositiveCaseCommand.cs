@@ -1,6 +1,6 @@
 ﻿using CQRS.Logging;
 
-namespace DomainModel.CQRS.Commands.AddPatientCommand
+namespace DomainModel.CQRS.Commands.NewPositiveCase
 {
     public class NewPositiveCaseCommand : IHasCustomAudit
     {
