@@ -13,8 +13,9 @@ export class AssentiService {
     constructor(private http: HttpClient) {
     }
 
-    getSuspect(caseNumber: number) {
-        return this.http.get(APIURL + '/SuspectSheet?caseNumber=' + caseNumber);
+    getSuspect(caseNumber: number, group?: string) {
+        const groupQuery = group ? `&group=${group}`: '';
+        return this.http.get(APIURL + '/SuspectSheet?caseNumber=' + caseNumber + groupQuery);
     }
 
     newSuspectCase(obj: DtoNewSuspectCaseInterface): Observable<any> {

@@ -2,7 +2,6 @@ import { SuspectCaseInterface } from '../interface/suspect-case.interface';
 import { PositiveCaseInterface } from '../interface/positive-case.interface';
 import { RssInterface } from '../interface/rss.interface';
 import { QuarantineGroupFacetInterface } from '../interface/quarantine-group-facet.interface';
-import { RoleFacet } from '../interface/statistics.interface';
 
 export function globalSorter(a: SuspectCaseInterface | PositiveCaseInterface, b: SuspectCaseInterface | PositiveCaseInterface) {
     const d = { HOME: 2, HOSP: 1, INTCARE: 0 };
