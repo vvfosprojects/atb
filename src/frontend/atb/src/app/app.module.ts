@@ -23,7 +23,7 @@ import localeIT from '@angular/common/locales/it';
 import { PipeModule } from './shared/pipes/pipe.module';
 import { PermessiState } from './shared/store/permessi/permessi.state';
 import { RssState } from './features/home/store/rss.state';
-import { NoCacheInterceptor } from './core/interceptors/no-cache.interceptor';
+import { CacheInterceptor } from './core/interceptors/cache.interceptor';
 
 registerLocaleData(localeIT);
 
@@ -61,7 +61,7 @@ registerLocaleData(localeIT);
         PipeModule
     ],
     providers: [
-        { provide: HTTP_INTERCEPTORS, useClass: NoCacheInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: CacheInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
