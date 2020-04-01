@@ -59,15 +59,16 @@ namespace Persistence.InMongo_local
                 allGroup.Add(group.Group);
             }
 
+            string[] emptyArray = new string[0];
 
             foreach (var t in allGroup)
             {
-                if (positivesFilteredList.Any() && suspectsFilteredList.Any())
+                if (positivesFilteredList.Where(y => y.Group == t).Any() && suspectsFilteredList.Where(y => y.Group == t).Any())
                 {
                     result.Add(new GroupStatistics()
                     {
                         Group = t,
-                        Positives = positivesFilteredList.GroupBy(y => y.Group == t)
+                        Positives = positivesFilteredList.Where(y => y.Group == t).GroupBy(y => y.Group)
                     .Select(g => new PositiveGroup()
                     {
                         QuarantinePlacesFacet = new PositiveQuarantinePlacesFacet()
@@ -82,7 +83,7 @@ namespace Persistence.InMongo_local
                             .OrderBy(g2 => g2.Key)
                             .Select(g2 => new RoleFacet() { Name = g2.Key, Total = g2.Count() }).ToList()
                     }).First(),
-                        Suspects = suspectsFilteredList.GroupBy(y => y.Group == t)
+                        Suspects = suspectsFilteredList.Where(y => y.Group == t).GroupBy(y => y.Group)
                     .Select(g => new SuspectGroup()
                     {
                         QuarantinePlacesFacet = new SuspectQuarantinePlacesFacet()
@@ -98,12 +99,12 @@ namespace Persistence.InMongo_local
                     }).First(),
                     });
                 }
-                else if (positivesFilteredList.Any() && !suspectsFilteredList.Any())
+                else if (positivesFilteredList.Where(y => y.Group == t).Any() && !suspectsFilteredList.Where(y => y.Group == t).Any())
                 {
                     result.Add(new GroupStatistics()
                     {
                         Group = t,
-                        Positives = positivesFilteredList.GroupBy(y => y.Group == t)
+                        Positives = positivesFilteredList.Where(y => y.Group == t).GroupBy(y => y.Group)
                             .Select(g => new PositiveGroup()
                             {
                                 QuarantinePlacesFacet = new PositiveQuarantinePlacesFacet()
@@ -118,14 +119,37 @@ namespace Persistence.InMongo_local
                                     .OrderBy(g2 => g2.Key)
                                     .Select(g2 => new RoleFacet() { Name = g2.Key, Total = g2.Count() }).ToList()
                             }).First(),
-                    });
+                        Suspects = new SuspectGroup()
+                        {
+                            QuarantinePlacesFacet = new SuspectQuarantinePlacesFacet()
+                            {
+                                Home = 0,
+                                Hosp = 0
+                            },
+                            TotalSick = 0,
+                            TotalClosed = 0,
+                            RoleFacet = new List<RoleFacet> () { }
+                        }
+                    }) ;
                 }
                 else
                 {
                     result.Add(new GroupStatistics()
                     {
                         Group = t,
-                        Suspects = suspectsFilteredList.GroupBy(y => y.Group == t)
+                        Positives = new PositiveGroup() 
+                        {
+                            QuarantinePlacesFacet = new PositiveQuarantinePlacesFacet() 
+                            { 
+                                Home = 0,
+                                Hosp = 0,
+                                IntCare = 0
+                            },
+                            TotalSick = 0,
+                            TotalClosed = 0,
+                            RoleFacet = new List<RoleFacet>() { }
+                        },
+                        Suspects = suspectsFilteredList.Where(y => y.Group == t).GroupBy(y => y.Group)
                     .Select(g => new SuspectGroup()
                     {
                         QuarantinePlacesFacet = new SuspectQuarantinePlacesFacet()
