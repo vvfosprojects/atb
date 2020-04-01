@@ -1,7 +1,30 @@
-<app-error-page title="STATISTICHE"
-                text="Working progress..">
-    <button class="btn btn-lg btn-block btn-primary" (click)="onHome()">
-        <i class="fa fa-refresh mr-1"></i>
-        Riprova
-    </button>
-</app-error-page>
+<div class="row py-4">
+    <div *ngIf="!loading" class="col-12 mx-auto mt-5">
+    <ngb-tabset [activeId]="selectedTab$ | async" [destroyOnHide]="true" (tabChange)="onSelectTab($event)">
+        <ngb-tab [id]="'generali'">
+            <ng-template ngbTabTitle>
+                <span class="font-weight-bold">Statistiche</span>
+            </ng-template>
+            <ng-template ngbTabContent>
+                <div class="p-3 bg-white border shadow-sm overflow-auto">
+                    <ng-container *ngIf="statistics">
+                        <app-statistic [statistics]="statistics"></app-statistic>
+                    </ng-container>
+                </div>
+            </ng-template>
+        </ngb-tab>
+        <ngb-tab *ngIf="statistics && statistics.length > 0" [id]="'gruppo'">
+            <ng-template ngbTabTitle>
+                <span class="font-weight-bold">Statistiche per gruppo</span>
+            </ng-template>
+            <ng-template ngbTabContent>
+                <div class="p-3 bg-white border shadow-sm overflow-auto">
+                    <ng-container *ngFor="let group of statistics">
+                        <app-statistic-group [statisticGroup]="group"></app-statistic-group>
+                    </ng-container>
+                </div>
+            </ng-template>
+        </ngb-tab>
+    </ngb-tabset>
+    </div>
+</div>

@@ -1,7 +1,7 @@
 export interface QuarantinePlacesFacet {
-    HOME: number;
-    HOSP: number;
-    INTCARE?: number;
+    home: number;
+    hosp: number;
+    intCare?: number;
 }
 
 export interface RoleFacet {
@@ -10,7 +10,7 @@ export interface RoleFacet {
 }
 
 export interface GroupCase {
-    total: number;
+    totalSick: number;
     totalClosed: number;
     quarantinePlacesFacet: QuarantinePlacesFacet;
     roleFacet: RoleFacet[];

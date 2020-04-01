@@ -2,7 +2,7 @@ import { Selector, State} from '@ngxs/store';
 import { Injectable } from '@angular/core';
 
 export interface QualificheStateModel {
-    qualifiche: any[];
+    qualifiche: string[];
 }
 
 export const qualificheStateDefaults: QualificheStateModel = {
@@ -53,7 +53,6 @@ export const qualificheStateDefaults: QualificheStateModel = {
         "DIRETTORE",
         "DIRIGENTE GENERALE",
         "DIRIGENTE SUPERIORE AIB",
-        "DIRIGENTE SUPERIORE GINNICO-SPORTIVO",
         "DIRIGENTE SUPERIORE GINNICO-SPORTIVO",
         "DIRIGENTE SUPERIORE MEDICO",
         "DIRIGENTE SUPERIORE SANITARIO",
@@ -133,7 +132,6 @@ export const qualificheStateDefaults: QualificheStateModel = {
         "PILOTA DI AEROMOBILE VIGILE DEL FUOCO",
         "PRIMO DIRIGENTE AIB",
         "PRIMO DIRIGENTE GINNICO-SPORTIVO",
-        "PRIMO DIRIGENTE GINNICO-SPORTIVO",
         "PRIMO DIRIGENTE INFORMATICO",
         "PRIMO DIRIGENTE LOGISTICO-GESTIONALE",
         "PRIMO DIRIGENTE MEDICO",
@@ -174,7 +172,31 @@ export const qualificheStateDefaults: QualificheStateModel = {
         "VICE DIRETTORE SPECIALE LOGISTICO-GESTIONALE",
         "VICE DIRETTORE SPECIALE",
         "VICE DIRETTORE TECNICO-SCIENTIFICO",
-        "VICE DIRETTORE"
+        "VICE DIRETTORE",
+        "ASSISTENTE AMMINISTRATIVO",
+        "ASSISTENTE ECONOMICO-FINANZIARIO",
+        "ASSISTENTE INFORMATICO",
+        "ASSISTENTE LINGUISTICO",
+        "ASSISTENTE SCATTO CONVENZIONALE \"Capo\"",
+        "ASSISTENTE TECNICO",
+        "AUSILIARIO",
+        "AUSILIARIO TECNICO",
+        "COLL AMMINISTRATIVO-CONTABILE COMANDATO",
+        "CONSIGLIERE/VICE CONSIGLIERE DI PREFETTURA",
+        "FUNZIONARIO AMMINISTRATIVO",
+        "FUNZIONARIO ECONOMICO-FINANZIARIO",
+        "FUNZIONARIO INFORMATICO",
+        "FUNZIONARIO LINGUISTICO",
+        "FUNZIONARIO STATISTICO",
+        "FUNZIONARIO TECNICO",
+        "OPERATORE AMMINISTRATIVO",
+        "OPERATORE ESPERTO SCATTO CONVENZIONALE",
+        "OPERATORE TECNICO",
+        "PREFETTO",
+        "VICE COLLABORATORE AMM-CONT COMANDATO",
+        "VICE DIRETTORE SPECIALE INFORMATICO RE",
+        "VICE PREFETTO",
+        "VICE PREFETTO AGGIUNTO",
     ]
 };
 

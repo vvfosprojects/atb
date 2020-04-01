@@ -8,6 +8,7 @@ import { DtoNewSuspectCaseInterface } from '../../../shared/interface/dto-new-su
 import { DtoNewSuspectUpdateInterface } from '../../../shared/interface/dto-new-suspect-update.interface';
 import { CaseNumberModalComponent } from '../../../shared/components/case-number-modal/case-number-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { forkJoin } from 'rxjs';
 
 export interface FormAssenteStateModel {
     pageTitle: string;
@@ -75,7 +76,7 @@ export class FormAssenteState {
             name: assenteFormValue.name,
             surname: assenteFormValue.surname,
             email: assenteFormValue.email,
-            phone: assenteFormValue.phone ? assenteFormValue.phone.toString() : assenteFormValue.phone,
+            phone: '' + assenteFormValue.phone,
             role: assenteFormValue.role
         };
         this.assentiService.newSuspectCase(objSubject).subscribe((resNewSuspectCase: { caseNumber: number }) => {
@@ -111,8 +112,21 @@ export class FormAssenteState {
                 by: assenteFormValue.healthMeasureBy
             }
         };
-        this.assentiService.newSuspectUpdate(objData).subscribe(() => {
-            dispatch(new Navigate(['./home/ricerca']));
+        const objSubject: DtoNewSuspectCaseInterface = {
+            number: assenteFormValue.caseNumber,
+            name: assenteFormValue.name,
+            surname: assenteFormValue.surname,
+            email: assenteFormValue.email,
+            phone: '' + assenteFormValue.phone,
+            role: assenteFormValue.role
+        };
+        console.log('UpdateSuspectCase', objSubject, objData);
+        const updateSuspectCase = this.assentiService.updateSuspectCase(objSubject);
+        const newSuspectUpdate = this.assentiService.newSuspectUpdate(objData);
+        forkJoin([ updateSuspectCase, newSuspectUpdate ]).subscribe(result => {
+            if (result) {
+                dispatch(new Navigate(['./home/ricerca']));
+            }
         });
     }
 }

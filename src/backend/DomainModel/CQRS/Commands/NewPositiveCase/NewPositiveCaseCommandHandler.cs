@@ -3,7 +3,7 @@ using DomainModel.Services;
 using DomainModel.Services.Users;
 using System;
 
-namespace DomainModel.CQRS.Commands.AddPatientCommand
+namespace DomainModel.CQRS.Commands.NewPositiveCase
 {
     public class NewPositiveCaseCommandHandler : ICommandHandler<NewPositiveCaseCommand>
     {

@@ -7,9 +7,7 @@ import { SearchPositivoComponent } from './search/search-positivo/search-positiv
 import { FormPositivoComponent } from './form-positivo/form-positivo.component';
 import {
     NgbDateParserFormatter,
-    NgbDatepickerModule,
-    NgbTabsetModule,
-    NgbTooltipModule
+    NgbDatepickerModule
 } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SearchAssenteComponent } from './search/search-assente/search-assente.component';
@@ -56,9 +54,7 @@ import { CustomDateParserFormatter } from '../../core/adapters/custom-date-parse
             FormAssenteState,
             SearchState,
             DataTablesState
-        ]),
-        NgbTabsetModule,
-        NgbTooltipModule
+        ])
     ],
     providers: [
         AssentiService,

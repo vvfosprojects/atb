@@ -1,6 +1,7 @@
 ﻿using CQRS.Commands;
-using DomainModel.CQRS.Commands.AddPatientCommand;
+using DomainModel.CQRS.Commands.NewPositiveCase;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace atb.Controllers
 {
@@ -12,7 +13,7 @@ namespace atb.Controllers
 
         public NewPositiveCaseController(ICommandHandler <NewPositiveCaseCommand> handler)
         {
-            this.handler = handler;
+            this.handler = handler ?? throw new ArgumentNullException(nameof(handler));
         }
 
         [HttpPost]

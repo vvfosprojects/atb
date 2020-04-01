@@ -73,6 +73,8 @@ namespace CompositionRoot
             container.Register<DomainModel.Services.Statistics.IGetAllSheetsStats, Persistence.InMongo_local.GetAllSheetsStats>();
             container.Register<DomainModel.Helpers.SubjectHash>(Lifestyle.Scoped);
             container.Register<DomainModel.Services.IGetNews, Persistence.InMongo_local.GetNews>();
+            container.Register<DomainModel.Services.IUpdateSuspect, Persistence.InMongo_local.UpdateSuspect>();
+            container.Register<DomainModel.Services.IUpdatePositive, Persistence.InMongo_local.UpdatePositive>();
         }
     }
 }

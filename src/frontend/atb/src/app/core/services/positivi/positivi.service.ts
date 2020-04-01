@@ -21,6 +21,10 @@ export class PositiviService {
         return this.http.post(APIURL + '/NewPositiveCase', obj);
     }
 
+    updatePositiveCase(obj: DtoNewPositiveCaseInterface): Observable<any> {
+        return this.http.post(APIURL + '/UpdatePositive', obj);
+    }
+
     newPositiveUpdate(obj: DtoNewPositiveUpdateInterface): Observable<any> {
         return this.http.post(APIURL + '/NewPositiveUpdate', obj);
     }

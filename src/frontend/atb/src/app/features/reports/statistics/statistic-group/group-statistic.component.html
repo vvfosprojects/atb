@@ -1,0 +1,18 @@
+<div class="row py-3">
+    <div class="col-12">
+        <div class="h4">{{statisticGroup?.group}}</div>
+        <hr>
+        <div class="row">
+            <div class="col-12 col-lg-6 py-3 p-lg-5">
+                <app-group-case title="Casi positivi" [totalClosed]="statisticGroup.positives.totalClosed" [totalSick]="statisticGroup.positives.totalSick">
+                    <app-horizontal-bar-charts [roleFacet]="statisticGroup.positives.roleFacet"></app-horizontal-bar-charts>
+                </app-group-case>
+            </div>
+            <div class="col-12 col-lg-6 py-3 p-lg-5">
+                <app-group-case title="Casi di sorveglianza attiva" [totalClosed]="statisticGroup.suspects.totalClosed" [totalSick]="statisticGroup.suspects.totalSick">
+                    <app-horizontal-bar-charts [roleFacet]="statisticGroup.suspects.roleFacet"></app-horizontal-bar-charts>
+                </app-group-case>
+            </div>
+        </div>
+    </div>
+</div>

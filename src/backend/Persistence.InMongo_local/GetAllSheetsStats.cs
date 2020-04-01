@@ -53,19 +53,28 @@ namespace Persistence.InMongo_local
             var dictPos = new Dictionary<string, int>();
             var dictSusp = new Dictionary<string, int>();
 
-
-            if (resultPatients.Count > 0)
+            for (int i = 0; i < resultPatients.Count; i++)
             {
-                dictPos.Add(resultPatients[0][0].ToString(),(int)resultPatients[0][1]);
-                dictPos.Add(resultPatients[1][0].ToString(), (int)resultPatients[1][1]);
+                dictPos.Add(resultPatients[i][0].ToString(), (int)resultPatients[i][1]);
             }
 
-
-            if (resultSuspects.Count > 0)
+            for (int j = 0; j < resultSuspects.Count; j++)
             {
-                dictSusp.Add(resultSuspects[0][0].ToString(), (int)resultSuspects[0][1]);
-                dictSusp.Add(resultSuspects[1][0].ToString(), (int)resultSuspects[1][1]);
+                dictSusp.Add(resultSuspects[j][0].ToString(), (int)resultSuspects[j][1]);
             }
+
+            //if (resultPatients.Count > 0)
+            //{
+            //    dictPos.Add(resultPatients[0][0].ToString(),(int)resultPatients[0][1]);
+            //    dictPos.Add(resultPatients[1][0].ToString(), (int)resultPatients[1][1]);
+            //}
+
+
+            //if (resultSuspects.Count > 0)
+            //{
+            //    dictSusp.Add(resultSuspects[0][0].ToString(), (int)resultSuspects[0][1]);
+            //    dictSusp.Add(resultSuspects[1][0].ToString(), (int)resultSuspects[1][1]);
+            //}
 
             int positivesClosed = 0;
             int positivesOpen = 0;

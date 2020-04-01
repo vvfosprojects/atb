@@ -18,12 +18,12 @@ import { Navigate } from '@ngxs/router-plugin';
 @Component({
     selector: 'app-assente',
     templateUrl: './form-assente.component.html',
-    styleUrls: ['./form-assente.component.scss']
+    styleUrls: [ './form-assente.component.scss' ]
 })
 export class FormAssenteComponent implements OnDestroy {
 
     @Select(LoadingState.loading) loading$: Observable<boolean>;
-    @Select(QualificheState.qualifiche) qualifiche$: Observable<any[]>;
+    @Select(QualificheState.qualifiche) qualifiche$: Observable<string[]>;
     @Select(FormAssenteState.pageTitle) pageTitle$: Observable<string>;
     @Select(FormAssenteState.assenteFormValid) assenteFormValid$: Observable<boolean>;
     @Select(SearchState.suspectCase) suspectCase$: Observable<SuspectCaseInterface>;
@@ -91,22 +91,22 @@ export class FormAssenteComponent implements OnDestroy {
         });
         this.assenteForm = this.formBuilder.group({
             // Personal Information
-            name: [null],
-            surname: [null],
-            phone: [null],
-            email: [null],
-            role: [null, Validators.required],
+            name: [ null ],
+            surname: [ null ],
+            phone: [ null ],
+            email: [ null ],
+            role: [ null, Validators.required ],
             // Personal Data
-            caseNumber: [null],
-            quarantinePlace: ['HOME'],
-            expectedWorkReturnDate: [null, Validators.required],
-            actualWorkReturnDate: [null],
-            healthMeasureCode: [null, Validators.required],
-            healthMeasureBy: [null, Validators.required]
+            caseNumber: [ null ],
+            quarantinePlace: [ 'HOME' ],
+            expectedWorkReturnDate: [ null, Validators.required ],
+            actualWorkReturnDate: [ null ],
+            healthMeasureCode: [ null, Validators.required ],
+            healthMeasureBy: [ null, Validators.required ]
         });
 
         if (this.editMode) {
-            const fieldsToDisable = ['caseNumber', 'name', 'surname', 'phone', 'email', 'role'];
+            const fieldsToDisable = [ 'caseNumber' ];
             for (const field of fieldsToDisable) {
                 this.f[field].disable();
             }

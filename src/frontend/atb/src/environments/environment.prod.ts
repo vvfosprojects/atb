@@ -8,6 +8,7 @@ export const environment = {
         sheets: '/sheets',
         sheetCounters: '/sheetCounters',
         groups: '/groups',
-        rss: '/news'
+        rss: '/news',
+        statistics: '/statistics'
     }
 };

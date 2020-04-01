@@ -7,19 +7,33 @@ import { CaseNumberModalComponent } from './components/case-number-modal/case-nu
 import { PipeModule } from './pipes/pipe.module';
 import { NewsCardComponent } from './components/news-card/news-card.component';
 import { CounterComponent } from './components/counter/counter.component';
+import { GroupCaseComponent } from './components/group-case/group-case.component';
+import { HistoryCaseComponent } from './components/history-case/history-case.component';
+import { NgbTabsetModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
-const COMPONENTS = [ ErrorPageComponent, LocationButtonComponent, CaseNumberModalComponent, NewsCardComponent, CounterComponent ];
+const COMPONENTS = [
+    ErrorPageComponent,
+    LocationButtonComponent,
+    CaseNumberModalComponent,
+    NewsCardComponent,
+    CounterComponent,
+    GroupCaseComponent,
+    HistoryCaseComponent
+];
 
 const MODULES = [
     FormsModule,
     ReactiveFormsModule,
-    PipeModule
+    PipeModule,
+    NgbTabsetModule,
+    NgbTooltipModule
 ];
 
 @NgModule({
     declarations: [ ...COMPONENTS ],
     imports: [
-        CommonModule
+        CommonModule,
+        PipeModule
     ],
     exports: [ ...COMPONENTS, ...MODULES ]
 })

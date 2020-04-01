@@ -1,6 +1,6 @@
 ﻿using DomainModel.Classes;
 using DomainModel.Classes.Exceptions;
-using DomainModel.CQRS.Commands.AddPatientCommand;
+using DomainModel.CQRS.Commands.NewPositiveCase;
 using DomainModel.Services;
 using DomainModel.Services.Users;
 using System;

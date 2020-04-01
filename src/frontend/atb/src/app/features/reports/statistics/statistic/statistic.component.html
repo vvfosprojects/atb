@@ -1,0 +1,19 @@
+<div class="row">
+    <div class="col-12 col-lg-6 py-3 p-lg-5">
+        <app-group-case title="Casi positivi" [totalClosed]="positivesTotalClosed" [totalSick]="positivesTotalSick">
+            <app-stacked-horizontal-bar-chart
+                    [quarantineFacet]="positivesQuarantinePlacesFacet"
+                    legendTitle="Tipo ospedalizzazione">
+            </app-stacked-horizontal-bar-chart>
+        </app-group-case>
+    </div>
+    <div class="col-12 col-lg-6 py-3 p-lg-5">
+        <app-group-case title="Casi di sorveglianza attiva" [totalClosed]="suspectsTotalClosed" [totalSick]="suspectsTotalSick">
+            <app-stacked-horizontal-bar-chart
+                    [quarantineFacet]="suspectsQuarantinePlacesFacet"
+                    legendTitle="Sorveglianza domiciliare"
+                    [tooltipDisabled]="true">
+            </app-stacked-horizontal-bar-chart>
+        </app-group-case>
+    </div>
+</div>

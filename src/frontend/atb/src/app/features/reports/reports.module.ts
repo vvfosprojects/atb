@@ -7,9 +7,13 @@ import { StatisticsService } from '../../core/services/statistics/statistics.ser
 import { NgxsModule } from '@ngxs/store';
 import { StatisticsState } from './store/statistics.state';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { GroupStatisticComponent } from './statistics/statistic-group/group-statistic.component';
+import { HorizontalBarChartsComponent } from './statistics/statistic-group/horizontal-bar-charts/horizontal-bar-charts.component';
+import { StatisticComponent } from './statistics/statistic/statistic.component';
+import { StackedHorizontalBarChartComponent } from './statistics/statistic/stacked-horizontal-bar-chart/stacked-horizontal-bar-chart.component';
 
 @NgModule({
-    declarations: [ StatisticsComponent ],
+    declarations: [ StatisticsComponent, GroupStatisticComponent, HorizontalBarChartsComponent, StatisticComponent, StackedHorizontalBarChartComponent ],
     imports: [
         CommonModule,
         ReportsRoutingModule,
