@@ -185,7 +185,7 @@ This action allows to fetch updated patient data.
 
 ### Authorization
 
-The logged user must have `doctor` privileges. A doctor can access sheets belonging to his group. In case the doctor has no groups, he can access sheets belonging to any group.
+The logged user must belong to `doctor` or `supervisor` role. He can access sheets belonging to his group only. In case the user has no groups, he can access sheets belonging to any group.
 
 ## Action: `api/suspectSheet`
 
@@ -223,7 +223,7 @@ This action allows to fetch updated suspect data.
 
 ### Authorization
 
-The logged user must have `doctor` privileges. A doctor can access sheets belonging to his group. In case the doctor has no groups, he can access sheets belonging to any group.
+The logged user must belong to `doctor` or `supervisor` role. He can access sheets belonging to his group only. In case the user has no groups, he can access sheets belonging to any group.
 
 ## Action: `api/statistics`
 
