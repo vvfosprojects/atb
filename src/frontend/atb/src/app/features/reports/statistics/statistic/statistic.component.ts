@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { GroupStatistic } from '../../../../shared/interface/statistics.interface';
-import { QuarantineGroupFacetInterface } from '../../../../shared/interface/quarantine-group-facet.interface';
+import { QuarantineGroupFacetInterface, Series } from '../../../../shared/interface/quarantine-group-facet.interface';
 import { countTotalSeries, quarantineSorter, seriesPositive, seriesSuspects } from '../../../../shared/functions/';
 
 @Component({
@@ -51,8 +51,8 @@ export class StatisticComponent implements OnChanges {
             return _statistics.map(value => {
                 return {
                     name: value.group,
-                    series: value.positives && seriesPositive(value.positives.quarantinePlacesFacet),
-                    total: value.positives && countTotalSeries(seriesPositive(value.positives.quarantinePlacesFacet))
+                    series: value.positives ? seriesPositive(value.positives.quarantinePlacesFacet) : [],
+                    total: value.positives ? countTotalSeries(seriesPositive(value.positives.quarantinePlacesFacet)) : 0
                 }
             }).sort(quarantineSorter);
         } else {
@@ -65,8 +65,8 @@ export class StatisticComponent implements OnChanges {
             return _statistics.map(value => {
                 return {
                     name: value.group,
-                    series: value.suspects && seriesSuspects(value.suspects.quarantinePlacesFacet),
-                    total: value.suspects && countTotalSeries(seriesSuspects(value.suspects.quarantinePlacesFacet))
+                    series: value.suspects ? seriesSuspects(value.suspects.quarantinePlacesFacet) : [],
+                    total: value.suspects ? countTotalSeries(seriesSuspects(value.suspects.quarantinePlacesFacet)) : 0
                 }
             }).sort(quarantineSorter);
         } else {
