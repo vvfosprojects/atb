@@ -14,6 +14,7 @@ import { formatDateForNgbDatePicker } from '../../../shared/functions/functions'
 import { ClearSuspectCase, SearchSuspectCase } from '../store/search.actions';
 import { delay } from 'rxjs/operators';
 import { Navigate } from '@ngxs/router-plugin';
+import { LSNAME } from '../../../core/settings/config';
 
 @Component({
     selector: 'app-assente',
@@ -34,6 +35,8 @@ export class FormAssenteComponent implements OnDestroy {
     editMode: boolean;
     detailMode: boolean;
 
+    gruppo: string;
+
     private subscription = new Subscription();
 
     constructor(private store: Store,
@@ -48,6 +51,8 @@ export class FormAssenteComponent implements OnDestroy {
         }
 
         if (this.route.snapshot.url.length > 1 && this.route.snapshot.url[1].path === 'detail' && this.route.snapshot.params.id) {
+            const splittedArgs = this.route.snapshot.params.id.split(LSNAME.detailDelimiter);
+            this.gruppo = splittedArgs[0];
             this.detailMode = true;
             this.store.dispatch(new SetPageTitleFormAssente('visualizza sorvegliato'));
         } else if (this.route.snapshot.url.length > 1 && this.route.snapshot.url[1].path !== 'detail' && this.route.snapshot.params.id) {

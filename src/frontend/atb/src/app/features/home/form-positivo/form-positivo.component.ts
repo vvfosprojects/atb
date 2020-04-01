@@ -15,6 +15,7 @@ import { ClearPositiveCase, SearchPositiveCase } from '../store/search.actions';
 import { delay } from 'rxjs/operators';
 import { Navigate } from '@ngxs/router-plugin';
 import { HistoryCaseInterface } from '../../../shared/interface/history-case.interface';
+import { LSNAME } from '../../../core/settings/config';
 
 @Component({
     selector: 'app-positivo',
@@ -35,6 +36,8 @@ export class FormPositivoComponent implements OnDestroy {
     editMode: boolean;
     detailMode: boolean;
 
+    gruppo: string;
+
     historyCase: HistoryCaseInterface[] = [];
 
     private subscription = new Subscription();
@@ -52,6 +55,8 @@ export class FormPositivoComponent implements OnDestroy {
         }
 
         if (this.route.snapshot.url.length > 1 && this.route.snapshot.url[1].path === 'detail' && this.route.snapshot.params.id) {
+            const splittedArgs = this.route.snapshot.params.id.split(LSNAME.detailDelimiter);
+            this.gruppo = splittedArgs[0];
             this.detailMode = true;
             this.store.dispatch(new SetPageTitleFormPositivo('visualizza positivo'));
         } else if (this.route.snapshot.url.length > 1 && this.route.snapshot.url[1].path !== 'detail' && this.route.snapshot.params.id) {

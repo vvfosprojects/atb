@@ -36,6 +36,7 @@
             </div>
             <div class="col-12 text-center mb-4">
                 <h1>{{(pageTitle$ | async) | titlecase}}</h1>
+                <h4 class="text-primary" *ngIf="detailMode"> {{(gruppo)}}</h4>
             </div>
             <div class="col-12 col-sm-11 col-md-10 mx-auto">
                 <form [formGroup]="assenteForm" ngxsForm="assente.assenteForm" (ngSubmit)="onSubmit()">

@@ -36,6 +36,7 @@
             </div>
             <div class="col-12 text-center mb-4">
                 <h1>{{(pageTitle$ | async) | titlecase}}</h1>
+                <h4 class="text-primary" *ngIf="detailMode"> {{(gruppo)}}</h4>
             </div>
             <div class="col-12 col-sm-11 col-md-10 mx-auto">
                 <form [formGroup]="positivoForm" ngxsForm="positivo.positivoForm" (ngSubmit)="onSubmit()">
@@ -127,7 +128,7 @@
                         <hr>
                         <div class="form-group">
                             <label for="estremiProvvedimentiASL" class="d-none"></label>
-                            <input id="estremiProvvedimentiASL" class="form-control" type="string"
+                            <input id="estremiProvvedimentiASL" class="form-control" type="text"
                                    formControlName="estremiProvvedimentiASL"
                                    [ngClass]=" {'is-invalid': submitted && f.estremiProvvedimentiASL.errors }"/>
                             <small id="estremiProvvedimentiASLHelp" class="form-text text-muted">
