@@ -38,10 +38,10 @@ export class StatisticComponent implements OnChanges {
     countTotal(_statistics: GroupStatistic[]): void {
         if (_statistics && _statistics.length > 0) {
             _statistics.forEach(group => {
-                this.suspectsTotalSick += group.suspects.totalSick;
-                this.suspectsTotalClosed += group.suspects.totalClosed;
-                this.positivesTotalSick += group.positives.totalSick;
-                this.positivesTotalClosed += group.positives.totalClosed;
+                this.suspectsTotalSick += group.suspects && group.suspects.totalSick;
+                this.suspectsTotalClosed += group.suspects && group.suspects.totalClosed;
+                this.positivesTotalSick += group.positives && group.positives.totalSick;
+                this.positivesTotalClosed += group.positives && group.positives.totalClosed;
             });
         }
     }
@@ -51,10 +51,12 @@ export class StatisticComponent implements OnChanges {
             return _statistics.map(value => {
                 return {
                     name: value.group,
-                    series: seriesPositive(value.positives.quarantinePlacesFacet),
-                    total: countTotalSeries(seriesPositive(value.positives.quarantinePlacesFacet))
+                    series: value.positives && seriesPositive(value.positives.quarantinePlacesFacet),
+                    total: value.positives && countTotalSeries(seriesPositive(value.positives.quarantinePlacesFacet))
                 }
             }).sort(quarantineSorter);
+        } else {
+            return [];
         }
     }
 
@@ -63,10 +65,12 @@ export class StatisticComponent implements OnChanges {
             return _statistics.map(value => {
                 return {
                     name: value.group,
-                    series: seriesSuspects(value.suspects.quarantinePlacesFacet),
-                    total: countTotalSeries(seriesSuspects(value.suspects.quarantinePlacesFacet))
+                    series: value.suspects && seriesSuspects(value.suspects.quarantinePlacesFacet),
+                    total: value.suspects && countTotalSeries(seriesSuspects(value.suspects.quarantinePlacesFacet))
                 }
             }).sort(quarantineSorter);
+        } else {
+            return [];
         }
     }
 

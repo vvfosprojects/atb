@@ -23,7 +23,7 @@ import { Navigate } from '@ngxs/router-plugin';
 export class FormAssenteComponent implements OnDestroy {
 
     @Select(LoadingState.loading) loading$: Observable<boolean>;
-    @Select(QualificheState.qualifiche) qualifiche$: Observable<any[]>;
+    @Select(QualificheState.qualifiche) qualifiche$: Observable<string[]>;
     @Select(FormAssenteState.pageTitle) pageTitle$: Observable<string>;
     @Select(FormAssenteState.assenteFormValid) assenteFormValid$: Observable<boolean>;
     @Select(SearchState.suspectCase) suspectCase$: Observable<SuspectCaseInterface>;
