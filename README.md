@@ -148,6 +148,7 @@ This action allows to fetch updated patient data.
 
 ```jsonc
 {
+  "group": "Catania",
   "caseNumber": 1234
 }
 ```
@@ -184,7 +185,7 @@ This action allows to fetch updated patient data.
 
 ### Authorization
 
-The logged user must have `doctor` privileges.
+The logged user must have `doctor` privileges. A doctor can access sheets belonging to his group. In case the doctor has no groups, he can access sheets belonging to any group.
 
 ## Action: `api/suspectSheet`
 
@@ -194,6 +195,7 @@ This action allows to fetch updated suspect data.
 
 ```jsonc
 {
+  "group": "Catania",
   "caseNumber": 1234
 }
 ```
@@ -221,7 +223,7 @@ This action allows to fetch updated suspect data.
 
 ### Authorization
 
-The logged user must have `doctor` privileges.
+The logged user must have `doctor` privileges. A doctor can access sheets belonging to his group. In case the doctor has no groups, he can access sheets belonging to any group.
 
 ## Action: `api/statistics`
 
