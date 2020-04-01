@@ -38,11 +38,11 @@ export class SearchComponent implements OnDestroy {
     }
 
     onSearchPositiveCase(search: number) {
-        this.store.dispatch(new SearchPositiveCase(search));
+        this.store.dispatch(new SearchPositiveCase('' + search));
     }
 
     onSearchSuspectCase(search: number) {
-        this.store.dispatch(new SearchSuspectCase(search));
+        this.store.dispatch(new SearchSuspectCase('' + search));
     }
 
 }
