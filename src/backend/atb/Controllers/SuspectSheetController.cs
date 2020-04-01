@@ -18,9 +18,9 @@ namespace atb.Controllers
             this.handler = handler ?? throw new ArgumentNullException(nameof(handler));
         }
 
-        public ActionResult<Object> Get([FromQuery]int caseNumber)
+        public ActionResult<Object> Get([FromQuery]int caseNumber, string group)
         {
-            var query = new GetSuspectQuery() { CaseNumber = caseNumber };
+            var query = new GetSuspectQuery() { CaseNumber = caseNumber, Group = group };
             var suspect = this.handler.Handle(query);
             if (suspect.Suspect.Data.Any())
             {

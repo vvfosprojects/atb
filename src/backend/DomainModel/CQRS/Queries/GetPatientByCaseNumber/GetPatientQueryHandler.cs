@@ -20,12 +20,7 @@ namespace DomainModel.CQRS.Queries.GetPatient
 
         public GetPatientQueryResult Handle(GetPatientQuery query)
         {
-            string group = this.getSessionContext.GetActiveGroup();
-            if (this.getSessionContext.LoggedUserIsSupervisor() && string.IsNullOrEmpty(this.getSessionContext.GetActiveGroup()))
-            {
-                group = query.Group;
-            }
-            var patient = this.getPatientByCaseNumber.GetPatient(query.CaseNumber, group);
+            var patient = this.getPatientByCaseNumber.GetPatient(query.CaseNumber, query.Group);
 
             return new GetPatientQueryResult()
             {

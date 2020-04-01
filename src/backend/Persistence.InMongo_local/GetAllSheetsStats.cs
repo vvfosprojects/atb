@@ -63,19 +63,6 @@ namespace Persistence.InMongo_local
                 dictSusp.Add(resultSuspects[j][0].ToString(), (int)resultSuspects[j][1]);
             }
 
-            //if (resultPatients.Count > 0)
-            //{
-            //    dictPos.Add(resultPatients[0][0].ToString(),(int)resultPatients[0][1]);
-            //    dictPos.Add(resultPatients[1][0].ToString(), (int)resultPatients[1][1]);
-            //}
-
-
-            //if (resultSuspects.Count > 0)
-            //{
-            //    dictSusp.Add(resultSuspects[0][0].ToString(), (int)resultSuspects[0][1]);
-            //    dictSusp.Add(resultSuspects[1][0].ToString(), (int)resultSuspects[1][1]);
-            //}
-
             int positivesClosed = 0;
             int positivesOpen = 0;
             int suspectsClosed = 0;

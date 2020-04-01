@@ -21,8 +21,7 @@ namespace DomainModel.CQRS.Queries.GetSuspect
 
         public GetSuspectQueryResult Handle(GetSuspectQuery query)
         {
-            string group = this.getSessionContext.GetActiveGroup();
-            Suspect suspect = this.getSuspectByCaseNumber.GetSuspect(query.CaseNumber, group);
+            Suspect suspect = this.getSuspectByCaseNumber.GetSuspect(query.CaseNumber, query.Group);
 
             return new GetSuspectQueryResult()
             {

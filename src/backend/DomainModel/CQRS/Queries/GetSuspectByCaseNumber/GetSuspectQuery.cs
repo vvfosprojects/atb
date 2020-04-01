@@ -8,5 +8,7 @@ namespace DomainModel.CQRS.Queries.GetSuspect
         /// Rappresenta l'identificativo del paziente
         /// </summary>
         public int CaseNumber { get; set; }
+
+        public string Group { get; set; }
     }
 }
