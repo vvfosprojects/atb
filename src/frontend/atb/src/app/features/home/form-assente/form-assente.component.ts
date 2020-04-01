@@ -140,6 +140,7 @@ export class FormAssenteComponent implements OnDestroy {
     }
 
     searchCase(): void {
+        console.log('searchCase: ', this.route.snapshot.params.id);
         this.store.dispatch(new SearchSuspectCase(this.route.snapshot.params.id, true));
     }
 

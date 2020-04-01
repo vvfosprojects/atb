@@ -1,4 +1,4 @@
-import { Action, Selector, State, StateContext } from '@ngxs/store';
+import { Action, Selector, State, StateContext, Store } from '@ngxs/store';
 import { Injectable } from '@angular/core';
 import { PositiveCaseInterface } from '../../../shared/interface/positive-case.interface';
 import {
@@ -14,6 +14,8 @@ import { AssentiService } from '../../../core/services/assenti/assenti.service';
 import { PositiviService } from '../../../core/services/positivi/positivi.service';
 import { CountersInterface } from '../../../shared/interface/counters.interface';
 import { CountersService } from '../../../core/services/counters/counters.service';
+import { LSNAME } from '../../../core/settings/config';
+import { AuthState } from '../../auth/store/auth.state';
 
 export interface SearchStateModel {
     positiveCase: PositiveCaseInterface;
@@ -65,13 +67,14 @@ export class SearchState {
 
     constructor(private assentiService: AssentiService,
                 private positiviService: PositiviService,
-                private countersService: CountersService) {
+                private countersService: CountersService,
+                private store: Store) {
     }
 
     @Action(SearchPositiveCase)
     searchPositiveCase({ patchState, dispatch }: StateContext<SearchStateModel>, action: SearchPositiveCase) {
         patchState({ isLooking: true });
-        this.positiviService.getPositive(action.caseNumber).subscribe((positive: PositiveCaseInterface) => {
+        this.positiviService.getPositive(detailArgs(action, this.getUserGroup(action))).subscribe((positive: PositiveCaseInterface) => {
             patchState({
                 positiveCase: positive,
                 isLooking: false
@@ -88,7 +91,8 @@ export class SearchState {
     @Action(SearchSuspectCase)
     searchSuspectCase({ patchState, dispatch }: StateContext<SearchStateModel>, action: SearchSuspectCase) {
         patchState({ isLooking: true });
-        this.assentiService.getSuspect(action.caseNumber).subscribe((suspect: SuspectCaseInterface) => {
+
+        this.assentiService.getSuspect(detailArgs(action, this.getUserGroup(action))).subscribe((suspect: SuspectCaseInterface) => {
             patchState({
                 suspectCase: suspect,
                 isLooking: false
@@ -116,4 +120,27 @@ export class SearchState {
         patchState({ notFound: true, isLooking: false })
     }
 
+    getUserGroup(action): string {
+        let userGroup: string;
+        if (!action.bookmark) {
+            userGroup = this.store.selectSnapshot(AuthState.currentUser).group;
+        }
+        console.log(userGroup);
+        return userGroup;
+    }
+
+}
+
+export function detailArgs(action, userGroup) {
+    let caseNumber: number;
+    let group: string;
+    if (action.bookmark) {
+        const splittedArgs = action.caseNumber.split(LSNAME.detailDelimiter);
+        group = splittedArgs[0];
+        caseNumber = +splittedArgs[1];
+    } else {
+        caseNumber = +action.caseNumber;
+        group = userGroup;
+    }
+    return { caseNumber, group }
 }

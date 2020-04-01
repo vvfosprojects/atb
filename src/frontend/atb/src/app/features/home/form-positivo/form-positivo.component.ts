@@ -153,6 +153,7 @@ export class FormPositivoComponent implements OnDestroy {
     }
 
     searchCase(): void {
+        console.log('searchCase: ', this.route.snapshot.params.id);
         this.store.dispatch(new SearchPositiveCase(this.route.snapshot.params.id, true));
     }
 

@@ -13,9 +13,9 @@ export class PositiviService {
     constructor(private http: HttpClient) {
     }
 
-    getPositive(caseNumber: number, group?: string) {
-        const groupQuery = group ? `&group=${group}` : '';
-        return this.http.get(APIURL + '/PatientSheet?caseNumber=' + caseNumber + groupQuery);
+    getPositive({...obj}) {
+        const groupQuery = obj.group ? `&group=${obj.group}` : '';
+        return this.http.get(APIURL + '/PatientSheet?caseNumber=' + obj.caseNumber + groupQuery);
     }
 
     newPositiveCase(obj: DtoNewPositiveCaseInterface): Observable<any> {

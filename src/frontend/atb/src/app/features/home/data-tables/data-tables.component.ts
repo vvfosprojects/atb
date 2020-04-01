@@ -9,15 +9,18 @@ import { SuspectCaseInterface } from '../../../shared/interface/suspect-case.int
 import { LoadingState } from '../../../shared/store/loading/loading.state';
 import { Navigate } from '@ngxs/router-plugin';
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
+import { LSNAME } from '../../../core/settings/config';
 
 @Component({
     selector: 'app-data-tables',
     templateUrl: './data-tables.component.html',
-    styleUrls: ['./data-tables.component.scss']
+    styleUrls: [ './data-tables.component.scss' ]
 })
 export class DataTablesComponent implements OnDestroy {
 
     @Select(DataTablesState.selectedGroup) selectedGroup$: Observable<string>;
+    selectedGroup;
+
     @Select(DataTablesState.selectedTab) selectedTab$: Observable<string>;
     @Select(DataTablesState.groupsList) groupsList$: Observable<GroupInterface[]>;
     groupsList: GroupInterface[];
@@ -33,6 +36,7 @@ export class DataTablesComponent implements OnDestroy {
     constructor(private store: Store) {
         this.store.dispatch(new GetGroupList());
         this.subscription.add(this.groupsList$.subscribe(res => this.groupsList = res));
+        this.subscription.add(this.selectedGroup$.subscribe(res => this.selectedGroup = res));
         this.getLoading();
     }
 
@@ -54,11 +58,11 @@ export class DataTablesComponent implements OnDestroy {
     }
 
     onPositiveDetail(caseNumber: number) {
-        this.store.dispatch(new Navigate(['/home/form-positivo/detail/' + caseNumber]));
+        this.store.dispatch(new Navigate([ '/home/form-positivo/detail/' + `${this.selectedGroup}${LSNAME.detailDelimiter}${caseNumber}` ]));
     }
 
     onSuspectDetail(caseNumber: number) {
-        this.store.dispatch(new Navigate(['/home/form-assente/detail/' + caseNumber]));
+        this.store.dispatch(new Navigate([ '/home/form-assente/detail/' + `${this.selectedGroup}${LSNAME.detailDelimiter}${caseNumber}` ]));
     }
 
     onSelectTab($event: NgbTabChangeEvent) {
