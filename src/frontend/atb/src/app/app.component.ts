@@ -7,11 +7,12 @@ import { LoadingState } from './shared/store/loading/loading.state';
 import { Observable, Subscription } from 'rxjs';
 import { AuthState } from './features/auth/store/auth.state';
 import { UserInterface } from './shared/interface/common';
-import { ClearRssData, GetRssData } from './features/home/store/rss.actions';
+import { ClearRssData } from './features/home/store/rss.actions';
 
 @Component({
     selector: 'app-root',
-    templateUrl: './app.component.html'
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnDestroy {
 
@@ -41,5 +42,9 @@ export class AppComponent implements OnDestroy {
         const sessionCurrentUser = JSON.parse(sessionStorage.getItem(LSNAME.currentUser));
         sessionToken && this.store.dispatch(new SetCurrentJwt(sessionToken));
         sessionCurrentUser && this.store.dispatch(new SetCurrentUser(sessionCurrentUser));
+    }
+
+    onFeedback(): void {
+        //
     }
 }
