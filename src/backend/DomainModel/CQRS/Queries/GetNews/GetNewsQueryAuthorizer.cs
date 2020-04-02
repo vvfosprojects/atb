@@ -5,21 +5,21 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DomainModel.CQRS.Queries.GetSheetCounters
+namespace DomainModel.CQRS.Queries.GetNews
 {
-    public class GetSheetCountersQueryAuthorizer : IQueryAuthorizer<GetSheetCountersQuery, GetSheetCountersQueryResult>
+    public class GetNewsQueryAuthorizer : IQueryAuthorizer<GetNewsQuery, GetNewsQueryResult>
     {
         private readonly IGetSessionContext getSessionContext;
 
-        public GetSheetCountersQueryAuthorizer(IGetSessionContext getSessionContext)
+        public GetNewsQueryAuthorizer(IGetSessionContext getSessionContext)
         {
             this.getSessionContext = getSessionContext;
         }
 
-        public IEnumerable<AuthorizationResult> Authorize(GetSheetCountersQuery query)
+        public IEnumerable<AuthorizationResult> Authorize(GetNewsQuery query)
         {
             //se non sei loggato errore
-            if (! this.getSessionContext.IsLogged())
+            if (!this.getSessionContext.IsLogged())
             {
                 yield return new AuthorizationResult("Unauthorized");
                 yield break;

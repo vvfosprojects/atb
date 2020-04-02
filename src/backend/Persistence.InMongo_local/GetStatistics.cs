@@ -78,7 +78,7 @@ namespace Persistence.InMongo_local
                             IntCare = g.Count(x => x.Data.QuarantinePlace == "INTCARE"),
                         },
                         TotalSick = g.Count(),
-                        TotalClosed = g.Where(x => x.Data.ExpectedWorkReturnDate != null).Count(),
+                        TotalClosed = g.Where(x => x.Data.ActualWorkReturnDate != null).Count(),
                         RoleFacet = g.GroupBy(g2 => this.cryptools.Decrypt(g2.Subject.Role))
                             .OrderBy(g2 => g2.Key)
                             .Select(g2 => new RoleFacet() { Name = g2.Key, Total = g2.Count() }).ToList()
@@ -92,7 +92,7 @@ namespace Persistence.InMongo_local
                             Hosp = g.Count(x => x.Data.QuarantinePlace == "HOSP"),
                         },
                         TotalSick = g.Count(),
-                        TotalClosed = g.Where(x => x.Data.ExpectedWorkReturnDate != null).Count(),
+                        TotalClosed = g.Where(x => x.Data.ActualWorkReturnDate != null).Count(),
                         RoleFacet = g.GroupBy(g2 => this.cryptools.Decrypt(g2.Subject.Role))
                             .OrderBy(g2 => g2.Key)
                             .Select(g2 => new RoleFacet() { Name = g2.Key, Total = g2.Count() }).ToList()
@@ -114,7 +114,7 @@ namespace Persistence.InMongo_local
                                     IntCare = g.Count(x => x.Data.QuarantinePlace == "INTCARE"),
                                 },
                                 TotalSick = g.Count(),
-                                TotalClosed = g.Where(x => x.Data.ExpectedWorkReturnDate != null).Count(),
+                                TotalClosed = g.Where(x => x.Data.ActualWorkReturnDate != null).Count(),
                                 RoleFacet = g.GroupBy(g2 => this.cryptools.Decrypt(g2.Subject.Role))
                                     .OrderBy(g2 => g2.Key)
                                     .Select(g2 => new RoleFacet() { Name = g2.Key, Total = g2.Count() }).ToList()
@@ -158,7 +158,7 @@ namespace Persistence.InMongo_local
                             Hosp = g.Count(x => x.Data.QuarantinePlace == "HOSP"),
                         },
                         TotalSick = g.Count(),
-                        TotalClosed = g.Where(x => x.Data.ExpectedWorkReturnDate != null).Count(),
+                        TotalClosed = g.Where(x => x.Data.ActualWorkReturnDate != null).Count(),
                         RoleFacet = g.GroupBy(g2 => this.cryptools.Decrypt(g2.Subject.Role))
                             .OrderBy(g2 => g2.Key)
                             .Select(g2 => new RoleFacet() { Name = g2.Key, Total = g2.Count() }).ToList()
