@@ -79,7 +79,7 @@ export class SearchState {
                 positiveCase: positive,
                 isLooking: false
             });
-            !action.bookmark && dispatch(new Navigate([ './home/form-positivo/' + positive.subject.number ]));
+            !action.bookmark && dispatch(new Navigate([ './home/form-positivo/' + `${this.getAuthGroup()}${LSNAME.detailDelimiter}${positive.subject.number}` ]));
         }, () => dispatch(new SetNotFound()));
     }
 
@@ -97,7 +97,7 @@ export class SearchState {
                 suspectCase: suspect,
                 isLooking: false
             });
-            !action.bookmark && dispatch(new Navigate([ './home/form-assente/' + suspect.subject.number ]));
+            !action.bookmark && dispatch(new Navigate([ './home/form-assente/' + `${this.getAuthGroup()}${LSNAME.detailDelimiter}${suspect.subject.number}` ]));
         }, () => dispatch(new SetNotFound()));
     }
 
@@ -123,10 +123,14 @@ export class SearchState {
     getUserGroup(action): string {
         let userGroup: string;
         if (!action.bookmark) {
-            userGroup = this.store.selectSnapshot(AuthState.currentUser).group;
+            userGroup = this.getAuthGroup();
         }
         console.log(userGroup);
         return userGroup;
+    }
+
+    getAuthGroup(): string {
+        return this.store.selectSnapshot(AuthState.currentUser).group;
     }
 
 }
