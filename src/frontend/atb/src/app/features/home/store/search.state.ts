@@ -136,7 +136,9 @@ export class SearchState {
         keepAliveConfirmModal.result.then((result: string) => {
             if (result && result === 'confirm') {
                 this.keepAliveService.sendKeepAlive().subscribe( (response) => {
-                    dispatch(new SetKeepAliveConfirm(response.msg));
+                    if (response && response.msg) {
+                        dispatch(new SetKeepAliveConfirm(response.msg));
+                    }
                 });
             }
         }, () => console.log('keepAliveConfirmModal closed'));
