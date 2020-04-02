@@ -120,7 +120,7 @@ namespace Persistence.InMongo_local
         {
             get
             {
-                return database.GetCollection<KeepAlive>("KeepAlive");
+                return database.GetCollection<KeepAlive>("Keep-alives");
             }
         }
     }
