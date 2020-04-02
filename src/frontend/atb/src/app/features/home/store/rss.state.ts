@@ -1,9 +1,9 @@
-import { Action, NgxsOnInit, Selector, State, StateContext } from '@ngxs/store';
+import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { Injectable } from '@angular/core';
 import { RssService } from '../../../core/services/rss/rss.service';
 import { RssInterface } from '../../../shared/interface/rss.interface';
 import { ClearRssData, GetRssData } from './rss.actions';
-import { rssSorter } from '../../../shared/functions/_sorter';
+import { rssSorter } from '../../../shared/functions';
 
 export interface RssStateModel {
     rssData: RssInterface[];
@@ -18,15 +18,11 @@ export const RssStateDefaults: RssStateModel = {
     name: 'rss',
     defaults: RssStateDefaults
 })
-export class RssState implements NgxsOnInit {
+export class RssState {
 
     @Selector()
     static rssData(state: RssStateModel) {
         return state.rssData;
-    }
-
-    ngxsOnInit(ctx?: StateContext<any>): void | any {
-        ctx.dispatch(new GetRssData());
     }
 
     constructor(private rssService: RssService) {

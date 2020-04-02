@@ -7,6 +7,7 @@ import {
 import { Injectable } from '@angular/core';
 import { Navigate } from '@ngxs/router-plugin';
 import { UserInterface } from '../../../shared/interface/common';
+import { GetRssData } from '../../home/store/rss.actions';
 
 export interface AuthStateModel {
     currentJwt: string;
@@ -59,6 +60,7 @@ export class AuthState {
             });
             dispatch([
                 new SetLogged(),
+                new GetRssData(),
                 new RecoveryUrl
             ])
         }
