@@ -1,5 +1,6 @@
 ﻿using CQRS.Commands;
 using DomainModel.Services;
+using System;
 
 namespace DomainModel.CQRS.Commands.NewPositiveUpdate
 {
@@ -9,7 +10,7 @@ namespace DomainModel.CQRS.Commands.NewPositiveUpdate
 
         public NewPositiveUpdateCommandHandler(INewPositiveUpdate newPositiveUpdate)
         {
-            this.newPositiveUpdate = newPositiveUpdate;
+            this.newPositiveUpdate = newPositiveUpdate ?? throw new ArgumentNullException(nameof(newPositiveUpdate));
         }
 
         public void Handle(NewPositiveUpdateCommand command)

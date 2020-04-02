@@ -4,20 +4,20 @@ using DomainModel.Services.Users;
 using System;
 using System.Collections.Generic;
 
-namespace DomainModel.CQRS.Commands.NewPositiveUpdate
+namespace DomainModel.CQRS.Commands.KeepAlive
 {
-    public class NewPositiveUpdateCommandAuthorizer : ICommandAuthorizer<NewPositiveUpdateCommand>
+    public class KeepAliveCommandAuthorizer : ICommandAuthorizer<KeepAliveCommand>
     {
         private readonly IGetSessionContext getSessionContext;
 
-        public NewPositiveUpdateCommandAuthorizer(IGetSessionContext getSessionContext)
+        public KeepAliveCommandAuthorizer(IGetSessionContext getSessionContext)
         {
             this.getSessionContext = getSessionContext ?? throw new ArgumentNullException(nameof(getSessionContext));
         }
 
-        public IEnumerable<AuthorizationResult> Authorize(NewPositiveUpdateCommand command)
+        public IEnumerable<AuthorizationResult> Authorize(KeepAliveCommand command)
         {
-            if (!getSessionContext.LoggedUserIsDoctor())
+            if (! this.getSessionContext.LoggedUserIsDoctor())
                 yield return new AuthorizationResult("Unauthorized");
         }
     }
