@@ -3,9 +3,9 @@ import { Injectable } from '@angular/core';
 import { PositiveCaseInterface } from '../../../shared/interface/positive-case.interface';
 import {
     ClearPositiveCase,
-    ClearSuspectCase, GetSheetCounters,
+    ClearSuspectCase, GetSheetCounters, OpenKeepAliveModal,
     SearchPositiveCase,
-    SearchSuspectCase,
+    SearchSuspectCase, SetKeepAliveConfirm,
     SetNotFound
 } from './search.actions';
 import { SuspectCaseInterface } from '../../../shared/interface/suspect-case.interface';
@@ -16,6 +16,10 @@ import { CountersInterface } from '../../../shared/interface/counters.interface'
 import { CountersService } from '../../../core/services/counters/counters.service';
 import { LSNAME } from '../../../core/settings/config';
 import { AuthState } from '../../auth/store/auth.state';
+import { KeepAliveService } from '../../../core/services/keep-alive/keep-alive.service';
+import { detailArgs } from '../../../shared/functions/functions';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { KeepAliveModalComponent } from '../../../shared/components/keep-alive-modal/keep-alive-modal.component';
 
 export interface SearchStateModel {
     positiveCase: PositiveCaseInterface;
@@ -23,6 +27,7 @@ export interface SearchStateModel {
     sheetCounters: CountersInterface;
     isLooking: boolean;
     notFound: boolean;
+    keepAliveConfirm: string;
 }
 
 export const searchStateDefaults: SearchStateModel = {
@@ -30,7 +35,8 @@ export const searchStateDefaults: SearchStateModel = {
     suspectCase: null,
     sheetCounters: null,
     isLooking: false,
-    notFound: false
+    notFound: false,
+    keepAliveConfirm: null
 };
 
 @Injectable()
@@ -68,6 +74,8 @@ export class SearchState {
     constructor(private assentiService: AssentiService,
                 private positiviService: PositiviService,
                 private countersService: CountersService,
+                private keepAliveService: KeepAliveService,
+                private modalService: NgbModal,
                 private store: Store) {
     }
 
@@ -85,7 +93,7 @@ export class SearchState {
 
     @Action(ClearPositiveCase)
     clearPositiveCase({ patchState }: StateContext<SearchStateModel>) {
-        patchState({ positiveCase: searchStateDefaults.positiveCase, notFound: searchStateDefaults.notFound })
+        patchState({ positiveCase: searchStateDefaults.positiveCase, notFound: searchStateDefaults.notFound });
     }
 
     @Action(SearchSuspectCase)
@@ -103,7 +111,7 @@ export class SearchState {
 
     @Action(ClearSuspectCase)
     clearSuspectCase({ patchState }: StateContext<SearchStateModel>) {
-        patchState({ suspectCase: searchStateDefaults.suspectCase, notFound: searchStateDefaults.notFound })
+        patchState({ suspectCase: searchStateDefaults.suspectCase, notFound: searchStateDefaults.notFound });
     }
 
     @Action(GetSheetCounters)
@@ -117,7 +125,26 @@ export class SearchState {
 
     @Action(SetNotFound)
     setNotFound({ patchState }: StateContext<SearchStateModel>) {
-        patchState({ notFound: true, isLooking: false })
+        patchState({ notFound: true, isLooking: false });
+    }
+
+    @Action(OpenKeepAliveModal)
+    openKeepAliveModal({ dispatch }: StateContext<SearchStateModel>) {
+        const keepAliveConfirmModal = this.modalService.open(KeepAliveModalComponent, {
+            centered: true, size: 'md', backdropClass: 'backdrop-custom-black'
+        });
+        keepAliveConfirmModal.result.then((result: string) => {
+            if (result && result === 'confirm') {
+                this.keepAliveService.sendKeepAlive().subscribe( (response) => {
+                    dispatch(new SetKeepAliveConfirm(response.msg));
+                });
+            }
+        }, () => console.log('keepAliveConfirmModal closed'));
+    }
+
+    @Action(SetKeepAliveConfirm)
+    setKeepAliveConfirm({ patchState }: StateContext<SearchStateModel>, { keepAliveConfirm }: SetKeepAliveConfirm) {
+        patchState({ keepAliveConfirm });
     }
 
     getUserGroup(action): string {
@@ -133,18 +160,4 @@ export class SearchState {
         return this.store.selectSnapshot(AuthState.currentUser).group;
     }
 
-}
-
-export function detailArgs(action, userGroup) {
-    let caseNumber: number;
-    let group: string;
-    if (action.bookmark) {
-        const splittedArgs = action.caseNumber.split(LSNAME.detailDelimiter);
-        group = splittedArgs[0];
-        caseNumber = +splittedArgs[1];
-    } else {
-        caseNumber = +action.caseNumber;
-        group = userGroup;
-    }
-    return { caseNumber, group }
 }

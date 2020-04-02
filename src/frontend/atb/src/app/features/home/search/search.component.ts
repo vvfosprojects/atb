@@ -1,6 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
-import { GetSheetCounters, SearchPositiveCase, SearchSuspectCase } from '../store/search.actions';
+import { GetSheetCounters, OpenKeepAliveModal, SearchPositiveCase, SearchSuspectCase } from '../store/search.actions';
 import { Observable, Subscription } from 'rxjs';
 import { RssState } from '../store/rss.state';
 import { RssInterface } from '../../../shared/interface/rss.interface';
@@ -46,7 +46,7 @@ export class SearchComponent implements OnDestroy {
     }
 
     onKeepAliveButton() {
-        // Todo: dispatch action
+        this.store.dispatch(new OpenKeepAliveModal());
     }
 
 }

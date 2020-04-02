@@ -13,7 +13,7 @@ export class KeepAliveService {
     constructor(private http: HttpClient) {
     }
 
-    sendConfirm(): Observable<KeepAliveResponseInterface> {
+    sendKeepAlive(): Observable<KeepAliveResponseInterface> {
         return this.http.get<KeepAliveResponseInterface>(APIURL + APIKEEPALIVE);
     }
 

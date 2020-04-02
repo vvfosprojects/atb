@@ -27,3 +27,14 @@ export class GetSheetCounters {
 export class SetNotFound {
     static readonly type = '[Search] Case Not Found';
 }
+
+export class SetKeepAliveConfirm {
+    static readonly type = '[Search] Set Keep Alive Confirm';
+
+    constructor(public keepAliveConfirm: string) {
+    }
+}
+
+export class OpenKeepAliveModal {
+    static readonly type = '[Search] Open Keep Alive Modal';
+}
