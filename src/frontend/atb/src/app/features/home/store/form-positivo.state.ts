@@ -103,7 +103,7 @@ export class FormPositivoState {
             caseNumber: positivoFormValue.caseNumber,
             estremiProvvedimentiASL: positivoFormValue.estremiProvvedimentiASL,
             diseaseConfirmDate: positivoFormValue.diseaseConfirmDate ? formatDate(positivoFormValue.diseaseConfirmDate) : null,
-            quarantinePlace: positivoFormValue.intensiveTerapy && positivoFormValue.intensiveTerapy === true ? 'INTCARE' : positivoFormValue.quarantinePlace,
+            quarantinePlace: positivoFormValue.quarantinePlace === 'HOSP' && positivoFormValue.intensiveTerapy ? 'INTCARE' : positivoFormValue.quarantinePlace,
             expectedWorkReturnDate: positivoFormValue.expectedWorkReturnDate ? formatDate(positivoFormValue.expectedWorkReturnDate) : null,
             actualWorkReturnDate: positivoFormValue.actualWorkReturnDate ? formatDate(positivoFormValue.actualWorkReturnDate) : null
         };
