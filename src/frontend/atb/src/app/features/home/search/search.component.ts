@@ -45,4 +45,8 @@ export class SearchComponent implements OnDestroy {
         this.store.dispatch(new SearchSuspectCase('' + search));
     }
 
+    onKeepAliveButton() {
+        // Todo: dispatch action
+    }
+
 }

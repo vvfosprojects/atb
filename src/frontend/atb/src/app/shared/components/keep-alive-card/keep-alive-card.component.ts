@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
-  selector: 'app-keep-alive-card',
-  templateUrl: './keep-alive-card.component.html',
-  styleUrls: ['./keep-alive-card.component.scss']
+    selector: 'app-keep-alive-card',
+    templateUrl: './keep-alive-card.component.html',
+    styleUrls: [ './keep-alive-card.component.scss' ]
 })
 export class KeepAliveCardComponent implements OnInit {
 
-  constructor() { }
+    @Output() keepAliveButton = new EventEmitter();
 
-  ngOnInit(): void {
-  }
+    constructor() {
+    }
+
+    ngOnInit(): void {
+    }
 
 }
