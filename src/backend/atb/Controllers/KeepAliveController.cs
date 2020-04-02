@@ -21,7 +21,7 @@ namespace atb.Controllers
         {
             this.handler.Handle(command);
 
-            return Ok();
+            return Ok(new { Msg = "Happy to see you again! :-)" });
         }
     }
 }
