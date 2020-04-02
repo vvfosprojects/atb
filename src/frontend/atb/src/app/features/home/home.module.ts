@@ -28,6 +28,7 @@ import { PositiveDataTableComponent } from './data-tables/positive-data-table/po
 import { SuspectDataTableComponent } from './data-tables/suspect-data-table/suspect-data-table.component';
 import { CountersService } from '../../core/services/counters/counters.service';
 import { CustomDateParserFormatter } from '../../core/adapters/custom-date-parser-formatter.service';
+import { KeepAliveService } from '../../core/services/keep-alive/keep-alive.service';
 
 @NgModule({
     declarations: [
@@ -61,6 +62,7 @@ import { CustomDateParserFormatter } from '../../core/adapters/custom-date-parse
         PositiviService,
         DataTablesService,
         CountersService,
+        KeepAliveService,
         { provide: NgbDateParserFormatter, useClass: CustomDateParserFormatter }
     ]
 })

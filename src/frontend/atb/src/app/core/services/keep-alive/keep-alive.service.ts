@@ -1,0 +1,21 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { environment } from '../../../../environments/environment';
+import { KeepAliveResponseInterface } from '../../../shared/interface/common/keep-alive-response.interface';
+
+const APIURL = environment.baseUrl;
+const APIKEEPALIVE = environment.apiUrl.keepAlive;
+
+@Injectable()
+export class KeepAliveService {
+
+    constructor(private http: HttpClient) {
+    }
+
+    sendConfirm(): Observable<KeepAliveResponseInterface> {
+        return this.http.get<KeepAliveResponseInterface>(APIURL + APIKEEPALIVE);
+    }
+
+
+}

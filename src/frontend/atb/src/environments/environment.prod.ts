@@ -9,6 +9,7 @@ export const environment = {
         sheetCounters: '/sheetCounters',
         groups: '/groups',
         rss: '/news',
-        statistics: '/statistics'
+        statistics: '/statistics',
+        keepAlive: '/keepAlive'
     }
 };
