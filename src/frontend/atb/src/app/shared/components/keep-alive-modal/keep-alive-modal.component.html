@@ -1,0 +1,17 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Assenza casi</h4>
+    <button type="button" class="close" (click)="modalClose('close')">
+        <span>&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <p><strong>Sicuro di voler confermare <span class="text-primary">"Assenza casi"</span> ?</strong></p>
+    <p>Dichiaro di non avere aggiornamenti rispetto a quanto già inserito.
+
+    </p>
+    <p><span class="text-danger">Questa operazione è irreversibile.</span></p>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="modalClose('dismiss')">Annulla</button>
+    <button type="button" ngbAutofocus class="btn btn-danger" (click)="modalClose('confirm')">Conferma</button>
+</div>

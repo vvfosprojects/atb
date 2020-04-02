@@ -11,6 +11,7 @@ import { GroupCaseComponent } from './components/group-case/group-case.component
 import { HistoryCaseComponent } from './components/history-case/history-case.component';
 import { NgbTabsetModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { KeepAliveCardComponent } from './components/keep-alive-card/keep-alive-card.component';
+import { KeepAliveModalComponent } from './components/keep-alive-modal/keep-alive-modal.component';
 
 const COMPONENTS = [
     ErrorPageComponent,
@@ -20,7 +21,8 @@ const COMPONENTS = [
     CounterComponent,
     GroupCaseComponent,
     HistoryCaseComponent,
-    KeepAliveCardComponent
+    KeepAliveCardComponent,
+    KeepAliveModalComponent
 ];
 
 const MODULES = [
