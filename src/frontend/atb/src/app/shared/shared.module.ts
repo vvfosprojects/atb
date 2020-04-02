@@ -10,6 +10,7 @@ import { CounterComponent } from './components/counter/counter.component';
 import { GroupCaseComponent } from './components/group-case/group-case.component';
 import { HistoryCaseComponent } from './components/history-case/history-case.component';
 import { NgbTabsetModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { KeepAliveCardComponent } from './components/keep-alive-card/keep-alive-card.component';
 
 const COMPONENTS = [
     ErrorPageComponent,
@@ -18,7 +19,8 @@ const COMPONENTS = [
     NewsCardComponent,
     CounterComponent,
     GroupCaseComponent,
-    HistoryCaseComponent
+    HistoryCaseComponent,
+    KeepAliveCardComponent
 ];
 
 const MODULES = [
