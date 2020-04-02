@@ -23,3 +23,22 @@ export function countTotalSeries(series: Series[]): number {
     }
     return count;
 }
+
+export function chartsViewSize(itemNumber: number) : number[] {
+    const minHeight = 80;
+    const itemHeight = 20;
+    const width = 500;
+
+    return [width, (minHeight + deltaHeight(itemNumber) + (itemHeight*itemNumber))];
+
+    function deltaHeight(itemN: number): number {
+        const minDelta = 8;
+        const adjustHeight = 50;
+
+        if (itemN >= minDelta) {
+            return adjustHeight * Math.floor(itemN / minDelta);
+        } else {
+            return 0;
+        }
+    }
+}

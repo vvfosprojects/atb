@@ -1,7 +1,13 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { GroupStatistic } from '../../../../shared/interface/statistics.interface';
 import { QuarantineGroupFacetInterface } from '../../../../shared/interface/quarantine-group-facet.interface';
-import { countTotalSeries, quarantineSorter, seriesPositive, seriesSuspects } from '../../../../shared/functions/';
+import {
+    chartsViewSize,
+    countTotalSeries,
+    quarantineSorter,
+    seriesPositive,
+    seriesSuspects
+} from '../../../../shared/functions/';
 
 @Component({
     selector: 'app-statistic',
@@ -20,6 +26,9 @@ export class StatisticComponent implements OnChanges {
     suspectsQuarantinePlacesFacet: QuarantineGroupFacetInterface[];
     positivesQuarantinePlacesFacet: QuarantineGroupFacetInterface[];
 
+    suspectsViewSize = [];
+    positivesViewSize = [];
+
     constructor() {
     }
 
@@ -30,7 +39,8 @@ export class StatisticComponent implements OnChanges {
                 this.countTotal(_statisticsChanges);
                 this.suspectsQuarantinePlacesFacet = this.mapSuspectsQuarantineFacet(_statisticsChanges);
                 this.positivesQuarantinePlacesFacet = this.mapPositiveQuarantineFacet(_statisticsChanges);
-
+                this.suspectsViewSize = chartsViewSize(this.suspectsQuarantinePlacesFacet.length);
+                this.positivesViewSize = chartsViewSize(this.positivesQuarantinePlacesFacet.length);
             }
         }
     }

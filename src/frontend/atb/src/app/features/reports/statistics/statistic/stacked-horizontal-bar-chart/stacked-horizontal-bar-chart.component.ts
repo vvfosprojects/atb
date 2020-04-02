@@ -9,10 +9,8 @@ import { QuarantineGroupFacetInterface } from '../../../../../shared/interface/q
 export class StackedHorizontalBarChartComponent {
 
     @Input() quarantineFacet: QuarantineGroupFacetInterface[];
+    @Input() view: number[];
 
-    view: any[] = [ 500, 500 ];
-
-    // options
     showXAxis: boolean = true;
     showYAxis: boolean = true;
     gradient: boolean = false;

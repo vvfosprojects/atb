@@ -5,12 +5,12 @@
         <div class="row">
             <div class="col-12 col-lg-6 py-3 p-lg-5">
                 <app-group-case title="Casi positivi" [totalClosed]="positivesTotalClosed" [totalSick]="positivesTotalSick">
-                    <app-horizontal-bar-charts [roleFacet]="statisticGroup?.positives?.roleFacet"></app-horizontal-bar-charts>
+                    <app-horizontal-bar-charts [roleFacet]="positivesRolesFacet" [view]="positivesViewSize"></app-horizontal-bar-charts>
                 </app-group-case>
             </div>
             <div class="col-12 col-lg-6 py-3 p-lg-5">
                 <app-group-case title="Casi di sorveglianza attiva" [totalClosed]="suspectsTotalClosed" [totalSick]="suspectsTotalSick">
-                    <app-horizontal-bar-charts [roleFacet]="statisticGroup?.suspects?.roleFacet"></app-horizontal-bar-charts>
+                    <app-horizontal-bar-charts [roleFacet]="suspectsRolesFacet" [view]="suspectsViewSize"></app-horizontal-bar-charts>
                 </app-group-case>
             </div>
         </div>

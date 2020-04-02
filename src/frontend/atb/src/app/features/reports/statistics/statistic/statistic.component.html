@@ -3,6 +3,7 @@
         <app-group-case title="Casi positivi" [totalClosed]="positivesTotalClosed" [totalSick]="positivesTotalSick">
             <app-stacked-horizontal-bar-chart
                     [quarantineFacet]="positivesQuarantinePlacesFacet"
+                    [view]="positivesViewSize"
                     legendTitle="Tipo ospedalizzazione">
             </app-stacked-horizontal-bar-chart>
         </app-group-case>
@@ -11,6 +12,7 @@
         <app-group-case title="Casi di sorveglianza attiva" [totalClosed]="suspectsTotalClosed" [totalSick]="suspectsTotalSick">
             <app-stacked-horizontal-bar-chart
                     [quarantineFacet]="suspectsQuarantinePlacesFacet"
+                    [view]="suspectsViewSize"
                     legendTitle="Sorveglianza domiciliare"
                     [tooltipDisabled]="true">
             </app-stacked-horizontal-bar-chart>
