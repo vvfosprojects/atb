@@ -14,7 +14,7 @@ export class KeepAliveService {
     }
 
     sendKeepAlive(): Observable<KeepAliveResponseInterface> {
-        return this.http.get<KeepAliveResponseInterface>(APIURL + APIKEEPALIVE);
+        return this.http.post<KeepAliveResponseInterface>(APIURL + APIKEEPALIVE, {});
     }
 
 
