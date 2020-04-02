@@ -1,13 +1,9 @@
 <div class="row">
-    <div class="col-12" style="display:flex; justify-content: center; align-items: center">
+    <div class="col-10 offset-1">
         <div class="card">
-            <div class="card-header">
-                <h5 class="card-title mb-0">Assenza casi positivi o sospetti</h5>
-            </div>
             <div class="card-body">
-                <p class="card-text">Premendo il tasto, si conferma l'assenza di nuovi casi da
-                    segnalare</p>
-                <button (click)="keepAliveButton.emit()" class="btn btn-primary">Conferma Zero</button>
+                <p class="card-text">E' importante avere una costante consapevolezza sull'avvenuto aggiornamento dei dati da parte della Tua sede. Per questo, se non hai aggiornamenti ai dati già comunicati, dichiaracelo comunque facendo click periodicamente sul tasto di sotto. Questo ci consentirà di sapere che la Tua sede è comunque attiva nel tracciamento continuo delle informazioni.</p>
+                <button (click)="keepAliveButton.emit()" class="btn btn-primary">Non ho ulteriori aggiornamenti</button>
             </div>
         </div>
     </div>

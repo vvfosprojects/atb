@@ -5,13 +5,9 @@
     </button>
 </div>
 <div class="modal-body">
-    <p><strong>Sicuro di voler confermare <span class="text-primary">"Assenza casi"</span> ?</strong></p>
-    <p>Dichiaro di non avere aggiornamenti rispetto a quanto già inserito.
-
-    </p>
-    <p><span class="text-danger">Questa operazione è irreversibile.</span></p>
+    <p>Sei sicuro di non avere ulteriori aggiornamenti?</p>
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-outline-secondary" (click)="modalClose('dismiss')">Annulla</button>
-    <button type="button" ngbAutofocus class="btn btn-danger" (click)="modalClose('confirm')">Conferma</button>
+    <button type="button" ngbAutofocus class="btn btn-outline-primary" (click)="modalClose('confirm')">Conferma</button>
 </div>
