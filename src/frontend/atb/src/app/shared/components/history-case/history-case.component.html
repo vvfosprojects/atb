@@ -4,7 +4,9 @@
     <hr>
     <ul class="list-group">
         <li *ngFor="let _case of historyCase" class="list-group-item">
-            <span [ngClass]="{'int-care-bg': _case.quarantinePlace === 'INTCARE', 'hosp-bg': _case.quarantinePlace === 'HOSP'}">In data: {{_case.updateTime | date:'medium'}} - {{_case.quarantinePlace | luogoIsolamento}} - modificato da {{_case.updatedBy}}</span>
+            <span class="text-muted">In data: {{_case.updateTime | date:'medium'}}
+                -<i [ngClass]="_case.quarantinePlace | luogoIsolamento: 'class'"></i>{{_case.quarantinePlace | luogoIsolamento}}
+                - modificato da {{_case.updatedBy}}</span>
         </li>
     </ul>
 </div>
