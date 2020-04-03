@@ -19,23 +19,32 @@ namespace Persistence.InMongo_local
 
         public Counters Get(string group)
         {
-            var dateTime = DateTime.Parse("2100-12-31");
+            var dateTime = DateTime.MaxValue;
             var pipeline = new List<BsonDocument>()
             {
                 new BsonDocument { { "$unwind", "$data" } },
                 new BsonDocument { { "$group",
-                    new BsonDocument { { "_id", "$_id" }, { "lastData", new BsonDocument { { "$last", "$data.actualWorkReturnDate" } } } }
+                    new BsonDocument { { "_id", "$_id" }, { "lastData", new BsonDocument { { "$last", "$data.actualWorkReturnDate" } } }, { "maxDeathDate", new BsonDocument { { "$max", "$data.dateOfDeath" } } } }
                 } },
                 new BsonDocument {{ "$project",
-                    new BsonDocument {{"nonNullData", 
-                            new BsonDocument { {"$ifNull", new BsonArray {"$lastData", new BsonDateTime(dateTime) } } } 
-                        }}
+                    new BsonDocument {
+                        { "nonNullData", new BsonDocument { {"$ifNull", new BsonArray {"$lastData", new BsonDateTime(dateTime) } } } },
+                        { "dead", new BsonDocument { { "$ne", new BsonArray { "$maxDeathDate", BsonNull.Value } } } }
+                    }
                     }},
                 new BsonDocument { { "$project",
                     new BsonDocument { { "closed",
-                        new BsonDocument { { "$lt",
-                            new BsonArray { "$nonNullData", new BsonDocument{ { "$add", new BsonArray { DateTime.UtcNow, 13*60*60000 } } } }
-                        } }
+                        new BsonDocument {
+                            { "$or", new BsonArray {
+                            new BsonDocument { { "$lt",
+                                new BsonArray { "$nonNullData", new BsonDocument{ { "$add", new BsonArray { DateTime.UtcNow, 13*60*60000 } } } }
+                            } },
+                            new BsonDocument { { "$eq",
+                                new BsonArray { "$dead", true }
+                            } }
+                            }
+                            }
+                        }
                     } }
                 } },
                 new BsonDocument { { "$group", new BsonDocument { { "_id", "$closed" }, { "count", new BsonDocument { { "$sum", 1 } } } } } }
