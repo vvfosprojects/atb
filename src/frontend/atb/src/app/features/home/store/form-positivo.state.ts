@@ -1,5 +1,11 @@
 import { Action, Selector, State, StateContext } from '@ngxs/store';
-import { SaveNewPositivoCase, SetPageTitleFormPositivo, UpdatePositivoCase } from './form-positivo.actions';
+import {
+    ClearFormPositivo,
+    SaveNewPositivoCase,
+    SetPageTitleFormPositivo,
+    SetPositivoDeceased,
+    UpdatePositivoCase
+} from './form-positivo.actions';
 import { Injectable } from '@angular/core';
 import { formatDate } from '../../../shared/functions/functions';
 import { Navigate } from '@ngxs/router-plugin';
@@ -8,7 +14,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CaseNumberModalComponent } from '../../../shared/components/case-number-modal/case-number-modal.component';
 import { DtoNewPositiveCaseInterface } from '../../../shared/interface/dto-new-positive-case.interface';
 import { DtoNewPositiveUpdateInterface } from '../../../shared/interface/dto-new-positive-update.interface';
-import { forkJoin } from 'rxjs';
+import { forkJoin, of } from 'rxjs';
 
 export interface FormPositivoStateModel {
     pageTitle: string;
@@ -31,13 +37,15 @@ export interface FormPositivoStateModel {
         };
         status?: string;
     };
+    deceased: string;
 }
 
 export const formPositivoStateDefaults: FormPositivoStateModel = {
     pageTitle: 'nuovo positivo',
     positivoForm: {
         model: undefined
-    }
+    },
+    deceased: null
 };
 
 @Injectable()
@@ -88,8 +96,12 @@ export class FormPositivoState {
                 actualWorkReturnDate: positivoFormValue.actualWorkReturnDate ? formatDate(positivoFormValue.actualWorkReturnDate) : null
             };
             this.positiviService.newPositiveUpdate(objData).subscribe(() => {
-                dispatch(new Navigate(['./home/ricerca']));
-                const m = this.modal.open(CaseNumberModalComponent, { centered: true, size: 'lg', backdropClass: 'backdrop-custom-black' });
+                dispatch(new Navigate([ './home/ricerca' ]));
+                const m = this.modal.open(CaseNumberModalComponent, {
+                    centered: true,
+                    size: 'lg',
+                    backdropClass: 'backdrop-custom-black'
+                });
                 m.componentInstance.title = 'Inserimento Nuovo Caso Positivo COVID';
                 m.componentInstance.caseNumber = resNewPositiveCase.caseNumber;
             });
@@ -98,7 +110,8 @@ export class FormPositivoState {
 
     @Action(UpdatePositivoCase)
     updatePositivoCase({ getState, dispatch }: StateContext<FormPositivoStateModel>) {
-        const positivoFormValue = getState().positivoForm.model;
+        const state = getState();
+        const positivoFormValue = state.positivoForm.model;
         const objData: DtoNewPositiveUpdateInterface = {
             caseNumber: positivoFormValue.caseNumber,
             estremiProvvedimentiASL: positivoFormValue.estremiProvvedimentiASL,
@@ -117,11 +130,22 @@ export class FormPositivoState {
         };
         console.log('UpdatePositivoCase', objSubject, objData);
         const updatePositiveCase = this.positiviService.updatePositiveCase(objSubject);
-        const newPositiveUpdate = this.positiviService.newPositiveUpdate(objData);
+        const newPositiveUpdate = state.deceased ? of(null) : this.positiviService.newPositiveUpdate(objData);
         forkJoin([ updatePositiveCase, newPositiveUpdate ]).subscribe(result => {
             if (result) {
-                dispatch(new Navigate(['./home/ricerca']));
+                dispatch(new Navigate([ './home/ricerca' ]));
             }
         });
     }
+
+    @Action(SetPositivoDeceased)
+    setPositivoDeceased({ patchState }: StateContext<FormPositivoStateModel>, { deceased }: SetPositivoDeceased) {
+        patchState({ deceased });
+    }
+
+    @Action(ClearFormPositivo)
+    clearFormPositivo({ patchState }: StateContext<FormPositivoStateModel>) {
+        patchState(formPositivoStateDefaults);
+    }
+
 }

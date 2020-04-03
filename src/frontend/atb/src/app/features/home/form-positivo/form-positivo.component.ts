@@ -6,7 +6,13 @@ import { Observable, Subscription } from 'rxjs';
 import { LoadingState } from '../../../shared/store/loading/loading.state';
 import { QualificheState } from '../../../shared/store/qualifiche/qualifiche.state';
 import { ActivatedRoute } from '@angular/router';
-import { SaveNewPositivoCase, SetPageTitleFormPositivo, UpdatePositivoCase } from '../store/form-positivo.actions';
+import {
+    ClearFormPositivo,
+    SaveNewPositivoCase,
+    SetPageTitleFormPositivo,
+    SetPositivoDeceased,
+    UpdatePositivoCase
+} from '../store/form-positivo.actions';
 import { UpdateFormValue } from '@ngxs/form-plugin';
 import { SearchState } from '../store/search.state';
 import { PositiveCaseInterface } from '../../../shared/interface/positive-case.interface';
@@ -35,6 +41,7 @@ export class FormPositivoComponent implements OnDestroy {
     submitted = false;
     editMode: boolean;
     detailMode: boolean;
+    deceased: boolean;
 
     gruppo: string;
 
@@ -72,10 +79,7 @@ export class FormPositivoComponent implements OnDestroy {
     ngOnDestroy(): void {
         this.subscription.unsubscribe();
         this.store.dispatch([
-                new UpdateFormValue({
-                    path: 'positivo.positivoForm',
-                    value: undefined
-                }),
+                new ClearFormPositivo(),
                 new ClearPositiveCase()
             ]
         );
@@ -163,6 +167,10 @@ export class FormPositivoComponent implements OnDestroy {
     }
 
     updateForm(positiveCase: PositiveCaseInterface): void {
+        if (positiveCase.data.dateOfDeath) {
+            this.deceased = true;
+            this.store.dispatch(new SetPositivoDeceased(positiveCase.data.dateOfDeath));
+        }
         this.store.dispatch(
             new UpdateFormValue({
                 path: 'positivo.positivoForm',
@@ -184,5 +192,15 @@ export class FormPositivoComponent implements OnDestroy {
                 }
             })
         );
+        this.deceseadForm();
+    }
+
+    deceseadForm(): void {
+        if (this.deceased) {
+            const fieldsToDisable = [ 'estremiProvvedimentiASL', 'diseaseConfirmDate', 'quarantinePlace', 'intensiveTerapy', 'expectedWorkReturnDate', 'actualWorkReturnDate' ];
+            for (const field of fieldsToDisable) {
+                this.f[field].disable();
+            }
+        }
     }
 }

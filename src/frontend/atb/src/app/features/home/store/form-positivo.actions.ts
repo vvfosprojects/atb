@@ -12,3 +12,14 @@ export class SaveNewPositivoCase {
 export class UpdatePositivoCase {
     static readonly type = '[FormPositivo] Update Positivo Case';
 }
+
+export class SetPositivoDeceased {
+    static readonly type = '[FormPositivo] Set Deceased Positivo';
+
+    constructor(public deceased: string) {
+    }
+}
+
+export class ClearFormPositivo {
+    static readonly type = '[FormPositivo] Clear State';
+}
