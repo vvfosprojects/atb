@@ -22,13 +22,13 @@ namespace DomainModel.CQRS.Commands.NewSuspectCommand
         {
             if (command.Number == null)
                 command.Number = this.getNextSuspectCaseNumber.Get(this.getSessionContext.GetActiveGroup()) + 1;
-            if (command.Name == null)
+            if (string.IsNullOrWhiteSpace(command.Name))
                 command.Name = string.Empty;
-            if (command.Surname == null)
+            if (string.IsNullOrWhiteSpace(command.Surname))
                 command.Surname = string.Empty;
-            if (command.Phone == null)
+            if (string.IsNullOrWhiteSpace(command.Phone))
                 command.Phone = string.Empty;
-            if (command.Email == null)
+            if (string.IsNullOrWhiteSpace(command.Email))
                 command.Email = string.Empty;
 
             this.newSuspect.Add(command);
