@@ -44,7 +44,4 @@ export class AppComponent implements OnDestroy {
         sessionCurrentUser && this.store.dispatch(new SetCurrentUser(sessionCurrentUser));
     }
 
-    onFeedback(): void {
-        //
-    }
 }
