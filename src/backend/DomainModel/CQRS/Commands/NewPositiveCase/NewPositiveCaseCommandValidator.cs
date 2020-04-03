@@ -12,7 +12,7 @@ namespace DomainModel.CQRS.Commands.NewSuspectCommand
         {
 
             const string regexEmail = @"\A(?:[a-zA-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?)\Z";
-            const string regex = "^[a-zA-Z ]*$";
+            const string regex = "^[a-zA-Z ']*$";
 
 
             if (command.Number < 0)

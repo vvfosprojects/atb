@@ -10,7 +10,7 @@ namespace DomainModel.CQRS.Commands.NewSuspectCommand
         public IEnumerable<ValidationResult> Validate(NewSuspectCommand command)
         {
             const string regexEmail = @"\A(?:[a-zA-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?)\Z";
-            const string regex = "^[a-zA-Z ]*$";
+            const string regex = "^[a-zA-Z ']*$";
 
             // Number
             if (command.Number.HasValue && command.Number <= 0)
