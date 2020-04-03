@@ -24,13 +24,13 @@ namespace DomainModel.CQRS.Commands.NewSuspectCommand
                 yield break;
             }
 
-            if (!Regex.IsMatch(command.Name, regex))
+            if (!string.IsNullOrWhiteSpace(command.Email) && !Regex.IsMatch(command.Name, regex))
             {
                 yield return new ValidationResult("The Name is not in a valid format");
                 yield break;
             }
 
-            if (!Regex.IsMatch(command.Surname, regex))
+            if (!string.IsNullOrWhiteSpace(command.Email) && !Regex.IsMatch(command.Surname, regex))
             {
                 yield return new ValidationResult("The Surname is not in a valid format");
                 yield break;
