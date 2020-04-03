@@ -12,7 +12,7 @@ namespace DomainModel.CQRS.Commands.NewSuspectCommand
             const string regexEmail = @"\A(?:[a-zA-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?)\Z";
             const string regex = "^[a-zA-Z ]*$";
 
-            if (command.Number < 0)
+            if (command.Number.HasValue && command.Number <= 0)
             {
                 yield return new ValidationResult("The case number must be positive");
                 yield break;
