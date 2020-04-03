@@ -37,5 +37,18 @@ namespace DomainModel.Classes
                 return lastUpdate.ActualWorkReturnDate.Value.Date < DateTime.UtcNow;
             }
         }
+
+        public DateTime LastUpdateTime
+        {
+            get
+            {
+                if (!this.Data.Any())
+                    return DateTime.MinValue;
+
+                var lastUpdate = this.Data.Last();
+
+                return lastUpdate.UpdateTime;
+            }
+        }
     }
 }
