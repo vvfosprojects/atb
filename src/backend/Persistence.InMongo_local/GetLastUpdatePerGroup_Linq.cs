@@ -51,6 +51,7 @@ namespace Persistence.InMongo_local
             }
 
             var sb = new StringBuilder();
+            sb.AppendFormat("Gruppo|Date");
             foreach (var kv in d)
             {
                 sb.AppendLine($"{ kv.Key }|{ kv.Value }");
