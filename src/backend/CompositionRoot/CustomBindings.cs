@@ -70,7 +70,8 @@ namespace CompositionRoot
             container.Register<DomainModel.Services.IGetNextPositiveCaseNumber, Persistence.InMongo_local.GetNextPositiveCaseNumber>();
             container.Register<DomainModel.Services.IGetNextSuspectCaseNumber, Persistence.InMongo_local.GetNextSuspectCaseNumber>();
             container.Register<DomainModel.Services.IGetAllSheetsByGroup, Persistence.InMongo_local.GetAllSheetsByGroup>();
-            container.Register<DomainModel.Services.Statistics.IGetAllSheetsStats, Persistence.InMongo_local.GetAllSheetsStats>();
+            container.Register<Persistence.InMongo_local.GetAllSheetsByGroup>();
+            container.Register<DomainModel.Services.Statistics.IGetAllSheetsStats, Persistence.InMongo_local.GetAllSheetsStats_Linq>();
             container.Register<DomainModel.Helpers.SubjectHash>(Lifestyle.Scoped);
             container.Register<DomainModel.Services.IGetNews, Persistence.InMongo_local.GetNews>();
             container.Register<DomainModel.Services.IUpdateSuspect, Persistence.InMongo_local.UpdateSuspect>();

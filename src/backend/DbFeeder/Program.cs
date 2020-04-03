@@ -81,10 +81,10 @@ namespace DbFeeder
                 .RuleFor(a => a.QuarantinePlace, f => f.PickRandom(new[] { "HOME", "HOSP", "INTCARE" }))
                 .RuleFor(a => a.DiseaseConfirmDate, f => f.Date.Recent(38))
                 .RuleFor(a => a.ExpectedWorkReturnDate, f => f.Random.Float() < .6f ? f.Date.Soon(60) : (DateTime?)null)
-                .RuleFor(a => a.ActualWorkReturnDate, f => f.Random.Float() < .6f ? f.Date.Soon(60) : (DateTime?)null)
+                .RuleFor(a => a.ActualWorkReturnDate, f => f.Random.Float() < .6f ? f.Date.Soon(60).AddDays(-30) : (DateTime?)null)
                 .RuleFor(a => a.UpdateTime, f => f.Date.Recent(15))
                 .RuleFor(a => a.UpdatedBy, f => f.Internet.UserName())
-                .Ignore(p => p.DateOfDeath);
+                .RuleFor(a => a.DateOfDeath, f => f.Random.Float() > .97f ? f.Date.Recent(60) : (DateTime?)null);
 
             var positiveFaker = new Faker<Patient>()
                 .StrictMode(true)
@@ -131,7 +131,7 @@ namespace DbFeeder
                 .StrictMode(true)
                 .RuleFor(a => a.QuarantinePlace, f => f.PickRandom(new[] { "HOME", "HOSP" }))
                 .RuleFor(a => a.ExpectedWorkReturnDate, f => f.Date.Soon(60))
-                .RuleFor(a => a.ActualWorkReturnDate, f => f.Random.Float() < .6f ? f.Date.Soon(60) : (DateTime?)null)
+                .RuleFor(a => a.ActualWorkReturnDate, f => f.Random.Float() < .6f ? f.Date.Soon(60).AddDays(-30) : (DateTime?)null)
                 .RuleFor(a => a.HealthMeasure, f => healthMeasureFaker.Generate())
                 .RuleFor(a => a.UpdateTime, f => f.Date.Recent(15))
                 .RuleFor(a => a.UpdatedBy, f => f.Internet.UserName());
