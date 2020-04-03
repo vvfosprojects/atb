@@ -25,7 +25,7 @@ namespace Persistence.InMongo_local
 
         public List<GroupStatistics> Get()
         {
-            var positives = new List<Patient> ();
+            var positives = new List<Patient>();
             var suspects = new List<Suspect>();
 
             positives = this.dbContext.Patients.AsQueryable().ToList();
@@ -45,9 +45,8 @@ namespace Persistence.InMongo_local
                 Data = s.Data.Last()
             });
 
-            var allGroup = new HashSet<string> ();
+            var allGroup = new HashSet<string>();
             var result = new List<GroupStatistics>();
-
 
             foreach (var group in positivesFilteredList)
             {
@@ -73,12 +72,12 @@ namespace Persistence.InMongo_local
                     {
                         QuarantinePlacesFacet = new PositiveQuarantinePlacesFacet()
                         {
-                            Home = g.Count(x => x.Data.QuarantinePlace == "HOME"),
-                            Hosp = g.Count(x => x.Data.QuarantinePlace == "HOSP"),
-                            IntCare = g.Count(x => x.Data.QuarantinePlace == "INTCARE"),
+                            Home = g.Count(x => x.Data.QuarantinePlace == "HOME" && !x.Data.DateOfDeath.HasValue && !x.Data.ActualWorkReturnDate.HasValue),
+                            Hosp = g.Count(x => x.Data.QuarantinePlace == "HOSP" && !x.Data.DateOfDeath.HasValue && !x.Data.ActualWorkReturnDate.HasValue),
+                            IntCare = g.Count(x => x.Data.QuarantinePlace == "INTCARE" && !x.Data.DateOfDeath.HasValue && !x.Data.ActualWorkReturnDate.HasValue),
                         },
                         TotalSick = g.Count(),
-                        TotalClosed = g.Where(x => x.Data.ActualWorkReturnDate != null).Count(),
+                        TotalClosed = g.Where(x => x.Data.ActualWorkReturnDate.HasValue || x.Data.DateOfDeath.HasValue).Count(),
                         RoleFacet = g.GroupBy(g2 => this.cryptools.Decrypt(g2.Subject.Role))
                             .OrderBy(g2 => g2.Key)
                             .Select(g2 => new RoleFacet() { Name = g2.Key, Total = g2.Count() }).ToList()
@@ -88,11 +87,11 @@ namespace Persistence.InMongo_local
                     {
                         QuarantinePlacesFacet = new SuspectQuarantinePlacesFacet()
                         {
-                            Home = g.Count(x => x.Data.QuarantinePlace == "HOME"),
-                            Hosp = g.Count(x => x.Data.QuarantinePlace == "HOSP"),
+                            Home = g.Count(x => x.Data.QuarantinePlace == "HOME" && !x.Data.ActualWorkReturnDate.HasValue),
+                            Hosp = g.Count(x => x.Data.QuarantinePlace == "HOSP" && !x.Data.ActualWorkReturnDate.HasValue),
                         },
                         TotalSick = g.Count(),
-                        TotalClosed = g.Where(x => x.Data.ActualWorkReturnDate != null).Count(),
+                        TotalClosed = g.Where(x => x.Data.ActualWorkReturnDate.HasValue).Count(),
                         RoleFacet = g.GroupBy(g2 => this.cryptools.Decrypt(g2.Subject.Role))
                             .OrderBy(g2 => g2.Key)
                             .Select(g2 => new RoleFacet() { Name = g2.Key, Total = g2.Count() }).ToList()
@@ -109,12 +108,12 @@ namespace Persistence.InMongo_local
                             {
                                 QuarantinePlacesFacet = new PositiveQuarantinePlacesFacet()
                                 {
-                                    Home = g.Count(x => x.Data.QuarantinePlace == "HOME"),
-                                    Hosp = g.Count(x => x.Data.QuarantinePlace == "HOSP"),
-                                    IntCare = g.Count(x => x.Data.QuarantinePlace == "INTCARE"),
+                                    Home = g.Count(x => x.Data.QuarantinePlace == "HOME" && !x.Data.DateOfDeath.HasValue && !x.Data.ActualWorkReturnDate.HasValue),
+                                    Hosp = g.Count(x => x.Data.QuarantinePlace == "HOSP" && !x.Data.DateOfDeath.HasValue && !x.Data.ActualWorkReturnDate.HasValue),
+                                    IntCare = g.Count(x => x.Data.QuarantinePlace == "INTCARE" && !x.Data.DateOfDeath.HasValue && !x.Data.ActualWorkReturnDate.HasValue),
                                 },
                                 TotalSick = g.Count(),
-                                TotalClosed = g.Where(x => x.Data.ActualWorkReturnDate != null).Count(),
+                                TotalClosed = g.Where(x => x.Data.ActualWorkReturnDate.HasValue || x.Data.DateOfDeath.HasValue).Count(),
                                 RoleFacet = g.GroupBy(g2 => this.cryptools.Decrypt(g2.Subject.Role))
                                     .OrderBy(g2 => g2.Key)
                                     .Select(g2 => new RoleFacet() { Name = g2.Key, Total = g2.Count() }).ToList()
@@ -128,19 +127,19 @@ namespace Persistence.InMongo_local
                             },
                             TotalSick = 0,
                             TotalClosed = 0,
-                            RoleFacet = new List<RoleFacet> () { }
+                            RoleFacet = new List<RoleFacet>() { }
                         }
-                    }) ;
+                    });
                 }
                 else
                 {
                     result.Add(new GroupStatistics()
                     {
                         Group = t,
-                        Positives = new PositiveGroup() 
+                        Positives = new PositiveGroup()
                         {
-                            QuarantinePlacesFacet = new PositiveQuarantinePlacesFacet() 
-                            { 
+                            QuarantinePlacesFacet = new PositiveQuarantinePlacesFacet()
+                            {
                                 Home = 0,
                                 Hosp = 0,
                                 IntCare = 0
@@ -154,11 +153,11 @@ namespace Persistence.InMongo_local
                     {
                         QuarantinePlacesFacet = new SuspectQuarantinePlacesFacet()
                         {
-                            Home = g.Count(x => x.Data.QuarantinePlace == "HOME"),
-                            Hosp = g.Count(x => x.Data.QuarantinePlace == "HOSP"),
+                            Home = g.Count(x => x.Data.QuarantinePlace == "HOME" && !x.Data.ActualWorkReturnDate.HasValue),
+                            Hosp = g.Count(x => x.Data.QuarantinePlace == "HOSP" && !x.Data.ActualWorkReturnDate.HasValue),
                         },
                         TotalSick = g.Count(),
-                        TotalClosed = g.Where(x => x.Data.ActualWorkReturnDate != null).Count(),
+                        TotalClosed = g.Where(x => x.Data.ActualWorkReturnDate.HasValue).Count(),
                         RoleFacet = g.GroupBy(g2 => this.cryptools.Decrypt(g2.Subject.Role))
                             .OrderBy(g2 => g2.Key)
                             .Select(g2 => new RoleFacet() { Name = g2.Key, Total = g2.Count() }).ToList()

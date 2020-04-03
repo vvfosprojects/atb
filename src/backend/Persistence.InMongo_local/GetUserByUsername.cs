@@ -16,7 +16,8 @@ namespace Persistence.InMongo_local
 
         public User Get(string username)
         {
-            var filter = Builders<User>.Filter.Regex(x => x.Username, $"/{username}/is") & Builders<User>.Filter.Eq(x => x.Enabled, true);
+            var lowercaseUsername = username.ToLower();
+            var filter = Builders<User>.Filter.Eq(x => x.Username, lowercaseUsername) & Builders<User>.Filter.Eq(x => x.Enabled, true);
 
             return dbContext.Users.Find(filter).Single();
         }
