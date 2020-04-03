@@ -410,7 +410,7 @@ The group description is get from the group code converting to uppercase charact
 
 ## Action: `api/news`
 
-This action returns the current news to display to the users.
+This action returns the current news to display to the users, sorted by descending `order` field, between their validity date.
 
 ### Request (GET)
 
@@ -424,7 +424,9 @@ The request is empty.
     {
         highlight: false, // [true|false]
         text: "here the news text in HTML format...",
-        order: 230 // integer value
+        order: 230, // integer value
+        "validFrom": "2020-04-02T08:00:00.000Z", // the news appears in this instant
+        "validTo": null // the news is valid forever
     },
     // ... other news here
   ]
@@ -434,6 +436,30 @@ The request is empty.
 ### Authorization
 
 The action can be executed by any authenticated user.
+
+### Notes
+
+The action returns the news ordered by `order` fields in descending order.
+
+## Action: `api/keepAlive`
+
+This action marks alive the group the logged user belongs to.
+
+### Request (POST)
+
+The request is empty.
+
+### Response
+
+```jsonc
+{
+  msg: "Happy to see you again! :-)"
+}
+```
+
+### Authorization
+
+The user must belong to the `doctor` role.
 
 ### Notes
 
@@ -597,5 +623,27 @@ The SHA-256 and field encryption can be implemented with the code available [HER
   "group": "CATANIA", // this is the name of the group assigned to the doctor
   "enabled": true, // false if the account is deactivated
   "roles": [ "doctor" ], // it is a set of { "doctor", "manager" }
+}
+```
+
+## `news` collection
+
+```jsonc
+{
+    "highlight" : true, // true | false
+    "text" : "Here the news text",
+    "order" : 70, //integer value
+    "validFrom": "2020-04-02T08:00:00.000Z", // the news appears in this instant
+    "validTo": null // the news is valid forever
+}
+```
+
+## `keep-alives` collection
+
+```jsonc
+{
+    "group": "Catania",
+    "at": "2020-04-02T12:29:14.772Z",
+    "by": "giovanni.bianchi"
 }
 ```
