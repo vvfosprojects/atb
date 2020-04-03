@@ -77,7 +77,7 @@ namespace CompositionRoot
             container.Register<DomainModel.Services.IUpdateSuspect, Persistence.InMongo_local.UpdateSuspect>();
             container.Register<DomainModel.Services.IUpdatePositive, Persistence.InMongo_local.UpdatePositive>();
             container.Register<DomainModel.Services.IKeepAlive, Persistence.InMongo_local.KeepAliveInsert>();
-            container.Register<DomainModel.Services.IGetLastUpdatePerGroup, Persistence.InMongo_local.GetLastUpdatePerGroup>();
+            container.Register<DomainModel.Services.IGetLastUpdatePerGroup, Persistence.InMongo_local.GetLastUpdatePerGroup_Linq>();
         }
     }
 }
