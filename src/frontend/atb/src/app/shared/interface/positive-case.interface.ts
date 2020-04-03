@@ -1,5 +1,6 @@
 import { QuarantinePlaceEnum } from '../enum/quarantine-place.enum';
 import { HistoryCaseInterface } from './history-case.interface';
+import { UpdateInterface } from './update.interface';
 
 export interface PositiveCaseInterface {
     subject: Subject;
@@ -17,9 +18,10 @@ export interface Subject {
     role: string;
 }
 
-export interface Data {
+export interface Data extends UpdateInterface {
     estremiProvvedimentiASL?: string;
     diseaseConfirmDate: string;
+    dateOfDeath?: string;
     quarantinePlace: QuarantinePlaceEnum;
     expectedWorkReturnDate: string;
     actualWorkReturnDate?: string;
