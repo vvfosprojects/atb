@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace DomainModel.Classes
@@ -19,5 +20,20 @@ namespace DomainModel.Classes
 
         public IList<SuspectData> Data { get; set; }
 
+        public bool Closed
+        {
+            get
+            {
+                if (!this.Data.Any())
+                    return false;
+
+                var lastUpdate = this.Data.Last();
+
+                if (!lastUpdate.ActualWorkReturnDate.HasValue)
+                    return false;
+
+                return lastUpdate.ActualWorkReturnDate.Value.Date < DateTime.UtcNow;
+            }
+        }
     }
 }
