@@ -13,20 +13,20 @@ namespace DomainModel.CQRS.Commands.UpdateSuspect
             const string regex = "^[a-zA-Z ]*$";
             
 
-            if (!Regex.IsMatch(command.Email, regexEmail))
+            if (!string.IsNullOrWhiteSpace(command.Email) && !Regex.IsMatch(command.Email, regexEmail))
             {
                 yield return new ValidationResult(command.Email + " is not a valid Email address");
                 yield break;
             }
 
-            if (!Regex.IsMatch(command.Name, regex))
+            if (!string.IsNullOrWhiteSpace(command.Name) && !Regex.IsMatch(command.Name, regex))
             {
                 yield return new ValidationResult("The Name is not in a valid format");
                 yield break;
             }
 
 
-            if (!Regex.IsMatch(command.Surname, regex))
+            if (!string.IsNullOrWhiteSpace(command.Surname) && !Regex.IsMatch(command.Surname, regex))
             {
                 yield return new ValidationResult("The Surname is not in a valid format");
                 yield break;
