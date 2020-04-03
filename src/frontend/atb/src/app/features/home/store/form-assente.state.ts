@@ -76,7 +76,7 @@ export class FormAssenteState {
             name: assenteFormValue.name,
             surname: assenteFormValue.surname,
             email: assenteFormValue.email,
-            phone: '' + assenteFormValue.phone,
+            phone: assenteFormValue.phone,
             role: assenteFormValue.role
         };
         this.assentiService.newSuspectCase(objSubject).subscribe((resNewSuspectCase: { caseNumber: number }) => {
@@ -117,7 +117,7 @@ export class FormAssenteState {
             name: assenteFormValue.name,
             surname: assenteFormValue.surname,
             email: assenteFormValue.email,
-            phone: '' + assenteFormValue.phone,
+            phone: assenteFormValue.phone,
             role: assenteFormValue.role
         };
         console.log('UpdateSuspectCase', objSubject, objData);
