@@ -59,6 +59,7 @@ namespace atb.Controllers
                         ExpectedWorkReturnDate = lastPatientData.ExpectedWorkReturnDate,
                         QuarantinePlace = lastPatientData.QuarantinePlace,
                         DiseaseConfirmDate = lastPatientData.DiseaseConfirmDate,
+                        DateOfDeath = lastPatientData.DateOfDeath,
                         UpdatedBy = lastPatientData.UpdatedBy,
                         UpdateTime = lastPatientData.UpdateTime
                     },
