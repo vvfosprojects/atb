@@ -51,7 +51,7 @@ namespace Persistence.InMongo_local
             }
 
             var sb = new StringBuilder();
-            sb.AppendLine("Gruppo|Date");
+            sb.AppendLine("Gruppo|Data");
             foreach (var kv in d)
             {
                 var date = kv.Value.ToString("dd/MM/yyyy HH:mm:ss");
