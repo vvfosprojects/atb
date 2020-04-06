@@ -116,7 +116,8 @@ export class SearchState {
 
     @Action(GetSheetCounters)
     getSheetCounters({ patchState }: StateContext<SearchStateModel>) {
-        this.countersService.getCounters().subscribe(res => {
+        const userGroup = this.store.selectSnapshot(AuthState.currentUser).group;
+        this.countersService.getCounters(userGroup).subscribe(res => {
             if (res) {
                 patchState({ sheetCounters: res.counters })
             }

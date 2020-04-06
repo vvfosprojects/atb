@@ -13,7 +13,7 @@ export class CountersService {
     constructor(private http: HttpClient) {
     }
 
-    getCounters(): Observable<CountersResponseInterface> {
-        return this.http.get<CountersResponseInterface>(APIURL + APICOUNTERS);
+    getCounters(group: string): Observable<CountersResponseInterface> {
+        return this.http.get<CountersResponseInterface>(APIURL + APICOUNTERS + `?group=${group}`);
     }
 }
