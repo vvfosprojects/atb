@@ -22,6 +22,7 @@ export interface Subject {
 export interface Data extends UpdateInterface {
     quarantinePlace: QuarantinePlaceEnum;
     expectedWorkReturnDate: string;
+    dateOfDeath?: string;
     actualWorkReturnDate?: string;
     healthMeasure: HealthMeasureInterface;
 }
