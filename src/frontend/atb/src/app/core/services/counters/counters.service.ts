@@ -7,7 +7,7 @@ import { CountersResponseInterface } from '../../../shared/interface/common/coun
 const APIURL = environment.baseUrl;
 const APICOUNTERS = environment.apiUrl.sheetCounters;
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class CountersService {
 
     constructor(private http: HttpClient) {

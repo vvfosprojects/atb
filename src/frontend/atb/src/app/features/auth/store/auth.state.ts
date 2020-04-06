@@ -11,7 +11,6 @@ import { GetRssData } from '../../home/store/rss.actions';
 
 export interface AuthStateModel {
     currentJwt: string;
-    // currentTicket: string;
     currentUser: UserInterface;
     logged: boolean;
     returnUrl: string;
@@ -19,7 +18,6 @@ export interface AuthStateModel {
 
 export const AuthStateDefaults: AuthStateModel = {
     currentJwt: null,
-    // currentTicket: null,
     currentUser: null,
     logged: false,
     returnUrl: '/'
