@@ -164,7 +164,7 @@ namespace DbFeeder
                 });
 
             var dbContext = new DbContext("mongodb://localhost:27017", "ATB");
-            var patients = positiveFaker.Generate(1000);
+            var patients = positiveFaker.Generate(100);
             var suspects = suspectFaker.Generate(1000);
             dbContext.Patients.InsertMany(patients);
             dbContext.Suspects.InsertMany(suspects);

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace DomainModel.CQRS.Queries.GetPatientByCaseNumber
 {
-    public class GetPatientQueryAuthorizer : IQueryAuthorizer<GetPatientQuery,GetPatientQueryResult>
+    public class GetPatientQueryAuthorizer : IQueryAuthorizer<GetPatientQuery, GetPatientQueryResult>
     {
         private readonly IGetSessionContext getSessionContext;
 
@@ -18,27 +18,21 @@ namespace DomainModel.CQRS.Queries.GetPatientByCaseNumber
 
         public IEnumerable<AuthorizationResult> Authorize(GetPatientQuery query)
         {
-            //se sono dottore e ho un gruppo diverso allora errore
-            if (this.getSessionContext.LoggedUserIsDoctor() && this.getSessionContext.GetActiveGroup() != query.Group)
+            //se sono dottore ed ho il giusto gruppo, tutto ok
+            if (this.getSessionContext.LoggedUserIsDoctor() && this.getSessionContext.GetActiveGroup() == query.Group)
             {
-                yield return new AuthorizationResult("Unauthorized");
                 yield break;
             }
 
-            //se sono un supervisor e ho un gruppo e voglio un gruppo diverso da quello che ho errore
-            if (this.getSessionContext.LoggedUserIsSupervisor() && !string.IsNullOrEmpty(this.getSessionContext.GetActiveGroup()) && this.getSessionContext.GetActiveGroup() != query.Group)
+            //se sono un supervisor ed ho gruppo vuoto o giusto, tutto ok
+            if (this.getSessionContext.LoggedUserIsSupervisor() &&
+                (string.IsNullOrEmpty(this.getSessionContext.GetActiveGroup()) || (this.getSessionContext.GetActiveGroup() == query.Group)))
             {
-                yield return new AuthorizationResult("Unauthorized");
                 yield break;
             }
 
-            //se sono un manager errore e non sono un supervisor
-
-            if (this.getSessionContext.LoggedUserIsManager() && !this.getSessionContext.LoggedUserIsSupervisor())
-            {
-                yield return new AuthorizationResult("Unauthorized");
-                yield break;
-            }
+            //nei restanti casi non sono autorizzato.
+            yield return new AuthorizationResult("Unauthorized");
         }
     }
 }

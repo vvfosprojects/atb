@@ -1,0 +1,74 @@
+publiccodeYmlVersion: '0.2'
+name: #ATB
+releaseDate: '2020-04-04'
+url: 'https://github.com/vvfosprojects/atb'
+developmentStatus: stable
+softwareType: standalone/web
+platforms:
+  - web
+usedBy:
+  - Corpo Nazionale dei Vigili del Fuoco
+categories:
+  - employee-management
+  - hr
+  - survey
+maintenance:
+  type: internal
+  contacts:
+    - name: Marcello Esposito
+      email: "marcello.esposito@vigilfuoco.it"
+      affiliation: Corpo Nazionale dei Vigili del Fuoco
+legal:
+  license: AGPL-3.0-or-later
+  mainCopyrightOwner: 2020 Corpo Nazionale dei Vigili del Fuoco
+  repoOwner: Corpo Nazionale dei Vigili del Fuoco
+intendedAudience:
+  scope:
+    - government
+    - society
+  countries:
+    - it
+localisation:
+  localisationReady: no
+  availableLanguages:
+    - it
+it:
+  countryExtensionVersion: '0.2'
+  conforme:
+    lineeGuidaDesign: no
+    misureMinimeSicurezza: yes
+    gdpr: yes
+  riuso:
+    codiceIPA: m_it
+description:
+  it:
+    localisedName: #ATB
+    genericName: #ATB
+    shortDescription: Sistema di gestione dei soggetti COVID-19 interni all'Amministrazione
+    longDescription: >
+      L'applicativo #ATB consente il tracciamento dei soggetti coinvolti nell'emergenza COVID-19. Consente alle sedi territoriali
+      di operare un tracciamento continuo dei soggetti che hanno contratto il virus, di aggiornarne costantemente la situazione del
+      contagio, di indicare il luogo della degenza. Consente altresì di gestire il personale in regime di sorveglianza preventiva.
+      I dati inseriti sono acquisiti in una base dati centralizzata e utilizzati per fornire indicatori precisi sulle consistenze
+      numeriche del personale coinvolto, valutare le assenze (anche suddivise per qualifica) fare proiezioni sui tempi di rientro,
+      verificare la qualità del dato, rilevare eventuali ritardi nell'inserimento dei dati.
+      Un potente sistema di business-intelligence è affiancato all'applicativo al fine di produrre reportistica esaustiva ed
+      aggiornata.
+    documentation: 'https://github.com/vvfosprojects/atb'
+    features:
+       - Web based frontend for operators.
+       - RESTful backend.
+    screenshots:
+      - docs/images/loginPage.JPG
+      - docs/images/doctorHomePage.JPG
+      - docs/images/positiveForm.JPG
+      - docs/images/suspectForm.JPG
+      - docs/images/subjectList.JPG
+      - docs/images/basicStats_perType.JPG
+      - docs/images/basicStats_perGroup.JPG
+      - docs/images/advancedStatistics1.JPG
+      - docs/images/advancedStatistics2.JPG
+inputTypes:
+  - text/plain
+outputTypes:
+  - text/plain
