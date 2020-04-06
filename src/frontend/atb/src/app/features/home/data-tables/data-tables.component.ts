@@ -10,6 +10,7 @@ import { LoadingState } from '../../../shared/store/loading/loading.state';
 import { Navigate } from '@ngxs/router-plugin';
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import { LSNAME } from '../../../core/settings/config';
+import { CountersInterface } from '../../../shared/interface/counters.interface';
 
 @Component({
     selector: 'app-data-tables',
@@ -30,6 +31,8 @@ export class DataTablesComponent implements OnDestroy {
 
     @Select(DataTablesState.patients) positiveList$: Observable<PositiveCaseInterface[]>;
     @Select(DataTablesState.suspects) suspectList$: Observable<SuspectCaseInterface[]>;
+    @Select(DataTablesState.counters) counters$: Observable<CountersInterface>;
+    counters: CountersInterface;
 
     private subscription = new Subscription();
 
@@ -37,6 +40,7 @@ export class DataTablesComponent implements OnDestroy {
         this.store.dispatch(new GetGroupList());
         this.subscription.add(this.groupsList$.subscribe(res => this.groupsList = res));
         this.subscription.add(this.selectedGroup$.subscribe(res => this.selectedGroup = res));
+        this.subscription.add(this.counters$.subscribe(res => this.counters = res));
         this.getLoading();
     }
 

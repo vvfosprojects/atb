@@ -7,6 +7,9 @@ import { SuspectCaseInterface } from '../../../shared/interface/suspect-case.int
 import { ClearDataTables, GetDataSheets, GetGroupList, SetGroup, SetTab } from './data-tables.actions';
 import { GroupsResponseInterface, SheetsResponseInterface } from '../../../shared/interface/common';
 import { globalSorter } from '../../../shared/functions';
+import { CountersService } from '../../../core/services/counters/counters.service';
+import { CountersInterface } from '../../../shared/interface/counters.interface';
+import { CountersResponseInterface } from '../../../shared/interface/common/counters-response.interface';
 
 export interface DataTablesStateModel {
     groupsList: GroupInterface[];
@@ -14,6 +17,7 @@ export interface DataTablesStateModel {
     patients: PositiveCaseInterface[];
     suspects: SuspectCaseInterface[];
     selectedTab: string;
+    counters: CountersInterface;
 }
 
 export const DataTablesStateDefaults: DataTablesStateModel = {
@@ -21,7 +25,8 @@ export const DataTablesStateDefaults: DataTablesStateModel = {
     selectedGroup: null,
     patients: null,
     suspects: null,
-    selectedTab: 'positivi'
+    selectedTab: 'positivi',
+    counters: null
 };
 
 @Injectable()
@@ -31,7 +36,8 @@ export const DataTablesStateDefaults: DataTablesStateModel = {
 })
 export class DataTablesState {
 
-    constructor(private dataTablesService: DataTablesService) {
+    constructor(private dataTablesService: DataTablesService,
+                private countersService: CountersService) {
     }
 
     @Selector()
@@ -47,6 +53,11 @@ export class DataTablesState {
     @Selector()
     static suspects(state: DataTablesStateModel) {
         return state.suspects;
+    }
+
+    @Selector()
+    static counters(state: DataTablesStateModel) {
+        return state.counters;
     }
 
     @Selector()
@@ -95,6 +106,13 @@ export class DataTablesState {
                     });
                 }
             });
+            this.countersService.getCounters(selectedGroup).subscribe( (res: CountersResponseInterface) => {
+                if (res) {
+                    patchState({
+                        counters: res.counters
+                    })
+                }
+            })
         }
     }
 
