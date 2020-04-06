@@ -1,4 +1,4 @@
-#return-to-top {
+#mi-piace {
   position: fixed;
   bottom: 20px;
   right: 20px;
@@ -15,7 +15,7 @@
   -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
-#return-to-top i {
+#mi-piace i {
   color: #fff;
   margin: 0;
   position: absolute;
@@ -28,15 +28,15 @@
   -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
-#return-to-top:hover {
+#mi-piace:hover {
   background: rgba(0, 102, 192, .9);
   width: 180px;
   height: 50px;
 }
-#return-to-top:hover i {
+#mi-piace:hover i {
   color: #fff;
 }
-#return-to-top:hover span:after {
+#mi-piace:hover span:after {
   position: fixed;
   color: #fff;
   margin: 15px 5px 5px 45px;

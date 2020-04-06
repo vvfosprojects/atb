@@ -24,6 +24,7 @@ import { PipeModule } from './shared/pipes/pipe.module';
 import { PermessiState } from './shared/store/permessi/permessi.state';
 import { RssState } from './features/home/store/rss.state';
 import { CacheInterceptor } from './core/interceptors/cache.interceptor';
+import { MiPiaceComponent } from './features/mi-piace/mi-piace.component';
 
 registerLocaleData(localeIT);
 
@@ -32,7 +33,8 @@ registerLocaleData(localeIT);
     declarations: [
         AppComponent,
         NavbarComponent,
-        FooterComponent
+        FooterComponent,
+        MiPiaceComponent
     ],
     imports: [
         BrowserModule,
