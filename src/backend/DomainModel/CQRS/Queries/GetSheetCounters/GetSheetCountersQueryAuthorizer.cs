@@ -24,6 +24,12 @@ namespace DomainModel.CQRS.Queries.GetSheetCounters
                 yield return new AuthorizationResult("Unauthorized");
                 yield break;
             }
+
+            if (this.getSessionContext.LoggedUserIsDoctor() && this.getSessionContext.GetActiveGroup() != query.Group)
+            {
+                yield return new AuthorizationResult("Unauthorized");
+                yield break;
+            }
         }
     }
 }

@@ -19,7 +19,7 @@ namespace DomainModel.CQRS.Queries.GetSheetCounters
 
         public GetSheetCountersQueryResult Handle(GetSheetCountersQuery query)
         {
-            var sheets = this.getAllSheetsStats.Get(this.getSessionContext.GetActiveGroup());
+            var sheets = this.getAllSheetsStats.Get(query.Group);
 
             return new GetSheetCountersQueryResult()
             {
