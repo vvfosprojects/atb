@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { GroupInterface } from '../../../../shared/interface/group.interface';
+import { GroupInterface } from '../../../../shared/interface';
 
 @Component({
     selector: 'app-filters-data-tables',

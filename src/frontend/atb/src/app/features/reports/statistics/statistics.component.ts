@@ -3,7 +3,7 @@ import { Select, Store } from '@ngxs/store';
 import { Observable, Subscription } from 'rxjs';
 import { GetStatisticsData, SetStatisticsTab } from '../store/statistics.actions';
 import { StatisticsState } from '../store/statistics.state';
-import { GroupStatistic } from '../../../shared/interface/statistics.interface';
+import { GroupStatistic } from '../../../shared/interface';
 import { LoadingState } from '../../../shared/store/loading/loading.state';
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 

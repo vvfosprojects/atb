@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { DtoNewSuspectCaseInterface } from '../../../shared/interface/dto-new-suspect-case.interface';
-import { DtoNewSuspectUpdateInterface } from '../../../shared/interface/dto-new-suspect-update.interface';
+import { HttpClient, HttpResponseBase } from '@angular/common/http';
+import {
+    DtoNewSuspectCaseInterface, DtoNewSuspectUpdateInterface,
+    NewSuspectResponseInterface,
+    SuspectCaseInterface
+} from '../../../shared/interface/';
+
 
 const APIURL = environment.baseUrl;
 
@@ -13,20 +17,20 @@ export class AssentiService {
     constructor(private http: HttpClient) {
     }
 
-    getSuspect({...obj}) {
-        const groupQuery = obj.group ? `&group=${obj.group}`: '';
-        return this.http.get(APIURL + '/SuspectSheet?caseNumber=' + obj.caseNumber + groupQuery);
+    getSuspect({ ...obj }): Observable<SuspectCaseInterface> {
+        const groupQuery = obj.group ? `&group=${obj.group}` : '';
+        return this.http.get<SuspectCaseInterface>(APIURL + '/SuspectSheet?caseNumber=' + obj.caseNumber + groupQuery);
     }
 
-    newSuspectCase(obj: DtoNewSuspectCaseInterface): Observable<any> {
-        return this.http.post(APIURL + '/NewSuspect', obj);
+    newSuspectCase(obj: DtoNewSuspectCaseInterface): Observable<NewSuspectResponseInterface> {
+        return this.http.post<NewSuspectResponseInterface>(APIURL + '/NewSuspect', obj);
     }
 
-    updateSuspectCase(obj: DtoNewSuspectCaseInterface): Observable<any> {
-        return this.http.post(APIURL + '/UpdateSuspect', obj);
+    updateSuspectCase(obj: DtoNewSuspectCaseInterface): Observable<HttpResponseBase> {
+        return this.http.post<HttpResponseBase>(APIURL + '/UpdateSuspect', obj);
     }
 
-    newSuspectUpdate(obj: DtoNewSuspectUpdateInterface): Observable<any> {
-        return this.http.post(APIURL + '/NewSuspectUpdate', obj);
+    newSuspectUpdate(obj: DtoNewSuspectUpdateInterface): Observable<HttpResponseBase> {
+        return this.http.post<HttpResponseBase>(APIURL + '/NewSuspectUpdate', obj);
     }
 }

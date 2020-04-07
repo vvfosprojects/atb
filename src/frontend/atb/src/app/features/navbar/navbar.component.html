@@ -21,6 +21,18 @@
                     <i class="fa fa-line-chart mr-1"></i>
                     Statistiche
                 </button>
+                <ng-container *ngIf="counters">
+                    <button class="btn btn-sm btn-outline-primary mr-2 nav-link-custom-left" disabled>
+                        Positivi |
+                        <span class="badge badge-light mr-2">Aperti: <span class="badge badge-danger">{{counters?.positives?.open}}</span></span>
+                        <span class="badge badge-light">Chiusi: <span class="badge badge-success">{{counters?.positives?.closed}}</span></span>
+                    </button>
+                    <button class="btn btn-sm btn-outline-primary mr-2 nav-link-custom-left" disabled>
+                        Sorvegliati |
+                        <span class="badge badge-light mr-2">Aperti: <span class="badge badge-danger">{{counters?.suspects?.open}}</span></span>
+                        <span class="badge badge-light">Chiusi: <span class="badge badge-success">{{counters?.suspects?.closed}}</span></span>
+                    </button>
+                </ng-container>
             </div>
         </div>
     </div>

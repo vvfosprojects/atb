@@ -2,7 +2,7 @@ import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { Injectable } from '@angular/core';
 import { ClearStatisticsData, GetStatisticsData, SetStatisticsTab } from './statistics.actions';
 import { StatisticsService } from '../../../core/services/statistics/statistics.service';
-import { GroupStatistic } from '../../../shared/interface/statistics.interface';
+import { GroupStatistic } from '../../../shared/interface';
 
 export interface StatisticsStateModel {
     groupStatistics: GroupStatistic[];

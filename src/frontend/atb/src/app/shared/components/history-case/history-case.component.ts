@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { HistoryCaseInterface } from '../../interface/history-case.interface';
+import { HistoryCaseInterface } from '../../interface';
 
 @Component({
   selector: 'app-history-case',

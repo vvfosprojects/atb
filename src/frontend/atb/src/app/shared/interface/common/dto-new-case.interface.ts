@@ -1,4 +1,4 @@
-export interface DtoNewPositiveCaseInterface {
+export interface DtoNewCaseInterface {
     number?: number;
     name?: string;
     surname?: string;

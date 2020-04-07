@@ -1,6 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { GroupStatistic } from '../../../../shared/interface/statistics.interface';
-import { QuarantineGroupFacetInterface } from '../../../../shared/interface/quarantine-group-facet.interface';
+import { GroupStatistic, QuarantineGroupFacetInterface } from '../../../../shared/interface';
 import {
     chartsViewSize,
     countTotalSeries,

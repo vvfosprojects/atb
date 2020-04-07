@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { CounterInterface } from '../../../../shared/interface/counters.interface';
+import { CounterInterface } from '../../../../shared/interface';
 
 @Component({
     selector: 'app-search-assente',

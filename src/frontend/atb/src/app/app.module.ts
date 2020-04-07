@@ -25,6 +25,7 @@ import { PermessiState } from './shared/store/permessi/permessi.state';
 import { RssState } from './features/home/store/rss.state';
 import { CacheInterceptor } from './core/interceptors/cache.interceptor';
 import { MiPiaceComponent } from './features/mi-piace/mi-piace.component';
+import { TotalCountersState } from './shared/store/total-counters/total-counters.state';
 
 registerLocaleData(localeIT);
 
@@ -41,7 +42,7 @@ registerLocaleData(localeIT);
         BrowserAnimationsModule,
         AppRoutingModule,
         NgxsModule.forRoot(
-            [ LoadingState, AuthState, PermessiState, RssState ],
+            [ LoadingState, AuthState, PermessiState, RssState, TotalCountersState ],
             { developmentMode: !environment.production }
         ),
         NgxsRouterPluginModule.forRoot(),

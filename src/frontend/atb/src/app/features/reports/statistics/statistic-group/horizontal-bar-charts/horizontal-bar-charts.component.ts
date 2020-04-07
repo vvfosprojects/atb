@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Series } from '../../../../../shared/interface/quarantine-group-facet.interface';
+import { Series } from '../../../../../shared/interface';
 
 @Component({
     selector: 'app-horizontal-bar-charts',

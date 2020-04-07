@@ -3,9 +3,12 @@ import { Select, Store } from '@ngxs/store';
 import { Observable, Subscription } from 'rxjs';
 import { GetGroupList, SetGroup, SetTab } from '../store/data-tables.actions';
 import { DataTablesState } from '../store/data-tables.state';
-import { GroupInterface } from '../../../shared/interface/group.interface';
-import { PositiveCaseInterface } from '../../../shared/interface/positive-case.interface';
-import { SuspectCaseInterface } from '../../../shared/interface/suspect-case.interface';
+import {
+    CountersInterface,
+    GroupInterface,
+    PositiveCaseInterface,
+    SuspectCaseInterface
+} from '../../../shared/interface';
 import { LoadingState } from '../../../shared/store/loading/loading.state';
 import { Navigate } from '@ngxs/router-plugin';
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
@@ -30,6 +33,8 @@ export class DataTablesComponent implements OnDestroy {
 
     @Select(DataTablesState.patients) positiveList$: Observable<PositiveCaseInterface[]>;
     @Select(DataTablesState.suspects) suspectList$: Observable<SuspectCaseInterface[]>;
+    @Select(DataTablesState.counters) counters$: Observable<CountersInterface>;
+    counters: CountersInterface;
 
     private subscription = new Subscription();
 
@@ -37,6 +42,7 @@ export class DataTablesComponent implements OnDestroy {
         this.store.dispatch(new GetGroupList());
         this.subscription.add(this.groupsList$.subscribe(res => this.groupsList = res));
         this.subscription.add(this.selectedGroup$.subscribe(res => this.selectedGroup = res));
+        this.subscription.add(this.counters$.subscribe(res => this.counters = res));
         this.getLoading();
     }
 
