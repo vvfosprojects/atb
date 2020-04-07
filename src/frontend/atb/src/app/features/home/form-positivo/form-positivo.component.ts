@@ -15,12 +15,11 @@ import {
 } from '../store/form-positivo.actions';
 import { UpdateFormValue } from '@ngxs/form-plugin';
 import { SearchState } from '../store/search.state';
-import { PositiveCaseInterface } from '../../../shared/interface/positive/positive-case.interface';
+import { HistoryCaseInterface, PositiveCaseInterface } from '../../../shared/interface';
 import { formatDateForNgbDatePicker } from '../../../shared/functions/functions';
 import { ClearPositiveCase, SearchPositiveCase } from '../store/search.actions';
 import { delay } from 'rxjs/operators';
 import { Navigate } from '@ngxs/router-plugin';
-import { HistoryCaseInterface } from '../../../shared/interface/history-case.interface';
 import { LSNAME } from '../../../core/settings/config';
 
 @Component({

@@ -3,9 +3,8 @@ import { Select, Store } from '@ngxs/store';
 import { GetSheetCounters, OpenKeepAliveModal, SearchPositiveCase, SearchSuspectCase } from '../store/search.actions';
 import { Observable, Subscription } from 'rxjs';
 import { RssState } from '../store/rss.state';
-import { RssInterface } from '../../../shared/interface/rss.interface';
+import { CountersInterface, RssInterface } from '../../../shared/interface';
 import { SearchState } from '../store/search.state';
-import { CountersInterface } from '../../../shared/interface/counters.interface';
 
 @Component({
     selector: 'app-search',

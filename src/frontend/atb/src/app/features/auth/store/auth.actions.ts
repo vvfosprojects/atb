@@ -1,4 +1,4 @@
-import { UserInterface } from '../../../shared/interface/common';
+import { UserInterface } from '../../../shared/interface';
 
 export class SetCurrentJwt {
     static readonly type = '[Auth] Set current Jwt';

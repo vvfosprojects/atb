@@ -1,5 +1,4 @@
-import { QuarantinePlacesFacet } from '../interface/statistics.interface';
-import { Series } from '../interface/quarantine-group-facet.interface';
+import { QuarantinePlacesFacet, Series } from '../interface';
 
 export function seriesPositive(quarantineFacet: QuarantinePlacesFacet): Series[] {
     const quarantineSeries: Series[] = [];

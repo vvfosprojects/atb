@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { SuspectCaseInterface } from '../../../../shared/interface/suspect/suspect-case.interface';
-import { CounterInterface } from '../../../../shared/interface/counters.interface';
+import { CounterInterface, SuspectCaseInterface } from '../../../../shared/interface';
 
 @Component({
     selector: 'app-suspect-data-table',

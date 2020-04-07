@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { PositiveCaseInterface } from '../../../../shared/interface/positive/positive-case.interface';
-import { CounterInterface } from '../../../../shared/interface/counters.interface';
+import { CounterInterface, PositiveCaseInterface } from '../../../../shared/interface';
 
 @Component({
     selector: 'app-positive-data-table',

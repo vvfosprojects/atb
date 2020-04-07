@@ -2,10 +2,10 @@ import { AfterContentInit, Component, OnDestroy } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { Observable, Subscription } from 'rxjs';
 import { AuthState } from '../auth/store/auth.state';
-import { UserInterface } from '../../shared/interface/common';
 import { Roles } from '../../shared/enum/roles.enum';
 import { Navigate } from '@ngxs/router-plugin';
 import { delay } from 'rxjs/operators';
+import { UserInterface } from '../../shared/interface/common';
 
 @Component({ template: `` })
 export class WelcomeComponent implements AfterContentInit, OnDestroy {

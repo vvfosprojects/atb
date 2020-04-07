@@ -4,12 +4,14 @@ import { SaveNewSuspectCase, SetPageTitleFormAssente, UpdateSuspectCase } from '
 import { AssentiService } from '../../../core/services/assenti/assenti.service';
 import { Navigate } from '@ngxs/router-plugin';
 import { formatDate } from '../../../shared/functions/functions';
-import { DtoNewSuspectCaseInterface } from '../../../shared/interface/suspect/dto-new-suspect-case.interface';
-import { DtoNewSuspectUpdateInterface } from '../../../shared/interface/suspect/dto-new-suspect-update.interface';
+import {
+    DtoNewSuspectCaseInterface,
+    DtoNewSuspectUpdateInterface,
+    NewSuspectResponseInterface
+} from '../../../shared/interface';
 import { CaseNumberModalComponent } from '../../../shared/components/case-number-modal/case-number-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { forkJoin } from 'rxjs';
-import { NewSuspectResponseInterface } from '../../../shared/interface/suspect/new-suspect-response.interface';
 
 export interface FormAssenteStateModel {
     pageTitle: string;

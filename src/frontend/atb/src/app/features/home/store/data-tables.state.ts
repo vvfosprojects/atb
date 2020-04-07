@@ -1,15 +1,16 @@
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { Injectable } from '@angular/core';
 import { DataTablesService } from '../../../core/services/data-tables/data-tables.service';
-import { GroupInterface } from '../../../shared/interface/group.interface';
-import { PositiveCaseInterface } from '../../../shared/interface/positive/positive-case.interface';
-import { SuspectCaseInterface } from '../../../shared/interface/suspect/suspect-case.interface';
+import {
+    CountersInterface, CountersResponseInterface,
+    GroupInterface,
+    PositiveCaseInterface,
+    SuspectCaseInterface
+} from '../../../shared/interface';
 import { ClearDataTables, GetDataSheets, GetGroupList, SetGroup, SetTab } from './data-tables.actions';
-import { GroupsResponseInterface, SheetsResponseInterface } from '../../../shared/interface/common';
+import { GroupsResponseInterface, SheetsResponseInterface } from '../../../shared/interface/response';
 import { globalSorter } from '../../../shared/functions';
 import { CountersService } from '../../../core/services/counters/counters.service';
-import { CountersInterface } from '../../../shared/interface/counters.interface';
-import { CountersResponseInterface } from '../../../shared/interface/common/counters-response.interface';
 
 export interface DataTablesStateModel {
     groupsList: GroupInterface[];

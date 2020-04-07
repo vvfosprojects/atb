@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { RssResponseInterface } from '../../../shared/interface/common/rss-response.interface';
+import { RssResponseInterface } from '../../../shared/interface';
 import { environment } from '../../../../environments/environment';
 
 const APIURL = environment.baseUrl;

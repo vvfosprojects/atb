@@ -8,7 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FormAssenteState } from '../store/form-assente.state';
 import { SaveNewSuspectCase, SetPageTitleFormAssente, UpdateSuspectCase } from '../store/form-assente.actions';
 import { SearchState } from '../store/search.state';
-import { SuspectCaseInterface } from '../../../shared/interface/suspect/suspect-case.interface';
+import { SuspectCaseInterface } from '../../../shared/interface';
 import { UpdateFormValue } from '@ngxs/form-plugin';
 import { formatDateForNgbDatePicker } from '../../../shared/functions/functions';
 import { ClearSuspectCase, SearchSuspectCase } from '../store/search.actions';

@@ -4,7 +4,7 @@ import { AuthenticationService } from '../../../core/services/auth';
 import { ClearAuth, SetCurrentJwt, SetCurrentUser } from './auth.actions';
 import { ngxsValidForm } from '../../../shared/functions';
 import { Injectable } from '@angular/core';
-import { AuthResponseInterface } from '../../../shared/interface/common';
+import { AuthResponseInterface } from '../../../shared/interface';
 
 export interface LoginStateModel {
     errorMessage: string;

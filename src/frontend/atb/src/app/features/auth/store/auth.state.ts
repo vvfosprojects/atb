@@ -6,7 +6,7 @@ import {
 } from './auth.actions';
 import { Injectable } from '@angular/core';
 import { Navigate } from '@ngxs/router-plugin';
-import { UserInterface } from '../../../shared/interface/common';
+import { UserInterface } from '../../../shared/interface';
 import { GetRssData } from '../../home/store/rss.actions';
 
 export interface AuthStateModel {

@@ -3,14 +3,16 @@ import { Select, Store } from '@ngxs/store';
 import { Observable, Subscription } from 'rxjs';
 import { GetGroupList, SetGroup, SetTab } from '../store/data-tables.actions';
 import { DataTablesState } from '../store/data-tables.state';
-import { GroupInterface } from '../../../shared/interface/group.interface';
-import { PositiveCaseInterface } from '../../../shared/interface/positive/positive-case.interface';
-import { SuspectCaseInterface } from '../../../shared/interface/suspect/suspect-case.interface';
+import {
+    CountersInterface,
+    GroupInterface,
+    PositiveCaseInterface,
+    SuspectCaseInterface
+} from '../../../shared/interface';
 import { LoadingState } from '../../../shared/store/loading/loading.state';
 import { Navigate } from '@ngxs/router-plugin';
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import { LSNAME } from '../../../core/settings/config';
-import { CountersInterface } from '../../../shared/interface/counters.interface';
 
 @Component({
     selector: 'app-data-tables',

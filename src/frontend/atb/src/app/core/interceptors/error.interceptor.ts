@@ -4,7 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Store } from '@ngxs/store';
 import { Navigate } from '@ngxs/router-plugin';
-import { ErrorResponseInterface } from '../../shared/interface/common';
+import { ErrorResponseInterface } from '../../shared/interface/response';
 import { ToastrService } from 'ngx-toastr';
 
 @Injectable()

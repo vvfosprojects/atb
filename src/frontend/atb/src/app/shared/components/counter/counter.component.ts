@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { CounterInterface } from '../../interface/counters.interface';
+import { CounterInterface } from '../../interface';
 
 @Component({
   selector: 'app-counter',

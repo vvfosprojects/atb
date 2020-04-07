@@ -1,9 +1,8 @@
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { Injectable } from '@angular/core';
-import { CountersInterface } from '../../interface/counters.interface';
+import { CountersInterface, CountersResponseInterface } from '../../interface';
 import { GetTotalCounters } from './total-counters.actions';
 import { CountersService } from '../../../core/services/counters/counters.service';
-import { CountersResponseInterface } from '../../interface/common/counters-response.interface';
 
 export interface TotalCountersStateModel {
     counters: CountersInterface;

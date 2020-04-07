@@ -1,10 +1,9 @@
 import { Component, Input, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
-import { UserInterface } from '../../shared/interface/common';
 import { Navigate } from '@ngxs/router-plugin';
 import { Select, Store } from '@ngxs/store';
 import { RoutesPath } from '../../shared/enum/routes-path.enum';
 import { PermissionFeatures } from '../../shared/enum/permission-features.enum';
-import { CountersInterface } from '../../shared/interface/counters.interface';
+import { CountersInterface, UserInterface } from '../../shared/interface';
 import { Roles } from '../../shared/enum/roles.enum';
 import { Observable, Subscription } from 'rxjs';
 import { GetTotalCounters } from '../../shared/store/total-counters/total-counters.actions';

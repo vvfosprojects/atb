@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpResponseBase } from '@angular/common/http';
-import { DtoNewPositiveCaseInterface } from '../../../shared/interface/positive/dto-new-positive-case.interface';
-import { DtoNewPositiveUpdateInterface } from '../../../shared/interface/positive/dto-new-positive-update.interface';
-import { NewPositiveResponseInterface } from '../../../shared/interface/positive/new-positive-response.interface';
-import { PositiveCaseInterface } from '../../../shared/interface/positive/positive-case.interface';
+import {
+    DtoNewPositiveCaseInterface, DtoNewPositiveUpdateInterface,
+    NewPositiveResponseInterface,
+    PositiveCaseInterface
+} from '../../../shared/interface';
 
 const APIURL = environment.baseUrl;
 
