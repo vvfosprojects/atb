@@ -17,6 +17,7 @@
                 <ng-template ngbTabContent>
                     <div class="p-3 bg-white border shadow-sm overflow-auto">
                         <app-positive-data-table [positiveList]="positiveList$ | async"
+                                                 [counter]="counters?.positives"
                                                  [loading]="loading"
                                                  (detail)="onPositiveDetail($event)"></app-positive-data-table>
                     </div>
@@ -29,6 +30,7 @@
                 <ng-template ngbTabContent>
                     <div class="p-3 bg-white border shadow-sm overflow-auto">
                         <app-suspect-data-table [suspectList]="suspectList$ | async"
+                                                [counter]="counters?.suspects"
                                                 [loading]="loading"
                                                 (detail)="onSuspectDetail($event)"></app-suspect-data-table>
                     </div>

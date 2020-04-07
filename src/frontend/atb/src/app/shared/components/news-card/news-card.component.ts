@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { RssInterface } from '../../interface/rss.interface';
+import { RssInterface } from '../../interface';
 
 @Component({
   selector: 'app-news-card',

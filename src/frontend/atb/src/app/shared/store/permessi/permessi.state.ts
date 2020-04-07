@@ -1,6 +1,6 @@
 import { Selector, State } from '@ngxs/store';
 import { PermissionFeatures } from '../../enum/permission-features.enum';
-import { PermessiFeatureInterface } from '../../interface/common/permessi-feature.interface';
+import { PermessiFeatureInterface } from '../../interface';
 import { Roles } from '../../enum/roles.enum';
 import { Injectable } from '@angular/core';
 

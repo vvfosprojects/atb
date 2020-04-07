@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
-import { KeepAliveResponseInterface } from '../../../shared/interface/common/keep-alive-response.interface';
+import { KeepAliveResponseInterface } from '../../../shared/interface';
 
 const APIURL = environment.baseUrl;
 const APIKEEPALIVE = environment.apiUrl.keepAlive;

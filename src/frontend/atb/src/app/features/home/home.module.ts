@@ -26,7 +26,6 @@ import { DataTablesState } from './store/data-tables.state';
 import { FiltersDataTablesComponent } from './data-tables/filters-data-tables/filters-data-tables.component';
 import { PositiveDataTableComponent } from './data-tables/positive-data-table/positive-data-table.component';
 import { SuspectDataTableComponent } from './data-tables/suspect-data-table/suspect-data-table.component';
-import { CountersService } from '../../core/services/counters/counters.service';
 import { CustomDateParserFormatter } from '../../core/adapters/custom-date-parser-formatter.service';
 import { KeepAliveService } from '../../core/services/keep-alive/keep-alive.service';
 
@@ -61,7 +60,6 @@ import { KeepAliveService } from '../../core/services/keep-alive/keep-alive.serv
         AssentiService,
         PositiviService,
         DataTablesService,
-        CountersService,
         KeepAliveService,
         { provide: NgbDateParserFormatter, useClass: CustomDateParserFormatter }
     ]

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponseBase } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
-import { AuthResponseInterface } from '../../../shared/interface/common';
+import { AuthResponseInterface } from '../../../shared/interface';
 import { Observable } from 'rxjs';
 
 const APIURL = environment.baseUrl;

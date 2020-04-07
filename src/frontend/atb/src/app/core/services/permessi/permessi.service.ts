@@ -3,8 +3,7 @@ import { Store } from '@ngxs/store';
 import { PermissionFeatures } from '../../../shared/enum/permission-features.enum';
 import { PermessiState } from '../../../shared/store/permessi/permessi.state';
 import { AuthState } from '../../../features/auth/store/auth.state';
-import { PermessiFeatureInterface } from '../../../shared/interface/common/permessi-feature.interface';
-import { UserInterface } from '../../../shared/interface/common';
+import { PermessiFeatureInterface, UserInterface } from '../../../shared/interface';
 
 @Injectable({
     providedIn: 'root'
