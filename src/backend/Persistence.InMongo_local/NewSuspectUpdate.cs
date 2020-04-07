@@ -23,23 +23,53 @@ namespace Persistence.InMongo_local
         {
             var loggedUser = this.getSessionContext.GetLoggedUsername();
 
-            var dataToInsert = new SuspectData()
+            if (command.Link != null)
             {
-                ActualWorkReturnDate = command.ActualWorkReturnDate,
-                ExpectedWorkReturnDate = command.ExpectedWorkReturnDate,
-                QuarantinePlace = command.QuarantinePlace,
-                HealthMeasure = new HealthMeasure()
+                var dataToInsert = new SuspectData()
                 {
-                    By = command.HealthMeasure.By,
-                    Code = command.HealthMeasure.Code
-                },
-                UpdatedBy = loggedUser,
-                UpdateTime = DateTime.UtcNow
-            };
+                    ActualWorkReturnDate = command.ActualWorkReturnDate,
+                    ExpectedWorkReturnDate = command.ExpectedWorkReturnDate,
+                    QuarantinePlace = command.QuarantinePlace,
+                    HealthMeasure = new HealthMeasure()
+                    {
+                        By = command.HealthMeasure.By,
+                        Code = command.HealthMeasure.Code
+                    },
+                    Link = new Link()
+                    {
+                        CaseNumber = command.Link.CaseNumber,
+                        Closed = command.Link.Closed
+                    },
+                    UpdatedBy = loggedUser,
+                    UpdateTime = DateTime.UtcNow
+                };
 
-            var filter = Builders<Suspect>.Filter.Eq(x => x.Subject.Number, command.CaseNumber) & Builders<Suspect>.Filter.Eq(x => x.Group, getSessionContext.GetActiveGroup());
-            var update = Builders<Suspect>.Update.Push(p => p.Data, dataToInsert);
-            dbContext.Suspects.UpdateOne(filter, update);
+                var filter = Builders<Suspect>.Filter.Eq(x => x.Subject.Number, command.CaseNumber) & Builders<Suspect>.Filter.Eq(x => x.Group, getSessionContext.GetActiveGroup());
+                var update = Builders<Suspect>.Update.Push(p => p.Data, dataToInsert);
+                dbContext.Suspects.UpdateOne(filter, update);
+            }
+
+            else
+            {
+                var dataToInsert = new SuspectData()
+                {
+                    ActualWorkReturnDate = command.ActualWorkReturnDate,
+                    ExpectedWorkReturnDate = command.ExpectedWorkReturnDate,
+                    QuarantinePlace = command.QuarantinePlace,
+                    HealthMeasure = new HealthMeasure()
+                    {
+                        By = command.HealthMeasure.By,
+                        Code = command.HealthMeasure.Code
+                    },
+                    UpdatedBy = loggedUser,
+                    UpdateTime = DateTime.UtcNow
+                };
+
+                var filter = Builders<Suspect>.Filter.Eq(x => x.Subject.Number, command.CaseNumber) & Builders<Suspect>.Filter.Eq(x => x.Group, getSessionContext.GetActiveGroup());
+                var update = Builders<Suspect>.Update.Push(p => p.Data, dataToInsert);
+                dbContext.Suspects.UpdateOne(filter, update);
+            }
+
         }
     }
 }

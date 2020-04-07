@@ -19,7 +19,10 @@ namespace atb.Controllers
         public ActionResult Add([FromBody]NewSuspectUpdateCommand command)
         {
             handler.Handle(command);
-            return Ok();
+
+            ///Mi manca da restituire il riferimento alla scheda positiva in caso esista o null in caso contrario
+
+            return Ok(new { CaseNumber = command.PositiveSheetNum });
         }
     }
 }

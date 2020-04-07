@@ -15,5 +15,7 @@ namespace DomainModel.Classes
         public DateTime UpdateTime { get; set; }
 
         public string UpdatedBy { get; set; }
+
+        public Link Link { get; set; }
     }
 }

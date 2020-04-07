@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DomainModel.Classes;
+using System;
 
 namespace DomainModel.CQRS.Commands.NewPositiveUpdate
 {
@@ -15,5 +16,7 @@ namespace DomainModel.CQRS.Commands.NewPositiveUpdate
         public DateTime? ExpectedWorkReturnDate { get; set; }
 
         public DateTime? ActualWorkReturnDate { get; set; }
+
+        public Link Link { get; set; }
     }
 }
