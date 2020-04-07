@@ -1,5 +1,5 @@
-import { SuspectCaseInterface } from '../interface/suspect-case.interface';
-import { PositiveCaseInterface } from '../interface/positive-case.interface';
+import { SuspectCaseInterface } from '../interface/suspect/suspect-case.interface';
+import { PositiveCaseInterface } from '../interface/positive/positive-case.interface';
 import { RssInterface } from '../interface/rss.interface';
 import { QuarantineGroupFacetInterface } from '../interface/quarantine-group-facet.interface';
 

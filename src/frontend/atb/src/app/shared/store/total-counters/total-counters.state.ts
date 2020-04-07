@@ -1,4 +1,4 @@
-import { Action, Selector, State, StateContext, Store } from '@ngxs/store';
+import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { Injectable } from '@angular/core';
 import { CountersInterface } from '../../interface/counters.interface';
 import { GetTotalCounters } from './total-counters.actions';
@@ -25,7 +25,7 @@ export class TotalCountersState {
         return state.counters;
     }
 
-    constructor(private store: Store, private countersService: CountersService) {
+    constructor(private countersService: CountersService) {
     }
 
     @Action(GetTotalCounters)

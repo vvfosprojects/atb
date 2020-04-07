@@ -12,9 +12,10 @@ import { Navigate } from '@ngxs/router-plugin';
 import { PositiviService } from '../../../core/services/positivi/positivi.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CaseNumberModalComponent } from '../../../shared/components/case-number-modal/case-number-modal.component';
-import { DtoNewPositiveCaseInterface } from '../../../shared/interface/dto-new-positive-case.interface';
-import { DtoNewPositiveUpdateInterface } from '../../../shared/interface/dto-new-positive-update.interface';
+import { DtoNewPositiveCaseInterface } from '../../../shared/interface/positive/dto-new-positive-case.interface';
+import { DtoNewPositiveUpdateInterface } from '../../../shared/interface/positive/dto-new-positive-update.interface';
 import { forkJoin, of } from 'rxjs';
+import { NewPositiveResponseInterface } from '../../../shared/interface/positive/new-positive-response.interface';
 
 export interface FormPositivoStateModel {
     pageTitle: string;
@@ -86,7 +87,7 @@ export class FormPositivoState {
             phone: '' + positivoFormValue.phone,
             role: positivoFormValue.role
         };
-        this.positiviService.newPositiveCase(objSubject).subscribe((resNewPositiveCase: { caseNumber: number }) => {
+        this.positiviService.newPositiveCase(objSubject).subscribe((resNewPositiveCase: NewPositiveResponseInterface) => {
             const objData: DtoNewPositiveUpdateInterface = {
                 caseNumber: resNewPositiveCase.caseNumber,
                 estremiProvvedimentiASL: positivoFormValue.estremiProvvedimentiASL,

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { PositiveCaseInterface } from '../../../../shared/interface/positive-case.interface';
+import { PositiveCaseInterface } from '../../../../shared/interface/positive/positive-case.interface';
 import { CounterInterface } from '../../../../shared/interface/counters.interface';
 
 @Component({

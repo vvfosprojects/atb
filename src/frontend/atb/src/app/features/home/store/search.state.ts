@@ -1,6 +1,6 @@
 import { Action, Selector, State, StateContext, Store } from '@ngxs/store';
 import { Injectable } from '@angular/core';
-import { PositiveCaseInterface } from '../../../shared/interface/positive-case.interface';
+import { PositiveCaseInterface } from '../../../shared/interface/positive/positive-case.interface';
 import {
     ClearPositiveCase,
     ClearSuspectCase, GetSheetCounters, OpenKeepAliveModal,
@@ -8,7 +8,7 @@ import {
     SearchSuspectCase, SetKeepAliveConfirm,
     SetNotFound
 } from './search.actions';
-import { SuspectCaseInterface } from '../../../shared/interface/suspect-case.interface';
+import { SuspectCaseInterface } from '../../../shared/interface/suspect/suspect-case.interface';
 import { Navigate } from '@ngxs/router-plugin';
 import { AssentiService } from '../../../core/services/assenti/assenti.service';
 import { PositiviService } from '../../../core/services/positivi/positivi.service';

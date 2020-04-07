@@ -4,11 +4,12 @@ import { SaveNewSuspectCase, SetPageTitleFormAssente, UpdateSuspectCase } from '
 import { AssentiService } from '../../../core/services/assenti/assenti.service';
 import { Navigate } from '@ngxs/router-plugin';
 import { formatDate } from '../../../shared/functions/functions';
-import { DtoNewSuspectCaseInterface } from '../../../shared/interface/dto-new-suspect-case.interface';
-import { DtoNewSuspectUpdateInterface } from '../../../shared/interface/dto-new-suspect-update.interface';
+import { DtoNewSuspectCaseInterface } from '../../../shared/interface/suspect/dto-new-suspect-case.interface';
+import { DtoNewSuspectUpdateInterface } from '../../../shared/interface/suspect/dto-new-suspect-update.interface';
 import { CaseNumberModalComponent } from '../../../shared/components/case-number-modal/case-number-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { forkJoin } from 'rxjs';
+import { NewSuspectResponseInterface } from '../../../shared/interface/suspect/new-suspect-response.interface';
 
 export interface FormAssenteStateModel {
     pageTitle: string;
@@ -79,7 +80,7 @@ export class FormAssenteState {
             phone: assenteFormValue.phone,
             role: assenteFormValue.role
         };
-        this.assentiService.newSuspectCase(objSubject).subscribe((resNewSuspectCase: { caseNumber: number }) => {
+        this.assentiService.newSuspectCase(objSubject).subscribe((resNewSuspectCase: NewSuspectResponseInterface) => {
             const objData: DtoNewSuspectUpdateInterface = {
                 caseNumber: resNewSuspectCase.caseNumber,
                 quarantinePlace: assenteFormValue.quarantinePlace,

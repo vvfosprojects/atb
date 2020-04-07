@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { SuspectCaseInterface } from '../../../../shared/interface/suspect-case.interface';
+import { SuspectCaseInterface } from '../../../../shared/interface/suspect/suspect-case.interface';
 import { CounterInterface } from '../../../../shared/interface/counters.interface';
 
 @Component({

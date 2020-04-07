@@ -1,4 +1,4 @@
-import { HealthMeasureInterface } from './health-measure.interface';
+import { HealthMeasureInterface } from '../health-measure.interface';
 
 export interface DtoNewSuspectUpdateInterface {
     caseNumber: number;

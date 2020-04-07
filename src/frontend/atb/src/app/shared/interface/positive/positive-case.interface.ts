@@ -1,9 +1,8 @@
-import { HealthMeasureInterface } from './health-measure.interface';
-import { QuarantinePlaceEnum } from '../enum/quarantine-place.enum';
-import { HistoryCaseInterface } from './history-case.interface';
-import { UpdateInterface } from './update.interface';
+import { QuarantinePlaceEnum } from '../../enum/quarantine-place.enum';
+import { HistoryCaseInterface } from '../history-case.interface';
+import { UpdateInterface } from '../update.interface';
 
-export interface SuspectCaseInterface {
+export interface PositiveCaseInterface {
     subject: Subject;
     data: Data;
     group?: string;
@@ -11,7 +10,7 @@ export interface SuspectCaseInterface {
 }
 
 export interface Subject {
-    number: number;
+    number?: number;
     nome?: string;
     cognome?: string;
     email?: string;
@@ -20,9 +19,10 @@ export interface Subject {
 }
 
 export interface Data extends UpdateInterface {
+    estremiProvvedimentiASL?: string;
+    diseaseConfirmDate: string;
+    dateOfDeath?: string;
     quarantinePlace: QuarantinePlaceEnum;
     expectedWorkReturnDate: string;
-    dateOfDeath?: string;
     actualWorkReturnDate?: string;
-    healthMeasure: HealthMeasureInterface;
 }
