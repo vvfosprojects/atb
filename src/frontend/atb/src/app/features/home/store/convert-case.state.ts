@@ -1,14 +1,20 @@
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { Injectable } from '@angular/core';
-import { LinkCaseInterface } from '../../../shared/interface';
-import { ClearConvertCase, SetLink } from './convert-case.actions';
+import { DtoNewCaseInterface, LinkCaseInterface } from '../../../shared/interface';
+import { ClearConvertCase, SetConvertCase, SetLink, SetSubject } from './convert-case.actions';
+import { Navigate } from '@ngxs/router-plugin';
+import { SetPageTitleFormPositivo } from './form-positivo.actions';
 
 export interface ConvertCaseStateModel {
     link: LinkCaseInterface;
+    subject: DtoNewCaseInterface;
+    convertCase: string;
 }
 
 export const ConvertCaseStateDefaults: ConvertCaseStateModel = {
-    link: null
+    link: null,
+    subject: null,
+    convertCase: null
 };
 
 @Injectable()
@@ -17,6 +23,11 @@ export const ConvertCaseStateDefaults: ConvertCaseStateModel = {
     defaults: ConvertCaseStateDefaults
 })
 export class ConvertCaseState {
+
+    @Selector()
+    static subject(state: ConvertCaseStateModel) {
+        return state.subject;
+    }
 
     @Selector()
     static link(state: ConvertCaseStateModel) {
@@ -28,9 +39,26 @@ export class ConvertCaseState {
         patchState({ link });
     }
 
+    @Action(SetSubject)
+    setSubject({ patchState, dispatch }: StateContext<ConvertCaseStateModel>, { subject }: SetSubject) {
+        patchState({ subject });
+    }
+
+    @Action(SetConvertCase)
+    setConvertCase({ patchState, dispatch }: StateContext<ConvertCaseStateModel>, { convertCase }: SetConvertCase) {
+        patchState({ convertCase });
+        dispatch([
+            new SetPageTitleFormPositivo('nuovo positivo (ex sospetto)'),
+            new Navigate([ `./home/${convertCase}` ])
+        ])
+    }
+
     @Action(ClearConvertCase)
-    clearConvertCase({ patchState }: StateContext<ConvertCaseStateModel>) {
-        patchState(ConvertCaseStateDefaults);
+    clearConvertCase({ getState, patchState }: StateContext<ConvertCaseStateModel>, { convertCase }: ClearConvertCase) {
+        const currentCase = getState().convertCase;
+        if (currentCase === convertCase) {
+            patchState(ConvertCaseStateDefaults);
+        }
     }
 
 }

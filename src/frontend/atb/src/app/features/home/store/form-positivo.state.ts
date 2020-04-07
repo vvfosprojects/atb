@@ -18,6 +18,7 @@ import {
     NewPositiveResponseInterface
 } from '../../../shared/interface';
 import { forkJoin, of } from 'rxjs';
+import { ClearConvertCase } from './convert-case.actions';
 
 export interface FormPositivoStateModel {
     pageTitle: string;
@@ -79,7 +80,7 @@ export class FormPositivoState {
     }
 
     @Action(SaveNewPositivoCase)
-    saveNewPositivoCase({ getState, dispatch }: StateContext<FormPositivoStateModel>) {
+    saveNewPositivoCase({ getState, dispatch }: StateContext<FormPositivoStateModel>, { link }: SaveNewPositivoCase) {
         const positivoFormValue = getState().positivoForm.model;
         const objSubject: DtoNewPositiveCaseInterface = {
             number: positivoFormValue.caseNumber,
@@ -96,7 +97,8 @@ export class FormPositivoState {
                 diseaseConfirmDate: positivoFormValue.diseaseConfirmDate ? formatDate(positivoFormValue.diseaseConfirmDate) : null,
                 quarantinePlace: positivoFormValue.quarantinePlace === 'HOSP' && positivoFormValue.intensiveTerapy ? 'INTCARE' : positivoFormValue.quarantinePlace,
                 expectedWorkReturnDate: positivoFormValue.expectedWorkReturnDate ? formatDate(positivoFormValue.expectedWorkReturnDate) : null,
-                actualWorkReturnDate: positivoFormValue.actualWorkReturnDate ? formatDate(positivoFormValue.actualWorkReturnDate) : null
+                actualWorkReturnDate: positivoFormValue.actualWorkReturnDate ? formatDate(positivoFormValue.actualWorkReturnDate) : null,
+                link
             };
             this.positiviService.newPositiveUpdate(objData).subscribe(() => {
                 dispatch(new Navigate([ './home/ricerca' ]));
@@ -106,6 +108,7 @@ export class FormPositivoState {
                     backdropClass: 'backdrop-custom-black'
                 });
                 m.componentInstance.title = 'Inserimento Nuovo Caso Positivo COVID';
+                m.componentInstance.exMsg = link ? '(ex Sospetto)' : '';
                 m.componentInstance.caseNumber = resNewPositiveCase.caseNumber;
             });
         });
@@ -147,7 +150,8 @@ export class FormPositivoState {
     }
 
     @Action(ClearFormPositivo)
-    clearFormPositivo({ patchState }: StateContext<FormPositivoStateModel>) {
+    clearFormPositivo({ dispatch, patchState }: StateContext<FormPositivoStateModel>) {
+        dispatch(new ClearConvertCase('form-positivo'));
         patchState(formPositivoStateDefaults);
     }
 

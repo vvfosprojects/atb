@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { AfterContentInit, Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Select, Store } from '@ngxs/store';
 import { FormPositivoState } from '../store/form-positivo.state';
@@ -15,19 +15,25 @@ import {
 } from '../store/form-positivo.actions';
 import { UpdateFormValue } from '@ngxs/form-plugin';
 import { SearchState } from '../store/search.state';
-import { HistoryCaseInterface, PositiveCaseInterface } from '../../../shared/interface';
+import {
+    DtoNewCaseInterface,
+    HistoryCaseInterface,
+    LinkCaseInterface,
+    PositiveCaseInterface
+} from '../../../shared/interface';
 import { formatDateForNgbDatePicker } from '../../../shared/functions/functions';
 import { ClearPositiveCase, SearchPositiveCase } from '../store/search.actions';
 import { delay } from 'rxjs/operators';
 import { Navigate } from '@ngxs/router-plugin';
 import { LSNAME } from '../../../core/settings/config';
+import { ConvertCaseState } from '../store/convert-case.state';
 
 @Component({
     selector: 'app-positivo',
     templateUrl: './form-positivo.component.html',
     styleUrls: [ './form-positivo.component.scss' ]
 })
-export class FormPositivoComponent implements OnDestroy {
+export class FormPositivoComponent implements AfterContentInit, OnDestroy {
 
     @Select(LoadingState.loading) loading$: Observable<boolean>;
     @Select(QualificheState.qualifiche) qualifiche$: Observable<string[]>;
@@ -35,6 +41,9 @@ export class FormPositivoComponent implements OnDestroy {
     @Select(FormPositivoState.positivoFormValid) positivoFormValid$: Observable<boolean>;
     @Select(SearchState.positiveCase) positiveCase$: Observable<PositiveCaseInterface>;
     @Select(SearchState.notFound) notFound$: Observable<boolean>;
+    @Select(ConvertCaseState.subject) subject$: Observable<DtoNewCaseInterface>;
+    @Select(ConvertCaseState.link) link$: Observable<LinkCaseInterface>;
+    link: LinkCaseInterface;
 
     positivoForm: FormGroup;
     submitted = false;
@@ -68,11 +77,29 @@ export class FormPositivoComponent implements OnDestroy {
         } else if (this.route.snapshot.url.length > 1 && this.route.snapshot.url[1].path !== 'detail' && this.route.snapshot.params.id) {
             this.editMode = true;
             this.store.dispatch(new SetPageTitleFormPositivo('modifica positivo'));
-        } else {
-            this.store.dispatch(new SetPageTitleFormPositivo('nuovo positivo'));
         }
 
         this.initForm();
+    }
+
+    ngAfterContentInit(): void {
+        this.subscription.add(this.link$.subscribe( res => this.link = res));
+        this.subscription.add(this.subject$.subscribe( res => {
+            if (res) {
+                this.store.dispatch(
+                    new UpdateFormValue({
+                        path: 'positivo.positivoForm',
+                        value: {
+                            name: res.name,
+                            surname: res.surname,
+                            phone: res.phone,
+                            email: res.email,
+                            role: res.role,
+                        }
+                    })
+                );
+            }
+        }));
     }
 
     ngOnDestroy(): void {
@@ -150,7 +177,7 @@ export class FormPositivoComponent implements OnDestroy {
         }
 
         if (!this.editMode) {
-            this.store.dispatch(new SaveNewPositivoCase());
+            this.store.dispatch(new SaveNewPositivoCase(this.link));
         } else {
             this.store.dispatch(new UpdatePositivoCase());
         }

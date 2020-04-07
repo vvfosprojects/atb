@@ -15,3 +15,7 @@ export class UpdateSuspectCase {
     constructor(public convertToPositive = false) {
     }
 }
+
+export class ClearFormAssente {
+    static readonly type = '[FormAssente] Clear State';
+}

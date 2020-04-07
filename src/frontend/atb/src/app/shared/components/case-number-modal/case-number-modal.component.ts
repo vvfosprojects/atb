@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -6,15 +6,14 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
     templateUrl: './case-number-modal.component.html',
     styleUrls: ['./case-number-modal.component.scss']
 })
-export class CaseNumberModalComponent implements OnInit {
+export class CaseNumberModalComponent {
 
     title: string;
     caseNumber: number;
 
-    constructor(private modal: NgbActiveModal) {
-    }
+    exMsg: string;
 
-    ngOnInit(): void {
+    constructor(private modal: NgbActiveModal) {
     }
 
     close() {
