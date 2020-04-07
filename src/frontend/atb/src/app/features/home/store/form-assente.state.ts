@@ -91,7 +91,8 @@ export class FormAssenteState {
                 healthMeasure: {
                     code: assenteFormValue.healthMeasureCode,
                     by: assenteFormValue.healthMeasureBy
-                }
+                },
+                convertToPositive: false
             };
             this.assentiService.newSuspectUpdate(objData).subscribe(() => {
                 dispatch(new Navigate(['./home/ricerca']));
@@ -103,7 +104,7 @@ export class FormAssenteState {
     }
 
     @Action(UpdateSuspectCase)
-    updateSuspectCase({ getState, dispatch }: StateContext<FormAssenteStateModel>) {
+    updateSuspectCase({ getState, dispatch }: StateContext<FormAssenteStateModel>, {convertToPositive}: UpdateSuspectCase) {
         const assenteFormValue = getState().assenteForm.model;
         const objData: DtoNewSuspectUpdateInterface = {
             caseNumber: assenteFormValue.caseNumber,
@@ -113,7 +114,8 @@ export class FormAssenteState {
             healthMeasure: {
                 code: assenteFormValue.healthMeasureCode,
                 by: assenteFormValue.healthMeasureBy
-            }
+            },
+            convertToPositive
         };
         const objSubject: DtoNewSuspectCaseInterface = {
             number: assenteFormValue.caseNumber,
@@ -128,6 +130,9 @@ export class FormAssenteState {
         const newSuspectUpdate = this.assentiService.newSuspectUpdate(objData);
         forkJoin([ updateSuspectCase, newSuspectUpdate ]).subscribe(result => {
             if (result) {
+                if (result[1].positiveSheetNum === null) {
+                    console.log('Init ConvertSuspect')
+                }
                 dispatch(new Navigate(['./home/ricerca']));
             }
         });

@@ -29,6 +29,14 @@
                             </ng-template>
                         </button>
                     </div>
+                    <div class="offset-11 my-2"></div>
+                    <div *ngIf="!detailMode && editMode" class="col-12 col-lg-6 mx-auto text-center">
+                        <button type="button" class="btn btn-block btn-lg btn-outline-primary" (click)="onSubmit(true)"
+                                [disabled]="!this.assenteForm.valid">
+                            <i class="fa fa-retweet mr-1"></i>
+                            Converti in Positivo
+                        </button>
+                    </div>
                 </div>
             </div>
             <div class="col-12">
@@ -39,7 +47,7 @@
                 <h4 class="text-primary" *ngIf="detailMode"> {{(gruppo)}}</h4>
             </div>
             <div class="col-12 col-sm-11 col-md-10 mx-auto">
-                <form [formGroup]="assenteForm" ngxsForm="assente.assenteForm" (ngSubmit)="onSubmit()">
+                <form [formGroup]="assenteForm" ngxsForm="assente.assenteForm">
                     <div class="px-4 py-3 bg-light rounded border border-light shadow-sm mb-4">
                         <h4>Numero Caso</h4>
                         <hr>
@@ -229,7 +237,7 @@
                         </button>
                     </div>
                     <div class="offset-11 my-2"></div>
-                    <div  *ngIf="!detailMode" class="col-12 col-lg-6 mx-auto text-center">
+                    <div *ngIf="!detailMode" class="col-12 col-lg-6 mx-auto text-center">
                         <button type="button" class="btn btn-block btn-lg btn-primary" (click)="onSubmit()"
                                 [disabled]="!this.assenteForm.valid">
                             <ng-template [ngIf]="!editMode">
@@ -240,6 +248,14 @@
                                 <i class="fa fa-save mr-1"></i>
                                 Salva Modifiche
                             </ng-template>
+                        </button>
+                    </div>
+                    <div class="offset-11 my-2"></div>
+                    <div *ngIf="!detailMode && editMode" class="col-12 col-lg-6 mx-auto text-center">
+                        <button type="button" class="btn btn-block btn-lg btn-outline-primary" (click)="onSubmit(true)"
+                                [disabled]="!this.assenteForm.valid">
+                                <i class="fa fa-retweet mr-1"></i>
+                                Converti in Positivo
                         </button>
                     </div>
                 </div>

@@ -126,7 +126,7 @@ export class FormAssenteComponent implements OnDestroy {
         return this.assenteForm.controls;
     }
 
-    onSubmit() {
+    onSubmit(convert?: boolean) {
         this.submitted = true;
 
         if (this.assenteForm.invalid) {
@@ -136,7 +136,7 @@ export class FormAssenteComponent implements OnDestroy {
         if (!this.editMode) {
             this.store.dispatch(new SaveNewSuspectCase());
         } else {
-            this.store.dispatch(new UpdateSuspectCase());
+            this.store.dispatch(new UpdateSuspectCase(convert));
         }
     }
 
