@@ -1,8 +1,6 @@
-export interface DtoNewPositiveUpdateInterface {
-    caseNumber: number;
+import { DtoNewUpdateInterface } from '../common';
+
+export interface DtoNewPositiveUpdateInterface extends DtoNewUpdateInterface  {
     estremiProvvedimentiASL?: string;
     diseaseConfirmDate: string;
-    quarantinePlace: string;
-    expectedWorkReturnDate: string;
-    actualWorkReturnDate?: string;
 }

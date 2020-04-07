@@ -1,8 +1,4 @@
-export interface DtoNewSuspectCaseInterface {
-    number?: number;
-    name?: string;
-    surname?: string;
-    email?: string;
-    phone?: string;
-    role: string;
+import { DtoNewCaseInterface } from '../common';
+
+export interface DtoNewSuspectCaseInterface extends DtoNewCaseInterface {
 }

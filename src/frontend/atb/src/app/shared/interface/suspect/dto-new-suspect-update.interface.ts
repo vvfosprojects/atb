@@ -1,9 +1,6 @@
 import { HealthMeasureInterface } from './health-measure.interface';
+import { DtoNewUpdateInterface } from '../common';
 
-export interface DtoNewSuspectUpdateInterface {
-    caseNumber: number;
-    quarantinePlace: string;
-    expectedWorkReturnDate: string;
-    actualWorkReturnDate?: string;
+export interface DtoNewSuspectUpdateInterface extends DtoNewUpdateInterface {
     healthMeasure: HealthMeasureInterface;
 }

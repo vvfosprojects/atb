@@ -1,4 +1,4 @@
-import { CaseNumberInterface } from '../common/case-number.interface';
+import { CaseNumberInterface } from '../common/';
 
 export interface NewSuspectResponseInterface extends CaseNumberInterface {
 }

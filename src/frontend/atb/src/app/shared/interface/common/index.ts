@@ -8,3 +8,5 @@ export * from './update.interface';
 export * from './user.interface';
 export * from './subject.interface';
 export * from './data.interface';
+export * from './dto-new-case.interface';
+export * from './dto-new-update.interface';
