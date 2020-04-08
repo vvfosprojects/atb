@@ -77,7 +77,7 @@ namespace Persistence.InMongo_local
                             IntCare = g.Where(x => x.Data.Link == null || x.Data.Link.Closed == false).Count(x => x.Data.QuarantinePlace == "INTCARE" && !x.Data.DateOfDeath.HasValue && !x.Data.ActualWorkReturnDate.HasValue),
                         },
                         TotalSick = g.Count(),
-                        TotalClosed = g.Where(x => x.Data.ActualWorkReturnDate.HasValue || x.Data.DateOfDeath.HasValue || (x.Data.Link != null && x.Data.Link.Closed == true)).Count(),
+                        TotalClosed = g.Where(x => (x.Data.ActualWorkReturnDate.HasValue && x.Data.ActualWorkReturnDate.Value < DateTime.UtcNow) || x.Data.DateOfDeath.HasValue || (x.Data.Link != null && x.Data.Link.Closed == true)).Count(),
                         RoleFacet = g.GroupBy(g2 => this.cryptools.Decrypt(g2.Subject.Role))
                             .OrderBy(g2 => g2.Key)
                             .Select(g2 => new RoleFacet() { Name = g2.Key, Total = g2.Count() }).ToList()
@@ -91,7 +91,7 @@ namespace Persistence.InMongo_local
                             Hosp = g.Where(x => x.Data.Link == null || x.Data.Link.Closed == false).Count(x => x.Data.QuarantinePlace == "HOSP" && !x.Data.ActualWorkReturnDate.HasValue),
                         },
                         TotalSick = g.Count(),
-                        TotalClosed = g.Where(x => x.Data.ActualWorkReturnDate.HasValue || (x.Data.Link != null && x.Data.Link.Closed == true)).Count(),
+                        TotalClosed = g.Where(x => (x.Data.ActualWorkReturnDate.HasValue && x.Data.ActualWorkReturnDate.Value < DateTime.UtcNow) || (x.Data.Link != null && x.Data.Link.Closed == true)).Count(),
                         RoleFacet = g.GroupBy(g2 => this.cryptools.Decrypt(g2.Subject.Role))
                             .OrderBy(g2 => g2.Key)
                             .Select(g2 => new RoleFacet() { Name = g2.Key, Total = g2.Count() }).ToList()
@@ -113,7 +113,7 @@ namespace Persistence.InMongo_local
                                     IntCare = g.Where(x => x.Data.Link == null || x.Data.Link.Closed == false).Count(x => x.Data.QuarantinePlace == "INTCARE" && !x.Data.DateOfDeath.HasValue && !x.Data.ActualWorkReturnDate.HasValue),
                                 },
                                 TotalSick = g.Count(),
-                                TotalClosed = g.Where(x => x.Data.ActualWorkReturnDate.HasValue || x.Data.DateOfDeath.HasValue || (x.Data.Link != null && x.Data.Link.Closed == true)).Count(),
+                                TotalClosed = g.Where(x => (x.Data.ActualWorkReturnDate.HasValue && x.Data.ActualWorkReturnDate.Value < DateTime.UtcNow) || x.Data.DateOfDeath.HasValue || (x.Data.Link != null && x.Data.Link.Closed == true)).Count(),
                                 RoleFacet = g.GroupBy(g2 => this.cryptools.Decrypt(g2.Subject.Role))
                                     .OrderBy(g2 => g2.Key)
                                     .Select(g2 => new RoleFacet() { Name = g2.Key, Total = g2.Count() }).ToList()
@@ -157,7 +157,7 @@ namespace Persistence.InMongo_local
                             Hosp = g.Where(x => x.Data.Link == null || x.Data.Link.Closed == false).Count(x => x.Data.QuarantinePlace == "HOSP" && !x.Data.ActualWorkReturnDate.HasValue),
                         },
                         TotalSick = g.Count(),
-                        TotalClosed = g.Where(x => x.Data.ActualWorkReturnDate.HasValue || (x.Data.Link != null && x.Data.Link.Closed == true)).Count(),
+                        TotalClosed = g.Where(x => (x.Data.ActualWorkReturnDate.HasValue && x.Data.ActualWorkReturnDate.Value < DateTime.UtcNow) || (x.Data.Link != null && x.Data.Link.Closed == true)).Count(),
                         RoleFacet = g.GroupBy(g2 => this.cryptools.Decrypt(g2.Subject.Role))
                             .OrderBy(g2 => g2.Key)
                             .Select(g2 => new RoleFacet() { Name = g2.Key, Total = g2.Count() }).ToList()
