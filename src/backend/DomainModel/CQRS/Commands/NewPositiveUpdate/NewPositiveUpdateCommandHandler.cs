@@ -37,6 +37,7 @@ namespace DomainModel.CQRS.Commands.NewPositiveUpdate
                 if (link == null)
                 {
                     this.newPositiveUpdate.Add(command);
+
                     this.newSuspectUpdate.Add(new NewSuspectUpdateCommand()
                     {
                         CaseNumber = command.Link.CaseNumber,
@@ -45,21 +46,17 @@ namespace DomainModel.CQRS.Commands.NewPositiveUpdate
                             CaseNumber = command.CaseNumber,
                             Closed = true
                         },
+                        ActualWorkReturnDate = null,
+                        QuarantinePlace = sheetSuspect.Data.Last().QuarantinePlace,
+                        ExpectedWorkReturnDate = sheetSuspect.Data.Last().ExpectedWorkReturnDate,
                         HealthMeasure = new HealthMeasure
                         {
-                            By = null,
-                            Code = null
+                            By = sheetSuspect.Data.Last().HealthMeasure.By,
+                            Code = sheetSuspect.Data.Last().HealthMeasure.Code
                         }
                     });  
                 }
-                ////if link alreaady exists
-                //else
-                //{
-                //    //throw new AtbApplicationException("The link already exists");
-
-                //}
             }
-
             else
             {
                 this.newPositiveUpdate.Add(command);
