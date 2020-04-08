@@ -10,6 +10,7 @@ export class CaseNumberModalComponent {
 
     title: string;
     caseNumber: number;
+    detail: boolean;
 
     exMsg: string;
 
@@ -17,6 +18,10 @@ export class CaseNumberModalComponent {
     }
 
     close() {
-        this.modal.close();
+        this.modal.close('closed');
+    }
+
+    onDetail() {
+        this.modal.close('onDetail');
     }
 }

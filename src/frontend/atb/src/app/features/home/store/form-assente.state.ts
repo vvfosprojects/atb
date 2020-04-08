@@ -18,6 +18,7 @@ import { CaseNumberModalComponent } from '../../../shared/components/case-number
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { forkJoin } from 'rxjs';
 import { ClearConvertCase, SetConvertCase, SetLink, SetSubject } from './convert-case.actions';
+import { SearchPositiveCase } from './search.actions';
 
 export interface FormAssenteStateModel {
     pageTitle: string;
@@ -148,6 +149,21 @@ export class FormAssenteState {
                         new SetSubject(objSubject),
                         new SetConvertCase('form-positivo')
                     ]);
+                } else if (convertToPositive && result[1].positiveSheetNum) {
+                    dispatch(new Navigate([ './home/ricerca' ]));
+                    const m = this.modal.open(CaseNumberModalComponent, {
+                        centered: true,
+                        size: 'lg',
+                        backdropClass: 'backdrop-custom-black'
+                    });
+                    m.componentInstance.title = 'Convertito in Caso Positivo COVID';
+                    m.componentInstance.caseNumber = result[1].positiveSheetNum;
+                    m.componentInstance.detail = true;
+                    m.result.then((modalResult: string) => {
+                        if (modalResult && modalResult === 'onDetail') {
+                            dispatch(new SearchPositiveCase('' + result[1].positiveSheetNum));
+                        }
+                    }, () => console.log('closed'));
                 } else {
                     dispatch(new Navigate([ './home/ricerca' ]));
                 }
