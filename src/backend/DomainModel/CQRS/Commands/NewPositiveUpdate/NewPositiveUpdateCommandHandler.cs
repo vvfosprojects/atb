@@ -53,14 +53,13 @@ namespace DomainModel.CQRS.Commands.NewPositiveUpdate
                             By = sheetSuspect.Data.Last().HealthMeasure.By,
                             Code = sheetSuspect.Data.Last().HealthMeasure.Code
                         }
-                    });  
+                    });
                 }
             }
             else
             {
                 this.newPositiveUpdate.Add(command);
             }
-
         }
     }
 }
