@@ -83,6 +83,48 @@ namespace DomainModel.CQRS.Commands.NewSuspectUpdate
                     this.newPositiveUpdate.Add(positiveCommand);
                 }
             }
+
+            if (command.Link != null)
+            {
+                var patient = this.getPatientByCaseNumber.GetPatient(command.Link.CaseNumber, this.getSessionContext.GetActiveGroup());
+                var link = patient.Data.Last().Link;
+                //check if link already exists
+                if (link != null)
+                {
+                    //eccezione
+                }
+
+                var positiveCommand = new NewPositiveUpdateCommand()
+                {
+                    CaseNumber = command.Link.CaseNumber,
+                    ActualWorkReturnDate = patient.Data.Last().ActualWorkReturnDate,
+                    DiseaseConfirmDate = patient.Data.Last().DiseaseConfirmDate,
+                    EstremiProvvedimentiASL = patient.Data.Last().EstremiProvvedimentiASL,
+                    QuarantinePlace = patient.Data.Last().QuarantinePlace,
+                    ExpectedWorkReturnDate = patient.Data.Last().ExpectedWorkReturnDate,
+                    Link = command.Link
+                };
+                
+                //aggiorno il positivo settando il Link al nuovo caso sospetto e chiudendo la scheda positivo
+                this.newPositiveUpdate.Add(positiveCommand);
+
+                //insertisco il sospetto con il link alla vecchia scheda positiva
+                var suspectCommand = new NewSuspectUpdateCommand()
+                {
+                    CaseNumber = command.CaseNumber,
+                    ActualWorkReturnDate = command.ActualWorkReturnDate,
+                    ExpectedWorkReturnDate = command.ExpectedWorkReturnDate,
+                    HealthMeasure = command.HealthMeasure,
+                    QuarantinePlace = command.QuarantinePlace,
+                    Link = new Link()
+                    {
+                        CaseNumber = patient.Subject.Number,
+                        Closed = false
+                    }
+                };
+                this.newSuspectUpdate.Add(suspectCommand);
+            }
+
             //altrimenti procedo normalmente
             else
             {

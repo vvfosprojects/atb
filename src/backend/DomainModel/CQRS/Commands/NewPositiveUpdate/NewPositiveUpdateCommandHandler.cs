@@ -14,17 +14,37 @@ namespace DomainModel.CQRS.Commands.NewPositiveUpdate
         private readonly IGetSuspectByCaseNumber getSuspectByCaseNumber;
         private readonly IGetSessionContext getSessionContext;
         private readonly INewSuspectUpdate newSuspectUpdate;
+        private readonly IGetPatientByCaseNumber getPatientByCaseNumber;
 
-        public NewPositiveUpdateCommandHandler(INewPositiveUpdate newPositiveUpdate, IGetSuspectByCaseNumber getSuspectByCaseNumber, IGetSessionContext getSessionContext, INewSuspectUpdate newSuspectUpdate)
+        public NewPositiveUpdateCommandHandler(INewPositiveUpdate newPositiveUpdate, IGetSuspectByCaseNumber getSuspectByCaseNumber, 
+            IGetSessionContext getSessionContext, INewSuspectUpdate newSuspectUpdate, IGetPatientByCaseNumber getPatientByCaseNumber)
         {
             this.newPositiveUpdate = newPositiveUpdate ?? throw new ArgumentNullException(nameof(newPositiveUpdate));
             this.getSuspectByCaseNumber = getSuspectByCaseNumber ?? throw new ArgumentNullException(nameof(getSuspectByCaseNumber));
             this.getSessionContext = getSessionContext;
             this.newSuspectUpdate = newSuspectUpdate;
+            this.getPatientByCaseNumber = getPatientByCaseNumber;
         }
 
         public void Handle(NewPositiveUpdateCommand command)
         {
+            //se devo convertire un positivo in un sospetto
+            if (command.ConvertToSuspect)
+            {
+                var positiveSheet = this.getPatientByCaseNumber.GetPatient(command.CaseNumber, this.getSessionContext.GetActiveGroup());
+
+                var link = positiveSheet.Data.Where(x => x.Link != null).SingleOrDefault();
+
+                //check if link already exists
+                if (link != null)
+                {
+                    this.newPositiveUpdate.Add(command);
+                    command.SuspectSheetNum = null;
+                }
+
+                else { }
+            }
+
             if (command.Link != null)
             {
                 var sheetSuspect = this.getSuspectByCaseNumber.GetSuspect(command.Link.CaseNumber, this.getSessionContext.GetActiveGroup());
