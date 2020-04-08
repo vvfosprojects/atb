@@ -47,8 +47,9 @@ export class ConvertCaseState {
     @Action(SetConvertCase)
     setConvertCase({ patchState, dispatch }: StateContext<ConvertCaseStateModel>, { convertCase }: SetConvertCase) {
         patchState({ convertCase });
+        const title = convertCase === 'form-positivo' ? 'nuovo positivo (ex sospetto)' : 'nuovo sorvegliato (ex positivo)';
         dispatch([
-            new SetPageTitleFormPositivo('nuovo positivo (ex sospetto)'),
+            new SetPageTitleFormPositivo(title),
             new Navigate([ `./home/${convertCase}` ])
         ])
     }

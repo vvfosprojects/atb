@@ -12,6 +12,10 @@
     </div>
 </div>
 <div class="modal-footer">
+    <button *ngIf="detail" class="btn btn-lg btn-outline-primary" (click)="onDetail()">
+        <i class="fa fa-check"></i>
+        Apri scheda
+    </button>
     <button class="btn btn-lg btn-success" (click)="close()">
         <i class="fa fa-check"></i>
         Ok, chiudi!
