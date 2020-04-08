@@ -14,13 +14,15 @@ namespace DomainModel.CQRS.Commands.NewSuspectUpdate
         private readonly IGetSuspectByCaseNumber getSuspectByCaseNumber;
         private readonly IGetSessionContext getSessionContext;
         private readonly INewPositiveUpdate newPositiveUpdate;
+        private readonly IGetPatientByCaseNumber getPatientByCaseNumber;
 
-        public NewSuspectUpdateCommandHandler(INewSuspectUpdate newSuspectUpdate, IGetSuspectByCaseNumber getSuspectByCaseNumber, IGetSessionContext getSessionContext, INewPositiveUpdate newPositiveUpdate)
+        public NewSuspectUpdateCommandHandler(INewSuspectUpdate newSuspectUpdate, IGetSuspectByCaseNumber getSuspectByCaseNumber, IGetSessionContext getSessionContext, INewPositiveUpdate newPositiveUpdate, IGetPatientByCaseNumber getPatientByCaseNumber)
         {
             this.newSuspectUpdate = newSuspectUpdate;
             this.getSuspectByCaseNumber = getSuspectByCaseNumber;
             this.getSessionContext = getSessionContext;
             this.newPositiveUpdate = newPositiveUpdate;
+            this.getPatientByCaseNumber = getPatientByCaseNumber;
         }
 
         public void Handle(NewSuspectUpdateCommand command)
@@ -60,14 +62,17 @@ namespace DomainModel.CQRS.Commands.NewSuspectUpdate
 
                     command.PositiveSheetNum = link.Link.CaseNumber;
 
+                    //inietto i vecchi dati
+                    var oldPositive = this.getPatientByCaseNumber.GetPatient(link.Link.CaseNumber, this.getSessionContext.GetActiveGroup());
+
                     var positiveCommand = new NewPositiveUpdateCommand()
                     {
                         ActualWorkReturnDate = null,
-                        EstremiProvvedimentiASL = null,
-                        ExpectedWorkReturnDate = null,
-                        QuarantinePlace = command.QuarantinePlace,
+                        EstremiProvvedimentiASL = oldPositive.Data.Last().EstremiProvvedimentiASL,
+                        ExpectedWorkReturnDate = oldPositive.Data.Last().ExpectedWorkReturnDate,
+                        QuarantinePlace = oldPositive.Data.Last().QuarantinePlace,
                         CaseNumber = link.Link.CaseNumber,
-                        DiseaseConfirmDate = DateTime.UtcNow,
+                        DiseaseConfirmDate = oldPositive.Data.Last().DiseaseConfirmDate,
                         Link = new Link()
                         {
                             CaseNumber = command.CaseNumber,
