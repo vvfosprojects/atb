@@ -17,6 +17,10 @@ namespace DomainModel.CQRS.Commands.NewPositiveUpdate
 
         public DateTime? ActualWorkReturnDate { get; set; }
 
+        public bool ConvertToSuspect { get; set; }
+
         public Link Link { get; set; }
+
+        public int? SuspectSheetNum { get; set; }
     }
 }
