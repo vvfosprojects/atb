@@ -1,6 +1,5 @@
 ﻿using CQRS.Commands;
 using DomainModel.Classes;
-using DomainModel.Classes.Exceptions;
 using DomainModel.CQRS.Commands.NewSuspectUpdate;
 using DomainModel.Services;
 using DomainModel.Services.Users;
