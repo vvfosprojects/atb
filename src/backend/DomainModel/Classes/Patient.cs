@@ -31,6 +31,9 @@ namespace DomainModel.Classes
                 if (lastUpdate.DateOfDeath.HasValue)
                     return true;
 
+                if (lastUpdate.Link.Closed == true)
+                    return true;
+
                 if (!lastUpdate.ActualWorkReturnDate.HasValue)
                     return false;
 
