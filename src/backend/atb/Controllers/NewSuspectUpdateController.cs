@@ -20,8 +20,6 @@ namespace atb.Controllers
         {
             handler.Handle(command);
 
-            ///Mi manca da restituire il riferimento alla scheda positiva in caso esista o null in caso contrario
-
             return Ok(new { PositiveSheetNum = command.PositiveSheetNum });
         }
     }

@@ -52,10 +52,12 @@ namespace DomainModel.CQRS.Commands.NewPositiveUpdate
                         }
                     });  
                 }
-                else
-                {
-                    throw new AtbApplicationException("The link already exists");
-                }
+                ////if link alreaady exists
+                //else
+                //{
+                //    //throw new AtbApplicationException("The link already exists");
+
+                //}
             }
 
             else

@@ -32,11 +32,7 @@ namespace Persistence.InMongo_local
                     DiseaseConfirmDate = command.DiseaseConfirmDate,
                     UpdatedBy = loggedUser,
                     UpdateTime = DateTime.UtcNow,
-                    Link = new Link()
-                    {
-                        CaseNumber = command.Link.CaseNumber,
-                        Closed = command.Link.Closed
-                    }
+                    Link = command.Link
                 };
                 var filter = Builders<Patient>.Filter.Eq(x => x.Subject.Number, command.CaseNumber) & Builders<Patient>.Filter.Eq(x => x.Group, getSessionContext.GetActiveGroup());
                 var update = Builders<Patient>.Update.Push(p => p.Data, dataToInsert);
