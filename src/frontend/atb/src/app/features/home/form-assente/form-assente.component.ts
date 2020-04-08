@@ -6,7 +6,12 @@ import { LoadingState } from '../../../shared/store/loading/loading.state';
 import { QualificheState } from '../../../shared/store/qualifiche/qualifiche.state';
 import { ActivatedRoute } from '@angular/router';
 import { FormAssenteState } from '../store/form-assente.state';
-import { SaveNewSuspectCase, SetPageTitleFormAssente, UpdateSuspectCase } from '../store/form-assente.actions';
+import {
+    ClearFormAssente,
+    SaveNewSuspectCase,
+    SetPageTitleFormAssente,
+    UpdateSuspectCase
+} from '../store/form-assente.actions';
 import { SearchState } from '../store/search.state';
 import { SuspectCaseInterface } from '../../../shared/interface';
 import { UpdateFormValue } from '@ngxs/form-plugin';
@@ -69,10 +74,7 @@ export class FormAssenteComponent implements OnDestroy {
     ngOnDestroy(): void {
         this.subscription.unsubscribe();
         this.store.dispatch([
-                new UpdateFormValue({
-                    path: 'assente.assenteForm',
-                    value: undefined
-                }),
+                new ClearFormAssente(),
                 new ClearSuspectCase()
             ]
         );
@@ -126,7 +128,7 @@ export class FormAssenteComponent implements OnDestroy {
         return this.assenteForm.controls;
     }
 
-    onSubmit() {
+    onSubmit(convert?: boolean) {
         this.submitted = true;
 
         if (this.assenteForm.invalid) {
@@ -136,7 +138,7 @@ export class FormAssenteComponent implements OnDestroy {
         if (!this.editMode) {
             this.store.dispatch(new SaveNewSuspectCase());
         } else {
-            this.store.dispatch(new UpdateSuspectCase());
+            this.store.dispatch(new UpdateSuspectCase(convert));
         }
     }
 

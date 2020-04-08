@@ -85,7 +85,8 @@ export class SearchState {
                 positiveCase: positive,
                 isLooking: false
             });
-            !action.bookmark && dispatch(new Navigate([ './home/form-positivo/' + `${this.getAuthGroup()}${LSNAME.detailDelimiter}${positive.subject.number}` ]));
+            const detail = positive.data.link && positive.data.link.closed ? 'detail/' : '';
+            !action.bookmark && dispatch(new Navigate([ './home/form-positivo/' + `${detail}${this.getAuthGroup()}${LSNAME.detailDelimiter}${positive.subject.number}` ]));
         }, () => dispatch(new SetNotFound()));
     }
 
@@ -103,7 +104,8 @@ export class SearchState {
                 suspectCase: suspect,
                 isLooking: false
             });
-            !action.bookmark && dispatch(new Navigate([ './home/form-assente/' + `${this.getAuthGroup()}${LSNAME.detailDelimiter}${suspect.subject.number}` ]));
+            const detail = suspect.data.link && suspect.data.link.closed ? 'detail/' : '';
+            !action.bookmark && dispatch(new Navigate([ './home/form-assente/' + `${detail}${this.getAuthGroup()}${LSNAME.detailDelimiter}${suspect.subject.number}` ]));
         }, () => dispatch(new SetNotFound()));
     }
 

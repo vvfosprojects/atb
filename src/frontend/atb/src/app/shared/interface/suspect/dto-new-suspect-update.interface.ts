@@ -3,4 +3,5 @@ import { DtoNewUpdateInterface } from '../common';
 
 export interface DtoNewSuspectUpdateInterface extends DtoNewUpdateInterface {
     healthMeasure: HealthMeasureInterface;
+    convertToPositive: boolean;
 }

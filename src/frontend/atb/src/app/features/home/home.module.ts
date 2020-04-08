@@ -28,6 +28,7 @@ import { PositiveDataTableComponent } from './data-tables/positive-data-table/po
 import { SuspectDataTableComponent } from './data-tables/suspect-data-table/suspect-data-table.component';
 import { CustomDateParserFormatter } from '../../core/adapters/custom-date-parser-formatter.service';
 import { KeepAliveService } from '../../core/services/keep-alive/keep-alive.service';
+import { ConvertCaseState } from './store/convert-case.state';
 
 @NgModule({
     declarations: [
@@ -53,7 +54,8 @@ import { KeepAliveService } from '../../core/services/keep-alive/keep-alive.serv
             FormPositivoState,
             FormAssenteState,
             SearchState,
-            DataTablesState
+            DataTablesState,
+            ConvertCaseState
         ])
     ],
     providers: [

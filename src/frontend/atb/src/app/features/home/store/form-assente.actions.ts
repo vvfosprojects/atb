@@ -11,4 +11,11 @@ export class SaveNewSuspectCase {
 
 export class UpdateSuspectCase {
     static readonly type = '[FormAssente] Update Suspect Case';
+
+    constructor(public convertToPositive = false) {
+    }
+}
+
+export class ClearFormAssente {
+    static readonly type = '[FormAssente] Clear State';
 }
