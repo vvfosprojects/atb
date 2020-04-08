@@ -17,7 +17,7 @@ import { AuthState } from '../../auth/store/auth.state';
 import { KeepAliveService } from '../../../core/services/keep-alive/keep-alive.service';
 import { detailArgs } from '../../../shared/functions/functions';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { KeepAliveModalComponent } from '../../../shared/components/keep-alive-modal/keep-alive-modal.component';
+import { ConfirmModalComponent } from '../../../shared/components/confirm-modal/confirm-modal.component';
 
 export interface SearchStateModel {
     positiveCase: PositiveCaseInterface;
@@ -131,9 +131,13 @@ export class SearchState {
 
     @Action(OpenKeepAliveModal)
     openKeepAliveModal({ dispatch }: StateContext<SearchStateModel>) {
-        const keepAliveConfirmModal = this.modalService.open(KeepAliveModalComponent, {
+        const keepAliveConfirmModal = this.modalService.open(ConfirmModalComponent, {
             centered: true, size: 'md', backdropClass: 'backdrop-custom-black'
         });
+
+        keepAliveConfirmModal.componentInstance.title = 'Assenza casi';
+        keepAliveConfirmModal.componentInstance.message = 'Sei sicuro di non avere ulteriori aggiornamenti?';
+
         keepAliveConfirmModal.result.then((result: string) => {
             if (result && result === 'confirm') {
                 this.keepAliveService.sendKeepAlive().subscribe( (response) => {

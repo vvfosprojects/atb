@@ -7,7 +7,7 @@ import { QualificheState } from '../../../shared/store/qualifiche/qualifiche.sta
 import { ActivatedRoute } from '@angular/router';
 import { FormAssenteState } from '../store/form-assente.state';
 import {
-    ClearFormAssente,
+    ClearFormAssente, ConvertSuspectCase,
     SaveNewSuspectCase,
     SetPageTitleFormAssente,
     UpdateSuspectCase
@@ -138,7 +138,7 @@ export class FormAssenteComponent implements OnDestroy {
         if (!this.editMode) {
             this.store.dispatch(new SaveNewSuspectCase());
         } else {
-            this.store.dispatch(new UpdateSuspectCase(convert));
+            convert ? this.store.dispatch(new ConvertSuspectCase()) : this.store.dispatch(new UpdateSuspectCase());
         }
     }
 

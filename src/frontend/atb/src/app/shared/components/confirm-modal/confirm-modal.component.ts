@@ -2,11 +2,14 @@ import { Component } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-keep-alive-modal',
-  templateUrl: './keep-alive-modal.component.html',
-  styleUrls: ['./keep-alive-modal.component.scss']
+  selector: 'app-confirm-modal',
+  templateUrl: './confirm-modal.component.html',
+  styleUrls: ['./confirm-modal.component.scss']
 })
-export class KeepAliveModalComponent {
+export class ConfirmModalComponent {
+
+    title: string;
+    message: string;
 
     constructor(private modal: NgbActiveModal) {
     }

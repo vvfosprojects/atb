@@ -1,7 +1,7 @@
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { Injectable } from '@angular/core';
 import {
-    ClearFormAssente,
+    ClearFormAssente, ConvertSuspectCase,
     SaveNewSuspectCase,
     SetPageTitleFormAssente,
     UpdateSuspectCase
@@ -19,6 +19,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { forkJoin } from 'rxjs';
 import { ClearConvertCase, SetConvertCase, SetLink, SetSubject } from './convert-case.actions';
 import { SearchPositiveCase } from './search.actions';
+import { ConfirmModalComponent } from '../../../shared/components/confirm-modal/confirm-modal.component';
 
 export interface FormAssenteStateModel {
     pageTitle: string;
@@ -112,6 +113,22 @@ export class FormAssenteState {
                 m.componentInstance.caseNumber = resNewSuspectCase.caseNumber;
             });
         });
+    }
+
+    @Action(ConvertSuspectCase)
+    convertSuspectCase({ dispatch }: StateContext<FormAssenteStateModel>) {
+        const m = this.modal.open(ConfirmModalComponent, {
+            centered: true,
+            size: 'lg',
+            backdropClass: 'backdrop-custom-black'
+        });
+        m.componentInstance.title = 'Conversione in Caso Positivo COVID';
+        m.componentInstance.message = 'Sei sicuro di voler convertire il caso Sospetto in Positivo?';
+        m.result.then((modalResult: string) => {
+            if (modalResult && modalResult === 'confirm') {
+                dispatch(new UpdateSuspectCase(true));
+            }
+        }, () => console.log('closed'));
     }
 
     @Action(UpdateSuspectCase)

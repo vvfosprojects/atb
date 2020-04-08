@@ -9,6 +9,10 @@ export class SaveNewSuspectCase {
     static readonly type = '[FormAssente] Save New Suspect Case';
 }
 
+export class ConvertSuspectCase {
+    static readonly type = '[FormAssente] Convert Suspect Case';
+}
+
 export class UpdateSuspectCase {
     static readonly type = '[FormAssente] Update Suspect Case';
 
