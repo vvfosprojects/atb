@@ -29,7 +29,7 @@ namespace DomainModel.Classes
 
                 var lastUpdate = this.Data.Last();
 
-                if (lastUpdate.Link.Closed == true)
+                if (this.Data.Last().Link != null && lastUpdate.Link.Closed == true)
                     return true;
 
                 if (!lastUpdate.ActualWorkReturnDate.HasValue)
