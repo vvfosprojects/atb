@@ -1,6 +1,6 @@
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import {
-    ClearFormPositivo,
+    ClearFormPositivo, ConvertPositiveCase,
     SaveNewPositivoCase,
     SetPageTitleFormPositivo,
     SetPositivoDeceased,
@@ -14,12 +14,13 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CaseNumberModalComponent } from '../../../shared/components/case-number-modal/case-number-modal.component';
 import {
     DtoNewPositiveCaseInterface,
-    DtoNewPositiveUpdateInterface,
+    DtoNewPositiveUpdateInterface, InputModalCaseInterface, LinkCaseInterface,
     NewPositiveResponseInterface
 } from '../../../shared/interface';
 import { forkJoin, of } from 'rxjs';
-import { ClearConvertCase } from './convert-case.actions';
-import { InputModalCaseInterface } from '../../../shared/interface/common/input-modal-case.interface';
+import { ClearConvertCase, SetConvertCase, SetLink, SetSubject } from './convert-case.actions';
+import { ConfirmModalComponent } from '../../../shared/components/confirm-modal/confirm-modal.component';
+import { SearchSuspectCase } from './search.actions';
 
 export interface FormPositivoStateModel {
     pageTitle: string;
@@ -99,7 +100,8 @@ export class FormPositivoState {
                 quarantinePlace: positivoFormValue.quarantinePlace === 'HOSP' && positivoFormValue.intensiveTerapy ? 'INTCARE' : positivoFormValue.quarantinePlace,
                 expectedWorkReturnDate: positivoFormValue.expectedWorkReturnDate ? formatDate(positivoFormValue.expectedWorkReturnDate) : null,
                 actualWorkReturnDate: positivoFormValue.actualWorkReturnDate ? formatDate(positivoFormValue.actualWorkReturnDate) : null,
-                link
+                link,
+                convertToSuspect: false
             };
             this.positiviService.newPositiveUpdate(objData).subscribe(() => {
                 dispatch(new Navigate([ './home/ricerca' ]));
@@ -113,8 +115,24 @@ export class FormPositivoState {
         });
     }
 
+    @Action(ConvertPositiveCase)
+    convertPositiveCase({ dispatch }: StateContext<FormPositivoStateModel>) {
+        const m = this.modal.open(ConfirmModalComponent, {
+            centered: true,
+            size: 'lg',
+            backdropClass: 'backdrop-custom-black'
+        });
+        m.componentInstance.title = 'Conversione in Caso Sorvegliato';
+        m.componentInstance.message = 'Sei sicuro di voler convertire il caso Positivo in Sospetto?';
+        m.result.then((modalResult: string) => {
+            if (modalResult && modalResult === 'confirm') {
+                dispatch(new UpdatePositivoCase(true));
+            }
+        }, () => console.log('closed'));
+    }
+
     @Action(UpdatePositivoCase)
-    updatePositivoCase({ getState, dispatch }: StateContext<FormPositivoStateModel>) {
+    updatePositivoCase({ getState, dispatch }: StateContext<FormPositivoStateModel>, { convertToSuspect }: UpdatePositivoCase) {
         const state = getState();
         const positivoFormValue = state.positivoForm.model;
         const objData: DtoNewPositiveUpdateInterface = {
@@ -123,7 +141,8 @@ export class FormPositivoState {
             diseaseConfirmDate: positivoFormValue.diseaseConfirmDate ? formatDate(positivoFormValue.diseaseConfirmDate) : null,
             quarantinePlace: positivoFormValue.quarantinePlace === 'HOSP' && positivoFormValue.intensiveTerapy ? 'INTCARE' : positivoFormValue.quarantinePlace,
             expectedWorkReturnDate: positivoFormValue.expectedWorkReturnDate ? formatDate(positivoFormValue.expectedWorkReturnDate) : null,
-            actualWorkReturnDate: positivoFormValue.actualWorkReturnDate ? formatDate(positivoFormValue.actualWorkReturnDate) : null
+            actualWorkReturnDate: positivoFormValue.actualWorkReturnDate ? formatDate(positivoFormValue.actualWorkReturnDate) : null,
+            convertToSuspect
         };
         const objSubject: DtoNewPositiveCaseInterface = {
             number: positivoFormValue.caseNumber,
@@ -138,7 +157,31 @@ export class FormPositivoState {
         const newPositiveUpdate = state.deceased ? of(null) : this.positiviService.newPositiveUpdate(objData);
         forkJoin([ updatePositiveCase, newPositiveUpdate ]).subscribe(result => {
             if (result) {
-                dispatch(new Navigate([ './home/ricerca' ]));
+                if (!state.deceased) {
+                    if (convertToSuspect && result[1].suspectSheetNum === null) {
+                        console.log('Init ConvertSuspect');
+                        const link: LinkCaseInterface = { caseNumber: objData.caseNumber, closed: false };
+                        dispatch([
+                            new SetLink(link),
+                            new SetSubject(objSubject),
+                            new SetConvertCase('form-assente')
+                        ]);
+                    } else if (convertToSuspect && result[1].suspectSheetNum) {
+                        dispatch(new Navigate([ './home/ricerca' ]));
+                        const mInput: InputModalCaseInterface = {
+                            title: 'Convertito in Caso Sorvegliato',
+                            caseNumber: result[1].suspectSheetNum,
+                            detail: true
+                        };
+                        this.openCase(mInput).then((modalResult: string) => {
+                            if (modalResult && modalResult === 'onDetail') {
+                                dispatch(new SearchSuspectCase('' + result[1].suspectSheetNum));
+                            }
+                        }, () => console.log('closed'));
+                    }
+                } else {
+                    dispatch(new Navigate([ './home/ricerca' ]));
+                }
             }
         });
     }
@@ -163,6 +206,7 @@ export class FormPositivoState {
         m.componentInstance.title = inputModal.title;
         m.componentInstance.caseNumber = inputModal.caseNumber;
         m.componentInstance.detail = inputModal.detail;
+        m.componentInstance.exMsg = inputModal.exMsg;
         return m.result;
     }
 

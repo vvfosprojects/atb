@@ -11,7 +11,7 @@ import { Navigate } from '@ngxs/router-plugin';
 import { formatDate } from '../../../shared/functions/functions';
 import {
     DtoNewSuspectCaseInterface,
-    DtoNewSuspectUpdateInterface, LinkCaseInterface,
+    DtoNewSuspectUpdateInterface, InputModalCaseInterface, LinkCaseInterface,
     NewSuspectResponseInterface
 } from '../../../shared/interface';
 import { CaseNumberModalComponent } from '../../../shared/components/case-number-modal/case-number-modal.component';
@@ -20,7 +20,6 @@ import { forkJoin } from 'rxjs';
 import { ClearConvertCase, SetConvertCase, SetLink, SetSubject } from './convert-case.actions';
 import { SearchPositiveCase } from './search.actions';
 import { ConfirmModalComponent } from '../../../shared/components/confirm-modal/confirm-modal.component';
-import { InputModalCaseInterface } from '../../../shared/interface/common/input-modal-case.interface';
 
 export interface FormAssenteStateModel {
     pageTitle: string;
@@ -81,7 +80,7 @@ export class FormAssenteState {
     }
 
     @Action(SaveNewSuspectCase)
-    saveNewSuspectCase({ getState, dispatch }: StateContext<FormAssenteStateModel>) {
+    saveNewSuspectCase({ getState, dispatch }: StateContext<FormAssenteStateModel>, { link }: SaveNewSuspectCase) {
         const assenteFormValue = getState().assenteForm.model;
         const objSubject: DtoNewSuspectCaseInterface = {
             number: assenteFormValue.caseNumber,
@@ -101,13 +100,17 @@ export class FormAssenteState {
                     code: assenteFormValue.healthMeasureCode,
                     by: assenteFormValue.healthMeasureBy
                 },
+                link,
                 convertToPositive: false
             };
+            console.log(JSON.stringify(objSubject));
+            console.log(JSON.stringify(objData));
             this.assentiService.newSuspectUpdate(objData).subscribe(() => {
                 dispatch(new Navigate([ './home/ricerca' ]));
                 const mInput: InputModalCaseInterface = {
                     title: 'Inserimento Nuovo Caso Sorvegliato',
-                    caseNumber: resNewSuspectCase.caseNumber
+                    caseNumber: resNewSuspectCase.caseNumber,
+                    exMsg: link ? '(ex Positivo)' : ''
                 };
                 this.openCase(mInput).then();
             });
@@ -122,7 +125,7 @@ export class FormAssenteState {
             backdropClass: 'backdrop-custom-black'
         });
         m.componentInstance.title = 'Conversione in Caso Positivo COVID';
-        m.componentInstance.message = 'Sei sicuro di voler convertire il caso Sospetto in Positivo?';
+        m.componentInstance.message = 'Sei sicuro di voler convertire il caso Sorvegliato in Positivo?';
         m.result.then((modalResult: string) => {
             if (modalResult && modalResult === 'confirm') {
                 dispatch(new UpdateSuspectCase(true));
@@ -199,6 +202,7 @@ export class FormAssenteState {
         m.componentInstance.title = inputModal.title;
         m.componentInstance.caseNumber = inputModal.caseNumber;
         m.componentInstance.detail = inputModal.detail;
+        m.componentInstance.exMsg = inputModal.exMsg;
         return m.result;
     }
 }

@@ -7,7 +7,7 @@ import { LoadingState } from '../../../shared/store/loading/loading.state';
 import { QualificheState } from '../../../shared/store/qualifiche/qualifiche.state';
 import { ActivatedRoute } from '@angular/router';
 import {
-    ClearFormPositivo,
+    ClearFormPositivo, ConvertPositiveCase,
     SaveNewPositivoCase,
     SetPageTitleFormPositivo,
     SetPositivoDeceased,
@@ -169,7 +169,7 @@ export class FormPositivoComponent implements AfterContentInit, OnDestroy {
         return this.positivoForm.controls;
     }
 
-    onSubmit() {
+    onSubmit(convert?: boolean) {
         this.submitted = true;
 
         if (this.positivoForm.invalid) {
@@ -179,7 +179,7 @@ export class FormPositivoComponent implements AfterContentInit, OnDestroy {
         if (!this.editMode) {
             this.store.dispatch(new SaveNewPositivoCase(this.link));
         } else {
-            this.store.dispatch(new UpdatePositivoCase());
+            convert ? this.store.dispatch(new ConvertPositiveCase()) : this.store.dispatch(new UpdatePositivoCase());
         }
     }
 

@@ -4,6 +4,7 @@ import { DtoNewCaseInterface, LinkCaseInterface } from '../../../shared/interfac
 import { ClearConvertCase, SetConvertCase, SetLink, SetSubject } from './convert-case.actions';
 import { Navigate } from '@ngxs/router-plugin';
 import { SetPageTitleFormPositivo } from './form-positivo.actions';
+import { SetPageTitleFormAssente } from './form-assente.actions';
 
 export interface ConvertCaseStateModel {
     link: LinkCaseInterface;
@@ -49,7 +50,7 @@ export class ConvertCaseState {
         patchState({ convertCase });
         const title = convertCase === 'form-positivo' ? 'nuovo positivo (ex sospetto)' : 'nuovo sorvegliato (ex positivo)';
         dispatch([
-            new SetPageTitleFormPositivo(title),
+            convertCase === 'form-positivo' ? new SetPageTitleFormPositivo(title): new SetPageTitleFormAssente(title),
             new Navigate([ `./home/${convertCase}` ])
         ])
     }

@@ -14,8 +14,15 @@ export class SaveNewPositivoCase {
     }
 }
 
+export class ConvertPositiveCase {
+    static readonly type = '[FormPositivo] Convert Positive Case';
+}
+
 export class UpdatePositivoCase {
     static readonly type = '[FormPositivo] Update Positivo Case';
+
+    constructor(public convertToSuspect = false) {
+    }
 }
 
 export class SetPositivoDeceased {

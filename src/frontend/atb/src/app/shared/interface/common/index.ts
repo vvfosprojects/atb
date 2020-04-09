@@ -11,3 +11,4 @@ export * from './data.interface';
 export * from './dto-new-case.interface';
 export * from './dto-new-update.interface';
 export * from './link-case.interface';
+export * from './input-modal-case.interface';
