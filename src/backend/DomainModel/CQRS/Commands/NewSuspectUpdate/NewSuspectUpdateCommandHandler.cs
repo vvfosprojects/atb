@@ -32,7 +32,7 @@ namespace DomainModel.CQRS.Commands.NewSuspectUpdate
                 //recuperato la scheda
                 var suspectSheet = this.getSuspectByCaseNumber.GetSuspect(command.CaseNumber, this.getSessionContext.GetActiveGroup());
                 //check if already linked
-                var link = suspectSheet.Data.Where(x => x.Link != null).SingleOrDefault();
+                var link = suspectSheet.Data.Last().Link;
 
                 if (link == null)
                 {
@@ -87,6 +87,7 @@ namespace DomainModel.CQRS.Commands.NewSuspectUpdate
                     };
 
                     this.newPositiveUpdate.Add(positiveCommand);
+                    command.PositiveSheetNum = positiveCommand.CaseNumber;
                 }
             }
 
