@@ -19,6 +19,7 @@ import {
 } from '../../../shared/interface';
 import { forkJoin, of } from 'rxjs';
 import { ClearConvertCase } from './convert-case.actions';
+import { InputModalCaseInterface } from '../../../shared/interface/common/input-modal-case.interface';
 
 export interface FormPositivoStateModel {
     pageTitle: string;
@@ -102,14 +103,12 @@ export class FormPositivoState {
             };
             this.positiviService.newPositiveUpdate(objData).subscribe(() => {
                 dispatch(new Navigate([ './home/ricerca' ]));
-                const m = this.modal.open(CaseNumberModalComponent, {
-                    centered: true,
-                    size: 'lg',
-                    backdropClass: 'backdrop-custom-black'
-                });
-                m.componentInstance.title = 'Inserimento Nuovo Caso Positivo COVID';
-                m.componentInstance.exMsg = link ? '(ex Sospetto)' : '';
-                m.componentInstance.caseNumber = resNewPositiveCase.caseNumber;
+                const mInput: InputModalCaseInterface = {
+                    title: 'Inserimento Nuovo Caso Positivo COVID',
+                    caseNumber: resNewPositiveCase.caseNumber,
+                    exMsg: link ? '(ex Sospetto)' : ''
+                };
+                this.openCase(mInput).then();
             });
         });
     }
@@ -153,6 +152,18 @@ export class FormPositivoState {
     clearFormPositivo({ dispatch, patchState }: StateContext<FormPositivoStateModel>) {
         dispatch(new ClearConvertCase('form-positivo'));
         patchState(formPositivoStateDefaults);
+    }
+
+    openCase(inputModal: InputModalCaseInterface): Promise<any> {
+        const m = this.modal.open(CaseNumberModalComponent, {
+            centered: true,
+            size: 'lg',
+            backdropClass: 'backdrop-custom-black'
+        });
+        m.componentInstance.title = inputModal.title;
+        m.componentInstance.caseNumber = inputModal.caseNumber;
+        m.componentInstance.detail = inputModal.detail;
+        return m.result;
     }
 
 }
