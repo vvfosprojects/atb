@@ -103,8 +103,6 @@ export class FormAssenteState {
                 link,
                 convertToPositive: false
             };
-            console.log(JSON.stringify(objSubject));
-            console.log(JSON.stringify(objData));
             this.assentiService.newSuspectUpdate(objData).subscribe(() => {
                 dispatch(new Navigate([ './home/ricerca' ]));
                 const mInput: InputModalCaseInterface = {
