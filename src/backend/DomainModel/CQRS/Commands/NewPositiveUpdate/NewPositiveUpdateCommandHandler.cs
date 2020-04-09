@@ -54,11 +54,15 @@ namespace DomainModel.CQRS.Commands.NewPositiveUpdate
                     */
 
                     //CHIUSURA DELLA SCHEDA SOSPETTO
+                    var actualWorkReturnDate = positiveSheet.Data.Last().ActualWorkReturnDate != null ? positiveSheet.Data.Last().ActualWorkReturnDate : null;
+                    var expectedWorkReturnDate = positiveSheet.Data.Last().ExpectedWorkReturnDate != null ? positiveSheet.Data.Last().ExpectedWorkReturnDate : null;
+
+
                     var positiveCommand = new NewPositiveUpdateCommand()
                     {
-                        ActualWorkReturnDate = positiveSheet.Data.Last().ActualWorkReturnDate,
+                        ActualWorkReturnDate = actualWorkReturnDate,
                         CaseNumber = command.CaseNumber,
-                        ExpectedWorkReturnDate = positiveSheet.Data.Last().ExpectedWorkReturnDate.Value,
+                        ExpectedWorkReturnDate = expectedWorkReturnDate,
                         QuarantinePlace = positiveSheet.Data.Last().QuarantinePlace,
                         DiseaseConfirmDate = positiveSheet.Data.Last().DiseaseConfirmDate,
                         EstremiProvvedimentiASL = positiveSheet.Data.Last().EstremiProvvedimentiASL,
