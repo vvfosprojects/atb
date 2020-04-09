@@ -131,7 +131,7 @@ namespace Persistence.InMongo_local
                         }
                     });
                 }
-                else
+                else if (!positivesFilteredList.Where(y => y.Group == t).Any() && suspectsFilteredList.Where(y => y.Group == t).Any())
                 {
                     result.Add(new GroupStatistics()
                     {
@@ -162,6 +162,37 @@ namespace Persistence.InMongo_local
                             .OrderBy(g2 => g2.Key)
                             .Select(g2 => new RoleFacet() { Name = g2.Key, Total = g2.Count() }).ToList()
                     }).First(),
+                    });
+                }
+
+                else
+                {
+                    result.Add(new GroupStatistics()
+                    {
+                        Group = t,
+                        Positives = new PositiveGroup()
+                        {
+                            QuarantinePlacesFacet = new PositiveQuarantinePlacesFacet()
+                            {
+                                Home = 0,
+                                Hosp = 0,
+                                IntCare = 0
+                            },
+                            TotalSick = 0,
+                            TotalClosed = 0,
+                            RoleFacet = new List<RoleFacet>() { }
+                        },
+                        Suspects = new SuspectGroup()
+                        {
+                            QuarantinePlacesFacet = new SuspectQuarantinePlacesFacet()
+                            {
+                                Home = 0,
+                                Hosp = 0
+                            },
+                            TotalSick = 0,
+                            TotalClosed = 0,
+                            RoleFacet = new List<RoleFacet>() { }
+                        }
                     });
                 }
             }
