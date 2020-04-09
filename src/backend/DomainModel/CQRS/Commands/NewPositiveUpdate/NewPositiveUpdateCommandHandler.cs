@@ -89,6 +89,7 @@ namespace DomainModel.CQRS.Commands.NewPositiveUpdate
                     };
 
                     this.newSuspectUpdate.Add(suspectCommand);
+                    command.SuspectSheetNum = suspectCommand.CaseNumber;
                 }
             }
             else
@@ -103,10 +104,12 @@ namespace DomainModel.CQRS.Commands.NewPositiveUpdate
                         //Eccezione - esiste già un link alla scheda positivo
                     }
 
+                    var actualWorkReturnDate = suspectSheet.Data.Last().ActualWorkReturnDate != null ? suspectSheet.Data.Last().ActualWorkReturnDate : null;
+
                     //SCHEDA SOSPETTO - LA PROPRIETA' LINK.CLOSED A TRUE E PASSO IL RIFERIMENTO ALLA SCHEDA POSITIVO
                     var suspectCommand = new NewSuspectUpdateCommand()
                     {
-                        ActualWorkReturnDate = suspectSheet.Data.Last().ActualWorkReturnDate,
+                        ActualWorkReturnDate = actualWorkReturnDate,
                         ExpectedWorkReturnDate = suspectSheet.Data.Last().ExpectedWorkReturnDate,
                         CaseNumber = command.Link.CaseNumber,
                         HealthMeasure = suspectSheet.Data.Last().HealthMeasure,
@@ -146,96 +149,3 @@ namespace DomainModel.CQRS.Commands.NewPositiveUpdate
         }
     }
 }
-
-
-//se devo convertire un positivo in un sospetto
-//if (command.ConvertToSuspect)
-//{
-//    var positiveSheet = this.getPatientByCaseNumber.GetPatient(command.CaseNumber, this.getSessionContext.GetActiveGroup());
-
-//    var link = positiveSheet.Data.Where(x => x.Link != null).SingleOrDefault();
-
-//    //check if link not already exists
-//    if (link == null)
-//    {
-//        //if not exists
-//        this.newPositiveUpdate.Add(command);
-//        command.SuspectSheetNum = null;
-//    }
-
-//    //if already exists
-//    else 
-//    {
-//        //chiudo la scheda positivo
-//        this.newPositiveUpdate.Add(new NewPositiveUpdateCommand()
-//        {
-//            ActualWorkReturnDate = command.ActualWorkReturnDate,
-//            DiseaseConfirmDate = command.DiseaseConfirmDate,
-//            CaseNumber = command.CaseNumber,
-//            EstremiProvvedimentiASL = command.EstremiProvvedimentiASL,
-//            ExpectedWorkReturnDate = command.ExpectedWorkReturnDate,
-//            QuarantinePlace = command.QuarantinePlace,
-//            Link = new Link()
-//            {
-//                CaseNumber = positiveSheet.Data.Last().Link.CaseNumber,
-//                Closed = true
-//            }
-//        });
-
-//        //riapro la scheda paziente
-//        var sheetSuspect = this.getSuspectByCaseNumber.GetSuspect(positiveSheet.Data.Last().Link.CaseNumber, this.getSessionContext.GetActiveGroup());
-//        var suspectCommand = new NewSuspectUpdateCommand()
-//        {
-//            ActualWorkReturnDate = null,
-//            CaseNumber = positiveSheet.Data.Last().Link.CaseNumber,
-//            ExpectedWorkReturnDate = sheetSuspect.Data.Last().ExpectedWorkReturnDate,
-//            HealthMeasure = sheetSuspect.Data.Last().HealthMeasure,
-//            QuarantinePlace = sheetSuspect.Data.Last().QuarantinePlace,
-//            Link = new Link()
-//            {
-//                CaseNumber = command.CaseNumber,
-//                Closed = false
-//            }
-//        };
-//        this.newSuspectUpdate.Add(suspectCommand);
-//        command.SuspectSheetNum = positiveSheet.Data.Last().Link.CaseNumber;
-//    }
-//}
-
-//if (command.Link != null)
-//{
-//    var sheetSuspect = this.getSuspectByCaseNumber.GetSuspect(command.Link.CaseNumber, this.getSessionContext.GetActiveGroup());
-
-//    //check if already exist a link
-//    var link = sheetSuspect.Data.Where(x => x.Link != null).SingleOrDefault();
-
-//    //if link doesn't exists
-//    if (link == null)
-//    {
-//        this.newPositiveUpdate.Add(command);
-
-//        this.newSuspectUpdate.Add(new NewSuspectUpdateCommand()
-//        {
-//            CaseNumber = command.Link.CaseNumber,
-//            Link = new Link()
-//            {
-//                CaseNumber = command.CaseNumber,
-//                Closed = true
-//            },
-//            ActualWorkReturnDate = null,
-//            QuarantinePlace = sheetSuspect.Data.Last().QuarantinePlace,
-//            ExpectedWorkReturnDate = sheetSuspect.Data.Last().ExpectedWorkReturnDate,
-//            HealthMeasure = new HealthMeasure
-//            {
-//                By = sheetSuspect.Data.Last().HealthMeasure.By,
-//                Code = sheetSuspect.Data.Last().HealthMeasure.Code
-//            }
-//        });
-//    }
-//}
-
-////caso base: (link = null e convertToSuspect = false)
-//else
-//{
-//    this.newPositiveUpdate.Add(command);
-//}
