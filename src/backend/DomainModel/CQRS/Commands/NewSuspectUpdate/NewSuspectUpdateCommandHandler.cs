@@ -103,10 +103,13 @@ namespace DomainModel.CQRS.Commands.NewSuspectUpdate
                         //Eccezione - esiste già un link alla scheda sospetto
                     }
 
+                    var actualWorkReturnDate = positiveSheet.Data.Last().ActualWorkReturnDate != null ? positiveSheet.Data.Last().ActualWorkReturnDate : null;
+
+
                     //SCHEDA POSITIVO - LA PROPRIETA' LINK.CLOSED A TRUE E PASSO IL RIFERIMENTO ALLA SCHEDA SOSPETTO
                     var positiveCommand = new NewPositiveUpdateCommand()
                     {
-                        ActualWorkReturnDate = positiveSheet.Data.Last().ActualWorkReturnDate.Value,
+                        ActualWorkReturnDate = actualWorkReturnDate,
                         ExpectedWorkReturnDate = positiveSheet.Data.Last().ExpectedWorkReturnDate.Value,
                         DiseaseConfirmDate = positiveSheet.Data.Last().DiseaseConfirmDate,
                         EstremiProvvedimentiASL = positiveSheet.Data.Last().EstremiProvvedimentiASL,
