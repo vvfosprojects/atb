@@ -104,13 +104,13 @@ namespace DomainModel.CQRS.Commands.NewSuspectUpdate
                     }
 
                     var actualWorkReturnDate = positiveSheet.Data.Last().ActualWorkReturnDate != null ? positiveSheet.Data.Last().ActualWorkReturnDate : null;
-
+                    var expectedWorkReturnDate = positiveSheet.Data.Last().ExpectedWorkReturnDate != null ? positiveSheet.Data.Last().ExpectedWorkReturnDate : null;
 
                     //SCHEDA POSITIVO - LA PROPRIETA' LINK.CLOSED A TRUE E PASSO IL RIFERIMENTO ALLA SCHEDA SOSPETTO
                     var positiveCommand = new NewPositiveUpdateCommand()
                     {
                         ActualWorkReturnDate = actualWorkReturnDate,
-                        ExpectedWorkReturnDate = positiveSheet.Data.Last().ExpectedWorkReturnDate.Value,
+                        ExpectedWorkReturnDate = expectedWorkReturnDate,
                         DiseaseConfirmDate = positiveSheet.Data.Last().DiseaseConfirmDate,
                         EstremiProvvedimentiASL = positiveSheet.Data.Last().EstremiProvvedimentiASL,
                         CaseNumber = command.Link.CaseNumber,
