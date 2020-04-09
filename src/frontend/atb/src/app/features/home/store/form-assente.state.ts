@@ -20,6 +20,7 @@ import { forkJoin } from 'rxjs';
 import { ClearConvertCase, SetConvertCase, SetLink, SetSubject } from './convert-case.actions';
 import { SearchPositiveCase } from './search.actions';
 import { ConfirmModalComponent } from '../../../shared/components/confirm-modal/confirm-modal.component';
+import { InputModalCaseInterface } from '../../../shared/interface/common/input-modal-case.interface';
 
 export interface FormAssenteStateModel {
     pageTitle: string;
@@ -104,13 +105,11 @@ export class FormAssenteState {
             };
             this.assentiService.newSuspectUpdate(objData).subscribe(() => {
                 dispatch(new Navigate([ './home/ricerca' ]));
-                const m = this.modal.open(CaseNumberModalComponent, {
-                    centered: true,
-                    size: 'lg',
-                    backdropClass: 'backdrop-custom-black'
-                });
-                m.componentInstance.title = 'Inserimento Nuovo Caso Sorvegliato';
-                m.componentInstance.caseNumber = resNewSuspectCase.caseNumber;
+                const mInput: InputModalCaseInterface = {
+                    title: 'Inserimento Nuovo Caso Sorvegliato',
+                    caseNumber: resNewSuspectCase.caseNumber
+                };
+                this.openCase(mInput).then();
             });
         });
     }
@@ -168,15 +167,12 @@ export class FormAssenteState {
                     ]);
                 } else if (convertToPositive && result[1].positiveSheetNum) {
                     dispatch(new Navigate([ './home/ricerca' ]));
-                    const m = this.modal.open(CaseNumberModalComponent, {
-                        centered: true,
-                        size: 'lg',
-                        backdropClass: 'backdrop-custom-black'
-                    });
-                    m.componentInstance.title = 'Convertito in Caso Positivo COVID';
-                    m.componentInstance.caseNumber = result[1].positiveSheetNum;
-                    m.componentInstance.detail = true;
-                    m.result.then((modalResult: string) => {
+                    const mInput: InputModalCaseInterface = {
+                        title: 'Convertito in Caso Positivo COVID',
+                        caseNumber: result[1].positiveSheetNum,
+                        detail: true
+                    };
+                    this.openCase(mInput).then((modalResult: string) => {
                         if (modalResult && modalResult === 'onDetail') {
                             dispatch(new SearchPositiveCase('' + result[1].positiveSheetNum));
                         }
@@ -192,5 +188,17 @@ export class FormAssenteState {
     clearFormAssente({ dispatch, patchState }: StateContext<FormAssenteStateModel>) {
         dispatch(new ClearConvertCase('form-assente'));
         patchState(formAssenteStateDefaults);
+    }
+
+    openCase(inputModal: InputModalCaseInterface): Promise<any> {
+        const m = this.modal.open(CaseNumberModalComponent, {
+            centered: true,
+            size: 'lg',
+            backdropClass: 'backdrop-custom-black'
+        });
+        m.componentInstance.title = inputModal.title;
+        m.componentInstance.caseNumber = inputModal.caseNumber;
+        m.componentInstance.detail = inputModal.detail;
+        return m.result;
     }
 }
