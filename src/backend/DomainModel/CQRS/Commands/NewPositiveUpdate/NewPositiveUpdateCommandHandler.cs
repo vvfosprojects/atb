@@ -31,7 +31,7 @@ namespace DomainModel.CQRS.Commands.NewPositiveUpdate
             if (command.ConvertToSuspect)
             {
                 var positiveSheet = this.getPatientByCaseNumber.GetPatient(command.CaseNumber, this.getSessionContext.GetActiveGroup());
-                var link = positiveSheet.Data.Last().Link;
+                var link = positiveSheet.Data.LastOrDefault(x => x.Link != null);
 
                 if (link == null)
                 {

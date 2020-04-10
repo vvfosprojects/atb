@@ -32,7 +32,8 @@ namespace DomainModel.CQRS.Commands.NewSuspectUpdate
                 //recuperato la scheda
                 var suspectSheet = this.getSuspectByCaseNumber.GetSuspect(command.CaseNumber, this.getSessionContext.GetActiveGroup());
                 //check if already linked
-                var link = suspectSheet.Data.Last().Link;
+                var link = suspectSheet.Data.LastOrDefault(x => x.Link != null);
+
 
                 if (link == null)
                 {
