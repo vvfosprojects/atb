@@ -82,7 +82,7 @@ namespace DomainModel.CQRS.Commands.NewPositiveUpdate
                     var suspectCommand = new NewSuspectUpdateCommand()
                     {
                         ActualWorkReturnDate = suspectSheet.Data.Last().ActualWorkReturnDate,
-                        CaseNumber = suspectSheet.Data.Last().Link.CaseNumber,
+                        CaseNumber = link.CaseNumber,
                         ExpectedWorkReturnDate = suspectSheet.Data.Last().ExpectedWorkReturnDate,
                         HealthMeasure = suspectSheet.Data.Last().HealthMeasure,
                         QuarantinePlace = positiveSheet.Data.Last().QuarantinePlace,
