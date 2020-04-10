@@ -8,10 +8,11 @@ import { PipeModule } from './pipes/pipe.module';
 import { NewsCardComponent } from './components/news-card/news-card.component';
 import { CounterComponent } from './components/counter/counter.component';
 import { GroupCaseComponent } from './components/group-case/group-case.component';
-import { HistoryCaseComponent } from './components/history-case/history-case.component';
 import { NgbTabsetModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { KeepAliveCardComponent } from './components/keep-alive-card/keep-alive-card.component';
 import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
+import { HistorySuspectCaseComponent } from './components/history-suspect-case/history-suspect-case.component';
+import { HistoryPositiveCaseComponent } from './components/history-positive-case/history-positive-case.component';
 
 const COMPONENTS = [
     ErrorPageComponent,
@@ -20,9 +21,10 @@ const COMPONENTS = [
     NewsCardComponent,
     CounterComponent,
     GroupCaseComponent,
-    HistoryCaseComponent,
     KeepAliveCardComponent,
-    ConfirmModalComponent
+    ConfirmModalComponent,
+    HistorySuspectCaseComponent,
+    HistoryPositiveCaseComponent
 ];
 
 const MODULES = [

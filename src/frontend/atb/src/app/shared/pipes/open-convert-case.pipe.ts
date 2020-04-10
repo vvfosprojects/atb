@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { openSuspect } from '../functions';
 
 @Pipe({
     name: 'openConvertCase'
@@ -12,9 +13,7 @@ export class OpenConvertCasePipe implements PipeTransform {
         return args ? getClass() : getBoolean();
 
         function getBoolean() {
-            if (historyCase.convertedToSuspectCaseNumber && !historyCase.convertedToSuspectSheetClosed || historyCase.convertedToPositiveCaseNumber && !historyCase.convertedToPositiveSheetClosed) {
-                return true;
-            }
+            return openSuspect(historyCase);
         }
 
         function getClass() {

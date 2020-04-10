@@ -218,7 +218,7 @@
                         </div>
                     </div>
                     <ng-container *ngIf="detailMode || editMode">
-                        <app-history-case [historyCase]="historyCase" caseType="suspect" (caseNumber)="onPositiveDetail($event)"></app-history-case>
+                        <app-history-suspect-case [historyCase]="historyCase"></app-history-suspect-case>
                     </ng-container>
                 </form>
             </div>

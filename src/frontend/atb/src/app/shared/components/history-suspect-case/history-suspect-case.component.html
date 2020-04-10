@@ -3,12 +3,12 @@
     <h4>Ultime modifiche</h4>
     <hr>
     <div class="list-group">
-        <ng-container *ngFor="let _case of historyCase">
+        <ng-container *ngFor="let _case of historyCase; index as i;">
             <ng-container
-                    *ngIf="_case?.convertedToPositiveCaseNumber || _case?.convertedToSuspectCaseNumber; then caseNumberTemplate else onlyQuarantine"></ng-container>
+                    *ngIf=" _case?.convertedToPositiveCaseNumber; then caseNumberTemplate else onlyQuarantine"></ng-container>
             <ng-template #caseNumberTemplate>
                 <!-- scheda con quarantena e conversione-->
-                <div *ngIf="_case?.convertedToPositiveCaseNumber || _case?.convertedToSuspectCaseNumber && _case.quarantinePlace"
+                <div *ngIf="_case?.convertedToPositiveCaseNumber && _case.quarantinePlace"
                      class="list-group-item flex-column align-items-start"
                      [ngClass]="_case | openConvertCase : 'class'"
                      (click)="onCaseNumber(_case)">
@@ -24,14 +24,14 @@
                     </div>
                     <p class="mb-1">
                         <ng-container
-                                *ngIf="_case?.convertedToPositiveCaseNumber || _case?.convertedToSuspectCaseNumber; then link"></ng-container>
+                                *ngIf="_case?.convertedToPositiveCaseNumber; then link"></ng-container>
                     </p>
-                    <small *ngIf="_case?.convertedToSuspectSheetClosed && _case?.convertedToSuspectCaseNumber || _case?.convertedToPositiveSheetClosed && _case?.convertedToPositiveCaseNumber"
+                    <small *ngIf="_case?.convertedToPositiveSheetClosed && _case?.convertedToPositiveCaseNumber && i === 0"
                            class="text-muted">La scheda non può essere modificata.</small>
                 </div>
 
                 <!-- scheda senza quarantena-->
-                <div *ngIf="_case?.convertedToPositiveCaseNumber && !_case.quarantinePlace || _case?.convertedToSuspectCaseNumber && !_case.quarantinePlace"
+                <div *ngIf="_case?.convertedToPositiveCaseNumber && !_case.quarantinePlace"
                      class="list-group-item flex-column align-items-start"
                      [ngClass]="_case | openConvertCase : 'class'"
                      (click)="onCaseNumber(_case)">
@@ -39,21 +39,21 @@
                         <h5 class="mb-1">
                         <span>
                             <ng-container
-                                    *ngIf="_case?.convertedToPositiveCaseNumber || _case?.convertedToSuspectCaseNumber; then link"></ng-container>
+                                    *ngIf="_case?.convertedToPositiveCaseNumber; then link"></ng-container>
                         </span>
                         </h5>
                         <small class="text-muted">modificato da {{_case.updatedBy}}<span
                                 class="font-italic"> ({{_case.updateTime | date:'medium'}})</span>
                         </small>
                     </div>
-                    <small *ngIf="_case?.convertedToSuspectSheetClosed && _case?.convertedToSuspectCaseNumber || _case?.convertedToPositiveSheetClosed && _case?.convertedToPositiveCaseNumber"
+                    <small *ngIf="_case?.convertedToPositiveSheetClosed && _case?.convertedToPositiveCaseNumber && i === 0"
                            class="text-muted">La scheda non può essere modificata.</small>
                 </div>
             </ng-template>
 
             <!-- scheda solo quarantena-->
             <ng-template #onlyQuarantine>
-                <div *ngIf="!_case?.convertedToPositiveCaseNumber && _case.quarantinePlace || !_case?.convertedToSuspectCaseNumber && _case.quarantinePlace"
+                <div *ngIf="!_case?.convertedToPositiveCaseNumber && _case.quarantinePlace"
                      class="list-group-item flex-column align-items-start">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1">
@@ -69,21 +69,16 @@
             </ng-template>
 
             <ng-template #link>
-                <span *ngIf="_case?.convertedToSuspectSheetClosed && _case?.convertedToSuspectCaseNumber || _case?.convertedToPositiveSheetClosed && _case?.convertedToPositiveCaseNumber">
+                <span *ngIf="_case?.convertedToPositiveSheetClosed && _case?.convertedToPositiveCaseNumber">
                     <span class="text-muted"><i class="text-danger fa fa-retweet px-1 flip"></i>
-                        <ng-container
-                                *ngIf="caseType === 'positive'; then positiveText else suspectText"></ng-container>
+                        <span class="font-weight-bolder">Conversione a positivo #{{_case?.convertedToPositiveCaseNumber}}.</span>
                     </span>
                 </span>
-                <span *ngIf="!_case?.convertedToSuspectSheetClosed && _case?.convertedToSuspectCaseNumber || !_case?.convertedToPositiveSheetClosed && _case?.convertedToPositiveCaseNumber">
+                <span *ngIf="!_case?.convertedToPositiveSheetClosed && _case?.convertedToPositiveCaseNumber">
                     <span class="text-muted"><i class="text-warning fa fa-retweet px-1"></i>
-                        <ng-container
-                                *ngIf="caseType !== 'positive'; then positiveText else suspectText"></ng-container></span>
+                        <span class="font-weight-bolder">Convertito a sorvegliato.</span>
+                    </span>
                 </span>
-                <ng-template #suspectText><span class="font-weight-bolder">Conversione in sorvegliato.</span>
-                </ng-template>
-                <ng-template #positiveText><span class="font-weight-bolder">Conversione in positivo.</span>
-                </ng-template>
             </ng-template>
         </ng-container>
     </div>

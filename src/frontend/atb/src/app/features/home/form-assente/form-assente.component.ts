@@ -212,6 +212,6 @@ export class FormAssenteComponent implements AfterContentInit, OnDestroy {
     onPositiveDetail(caseNumber: number): void {
         const url = `./home/form-positivo/detail/${this.gruppo}${LSNAME.detailDelimiter}${caseNumber}`;
         console.log('onPositiveDetail', url);
-        this.store.dispatch(new Navigate([url]))
+        // this.store.dispatch(new Navigate([url]))
     }
 }
