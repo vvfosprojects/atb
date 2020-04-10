@@ -29,15 +29,15 @@ namespace atb.Controllers
             {
                 foreach (var update in suspect.Suspect.Data.OrderByDescending(x => x.UpdateTime))
                 {
-                    int? convertedToSuspectCaseNumber = null;
-                    if (update.Link != null) convertedToSuspectCaseNumber = update.Link.CaseNumber;
-                    var convertedToSuspectSheetClosed = update.Link != null ? update.Link.Closed : false;
+                    int? convertedToPositiveCaseNumber = null;
+                    if (update.Link != null) convertedToPositiveCaseNumber = update.Link.CaseNumber;
+                    var convertedToPositiveSheetClosed = update.Link != null ? update.Link.Closed : false;
 
                     history.Add(new
                     {
                         update.ExpectedWorkReturnDate,
-                        ConvertedToSuspectCaseNumber = convertedToSuspectCaseNumber,
-                        ConvertedToSuspectSheetClosed = convertedToSuspectSheetClosed,
+                        ConvertedToPositiveCaseNumber = convertedToPositiveCaseNumber,
+                        ConvertedToPositiveSheetClosed = convertedToPositiveSheetClosed,
                         update.UpdateTime,
                         update.UpdatedBy
                     });
@@ -75,7 +75,7 @@ namespace atb.Controllers
             {
                 var result = new
                 {
-                    Group = suspect.Suspect.Group,
+                    suspect.Suspect.Group,
                     Subject = new Anagrafica()
                     {
                         Nome = suspect.Suspect.Subject.Nome,
