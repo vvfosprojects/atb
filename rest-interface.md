@@ -175,6 +175,8 @@ This action allows to fetch updated patient data.
         {
             "quarantinePlace": "HOME",
             "expectedWorkReturnDate": "2020-12-31Z",
+            "convertedToSuspectCaseNumber": null, // can be either null or an integer
+            "convertedToSuspectSheetClosed": true,
             "updatedAt": "2020-03-31T18:31:24.287Z",
             "updatedBy": "mario.rossi",
         },
@@ -217,7 +219,17 @@ This action allows to fetch updated suspect data.
       "expectedWorkReturnDate": "2020-12-31Z",
       "actualWorkReturnDate": null,
       "closedCase": true
-    }
+    },
+    "history": [
+        {
+            "expectedWorkReturnDate": "2020-12-31Z",
+            "convertedToPositiveCaseNumber": null, // can be either null or an integer
+            "convertedToPositiveSheetClosed": true,
+            "updatedAt": "2020-03-31T18:31:24.287Z",
+            "updatedBy": "mario.rossi",
+        },
+        // ... other items here
+    ]
 }
 ```
 
