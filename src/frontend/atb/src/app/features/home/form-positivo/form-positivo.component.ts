@@ -19,7 +19,7 @@ import {
     DtoNewCaseInterface,
     HistoryCaseInterface,
     LinkCaseInterface,
-    PositiveCaseInterface
+    PositiveCaseInterface, PositiveHistoryInterface
 } from '../../../shared/interface';
 import { formatDateForNgbDatePicker } from '../../../shared/functions/functions';
 import { ClearPositiveCase, SearchPositiveCase } from '../store/search.actions';
@@ -53,7 +53,7 @@ export class FormPositivoComponent implements AfterContentInit, OnDestroy {
 
     gruppo: string;
 
-    historyCase: HistoryCaseInterface[] = [];
+    historyCase: PositiveHistoryInterface[] = [];
 
     private subscription = new Subscription();
 

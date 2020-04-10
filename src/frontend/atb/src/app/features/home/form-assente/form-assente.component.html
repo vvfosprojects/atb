@@ -217,6 +217,9 @@
                             <span class="font-weight-bold text-danger">* Campi Obbligatori</span>
                         </div>
                     </div>
+                    <ng-container *ngIf="detailMode || editMode">
+                        <app-history-case [historyCase]="historyCase" caseType="suspect"></app-history-case>
+                    </ng-container>
                 </form>
             </div>
             <div class="col-12">

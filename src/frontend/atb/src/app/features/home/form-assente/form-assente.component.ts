@@ -13,7 +13,12 @@ import {
     UpdateSuspectCase
 } from '../store/form-assente.actions';
 import { SearchState } from '../store/search.state';
-import { DtoNewCaseInterface, LinkCaseInterface, SuspectCaseInterface } from '../../../shared/interface';
+import {
+    DtoNewCaseInterface,
+    LinkCaseInterface,
+    PositiveHistoryInterface,
+    SuspectCaseInterface, SuspectHistoryInterface
+} from '../../../shared/interface';
 import { UpdateFormValue } from '@ngxs/form-plugin';
 import { formatDateForNgbDatePicker } from '../../../shared/functions/functions';
 import { ClearSuspectCase, SearchSuspectCase } from '../store/search.actions';
@@ -46,7 +51,9 @@ export class FormAssenteComponent implements AfterContentInit, OnDestroy {
 
     gruppo: string;
 
-    private subscription = new Subscription();
+    historyCase: SuspectHistoryInterface[] = [];
+
+        private subscription = new Subscription();
 
     constructor(private store: Store,
                 private formBuilder: FormBuilder,
@@ -54,6 +61,7 @@ export class FormAssenteComponent implements AfterContentInit, OnDestroy {
         if (this.route.snapshot.params.id) {
             this.subscription.add(
                 this.suspectCase$.pipe(delay(100)).subscribe((suspectCase: SuspectCaseInterface) => {
+                    this.historyCase = suspectCase && suspectCase.history;
                     suspectCase ? this.updateForm(suspectCase) : this.searchCase();
                 }));
             this.subscription.add(this.notFound$.subscribe(res => res && this.goBack()));
