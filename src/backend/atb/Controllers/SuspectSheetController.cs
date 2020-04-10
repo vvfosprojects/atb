@@ -3,6 +3,7 @@ using DomainModel.Classes;
 using DomainModel.CQRS.Queries.GetSuspect;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace atb.Controllers
@@ -21,9 +22,28 @@ namespace atb.Controllers
         public ActionResult<Object> Get([FromQuery]int caseNumber, string group)
         {
             var query = new GetSuspectQuery() { CaseNumber = caseNumber, Group = group };
+            var history = new List<Object>();
+
             var suspect = this.handler.Handle(query);
             if (suspect.Suspect.Data.Any())
             {
+                foreach (var update in suspect.Suspect.Data.OrderByDescending(x => x.UpdateTime))
+                {
+                    int? convertedToSuspectCaseNumber = null;
+                    if (update.Link != null) convertedToSuspectCaseNumber = update.Link.CaseNumber;
+                    var convertedToSuspectSheetClosed = update.Link != null ? update.Link.Closed : false;
+
+                    history.Add(new
+                    {
+                        update.ExpectedWorkReturnDate,
+                        ConvertedToSuspectCaseNumber = convertedToSuspectCaseNumber,
+                        ConvertedToSuspectSheetClosed = convertedToSuspectSheetClosed,
+                        update.UpdateTime,
+                        update.UpdatedBy
+                    });
+                }
+
+
                 var result = new
                 {
                     suspect.Suspect.Group,
@@ -45,7 +65,8 @@ namespace atb.Controllers
                         UpdatedBy = suspect.Suspect.Data.Last().UpdatedBy,
                         UpdateTime = suspect.Suspect.Data.Last().UpdateTime,
                         Link = suspect.Suspect.Data.Last().Link
-                    }
+                    },
+                    History = history
                 };
 
                 return Ok(result);
