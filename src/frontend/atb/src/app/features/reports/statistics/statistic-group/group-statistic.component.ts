@@ -1,10 +1,9 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { GroupStatistic } from '../../../../shared/interface/statistics.interface';
+import { GroupStatistic, Series } from '../../../../shared/interface';
 import {
     chartsViewSize,
     roleSorter
 } from '../../../../shared/functions';
-import { Series } from '../../../../shared/interface/quarantine-group-facet.interface';
 
 @Component({
     selector: 'app-statistic-group',

@@ -1,12 +1,16 @@
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { Injectable } from '@angular/core';
 import { DataTablesService } from '../../../core/services/data-tables/data-tables.service';
-import { GroupInterface } from '../../../shared/interface/group.interface';
-import { PositiveCaseInterface } from '../../../shared/interface/positive-case.interface';
-import { SuspectCaseInterface } from '../../../shared/interface/suspect-case.interface';
+import {
+    CountersInterface, CountersResponseInterface,
+    GroupInterface,
+    PositiveCaseInterface,
+    SuspectCaseInterface
+} from '../../../shared/interface';
 import { ClearDataTables, GetDataSheets, GetGroupList, SetGroup, SetTab } from './data-tables.actions';
-import { GroupsResponseInterface, SheetsResponseInterface } from '../../../shared/interface/common';
+import { GroupsResponseInterface, SheetsResponseInterface } from '../../../shared/interface/response';
 import { globalSorter } from '../../../shared/functions';
+import { CountersService } from '../../../core/services/counters/counters.service';
 
 export interface DataTablesStateModel {
     groupsList: GroupInterface[];
@@ -14,6 +18,7 @@ export interface DataTablesStateModel {
     patients: PositiveCaseInterface[];
     suspects: SuspectCaseInterface[];
     selectedTab: string;
+    counters: CountersInterface;
 }
 
 export const DataTablesStateDefaults: DataTablesStateModel = {
@@ -21,7 +26,8 @@ export const DataTablesStateDefaults: DataTablesStateModel = {
     selectedGroup: null,
     patients: null,
     suspects: null,
-    selectedTab: 'positivi'
+    selectedTab: 'positivi',
+    counters: null
 };
 
 @Injectable()
@@ -31,7 +37,8 @@ export const DataTablesStateDefaults: DataTablesStateModel = {
 })
 export class DataTablesState {
 
-    constructor(private dataTablesService: DataTablesService) {
+    constructor(private dataTablesService: DataTablesService,
+                private countersService: CountersService) {
     }
 
     @Selector()
@@ -50,6 +57,11 @@ export class DataTablesState {
     }
 
     @Selector()
+    static counters(state: DataTablesStateModel) {
+        return state.counters;
+    }
+
+    @Selector()
     static selectedGroup(state: DataTablesStateModel) {
         return state.selectedGroup;
     }
@@ -60,11 +72,12 @@ export class DataTablesState {
     }
 
     @Action(GetGroupList)
-    getGroupList({ patchState, dispatch }: StateContext<DataTablesStateModel>) {
+    getGroupList({ getState, patchState, dispatch }: StateContext<DataTablesStateModel>) {
+        const selectedGroup = getState().selectedGroup;
         this.dataTablesService.getGroups().subscribe((res: GroupsResponseInterface) => {
             if (res) {
                 patchState({ groupsList: res.groups });
-                if (res.groups && res.groups.length > 0) {
+                if (res.groups && res.groups.length > 0 && !selectedGroup) {
                     dispatch(new SetGroup(res.groups[0].code));
                 }
             }
@@ -94,6 +107,13 @@ export class DataTablesState {
                     });
                 }
             });
+            this.countersService.getCounters(selectedGroup).subscribe( (res: CountersResponseInterface) => {
+                if (res) {
+                    patchState({
+                        counters: res.counters
+                    })
+                }
+            })
         }
     }
 

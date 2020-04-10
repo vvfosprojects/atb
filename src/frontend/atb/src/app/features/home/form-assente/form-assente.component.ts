@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { AfterContentInit, Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Select, Store } from '@ngxs/store';
 import { Observable, Subscription } from 'rxjs';
@@ -6,22 +6,28 @@ import { LoadingState } from '../../../shared/store/loading/loading.state';
 import { QualificheState } from '../../../shared/store/qualifiche/qualifiche.state';
 import { ActivatedRoute } from '@angular/router';
 import { FormAssenteState } from '../store/form-assente.state';
-import { SaveNewSuspectCase, SetPageTitleFormAssente, UpdateSuspectCase } from '../store/form-assente.actions';
+import {
+    ClearFormAssente, ConvertSuspectCase,
+    SaveNewSuspectCase,
+    SetPageTitleFormAssente,
+    UpdateSuspectCase
+} from '../store/form-assente.actions';
 import { SearchState } from '../store/search.state';
-import { SuspectCaseInterface } from '../../../shared/interface/suspect-case.interface';
+import { DtoNewCaseInterface, LinkCaseInterface, SuspectCaseInterface } from '../../../shared/interface';
 import { UpdateFormValue } from '@ngxs/form-plugin';
 import { formatDateForNgbDatePicker } from '../../../shared/functions/functions';
 import { ClearSuspectCase, SearchSuspectCase } from '../store/search.actions';
 import { delay } from 'rxjs/operators';
 import { Navigate } from '@ngxs/router-plugin';
 import { LSNAME } from '../../../core/settings/config';
+import { ConvertCaseState } from '../store/convert-case.state';
 
 @Component({
     selector: 'app-assente',
     templateUrl: './form-assente.component.html',
     styleUrls: [ './form-assente.component.scss' ]
 })
-export class FormAssenteComponent implements OnDestroy {
+export class FormAssenteComponent implements AfterContentInit, OnDestroy {
 
     @Select(LoadingState.loading) loading$: Observable<boolean>;
     @Select(QualificheState.qualifiche) qualifiche$: Observable<string[]>;
@@ -29,6 +35,9 @@ export class FormAssenteComponent implements OnDestroy {
     @Select(FormAssenteState.assenteFormValid) assenteFormValid$: Observable<boolean>;
     @Select(SearchState.suspectCase) suspectCase$: Observable<SuspectCaseInterface>;
     @Select(SearchState.notFound) notFound$: Observable<boolean>;
+    @Select(ConvertCaseState.subject) subject$: Observable<DtoNewCaseInterface>;
+    @Select(ConvertCaseState.link) link$: Observable<LinkCaseInterface>;
+    link: LinkCaseInterface;
 
     assenteForm: FormGroup;
     submitted = false;
@@ -58,21 +67,36 @@ export class FormAssenteComponent implements OnDestroy {
         } else if (this.route.snapshot.url.length > 1 && this.route.snapshot.url[1].path !== 'detail' && this.route.snapshot.params.id) {
             this.editMode = true;
             this.store.dispatch(new SetPageTitleFormAssente('modifica sorvegliato'));
-        } else {
-            this.store.dispatch(new SetPageTitleFormAssente('nuovo sorvegliato'));
         }
 
         this.initForm();
 
     }
 
+    ngAfterContentInit(): void {
+        this.subscription.add(this.link$.subscribe( res => this.link = res));
+        this.subscription.add(this.subject$.subscribe( res => {
+            if (res) {
+                this.store.dispatch(
+                    new UpdateFormValue({
+                        path: 'assente.assenteForm',
+                        value: {
+                            name: res.name,
+                            surname: res.surname,
+                            phone: res.phone,
+                            email: res.email,
+                            role: res.role,
+                        }
+                    })
+                );
+            }
+        }));
+    }
+
     ngOnDestroy(): void {
         this.subscription.unsubscribe();
         this.store.dispatch([
-                new UpdateFormValue({
-                    path: 'assente.assenteForm',
-                    value: undefined
-                }),
+                new ClearFormAssente(),
                 new ClearSuspectCase()
             ]
         );
@@ -126,7 +150,7 @@ export class FormAssenteComponent implements OnDestroy {
         return this.assenteForm.controls;
     }
 
-    onSubmit() {
+    onSubmit(convert?: boolean) {
         this.submitted = true;
 
         if (this.assenteForm.invalid) {
@@ -134,9 +158,9 @@ export class FormAssenteComponent implements OnDestroy {
         }
 
         if (!this.editMode) {
-            this.store.dispatch(new SaveNewSuspectCase());
+            this.store.dispatch(new SaveNewSuspectCase(this.link));
         } else {
-            this.store.dispatch(new UpdateSuspectCase());
+            convert ? this.store.dispatch(new ConvertSuspectCase()) : this.store.dispatch(new UpdateSuspectCase());
         }
     }
 

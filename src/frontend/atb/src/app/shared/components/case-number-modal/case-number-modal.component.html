@@ -3,6 +3,7 @@
         <i class="fa fa-plus-circle text-success"></i>
         {{title}}
     </h2>
+    <h6 *ngIf="exMsg">{{exMsg}}</h6>
 </div>
 <div class="modal-body py-4">
     <h4 class="text-center">Al caso è stato assegnato il numero:</h4>
@@ -11,6 +12,10 @@
     </div>
 </div>
 <div class="modal-footer">
+    <button *ngIf="detail" class="btn btn-lg btn-outline-primary" (click)="onDetail()">
+        <i class="fa fa-check"></i>
+        Apri scheda
+    </button>
     <button class="btn btn-lg btn-success" (click)="close()">
         <i class="fa fa-check"></i>
         Ok, chiudi!

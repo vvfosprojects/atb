@@ -6,13 +6,12 @@ import { Select, Store } from '@ngxs/store';
 import { LoadingState } from './shared/store/loading/loading.state';
 import { Observable, Subscription } from 'rxjs';
 import { AuthState } from './features/auth/store/auth.state';
-import { UserInterface } from './shared/interface/common';
 import { ClearRssData } from './features/home/store/rss.actions';
+import { UserInterface } from './shared/interface/common';
 
 @Component({
     selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss']
+    templateUrl: './app.component.html'
 })
 export class AppComponent implements OnDestroy {
 

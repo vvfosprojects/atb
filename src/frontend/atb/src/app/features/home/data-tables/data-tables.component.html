@@ -4,11 +4,11 @@
                                  (search)="onSearch($event)"></app-filters-data-tables>
     </div>
     <div *ngIf="!loading" class="col-12 col-lg-10 mx-auto mt-5">
-<!--        <div class="mb-4">-->
-<!--            <h3>Stai visualizzando i risultati per: <span-->
-<!--                    class="font-weight-bold">{{selectedGroup | uppercase}}</span>-->
-<!--            </h3>-->
-<!--        </div>-->
+        <div *ngIf="groupsList && groupsList.length > 1" class="mb-4">
+            <h3>Stai visualizzando i risultati per: <span
+                    class="font-weight-bold">{{selectedGroup | uppercase}}</span>
+            </h3>
+        </div>
         <ngb-tabset [activeId]="selectedTab$ | async" [destroyOnHide]="true" (tabChange)="onSelectTab($event)">
             <ngb-tab [id]="'positivi'">
                 <ng-template ngbTabTitle>
@@ -17,6 +17,7 @@
                 <ng-template ngbTabContent>
                     <div class="p-3 bg-white border shadow-sm overflow-auto">
                         <app-positive-data-table [positiveList]="positiveList$ | async"
+                                                 [counter]="counters?.positives"
                                                  [loading]="loading"
                                                  (detail)="onPositiveDetail($event)"></app-positive-data-table>
                     </div>
@@ -29,6 +30,7 @@
                 <ng-template ngbTabContent>
                     <div class="p-3 bg-white border shadow-sm overflow-auto">
                         <app-suspect-data-table [suspectList]="suspectList$ | async"
+                                                [counter]="counters?.suspects"
                                                 [loading]="loading"
                                                 (detail)="onSuspectDetail($event)"></app-suspect-data-table>
                     </div>

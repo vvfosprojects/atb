@@ -21,21 +21,42 @@ namespace Persistence.InMongo_local
         public void Add(NewPositiveUpdateCommand command)
         {
             var loggedUser = this.getSessionContext.GetLoggedUsername();
-
-            var dataToInsert = new PositiveData()
+            if (command.Link != null)
             {
-                EstremiProvvedimentiASL = command.EstremiProvvedimentiASL,
-                ActualWorkReturnDate = command.ActualWorkReturnDate,
-                ExpectedWorkReturnDate = command.ExpectedWorkReturnDate,
-                QuarantinePlace = command.QuarantinePlace,
-                DiseaseConfirmDate = command.DiseaseConfirmDate,
-                UpdatedBy = loggedUser,
-                UpdateTime = DateTime.UtcNow
-            };
+                var dataToInsert = new PositiveData()
+                {
+                    EstremiProvvedimentiASL = command.EstremiProvvedimentiASL,
+                    ActualWorkReturnDate = command.ActualWorkReturnDate,
+                    ExpectedWorkReturnDate = command.ExpectedWorkReturnDate,
+                    QuarantinePlace = command.QuarantinePlace,
+                    DiseaseConfirmDate = command.DiseaseConfirmDate,
+                    UpdatedBy = loggedUser,
+                    UpdateTime = DateTime.UtcNow,
+                    Link = command.Link
+                };
+                var filter = Builders<Patient>.Filter.Eq(x => x.Subject.Number, command.CaseNumber) & Builders<Patient>.Filter.Eq(x => x.Group, getSessionContext.GetActiveGroup());
+                var update = Builders<Patient>.Update.Push(p => p.Data, dataToInsert);
+                dbContext.Patients.UpdateOne(filter, update);
+            }
+            else
+            {
+                var dataToInsert = new PositiveData()
+                {
+                    EstremiProvvedimentiASL = command.EstremiProvvedimentiASL,
+                    ActualWorkReturnDate = command.ActualWorkReturnDate,
+                    ExpectedWorkReturnDate = command.ExpectedWorkReturnDate,
+                    QuarantinePlace = command.QuarantinePlace,
+                    DiseaseConfirmDate = command.DiseaseConfirmDate,
+                    UpdatedBy = loggedUser,
+                    UpdateTime = DateTime.UtcNow,
+                    Link = null
+                };
+                var filter = Builders<Patient>.Filter.Eq(x => x.Subject.Number, command.CaseNumber) & Builders<Patient>.Filter.Eq(x => x.Group, getSessionContext.GetActiveGroup());
+                var update = Builders<Patient>.Update.Push(p => p.Data, dataToInsert);
+                dbContext.Patients.UpdateOne(filter, update);
+            }
 
-            var filter = Builders<Patient>.Filter.Eq(x => x.Subject.Number, command.CaseNumber) & Builders<Patient>.Filter.Eq(x => x.Group, getSessionContext.GetActiveGroup());
-            var update = Builders<Patient>.Update.Push(p => p.Data, dataToInsert);
-            dbContext.Patients.UpdateOne(filter, update);
+           
         }
     }
 }

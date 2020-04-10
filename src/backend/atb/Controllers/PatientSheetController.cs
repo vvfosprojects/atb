@@ -60,6 +60,7 @@ namespace atb.Controllers
                         QuarantinePlace = lastPatientData.QuarantinePlace,
                         DiseaseConfirmDate = lastPatientData.DiseaseConfirmDate,
                         DateOfDeath = lastPatientData.DateOfDeath,
+                        Link = lastPatientData.Link,
                         UpdatedBy = lastPatientData.UpdatedBy,
                         UpdateTime = lastPatientData.UpdateTime
                     },

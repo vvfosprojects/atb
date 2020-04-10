@@ -19,7 +19,7 @@ namespace atb.Controllers
         public ActionResult Add([FromBody]NewPositiveUpdateCommand command)
         {
             handler.Handle(command);
-            return Ok();
+            return Ok(new {command.SuspectSheetNum});
         }
     }
 }

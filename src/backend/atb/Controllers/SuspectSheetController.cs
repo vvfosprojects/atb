@@ -43,7 +43,8 @@ namespace atb.Controllers
                         QuarantinePlace = suspect.Suspect.Data.Last().QuarantinePlace,
                         HealthMeasure = suspect.Suspect.Data.Last().HealthMeasure,
                         UpdatedBy = suspect.Suspect.Data.Last().UpdatedBy,
-                        UpdateTime = suspect.Suspect.Data.Last().UpdateTime
+                        UpdateTime = suspect.Suspect.Data.Last().UpdateTime,
+                        Link = suspect.Suspect.Data.Last().Link
                     }
                 };
 

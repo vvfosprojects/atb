@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { DtoNewPositiveCaseInterface } from '../../../shared/interface/dto-new-positive-case.interface';
-import { DtoNewPositiveUpdateInterface } from '../../../shared/interface/dto-new-positive-update.interface';
+import { HttpClient, HttpResponseBase } from '@angular/common/http';
+import {
+    DtoNewPositiveCaseInterface, DtoNewPositiveUpdateInterface,
+    NewPositiveResponseInterface, NewPositiveUpdateResponseInterface,
+    PositiveCaseInterface
+} from '../../../shared/interface';
 
 const APIURL = environment.baseUrl;
 
@@ -13,20 +16,40 @@ export class PositiviService {
     constructor(private http: HttpClient) {
     }
 
-    getPositive({...obj}) {
+    /**
+     * return a positive
+     * @param {any} obj
+     * @returns {Observable<PositiveCaseInterface>}
+     */
+    getPositive({...obj}): Observable<PositiveCaseInterface> {
         const groupQuery = obj.group ? `&group=${obj.group}` : '';
-        return this.http.get(APIURL + '/PatientSheet?caseNumber=' + obj.caseNumber + groupQuery);
+        return this.http.get<PositiveCaseInterface>(APIURL + '/PatientSheet?caseNumber=' + obj.caseNumber + groupQuery);
     }
 
-    newPositiveCase(obj: DtoNewPositiveCaseInterface): Observable<any> {
-        return this.http.post(APIURL + '/NewPositiveCase', obj);
+    /**
+     * insert a new positive's subject
+     * @param {DtoNewPositiveCaseInterface} obj
+     * @returns {Observable<NewPositiveResponseInterface>}
+     */
+    newPositiveCase(obj: DtoNewPositiveCaseInterface): Observable<NewPositiveResponseInterface> {
+        return this.http.post<NewPositiveResponseInterface>(APIURL + '/NewPositiveCase', obj);
     }
 
-    updatePositiveCase(obj: DtoNewPositiveCaseInterface): Observable<any> {
-        return this.http.post(APIURL + '/UpdatePositive', obj);
+    /**
+     * update subject of an existing positive
+     * @param {DtoNewPositiveCaseInterface} obj
+     * @returns {Observable<HttpResponseBase>}
+     */
+    updatePositiveCase(obj: DtoNewPositiveCaseInterface): Observable<HttpResponseBase> {
+        return this.http.post<HttpResponseBase>(APIURL + '/UpdatePositive', obj);
     }
 
-    newPositiveUpdate(obj: DtoNewPositiveUpdateInterface): Observable<any> {
-        return this.http.post(APIURL + '/NewPositiveUpdate', obj);
+    /**
+     * insert or update positive's data
+     * @param {DtoNewPositiveUpdateInterface} obj
+     * @returns {Observable<HttpResponseBase>}
+     */
+    newPositiveUpdate(obj: DtoNewPositiveUpdateInterface): Observable<NewPositiveUpdateResponseInterface> {
+        return this.http.post<NewPositiveUpdateResponseInterface>(APIURL + '/NewPositiveUpdate', obj);
     }
 }

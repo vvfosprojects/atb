@@ -1,3 +1,5 @@
+import { LinkCaseInterface } from '../../../shared/interface/common';
+
 export class SetPageTitleFormPositivo {
     static readonly type = '[FormPositivo] Set Page Title Form Positivo';
 
@@ -7,10 +9,20 @@ export class SetPageTitleFormPositivo {
 
 export class SaveNewPositivoCase {
     static readonly type = '[FormPositivo] Save New Positivo Case';
+
+    constructor(public link?: LinkCaseInterface) {
+    }
+}
+
+export class ConvertPositiveCase {
+    static readonly type = '[FormPositivo] Convert Positive Case';
 }
 
 export class UpdatePositivoCase {
     static readonly type = '[FormPositivo] Update Positivo Case';
+
+    constructor(public convertToSuspect = false) {
+    }
 }
 
 export class SetPositivoDeceased {

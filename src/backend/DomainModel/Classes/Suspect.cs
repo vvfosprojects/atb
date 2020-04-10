@@ -29,6 +29,9 @@ namespace DomainModel.Classes
 
                 var lastUpdate = this.Data.Last();
 
+                if (this.Data.Last().Link != null && lastUpdate.Link.Closed == true)
+                    return true;
+
                 if (!lastUpdate.ActualWorkReturnDate.HasValue)
                     return false;
 

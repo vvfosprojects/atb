@@ -1,6 +1,6 @@
 import { Action, Selector, State, StateContext, Store } from '@ngxs/store';
 import { Injectable } from '@angular/core';
-import { PositiveCaseInterface } from '../../../shared/interface/positive-case.interface';
+import { CountersInterface, PositiveCaseInterface, SuspectCaseInterface } from '../../../shared/interface';
 import {
     ClearPositiveCase,
     ClearSuspectCase, GetSheetCounters, OpenKeepAliveModal,
@@ -8,18 +8,16 @@ import {
     SearchSuspectCase, SetKeepAliveConfirm,
     SetNotFound
 } from './search.actions';
-import { SuspectCaseInterface } from '../../../shared/interface/suspect-case.interface';
 import { Navigate } from '@ngxs/router-plugin';
 import { AssentiService } from '../../../core/services/assenti/assenti.service';
 import { PositiviService } from '../../../core/services/positivi/positivi.service';
-import { CountersInterface } from '../../../shared/interface/counters.interface';
 import { CountersService } from '../../../core/services/counters/counters.service';
 import { LSNAME } from '../../../core/settings/config';
 import { AuthState } from '../../auth/store/auth.state';
 import { KeepAliveService } from '../../../core/services/keep-alive/keep-alive.service';
 import { detailArgs } from '../../../shared/functions/functions';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { KeepAliveModalComponent } from '../../../shared/components/keep-alive-modal/keep-alive-modal.component';
+import { ConfirmModalComponent } from '../../../shared/components/confirm-modal/confirm-modal.component';
 
 export interface SearchStateModel {
     positiveCase: PositiveCaseInterface;
@@ -87,7 +85,8 @@ export class SearchState {
                 positiveCase: positive,
                 isLooking: false
             });
-            !action.bookmark && dispatch(new Navigate([ './home/form-positivo/' + `${this.getAuthGroup()}${LSNAME.detailDelimiter}${positive.subject.number}` ]));
+            const detail = positive.data.link && positive.data.link.closed ? 'detail/' : '';
+            !action.bookmark && dispatch(new Navigate([ './home/form-positivo/' + `${detail}${this.getAuthGroup()}${LSNAME.detailDelimiter}${positive.subject.number}` ]));
         }, () => dispatch(new SetNotFound()));
     }
 
@@ -105,7 +104,8 @@ export class SearchState {
                 suspectCase: suspect,
                 isLooking: false
             });
-            !action.bookmark && dispatch(new Navigate([ './home/form-assente/' + `${this.getAuthGroup()}${LSNAME.detailDelimiter}${suspect.subject.number}` ]));
+            const detail = suspect.data.link && suspect.data.link.closed ? 'detail/' : '';
+            !action.bookmark && dispatch(new Navigate([ './home/form-assente/' + `${detail}${this.getAuthGroup()}${LSNAME.detailDelimiter}${suspect.subject.number}` ]));
         }, () => dispatch(new SetNotFound()));
     }
 
@@ -116,7 +116,8 @@ export class SearchState {
 
     @Action(GetSheetCounters)
     getSheetCounters({ patchState }: StateContext<SearchStateModel>) {
-        this.countersService.getCounters().subscribe(res => {
+        const userGroup = this.store.selectSnapshot(AuthState.currentUser).group;
+        this.countersService.getCounters(userGroup).subscribe(res => {
             if (res) {
                 patchState({ sheetCounters: res.counters })
             }
@@ -130,9 +131,13 @@ export class SearchState {
 
     @Action(OpenKeepAliveModal)
     openKeepAliveModal({ dispatch }: StateContext<SearchStateModel>) {
-        const keepAliveConfirmModal = this.modalService.open(KeepAliveModalComponent, {
+        const keepAliveConfirmModal = this.modalService.open(ConfirmModalComponent, {
             centered: true, size: 'md', backdropClass: 'backdrop-custom-black'
         });
+
+        keepAliveConfirmModal.componentInstance.title = 'Assenza casi';
+        keepAliveConfirmModal.componentInstance.message = 'Sei sicuro di non avere ulteriori aggiornamenti?';
+
         keepAliveConfirmModal.result.then((result: string) => {
             if (result && result === 'confirm') {
                 this.keepAliveService.sendKeepAlive().subscribe( (response) => {
