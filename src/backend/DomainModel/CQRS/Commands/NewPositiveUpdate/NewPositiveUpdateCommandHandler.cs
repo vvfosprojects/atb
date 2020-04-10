@@ -1,6 +1,7 @@
 ﻿using CQRS.Commands;
 using DomainModel.Classes;
 using DomainModel.CQRS.Commands.NewSuspectUpdate;
+using DomainModel.CQRS.Commands.UpdateSuspect;
 using DomainModel.Services;
 using DomainModel.Services.Users;
 using System;
@@ -15,15 +16,19 @@ namespace DomainModel.CQRS.Commands.NewPositiveUpdate
         private readonly IGetSessionContext getSessionContext;
         private readonly INewSuspectUpdate newSuspectUpdate;
         private readonly IGetPatientByCaseNumber getPatientByCaseNumber;
+        private readonly ICryptools cryptools;
+        private readonly IUpdateSuspect updateSuspect;
 
         public NewPositiveUpdateCommandHandler(INewPositiveUpdate newPositiveUpdate, IGetSuspectByCaseNumber getSuspectByCaseNumber, 
-            IGetSessionContext getSessionContext, INewSuspectUpdate newSuspectUpdate, IGetPatientByCaseNumber getPatientByCaseNumber)
+            IGetSessionContext getSessionContext, INewSuspectUpdate newSuspectUpdate, IGetPatientByCaseNumber getPatientByCaseNumber, ICryptools cryptools, IUpdateSuspect updateSuspect)
         {
             this.newPositiveUpdate = newPositiveUpdate ?? throw new ArgumentNullException(nameof(newPositiveUpdate));
             this.getSuspectByCaseNumber = getSuspectByCaseNumber ?? throw new ArgumentNullException(nameof(getSuspectByCaseNumber));
             this.getSessionContext = getSessionContext;
             this.newSuspectUpdate = newSuspectUpdate;
             this.getPatientByCaseNumber = getPatientByCaseNumber;
+            this.cryptools = cryptools;
+            this.updateSuspect = updateSuspect;
         }
 
         public void Handle(NewPositiveUpdateCommand command)
@@ -59,6 +64,7 @@ namespace DomainModel.CQRS.Commands.NewPositiveUpdate
                     var expectedWorkReturnDate = positiveSheet.Data.Last().ExpectedWorkReturnDate != null ? positiveSheet.Data.Last().ExpectedWorkReturnDate : null;
 
 
+
                     var positiveCommand = new NewPositiveUpdateCommand()
                     {
                         ActualWorkReturnDate = actualWorkReturnDate,
@@ -78,6 +84,21 @@ namespace DomainModel.CQRS.Commands.NewPositiveUpdate
 
                     //RIAPERTURA DELLA SCHEDA POSITIVA GIA ESISTENTE
                     var suspectSheet = this.getSuspectByCaseNumber.GetSuspect(link.CaseNumber, this.getSessionContext.GetActiveGroup());
+
+                    //inietto i dati contenuti in subject nel Sospetto
+                    if (!string.IsNullOrEmpty(positiveSheet.Subject.Nome))
+                    {
+                        var updateSuspectSubject = new UpdateSuspectCommand()
+                        {
+                            Number = link.CaseNumber,
+                            Name = this.cryptools.Encrypt(positiveSheet.Subject.Nome),
+                            Surname = this.cryptools.Encrypt(positiveSheet.Subject.Cognome),
+                            Email = this.cryptools.Encrypt(positiveSheet.Subject.Email),
+                            Phone = this.cryptools.Encrypt(positiveSheet.Subject.Phone),
+                            Role = this.cryptools.Encrypt(positiveSheet.Subject.Role)
+                        };
+                        this.updateSuspect.Update(updateSuspectSubject, this.getSessionContext.GetActiveGroup());
+                    }
 
                     var suspectCommand = new NewSuspectUpdateCommand()
                     {
