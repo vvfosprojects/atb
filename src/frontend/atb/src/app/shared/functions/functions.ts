@@ -27,8 +27,3 @@ export function detailArgs(action, userGroup) {
     }
     return { caseNumber, group }
 }
-
-export function splitGroup(caseGroupNumber: string) {
-    const splittedArgs = caseGroupNumber.split(LSNAME.detailDelimiter);
-    return splittedArgs[0];
-}

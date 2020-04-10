@@ -20,11 +20,12 @@ import {
 } from '../../../shared/interface';
 import { UpdateFormValue } from '@ngxs/form-plugin';
 import { formatDateForNgbDatePicker } from '../../../shared/functions/functions';
-import { ClearSuspectCase, SearchPositiveCase, SearchSuspectCase } from '../store/search.actions';
+import { ClearSuspectCase, SearchSuspectCase } from '../store/search.actions';
 import { delay } from 'rxjs/operators';
 import { Navigate } from '@ngxs/router-plugin';
 import { LSNAME } from '../../../core/settings/config';
 import { ConvertCaseState } from '../store/convert-case.state';
+import { Location } from '@angular/common';
 
 @Component({
     selector: 'app-assente',
@@ -56,7 +57,8 @@ export class FormAssenteComponent implements AfterContentInit, OnDestroy {
 
     constructor(private store: Store,
                 private formBuilder: FormBuilder,
-                private route: ActivatedRoute) {
+                private route: ActivatedRoute,
+                private location: Location) {
         if (this.route.snapshot.params.id) {
             this.subscription.add(
                 this.suspectCase$.pipe(delay(100)).subscribe((suspectCase: SuspectCaseInterface) => {
@@ -173,6 +175,10 @@ export class FormAssenteComponent implements AfterContentInit, OnDestroy {
 
     goBack() {
         this.detailMode ? this.store.dispatch(new Navigate([ './home/data-tables' ])) : this.store.dispatch(new Navigate([ './home/ricerca' ]));
+    }
+
+    locationBack() {
+        this.location.back();
     }
 
     searchCase(): void {

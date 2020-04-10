@@ -20,12 +20,13 @@ import {
     LinkCaseInterface,
     PositiveCaseInterface, PositiveHistoryInterface
 } from '../../../shared/interface';
-import { formatDateForNgbDatePicker, splitGroup } from '../../../shared/functions/functions';
-import { ClearPositiveCase, SearchPositiveCase, SearchSuspectCase } from '../store/search.actions';
+import { formatDateForNgbDatePicker } from '../../../shared/functions/functions';
+import { ClearPositiveCase, SearchPositiveCase } from '../store/search.actions';
 import { delay } from 'rxjs/operators';
 import { Navigate } from '@ngxs/router-plugin';
 import { LSNAME } from '../../../core/settings/config';
 import { ConvertCaseState } from '../store/convert-case.state';
+import { Location } from '@angular/common';
 
 @Component({
     selector: 'app-positivo',
@@ -58,7 +59,8 @@ export class FormPositivoComponent implements AfterContentInit, OnDestroy {
 
     constructor(private store: Store,
                 private formBuilder: FormBuilder,
-                private route: ActivatedRoute) {
+                private route: ActivatedRoute,
+                private location: Location) {
         if (this.route.snapshot.params.id) {
             const splittedArgs = this.route.snapshot.params.id.split(LSNAME.detailDelimiter);
             this.gruppo = splittedArgs[0];
@@ -185,6 +187,10 @@ export class FormPositivoComponent implements AfterContentInit, OnDestroy {
 
     goBack() {
         this.detailMode ? this.store.dispatch(new Navigate([ './home/data-tables' ])) : this.store.dispatch(new Navigate([ './home/ricerca' ]));
+    }
+
+    locationBack() {
+        this.location.back();
     }
 
     searchCase(): void {
