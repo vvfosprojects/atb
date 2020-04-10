@@ -91,11 +91,11 @@ namespace DomainModel.CQRS.Commands.NewPositiveUpdate
                         var updateSuspectSubject = new UpdateSuspectCommand()
                         {
                             Number = link.CaseNumber,
-                            Name = this.cryptools.Encrypt(positiveSheet.Subject.Nome),
-                            Surname = this.cryptools.Encrypt(positiveSheet.Subject.Cognome),
-                            Email = this.cryptools.Encrypt(positiveSheet.Subject.Email),
-                            Phone = this.cryptools.Encrypt(positiveSheet.Subject.Phone),
-                            Role = this.cryptools.Encrypt(positiveSheet.Subject.Role)
+                            Name = positiveSheet.Subject.Nome,
+                            Surname = positiveSheet.Subject.Cognome,
+                            Email = positiveSheet.Subject.Email,
+                            Phone = positiveSheet.Subject.Phone,
+                            Role = positiveSheet.Subject.Role
                         };
                         this.updateSuspect.Update(updateSuspectSubject, this.getSessionContext.GetActiveGroup());
                     }
