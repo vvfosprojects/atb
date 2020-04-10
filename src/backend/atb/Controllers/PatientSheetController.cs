@@ -30,10 +30,17 @@ namespace atb.Controllers
 
                 foreach (var update in patient.Patient.Data.OrderByDescending(x => x.UpdateTime))
                 {
+
+                    int? convertedToSuspectCaseNumber = null;
+                    if (update.Link != null) convertedToSuspectCaseNumber = update.Link.CaseNumber;
+                    var convertedToSuspectSheetClosed = update.Link != null ? update.Link.Closed : false;
+
                     history.Add(new
                     {
                         update.QuarantinePlace,
                         update.ExpectedWorkReturnDate,
+                        ConvertedToSuspectCaseNumber = convertedToSuspectCaseNumber,
+                        ConvertedToSuspectSheetClosed = convertedToSuspectSheetClosed,
                         update.UpdateTime,
                         update.UpdatedBy
                     });
