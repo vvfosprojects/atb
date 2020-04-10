@@ -32,7 +32,7 @@ namespace DomainModel.CQRS.Commands.NewSuspectUpdate
                 //recuperato la scheda
                 var suspectSheet = this.getSuspectByCaseNumber.GetSuspect(command.CaseNumber, this.getSessionContext.GetActiveGroup());
                 //check if already linked
-                var link = suspectSheet.Data.LastOrDefault(x => x.Link != null);
+                var link = suspectSheet.Data.LastOrDefault(x => x.Link != null).Link;
 
 
                 if (link == null)
@@ -62,7 +62,7 @@ namespace DomainModel.CQRS.Commands.NewSuspectUpdate
                         QuarantinePlace = suspectSheet.Data.Last().QuarantinePlace,
                         Link = new Link()
                         {
-                            CaseNumber = suspectSheet.Data.Last().Link.CaseNumber,
+                            CaseNumber = link.CaseNumber,
                             Closed = true
                         }
                     };
@@ -70,12 +70,12 @@ namespace DomainModel.CQRS.Commands.NewSuspectUpdate
                     this.newSuspectUpdate.Add(suspectCommand);
 
                     //RIAPERTURA DELLA SCHEDA POSITIVA GIA ESISTENTE
-                    var positiveSheet = this.getPatientByCaseNumber.GetPatient(suspectSheet.Data.Last().Link.CaseNumber, this.getSessionContext.GetActiveGroup());
+                    var positiveSheet = this.getPatientByCaseNumber.GetPatient(link.CaseNumber, this.getSessionContext.GetActiveGroup());
 
                     var positiveCommand = new NewPositiveUpdateCommand()
                     {
                         ActualWorkReturnDate = null,
-                        CaseNumber = suspectSheet.Data.Last().Link.CaseNumber,
+                        CaseNumber = link.CaseNumber,
                         DiseaseConfirmDate = positiveSheet.Data.Last().DiseaseConfirmDate,
                         EstremiProvvedimentiASL = positiveSheet.Data.Last().EstremiProvvedimentiASL,
                         ExpectedWorkReturnDate = positiveSheet.Data.Last().ExpectedWorkReturnDate,

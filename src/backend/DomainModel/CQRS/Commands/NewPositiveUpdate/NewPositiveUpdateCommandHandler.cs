@@ -31,7 +31,7 @@ namespace DomainModel.CQRS.Commands.NewPositiveUpdate
             if (command.ConvertToSuspect)
             {
                 var positiveSheet = this.getPatientByCaseNumber.GetPatient(command.CaseNumber, this.getSessionContext.GetActiveGroup());
-                var link = positiveSheet.Data.LastOrDefault(x => x.Link != null);
+                var link = positiveSheet.Data.LastOrDefault(x => x.Link != null).Link;
 
                 if (link == null)
                 {
@@ -68,7 +68,7 @@ namespace DomainModel.CQRS.Commands.NewPositiveUpdate
                         EstremiProvvedimentiASL = positiveSheet.Data.Last().EstremiProvvedimentiASL,
                         Link = new Link()
                         {
-                            CaseNumber = positiveSheet.Data.Last().Link.CaseNumber,
+                            CaseNumber = link.CaseNumber,
                             Closed = true
                         }
                     };
@@ -76,7 +76,7 @@ namespace DomainModel.CQRS.Commands.NewPositiveUpdate
                     this.newPositiveUpdate.Add(positiveCommand);
 
                     //RIAPERTURA DELLA SCHEDA POSITIVA GIA ESISTENTE
-                    var suspectSheet = this.getSuspectByCaseNumber.GetSuspect(positiveSheet.Data.Last().Link.CaseNumber, this.getSessionContext.GetActiveGroup());
+                    var suspectSheet = this.getSuspectByCaseNumber.GetSuspect(link.CaseNumber, this.getSessionContext.GetActiveGroup());
 
                     var suspectCommand = new NewSuspectUpdateCommand()
                     {
