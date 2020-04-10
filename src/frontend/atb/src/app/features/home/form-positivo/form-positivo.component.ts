@@ -17,9 +17,8 @@ import { UpdateFormValue } from '@ngxs/form-plugin';
 import { SearchState } from '../store/search.state';
 import {
     DtoNewCaseInterface,
-    HistoryCaseInterface,
     LinkCaseInterface,
-    PositiveCaseInterface
+    PositiveCaseInterface, PositiveHistoryInterface
 } from '../../../shared/interface';
 import { formatDateForNgbDatePicker } from '../../../shared/functions/functions';
 import { ClearPositiveCase, SearchPositiveCase } from '../store/search.actions';
@@ -27,6 +26,7 @@ import { delay } from 'rxjs/operators';
 import { Navigate } from '@ngxs/router-plugin';
 import { LSNAME } from '../../../core/settings/config';
 import { ConvertCaseState } from '../store/convert-case.state';
+import { Location } from '@angular/common';
 
 @Component({
     selector: 'app-positivo',
@@ -53,14 +53,17 @@ export class FormPositivoComponent implements AfterContentInit, OnDestroy {
 
     gruppo: string;
 
-    historyCase: HistoryCaseInterface[] = [];
+    historyCase: PositiveHistoryInterface[] = [];
 
     private subscription = new Subscription();
 
     constructor(private store: Store,
                 private formBuilder: FormBuilder,
-                private route: ActivatedRoute) {
+                private route: ActivatedRoute,
+                private location: Location) {
         if (this.route.snapshot.params.id) {
+            const splittedArgs = this.route.snapshot.params.id.split(LSNAME.detailDelimiter);
+            this.gruppo = splittedArgs[0];
             this.subscription.add(
                 this.positiveCase$.pipe(delay(100)).subscribe((positiveCase: PositiveCaseInterface) => {
                     this.historyCase = positiveCase && positiveCase.history;
@@ -70,8 +73,7 @@ export class FormPositivoComponent implements AfterContentInit, OnDestroy {
         }
 
         if (this.route.snapshot.url.length > 1 && this.route.snapshot.url[1].path === 'detail' && this.route.snapshot.params.id) {
-            const splittedArgs = this.route.snapshot.params.id.split(LSNAME.detailDelimiter);
-            this.gruppo = splittedArgs[0];
+
             this.detailMode = true;
             this.store.dispatch(new SetPageTitleFormPositivo('visualizza positivo'));
         } else if (this.route.snapshot.url.length > 1 && this.route.snapshot.url[1].path !== 'detail' && this.route.snapshot.params.id) {
@@ -83,8 +85,8 @@ export class FormPositivoComponent implements AfterContentInit, OnDestroy {
     }
 
     ngAfterContentInit(): void {
-        this.subscription.add(this.link$.subscribe( res => this.link = res));
-        this.subscription.add(this.subject$.subscribe( res => {
+        this.subscription.add(this.link$.subscribe(res => this.link = res));
+        this.subscription.add(this.subject$.subscribe(res => {
             if (res) {
                 this.store.dispatch(
                     new UpdateFormValue({
@@ -187,6 +189,10 @@ export class FormPositivoComponent implements AfterContentInit, OnDestroy {
         this.detailMode ? this.store.dispatch(new Navigate([ './home/data-tables' ])) : this.store.dispatch(new Navigate([ './home/ricerca' ]));
     }
 
+    locationBack() {
+        this.location.back();
+    }
+
     searchCase(): void {
         console.log('searchCase: ', this.route.snapshot.params.id);
         this.store.dispatch(new SearchPositiveCase(this.route.snapshot.params.id, true));
@@ -228,5 +234,11 @@ export class FormPositivoComponent implements AfterContentInit, OnDestroy {
                 this.f[field].disable();
             }
         }
+    }
+
+    onSuspectDetail(caseNumber: number): void {
+        const url = `./home/form-assente/detail/${this.gruppo}${LSNAME.detailDelimiter}${caseNumber}`;
+        console.log('onSuspectDetail', url);
+        this.store.dispatch(new Navigate([url]))
     }
 }

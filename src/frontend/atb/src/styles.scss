@@ -23,3 +23,10 @@
   background-color: black !important;
   opacity: .8 !important;
 }
+
+.flip {
+  -moz-transform:    scaleX(-1); /* Gecko */
+  -o-transform:      scaleX(-1); /* Opera */
+  -webkit-transform: scaleX(-1); /* Webkit */
+  transform:         scaleX(-1); /* Standard */
+}

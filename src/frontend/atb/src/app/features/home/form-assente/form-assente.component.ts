@@ -13,7 +13,11 @@ import {
     UpdateSuspectCase
 } from '../store/form-assente.actions';
 import { SearchState } from '../store/search.state';
-import { DtoNewCaseInterface, LinkCaseInterface, SuspectCaseInterface } from '../../../shared/interface';
+import {
+    DtoNewCaseInterface,
+    LinkCaseInterface,
+    SuspectCaseInterface, SuspectHistoryInterface
+} from '../../../shared/interface';
 import { UpdateFormValue } from '@ngxs/form-plugin';
 import { formatDateForNgbDatePicker } from '../../../shared/functions/functions';
 import { ClearSuspectCase, SearchSuspectCase } from '../store/search.actions';
@@ -21,6 +25,7 @@ import { delay } from 'rxjs/operators';
 import { Navigate } from '@ngxs/router-plugin';
 import { LSNAME } from '../../../core/settings/config';
 import { ConvertCaseState } from '../store/convert-case.state';
+import { Location } from '@angular/common';
 
 @Component({
     selector: 'app-assente',
@@ -46,14 +51,18 @@ export class FormAssenteComponent implements AfterContentInit, OnDestroy {
 
     gruppo: string;
 
-    private subscription = new Subscription();
+    historyCase: SuspectHistoryInterface[] = [];
+
+        private subscription = new Subscription();
 
     constructor(private store: Store,
                 private formBuilder: FormBuilder,
-                private route: ActivatedRoute) {
+                private route: ActivatedRoute,
+                private location: Location) {
         if (this.route.snapshot.params.id) {
             this.subscription.add(
                 this.suspectCase$.pipe(delay(100)).subscribe((suspectCase: SuspectCaseInterface) => {
+                    this.historyCase = suspectCase && suspectCase.history;
                     suspectCase ? this.updateForm(suspectCase) : this.searchCase();
                 }));
             this.subscription.add(this.notFound$.subscribe(res => res && this.goBack()));
@@ -168,6 +177,10 @@ export class FormAssenteComponent implements AfterContentInit, OnDestroy {
         this.detailMode ? this.store.dispatch(new Navigate([ './home/data-tables' ])) : this.store.dispatch(new Navigate([ './home/ricerca' ]));
     }
 
+    locationBack() {
+        this.location.back();
+    }
+
     searchCase(): void {
         console.log('searchCase: ', this.route.snapshot.params.id);
         this.store.dispatch(new SearchSuspectCase(this.route.snapshot.params.id, true));
@@ -194,5 +207,11 @@ export class FormAssenteComponent implements AfterContentInit, OnDestroy {
                 }
             })
         );
+    }
+
+    onPositiveDetail(caseNumber: number): void {
+        const url = `./home/form-positivo/detail/${this.gruppo}${LSNAME.detailDelimiter}${caseNumber}`;
+        console.log('onPositiveDetail', url);
+        this.store.dispatch(new Navigate([url]))
     }
 }

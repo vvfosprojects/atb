@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CheckPermissionPipe } from './check-permission.pipe';
 import { LuogoIsolamentoPipe } from './luogo-isolamento.pipe';
+import { OpenConvertCasePipe } from './open-convert-case.pipe';
 
-const COMPONENTS = [CheckPermissionPipe, LuogoIsolamentoPipe];
+const COMPONENTS = [CheckPermissionPipe, LuogoIsolamentoPipe, OpenConvertCasePipe];
 
 @NgModule({
     imports: [],

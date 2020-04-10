@@ -1,13 +1,25 @@
-import { Component, Input } from '@angular/core';
-import { HistoryCaseInterface } from '../../interface';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { PositiveHistoryInterface, SuspectHistoryInterface } from '../../interface';
 
 @Component({
-  selector: 'app-history-case',
-  templateUrl: './history-case.component.html',
-  styleUrls: ['./history-case.component.scss']
+    selector: 'app-history-case',
+    templateUrl: './history-case.component.html',
+    styleUrls: [ './history-case.component.scss' ]
 })
 export class HistoryCaseComponent {
 
-    @Input() historyCase: HistoryCaseInterface[];
+    @Input() historyCase: SuspectHistoryInterface[] | PositiveHistoryInterface[];
+    @Input() caseType: string = 'positive';
+    @Output() caseNumber = new EventEmitter<number>();
+
+    onCaseNumber(historyCase: any): void {
+        const caseNumber = historyCase.convertedToSuspectCaseNumber || historyCase.convertedToPositiveCaseNumber;
+
+        if (historyCase.convertedToSuspectCaseNumber && !historyCase.convertedToSuspectSheetClosed || historyCase.convertedToPositiveCaseNumber && !historyCase.convertedToPositiveSheetClosed) {
+            console.log('onCaseNumber', caseNumber);
+            this.caseNumber.emit(caseNumber);
+        }
+
+    }
 
 }

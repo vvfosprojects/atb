@@ -4,3 +4,4 @@ export * from './health-measure.interface';
 export * from './new-suspect-response.interface';
 export * from './suspect-case.interface';
 export * from './new-suspect-update-response.interface';
+export * from './suspect-history.interface';
