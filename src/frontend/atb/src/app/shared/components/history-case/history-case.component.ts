@@ -14,8 +14,12 @@ export class HistoryCaseComponent {
 
     onCaseNumber(historyCase: any): void {
         const caseNumber = historyCase.convertedToSuspectCaseNumber || historyCase.convertedToPositiveCaseNumber;
-        console.log('onCaseNumber', caseNumber);
-        this.caseNumber.emit(caseNumber);
+
+        if (historyCase.convertedToSuspectCaseNumber && !historyCase.convertedToSuspectSheetClosed || historyCase.convertedToPositiveCaseNumber && !historyCase.convertedToPositiveSheetClosed) {
+            console.log('onCaseNumber', caseNumber);
+            this.caseNumber.emit(caseNumber);
+        }
+
     }
 
 }

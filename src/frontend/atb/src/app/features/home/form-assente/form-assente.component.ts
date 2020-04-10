@@ -16,12 +16,11 @@ import { SearchState } from '../store/search.state';
 import {
     DtoNewCaseInterface,
     LinkCaseInterface,
-    PositiveHistoryInterface,
     SuspectCaseInterface, SuspectHistoryInterface
 } from '../../../shared/interface';
 import { UpdateFormValue } from '@ngxs/form-plugin';
 import { formatDateForNgbDatePicker } from '../../../shared/functions/functions';
-import { ClearSuspectCase, SearchSuspectCase } from '../store/search.actions';
+import { ClearSuspectCase, SearchPositiveCase, SearchSuspectCase } from '../store/search.actions';
 import { delay } from 'rxjs/operators';
 import { Navigate } from '@ngxs/router-plugin';
 import { LSNAME } from '../../../core/settings/config';
@@ -202,5 +201,11 @@ export class FormAssenteComponent implements AfterContentInit, OnDestroy {
                 }
             })
         );
+    }
+
+    onPositiveDetail(caseNumber: number): void {
+        const url = `./home/form-positivo/detail/${this.gruppo}${LSNAME.detailDelimiter}${caseNumber}`;
+        console.log('onPositiveDetail', url);
+        this.store.dispatch(new Navigate([url]))
     }
 }
