@@ -106,7 +106,7 @@ namespace DomainModel.CQRS.Commands.NewPositiveUpdate
                         CaseNumber = link.CaseNumber,
                         ExpectedWorkReturnDate = suspectSheet.Data.Last().ExpectedWorkReturnDate,
                         HealthMeasure = suspectSheet.Data.Last().HealthMeasure,
-                        QuarantinePlace = "HOME",
+                        QuarantinePlace = positiveSheet.Data.Last().QuarantinePlace,
                         Link = new Link()
                         {
                             CaseNumber = command.CaseNumber,
