@@ -84,7 +84,8 @@ namespace DbFeeder
                 .RuleFor(a => a.ActualWorkReturnDate, f => f.Random.Float() < .6f ? f.Date.Soon(60).AddDays(-30) : (DateTime?)null)
                 .RuleFor(a => a.UpdateTime, f => f.Date.Recent(15))
                 .RuleFor(a => a.UpdatedBy, f => f.Internet.UserName())
-                .RuleFor(a => a.DateOfDeath, f => f.Random.Float() > .97f ? f.Date.Recent(60) : (DateTime?)null);
+                .RuleFor(a => a.DateOfDeath, f => f.Random.Float() > .97f ? f.Date.Recent(60) : (DateTime?)null)
+                .Ignore(a => a.Link);
 
             var positiveFaker = new Faker<Patient>()
                 .StrictMode(true)
@@ -134,7 +135,8 @@ namespace DbFeeder
                 .RuleFor(a => a.ActualWorkReturnDate, f => f.Random.Float() < .6f ? f.Date.Soon(60).AddDays(-30) : (DateTime?)null)
                 .RuleFor(a => a.HealthMeasure, f => healthMeasureFaker.Generate())
                 .RuleFor(a => a.UpdateTime, f => f.Date.Recent(15))
-                .RuleFor(a => a.UpdatedBy, f => f.Internet.UserName());
+                .RuleFor(a => a.UpdatedBy, f => f.Internet.UserName())
+                .Ignore(a => a.Link);
 
             var suspectFaker = new Faker<Suspect>()
                 .StrictMode(true)
