@@ -47,7 +47,7 @@ export class StatisticComponent implements OnChanges {
     countTotal(_statistics: GroupStatistic[]): void {
         if (_statistics && _statistics.length > 0) {
             _statistics.forEach(group => {
-                this.suspectsTotalSick += group.suspects && group.suspects.totalSick;
+                this.suspectsTotalSick += group.suspects && group.suspects.total;
                 this.suspectsTotalClosed += group.suspects && group.suspects.totalClosed;
                 this.positivesTotalSick += group.positives && group.positives.totalSick;
                 this.positivesTotalClosed += group.positives && group.positives.totalClosed;

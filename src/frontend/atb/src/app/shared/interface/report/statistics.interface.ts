@@ -11,6 +11,7 @@ export interface RoleFacet {
 
 export interface GroupCase {
     totalSick: number;
+    total: number;
     totalClosed: number;
     quarantinePlacesFacet: QuarantinePlacesFacet;
     roleFacet: RoleFacet[];
@@ -18,6 +19,10 @@ export interface GroupCase {
 
 export interface GroupStatistic {
     group: string;
-    positives: GroupCase;
-    suspects: GroupCase;
+    positives: GroupPositives;
+    suspects: GroupSuspects;
 }
+
+export type GroupPositives = Omit<GroupCase, 'total'>;
+
+export type GroupSuspects = Omit<GroupCase, 'totalSick'>;

@@ -43,7 +43,7 @@ export class GroupStatisticComponent implements OnChanges {
 
     countTotal(_statistics: GroupStatistic): void {
         if (_statistics) {
-            this.suspectsTotalSick += _statistics.suspects && _statistics.suspects.totalSick;
+            this.suspectsTotalSick += _statistics.suspects && _statistics.suspects.total;
             this.suspectsTotalClosed += _statistics.suspects && _statistics.suspects.totalClosed;
             this.positivesTotalSick += _statistics.positives && _statistics.positives.totalSick;
             this.positivesTotalClosed += _statistics.positives && _statistics.positives.totalClosed;
