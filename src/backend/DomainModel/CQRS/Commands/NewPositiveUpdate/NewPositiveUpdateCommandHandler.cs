@@ -70,7 +70,7 @@ namespace DomainModel.CQRS.Commands.NewPositiveUpdate
                         ActualWorkReturnDate = actualWorkReturnDate,
                         CaseNumber = command.CaseNumber,
                         ExpectedWorkReturnDate = expectedWorkReturnDate,
-                        QuarantinePlace = positiveSheet.Data.Last().QuarantinePlace,
+                        QuarantinePlace = "HOME",
                         DiseaseConfirmDate = positiveSheet.Data.Last().DiseaseConfirmDate,
                         EstremiProvvedimentiASL = positiveSheet.Data.Last().EstremiProvvedimentiASL,
                         Link = new Link()
@@ -106,7 +106,7 @@ namespace DomainModel.CQRS.Commands.NewPositiveUpdate
                         CaseNumber = link.CaseNumber,
                         ExpectedWorkReturnDate = suspectSheet.Data.Last().ExpectedWorkReturnDate,
                         HealthMeasure = suspectSheet.Data.Last().HealthMeasure,
-                        QuarantinePlace = positiveSheet.Data.Last().QuarantinePlace,
+                        QuarantinePlace = suspectSheet.Data.Last().QuarantinePlace,
                         Link = new Link()
                         {
                             CaseNumber = command.CaseNumber,
@@ -150,16 +150,6 @@ namespace DomainModel.CQRS.Commands.NewPositiveUpdate
                     this.newSuspectUpdate.Add(suspectCommand);
 
                     //AGGIORNO I DATA DELLA SCHEDA POSITIVO
-                    //var positiveCommand = new NewPositiveUpdateCommand()
-                    //{
-                    //    ActualWorkReturnDate = command.ActualWorkReturnDate,
-                    //    CaseNumber = command.CaseNumber,
-                    //    DiseaseConfirmDate = command.DiseaseConfirmDate,
-                    //    EstremiProvvedimentiASL = command.EstremiProvvedimentiASL,
-                    //    ExpectedWorkReturnDate = command.ExpectedWorkReturnDate,
-                    //    QuarantinePlace = command.QuarantinePlace,
-                    //    Link = command.Link
-                    //};
                     this.newPositiveUpdate.Add(command);
                 }
 
