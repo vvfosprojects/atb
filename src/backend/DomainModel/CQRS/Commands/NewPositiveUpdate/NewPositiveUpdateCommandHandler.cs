@@ -1,6 +1,7 @@
 ﻿using CQRS.Commands;
 using DomainModel.Classes;
 using DomainModel.CQRS.Commands.NewSuspectUpdate;
+using DomainModel.CQRS.Commands.UpdateSuspect;
 using DomainModel.Services;
 using DomainModel.Services.Users;
 using System;
@@ -15,15 +16,19 @@ namespace DomainModel.CQRS.Commands.NewPositiveUpdate
         private readonly IGetSessionContext getSessionContext;
         private readonly INewSuspectUpdate newSuspectUpdate;
         private readonly IGetPatientByCaseNumber getPatientByCaseNumber;
+        private readonly ICryptools cryptools;
+        private readonly IUpdateSuspect updateSuspect;
 
         public NewPositiveUpdateCommandHandler(INewPositiveUpdate newPositiveUpdate, IGetSuspectByCaseNumber getSuspectByCaseNumber, 
-            IGetSessionContext getSessionContext, INewSuspectUpdate newSuspectUpdate, IGetPatientByCaseNumber getPatientByCaseNumber)
+            IGetSessionContext getSessionContext, INewSuspectUpdate newSuspectUpdate, IGetPatientByCaseNumber getPatientByCaseNumber, ICryptools cryptools, IUpdateSuspect updateSuspect)
         {
             this.newPositiveUpdate = newPositiveUpdate ?? throw new ArgumentNullException(nameof(newPositiveUpdate));
             this.getSuspectByCaseNumber = getSuspectByCaseNumber ?? throw new ArgumentNullException(nameof(getSuspectByCaseNumber));
             this.getSessionContext = getSessionContext;
             this.newSuspectUpdate = newSuspectUpdate;
             this.getPatientByCaseNumber = getPatientByCaseNumber;
+            this.cryptools = cryptools;
+            this.updateSuspect = updateSuspect;
         }
 
         public void Handle(NewPositiveUpdateCommand command)
@@ -31,7 +36,8 @@ namespace DomainModel.CQRS.Commands.NewPositiveUpdate
             if (command.ConvertToSuspect)
             {
                 var positiveSheet = this.getPatientByCaseNumber.GetPatient(command.CaseNumber, this.getSessionContext.GetActiveGroup());
-                var link = positiveSheet.Data.LastOrDefault(x => x.Link != null);
+                var dataLink = positiveSheet.Data.Where(x => x.Link != null).LastOrDefault();
+                var link = dataLink != null ? dataLink.Link : null;
 
                 if (link == null)
                 {
@@ -58,17 +64,18 @@ namespace DomainModel.CQRS.Commands.NewPositiveUpdate
                     var expectedWorkReturnDate = positiveSheet.Data.Last().ExpectedWorkReturnDate != null ? positiveSheet.Data.Last().ExpectedWorkReturnDate : null;
 
 
+
                     var positiveCommand = new NewPositiveUpdateCommand()
                     {
                         ActualWorkReturnDate = actualWorkReturnDate,
                         CaseNumber = command.CaseNumber,
                         ExpectedWorkReturnDate = expectedWorkReturnDate,
-                        QuarantinePlace = positiveSheet.Data.Last().QuarantinePlace,
+                        QuarantinePlace = "HOME",
                         DiseaseConfirmDate = positiveSheet.Data.Last().DiseaseConfirmDate,
                         EstremiProvvedimentiASL = positiveSheet.Data.Last().EstremiProvvedimentiASL,
                         Link = new Link()
                         {
-                            CaseNumber = positiveSheet.Data.Last().Link.CaseNumber,
+                            CaseNumber = link.CaseNumber,
                             Closed = true
                         }
                     };
@@ -76,15 +83,30 @@ namespace DomainModel.CQRS.Commands.NewPositiveUpdate
                     this.newPositiveUpdate.Add(positiveCommand);
 
                     //RIAPERTURA DELLA SCHEDA POSITIVA GIA ESISTENTE
-                    var suspectSheet = this.getSuspectByCaseNumber.GetSuspect(positiveSheet.Data.Last().Link.CaseNumber, this.getSessionContext.GetActiveGroup());
+                    var suspectSheet = this.getSuspectByCaseNumber.GetSuspect(link.CaseNumber, this.getSessionContext.GetActiveGroup());
+
+                    //inietto i dati contenuti in subject nel Sospetto
+                    if (!string.IsNullOrEmpty(positiveSheet.Subject.Nome))
+                    {
+                        var updateSuspectSubject = new UpdateSuspectCommand()
+                        {
+                            Number = link.CaseNumber,
+                            Name = positiveSheet.Subject.Nome,
+                            Surname = positiveSheet.Subject.Cognome,
+                            Email = positiveSheet.Subject.Email,
+                            Phone = positiveSheet.Subject.Phone,
+                            Role = positiveSheet.Subject.Role
+                        };
+                        this.updateSuspect.Update(updateSuspectSubject, this.getSessionContext.GetActiveGroup());
+                    }
 
                     var suspectCommand = new NewSuspectUpdateCommand()
                     {
                         ActualWorkReturnDate = suspectSheet.Data.Last().ActualWorkReturnDate,
-                        CaseNumber = suspectSheet.Data.Last().Link.CaseNumber,
+                        CaseNumber = link.CaseNumber,
                         ExpectedWorkReturnDate = suspectSheet.Data.Last().ExpectedWorkReturnDate,
                         HealthMeasure = suspectSheet.Data.Last().HealthMeasure,
-                        QuarantinePlace = positiveSheet.Data.Last().QuarantinePlace,
+                        QuarantinePlace = suspectSheet.Data.Last().QuarantinePlace,
                         Link = new Link()
                         {
                             CaseNumber = command.CaseNumber,
@@ -128,16 +150,6 @@ namespace DomainModel.CQRS.Commands.NewPositiveUpdate
                     this.newSuspectUpdate.Add(suspectCommand);
 
                     //AGGIORNO I DATA DELLA SCHEDA POSITIVO
-                    //var positiveCommand = new NewPositiveUpdateCommand()
-                    //{
-                    //    ActualWorkReturnDate = command.ActualWorkReturnDate,
-                    //    CaseNumber = command.CaseNumber,
-                    //    DiseaseConfirmDate = command.DiseaseConfirmDate,
-                    //    EstremiProvvedimentiASL = command.EstremiProvvedimentiASL,
-                    //    ExpectedWorkReturnDate = command.ExpectedWorkReturnDate,
-                    //    QuarantinePlace = command.QuarantinePlace,
-                    //    Link = command.Link
-                    //};
                     this.newPositiveUpdate.Add(command);
                 }
 

@@ -4,7 +4,7 @@ namespace DomainModel.Classes.Stats
 {
     public class SuspectGroup
     {
-        public int TotalSick { get; set; }
+        public int Total { get; set; }
 
         public SuspectQuarantinePlacesFacet QuarantinePlacesFacet { get; set; }
 

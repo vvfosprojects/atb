@@ -3,6 +3,7 @@ using DomainModel.Classes;
 using DomainModel.CQRS.Queries.GetSuspect;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace atb.Controllers
@@ -21,9 +22,28 @@ namespace atb.Controllers
         public ActionResult<Object> Get([FromQuery]int caseNumber, string group)
         {
             var query = new GetSuspectQuery() { CaseNumber = caseNumber, Group = group };
+            var history = new List<Object>();
+
             var suspect = this.handler.Handle(query);
             if (suspect.Suspect.Data.Any())
             {
+                foreach (var update in suspect.Suspect.Data.OrderByDescending(x => x.UpdateTime))
+                {
+                    int? convertedToPositiveCaseNumber = null;
+                    if (update.Link != null) convertedToPositiveCaseNumber = update.Link.CaseNumber;
+                    var convertedToPositiveSheetClosed = update.Link != null ? update.Link.Closed : false;
+
+                    history.Add(new
+                    {
+                        update.ExpectedWorkReturnDate,
+                        ConvertedToPositiveCaseNumber = convertedToPositiveCaseNumber,
+                        ConvertedToPositiveSheetClosed = convertedToPositiveSheetClosed,
+                        update.UpdateTime,
+                        update.UpdatedBy
+                    });
+                }
+
+
                 var result = new
                 {
                     suspect.Suspect.Group,
@@ -45,7 +65,8 @@ namespace atb.Controllers
                         UpdatedBy = suspect.Suspect.Data.Last().UpdatedBy,
                         UpdateTime = suspect.Suspect.Data.Last().UpdateTime,
                         Link = suspect.Suspect.Data.Last().Link
-                    }
+                    },
+                    History = history
                 };
 
                 return Ok(result);
@@ -54,7 +75,7 @@ namespace atb.Controllers
             {
                 var result = new
                 {
-                    Group = suspect.Suspect.Group,
+                    suspect.Suspect.Group,
                     Subject = new Anagrafica()
                     {
                         Nome = suspect.Suspect.Subject.Nome,

@@ -1,10 +1,3 @@
-.flip {
-  -moz-transform:    scaleX(-1); /* Gecko */
-  -o-transform:      scaleX(-1); /* Opera */
-  -webkit-transform: scaleX(-1); /* Webkit */
-  transform:         scaleX(-1); /* Standard */
-}
-
 .footer-bg {
   background-color:rgba(206,43,55,0.9);
 }

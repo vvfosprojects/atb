@@ -1,0 +1,85 @@
+<div *ngIf="historyCase && historyCase.length > 0"
+     class="px-4 py-3 bg-light rounded border border-light shadow-sm mb-4">
+    <h4>Ultime modifiche</h4>
+    <hr>
+    <div class="list-group">
+        <ng-container *ngFor="let _case of historyCase; index as i">
+            <ng-container
+                    *ngIf="_case?.convertedToSuspectCaseNumber; then caseNumberTemplate else onlyQuarantine"></ng-container>
+            <ng-template #caseNumberTemplate>
+                <!-- scheda con quarantena e conversione-->
+                <div *ngIf="_case?.convertedToSuspectCaseNumber && _case.quarantinePlace"
+                     class="list-group-item flex-column align-items-start"
+                     [ngClass]="_case | openConvertCase : 'class'"
+                     (click)="onCaseNumber(_case)">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">
+                        <span>
+                            <i [ngClass]="_case.quarantinePlace | luogoIsolamento: 'class'"></i>{{_case.quarantinePlace | luogoIsolamento}}
+                        </span>
+                        </h5>
+                        <small class="text-muted">modificato da {{_case.updatedBy}}<span
+                                class="font-italic"> ({{_case.updateTime | date:'medium'}})</span>
+                        </small>
+                    </div>
+                    <p class="mb-1">
+                        <ng-container
+                                *ngIf="_case?.convertedToSuspectCaseNumber; then link"></ng-container>
+                    </p>
+                    <small *ngIf="_case?.convertedToSuspectSheetClosed && _case?.convertedToSuspectCaseNumber && i === 0"
+                           class="text-muted">La scheda non può essere modificata.</small>
+                </div>
+
+                <!-- scheda senza quarantena-->
+                <div *ngIf="_case?.convertedToSuspectCaseNumber && !_case.quarantinePlace"
+                     class="list-group-item flex-column align-items-start"
+                     [ngClass]="_case | openConvertCase : 'class'"
+                     (click)="onCaseNumber(_case)">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">
+                        <span>
+                            <ng-container
+                                    *ngIf="_case?.convertedToSuspectCaseNumber; then link"></ng-container>
+                        </span>
+                        </h5>
+                        <small class="text-muted">modificato da {{_case.updatedBy}}<span
+                                class="font-italic"> ({{_case.updateTime | date:'medium'}})</span>
+                        </small>
+                    </div>
+                    <small *ngIf="_case?.convertedToSuspectSheetClosed && _case?.convertedToSuspectCaseNumber && i === 0"
+                           class="text-muted">La scheda non può essere modificata.</small>
+                </div>
+            </ng-template>
+
+            <!-- scheda solo quarantena-->
+            <ng-template #onlyQuarantine>
+                <div *ngIf="!_case?.convertedToSuspectCaseNumber && _case.quarantinePlace"
+                     class="list-group-item flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">
+                        <span>
+                            <i [ngClass]="_case.quarantinePlace | luogoIsolamento: 'class'"></i>{{_case.quarantinePlace | luogoIsolamento}}
+                        </span>
+                        </h5>
+                        <small class="text-muted">modificato da {{_case.updatedBy}}<span
+                                class="font-italic"> ({{_case.updateTime | date:'medium'}})</span>
+                        </small>
+                    </div>
+                </div>
+            </ng-template>
+
+            <ng-template #link>
+                <span *ngIf="_case?.convertedToSuspectSheetClosed && _case?.convertedToSuspectCaseNumber">
+                    <span class="text-muted"><i class="text-warning fa fa-retweet px-1 flip"></i>
+                        <span class="font-weight-bolder">Conversione a sorvegliato #{{_case?.convertedToSuspectCaseNumber}}.</span>
+                    </span>
+                </span>
+                <span *ngIf="!_case?.convertedToSuspectSheetClosed && _case?.convertedToSuspectCaseNumber">
+                    <span class="text-muted"><i class="text-danger fa fa-retweet px-1"></i>
+                        <span class="font-weight-bolder">Convertito a positivo.</span>
+                    </span>
+                </span>
+            </ng-template>
+        </ng-container>
+    </div>
+</div>

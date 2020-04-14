@@ -123,7 +123,7 @@ export class FormPositivoState {
             backdropClass: 'backdrop-custom-black'
         });
         m.componentInstance.title = 'Conversione in Caso Sorvegliato';
-        m.componentInstance.message = 'Sei sicuro di voler convertire il caso Positivo in Sospetto?';
+        m.componentInstance.message = 'Sei sicuro di voler convertire il caso Positivo in Sorvegliato?';
         m.result.then((modalResult: string) => {
             if (modalResult && modalResult === 'confirm') {
                 dispatch(new UpdatePositivoCase(true));
