@@ -90,7 +90,7 @@ namespace Persistence.InMongo_local
                             Home = g.Where(x => (x.Data.Link == null || x.Data.Link.Closed == false) && (!x.Data.ActualWorkReturnDate.HasValue || x.Data.ActualWorkReturnDate.Value >= DateTime.UtcNow)).Count(x => x.Data.QuarantinePlace == "HOME"),
                             Hosp = g.Where(x => (x.Data.Link == null || x.Data.Link.Closed == false) && (!x.Data.ActualWorkReturnDate.HasValue || x.Data.ActualWorkReturnDate.Value >= DateTime.UtcNow)).Count(x => x.Data.QuarantinePlace == "HOSP"),
                         },
-                        TotalSick = g.Count(),
+                        Total = g.Count(),
                         TotalClosed = g.Where(x => (x.Data.ActualWorkReturnDate.HasValue && x.Data.ActualWorkReturnDate.Value < DateTime.UtcNow) || (x.Data.Link != null && x.Data.Link.Closed == true)).Count(),
                         RoleFacet = g.Where(x => (x.Data.Link == null || x.Data.Link.Closed == false) && (!x.Data.ActualWorkReturnDate.HasValue || x.Data.ActualWorkReturnDate.Value >= DateTime.UtcNow)).GroupBy(g2 => this.cryptools.Decrypt(g2.Subject.Role))
                             .OrderBy(g2 => g2.Key)
@@ -125,7 +125,7 @@ namespace Persistence.InMongo_local
                                 Home = 0,
                                 Hosp = 0
                             },
-                            TotalSick = 0,
+                            Total = 0,
                             TotalClosed = 0,
                             RoleFacet = new List<RoleFacet>() { }
                         }
@@ -156,7 +156,7 @@ namespace Persistence.InMongo_local
                             Home = g.Where(x => (x.Data.Link == null || x.Data.Link.Closed == false) && (!x.Data.ActualWorkReturnDate.HasValue || x.Data.ActualWorkReturnDate.Value >= DateTime.UtcNow)).Count(x => x.Data.QuarantinePlace == "HOME"),
                             Hosp = g.Where(x => (x.Data.Link == null || x.Data.Link.Closed == false) && (!x.Data.ActualWorkReturnDate.HasValue || x.Data.ActualWorkReturnDate.Value >= DateTime.UtcNow)).Count(x => x.Data.QuarantinePlace == "HOSP"),
                         },
-                        TotalSick = g.Count(),
+                        Total = g.Count(),
                         TotalClosed = g.Where(x => (x.Data.ActualWorkReturnDate.HasValue && x.Data.ActualWorkReturnDate.Value < DateTime.UtcNow) || (x.Data.Link != null && x.Data.Link.Closed == true)).Count(),
                         RoleFacet = g.Where(x => (x.Data.Link == null || x.Data.Link.Closed == false) && (!x.Data.ActualWorkReturnDate.HasValue || x.Data.ActualWorkReturnDate.Value >= DateTime.UtcNow)).GroupBy(g2 => this.cryptools.Decrypt(g2.Subject.Role))
                             .OrderBy(g2 => g2.Key)
@@ -189,7 +189,7 @@ namespace Persistence.InMongo_local
                                 Home = 0,
                                 Hosp = 0
                             },
-                            TotalSick = 0,
+                            Total = 0,
                             TotalClosed = 0,
                             RoleFacet = new List<RoleFacet>() { }
                         }
