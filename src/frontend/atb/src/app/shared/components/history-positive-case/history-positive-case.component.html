@@ -71,7 +71,7 @@
             <ng-template #link>
                 <span *ngIf="_case?.convertedToSuspectSheetClosed && _case?.convertedToSuspectCaseNumber">
                     <span class="text-muted"><i class="text-warning fa fa-retweet px-1 flip"></i>
-                        <span class="font-weight-bolder">Conversione a sorvegliato #{{_case?.convertedToSuspectCaseNumber}}.</span>
+                        <span class="font-weight-bolder alert alert-primary alert-link">Conversione a sorvegliato #{{_case?.convertedToSuspectCaseNumber}}.</span>
                     </span>
                 </span>
                 <span *ngIf="!_case?.convertedToSuspectSheetClosed && _case?.convertedToSuspectCaseNumber">

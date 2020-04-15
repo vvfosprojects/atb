@@ -5,7 +5,7 @@ import { openSuspect } from '../../functions';
 @Component({
     selector: 'app-history-positive-case',
     templateUrl: './history-positive-case.component.html',
-    styleUrls: [ './history-positive-case.component.scss' ]
+    styleUrls: [ './history-both-case.component.scss' ]
 })
 export class HistoryPositiveCaseComponent {
 
