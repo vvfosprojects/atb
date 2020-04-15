@@ -32,6 +32,13 @@ namespace DomainModel.CQRS.Commands.NewSuspectUpdate
             {
                 //recuperato la scheda
                 var suspectSheet = this.getSuspectByCaseNumber.GetSuspect(command.CaseNumber, this.getSessionContext.GetActiveGroup());
+
+                //check if sheet is closed
+                if (suspectSheet.Closed)
+                {
+                    throw new AtbApplicationException("Attenzione: stai tentando di modificare una scheda chiusa!");
+                }
+
                 //check if already linked
                 var dataLink = suspectSheet.Data.Where(x => x.Link != null).LastOrDefault();
                 var link = dataLink != null ? dataLink.Link : null;

@@ -37,6 +37,13 @@ namespace DomainModel.CQRS.Commands.NewPositiveUpdate
             if (command.ConvertToSuspect)
             {
                 var positiveSheet = this.getPatientByCaseNumber.GetPatient(command.CaseNumber, this.getSessionContext.GetActiveGroup());
+
+                //check if sheet is closed
+                if (positiveSheet.Closed)
+                {
+                    throw new AtbApplicationException("Attenzione: stai tentando di modificare una scheda chiusa!");
+                }
+
                 var dataLink = positiveSheet.Data.Where(x => x.Link != null).LastOrDefault();
                 var link = dataLink != null ? dataLink.Link : null;
 
