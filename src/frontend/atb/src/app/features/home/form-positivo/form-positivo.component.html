@@ -18,7 +18,7 @@
                     <div class="offset-11 my-2"></div>
                     <div *ngIf="!detailMode" class="col-12 col-lg-6 mx-auto text-center">
                         <button type="button" class="btn btn-block btn-lg btn-primary" (click)="onSubmit()"
-                                [disabled]="!this.positivoForm.valid">
+                                [disabled]="!this.positivoForm.valid || saving">
                             <ng-template [ngIf]="!editMode">
                                 <i class="fa fa-save mr-1"></i>
                                 Salva Scheda
@@ -32,7 +32,7 @@
                     <div class="offset-11 my-2"></div>
                     <div *ngIf="!detailMode && editMode" class="col-12 col-lg-6 mx-auto text-center">
                         <button type="button" class="btn btn-block btn-lg btn-outline-primary" (click)="onSubmit(true)"
-                                [disabled]="!this.positivoForm.valid">
+                                [disabled]="!this.positivoForm.valid || saving">
                             <i class="fa fa-retweet mr-1"></i>
                             Converti in Sorvegliato
                         </button>
@@ -323,7 +323,7 @@
                     <div class="offset-11 my-2"></div>
                     <div  *ngIf="!detailMode" class="col-12 col-lg-6 mx-auto text-center">
                         <button type="button" class="btn btn-block btn-lg btn-primary" (click)="onSubmit()"
-                                [disabled]="!this.positivoForm.valid">
+                                [disabled]="!this.positivoForm.valid || saving">
                             <ng-template [ngIf]="!editMode">
                                 <i class="fa fa-save mr-1"></i>
                                 Salva Scheda
@@ -337,7 +337,7 @@
                     <div class="offset-11 my-2"></div>
                     <div *ngIf="!detailMode && editMode" class="col-12 col-lg-6 mx-auto text-center">
                         <button type="button" class="btn btn-block btn-lg btn-outline-primary" (click)="onSubmit(true)"
-                                [disabled]="!this.positivoForm.valid">
+                                [disabled]="!this.positivoForm.valid || saving">
                             <i class="fa fa-retweet mr-1"></i>
                             Converti in Sorvegliato
                         </button>

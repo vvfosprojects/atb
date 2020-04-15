@@ -43,13 +43,15 @@ export interface FormAssenteStateModel {
         };
         status?: string;
     };
+    saving: boolean;
 }
 
 export const formAssenteStateDefaults: FormAssenteStateModel = {
     pageTitle: 'nuovo sorvegliato',
     assenteForm: {
         model: undefined
-    }
+    },
+    saving: false
 };
 
 @Injectable()
@@ -69,6 +71,11 @@ export class FormAssenteState {
         return state.assenteForm.status === 'VALID';
     }
 
+    @Selector()
+    static saving(state: FormAssenteStateModel) {
+        return state.saving;
+    }
+
     constructor(private assentiService: AssentiService, private modal: NgbModal) {
     }
 
@@ -80,7 +87,7 @@ export class FormAssenteState {
     }
 
     @Action(SaveNewSuspectCase)
-    saveNewSuspectCase({ getState, dispatch }: StateContext<FormAssenteStateModel>, { link }: SaveNewSuspectCase) {
+    saveNewSuspectCase({ getState, dispatch, patchState }: StateContext<FormAssenteStateModel>, { link }: SaveNewSuspectCase) {
         const assenteFormValue = getState().assenteForm.model;
         const objSubject: DtoNewSuspectCaseInterface = {
             number: assenteFormValue.caseNumber,
@@ -90,6 +97,7 @@ export class FormAssenteState {
             phone: assenteFormValue.phone,
             role: assenteFormValue.role
         };
+        patchState({ saving: true });
         this.assentiService.newSuspectCase(objSubject).subscribe((resNewSuspectCase: NewSuspectResponseInterface) => {
             const objData: DtoNewSuspectUpdateInterface = {
                 caseNumber: resNewSuspectCase.caseNumber,
@@ -111,6 +119,7 @@ export class FormAssenteState {
                     exMsg: link ? '(ex Positivo)' : ''
                 };
                 this.openCase(mInput).then();
+                patchState({ saving: formAssenteStateDefaults.saving })
             });
         });
     }
@@ -132,7 +141,7 @@ export class FormAssenteState {
     }
 
     @Action(UpdateSuspectCase)
-    updateSuspectCase({ getState, dispatch }: StateContext<FormAssenteStateModel>, { convertToPositive }: UpdateSuspectCase) {
+    updateSuspectCase({ getState, dispatch, patchState }: StateContext<FormAssenteStateModel>, { convertToPositive }: UpdateSuspectCase) {
         const assenteFormValue = getState().assenteForm.model;
         const objData: DtoNewSuspectUpdateInterface = {
             caseNumber: assenteFormValue.caseNumber,
@@ -156,6 +165,7 @@ export class FormAssenteState {
         console.log('UpdateSuspectCase', objSubject, objData);
         const updateSuspectCase = this.assentiService.updateSuspectCase(objSubject);
         const newSuspectUpdate = this.assentiService.newSuspectUpdate(objData);
+        patchState({ saving: true });
         forkJoin([ updateSuspectCase, newSuspectUpdate ]).subscribe(result => {
             if (result) {
                 if (convertToPositive && result[1].positiveSheetNum === null) {
@@ -181,6 +191,7 @@ export class FormAssenteState {
                 } else {
                     dispatch(new Navigate([ './home/ricerca' ]));
                 }
+                patchState({ saving: formAssenteStateDefaults.saving })
             }
         });
     }

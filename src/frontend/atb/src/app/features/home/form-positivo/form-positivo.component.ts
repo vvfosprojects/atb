@@ -3,7 +3,6 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Select, Store } from '@ngxs/store';
 import { FormPositivoState } from '../store/form-positivo.state';
 import { Observable, Subscription } from 'rxjs';
-import { LoadingState } from '../../../shared/store/loading/loading.state';
 import { QualificheState } from '../../../shared/store/qualifiche/qualifiche.state';
 import { ActivatedRoute } from '@angular/router';
 import {
@@ -35,15 +34,18 @@ import { Location } from '@angular/common';
 })
 export class FormPositivoComponent implements AfterContentInit, OnDestroy {
 
-    @Select(LoadingState.loading) loading$: Observable<boolean>;
     @Select(QualificheState.qualifiche) qualifiche$: Observable<string[]>;
     @Select(FormPositivoState.pageTitle) pageTitle$: Observable<string>;
     @Select(FormPositivoState.positivoFormValid) positivoFormValid$: Observable<boolean>;
     @Select(SearchState.positiveCase) positiveCase$: Observable<PositiveCaseInterface>;
     @Select(SearchState.notFound) notFound$: Observable<boolean>;
     @Select(ConvertCaseState.subject) subject$: Observable<DtoNewCaseInterface>;
+
     @Select(ConvertCaseState.link) link$: Observable<LinkCaseInterface>;
     link: LinkCaseInterface;
+
+    @Select(FormPositivoState.saving) saving$: Observable<boolean>;
+    saving: boolean;
 
     positivoForm: FormGroup;
     submitted = false;
@@ -80,6 +82,8 @@ export class FormPositivoComponent implements AfterContentInit, OnDestroy {
             this.editMode = true;
             this.store.dispatch(new SetPageTitleFormPositivo('modifica positivo'));
         }
+
+        this.subscription.add(this.saving$.subscribe(res => this.saving = res));
 
         this.initForm();
     }
