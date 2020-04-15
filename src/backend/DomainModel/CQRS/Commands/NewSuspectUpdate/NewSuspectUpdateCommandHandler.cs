@@ -71,7 +71,9 @@ namespace DomainModel.CQRS.Commands.NewSuspectUpdate
 
                     //RIAPERTURA DELLA SCHEDA POSITIVA GIA ESISTENTE
                     var positiveSheet = this.getPatientByCaseNumber.GetPatient(link.CaseNumber, this.getSessionContext.GetActiveGroup());
-                    var positiveQuarantinePlace = positiveSheet.Data.Where(x => x.QuarantinePlace != "HOME").LastOrDefault().QuarantinePlace;
+
+                    var positiveData = positiveSheet.Data.ToList();
+                    var positiveQuarantinePlace = positiveData[positiveData.Count - 2].QuarantinePlace;
 
                     var positiveCommand = new NewPositiveUpdateCommand()
                     {
@@ -80,6 +82,7 @@ namespace DomainModel.CQRS.Commands.NewSuspectUpdate
                         DiseaseConfirmDate = positiveSheet.Data.Last().DiseaseConfirmDate,
                         EstremiProvvedimentiASL = positiveSheet.Data.Last().EstremiProvvedimentiASL,
                         ExpectedWorkReturnDate = positiveSheet.Data.Last().ExpectedWorkReturnDate,
+                        //QuarantinePlace = positiveQuarantinePlace,
                         QuarantinePlace = positiveQuarantinePlace,
                         Link = new Link()
                         {
