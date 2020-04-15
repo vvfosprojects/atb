@@ -1,6 +1,6 @@
 export interface InputModalCaseInterface {
     title: string;
-    caseNumber: number;
+    caseNumber?: number;
     detail?: boolean;
     exMsg?: string;
 }

@@ -190,6 +190,10 @@ export class FormAssenteState {
                     }, () => console.log('closed'));
                 } else {
                     dispatch(new Navigate([ './home/ricerca' ]));
+                    const mInput: InputModalCaseInterface = {
+                        title: 'Salvataggio Caso Sorvegliato'
+                    };
+                    this.openCase(mInput).then();
                 }
                 patchState({ saving: formAssenteStateDefaults.saving })
             }

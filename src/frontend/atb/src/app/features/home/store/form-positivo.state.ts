@@ -189,9 +189,13 @@ export class FormPositivoState {
                                 dispatch(new SearchSuspectCase('' + result[1].suspectSheetNum));
                             }
                         }, () => console.log('closed'));
+                    } else {
+                        dispatch(new Navigate([ './home/ricerca' ]));
+                        const mInput: InputModalCaseInterface = {
+                            title: 'Salvataggio Caso Positivo'
+                        };
+                        this.openCase(mInput).then();
                     }
-                } else {
-                    dispatch(new Navigate([ './home/ricerca' ]));
                 }
                 patchState({ saving: formPositivoStateDefaults.saving });
             }

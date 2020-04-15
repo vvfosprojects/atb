@@ -16,6 +16,7 @@ export class HistoryPositiveCaseComponent {
         const caseNumber = historyCase.convertedToSuspectCaseNumber;
 
         if (openSuspect(historyCase)) {
+            console.log(historyCase.convertedToSuspectSheetClosed);
             this.suspectCaseOpen.emit(caseNumber);
         }
 
