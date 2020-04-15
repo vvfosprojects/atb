@@ -21,6 +21,7 @@ import { forkJoin, of } from 'rxjs';
 import { ClearConvertCase, SetConvertCase, SetLink, SetSubject } from './convert-case.actions';
 import { ConfirmModalComponent } from '../../../shared/components/confirm-modal/confirm-modal.component';
 import { SearchSuspectCase } from './search.actions';
+import { FormAssenteStateModel } from './form-assente.state';
 
 export interface FormPositivoStateModel {
     pageTitle: string;
@@ -44,6 +45,7 @@ export interface FormPositivoStateModel {
         status?: string;
     };
     deceased: string;
+    saving: boolean;
 }
 
 export const formPositivoStateDefaults: FormPositivoStateModel = {
@@ -51,7 +53,8 @@ export const formPositivoStateDefaults: FormPositivoStateModel = {
     positivoForm: {
         model: undefined
     },
-    deceased: null
+    deceased: null,
+    saving: false
 };
 
 @Injectable()
@@ -71,6 +74,11 @@ export class FormPositivoState {
         return state.positivoForm.status === 'VALID';
     }
 
+    @Selector()
+    static saving(state: FormPositivoStateModel) {
+        return state.saving;
+    }
+
     constructor(private positiviService: PositiviService, private modal: NgbModal) {
     }
 
@@ -82,7 +90,7 @@ export class FormPositivoState {
     }
 
     @Action(SaveNewPositivoCase)
-    saveNewPositivoCase({ getState, dispatch }: StateContext<FormPositivoStateModel>, { link }: SaveNewPositivoCase) {
+    saveNewPositivoCase({ getState, dispatch, patchState }: StateContext<FormPositivoStateModel>, { link }: SaveNewPositivoCase) {
         const positivoFormValue = getState().positivoForm.model;
         const objSubject: DtoNewPositiveCaseInterface = {
             number: positivoFormValue.caseNumber,
@@ -92,6 +100,7 @@ export class FormPositivoState {
             phone: '' + positivoFormValue.phone,
             role: positivoFormValue.role
         };
+        patchState({ saving: true });
         this.positiviService.newPositiveCase(objSubject).subscribe((resNewPositiveCase: NewPositiveResponseInterface) => {
             const objData: DtoNewPositiveUpdateInterface = {
                 caseNumber: resNewPositiveCase.caseNumber,
@@ -111,6 +120,7 @@ export class FormPositivoState {
                     exMsg: link ? '(ex Sospetto)' : ''
                 };
                 this.openCase(mInput).then();
+                patchState({ saving: formPositivoStateDefaults.saving });
             });
         });
     }
@@ -132,7 +142,7 @@ export class FormPositivoState {
     }
 
     @Action(UpdatePositivoCase)
-    updatePositivoCase({ getState, dispatch }: StateContext<FormPositivoStateModel>, { convertToSuspect }: UpdatePositivoCase) {
+    updatePositivoCase({ getState, dispatch, patchState }: StateContext<FormPositivoStateModel>, { convertToSuspect }: UpdatePositivoCase) {
         const state = getState();
         const positivoFormValue = state.positivoForm.model;
         const objData: DtoNewPositiveUpdateInterface = {
@@ -155,6 +165,7 @@ export class FormPositivoState {
         console.log('UpdatePositivoCase', objSubject, objData);
         const updatePositiveCase = this.positiviService.updatePositiveCase(objSubject);
         const newPositiveUpdate = state.deceased ? of(null) : this.positiviService.newPositiveUpdate(objData);
+        patchState({ saving: true });
         forkJoin([ updatePositiveCase, newPositiveUpdate ]).subscribe(result => {
             if (result) {
                 if (!state.deceased) {
@@ -178,10 +189,15 @@ export class FormPositivoState {
                                 dispatch(new SearchSuspectCase('' + result[1].suspectSheetNum));
                             }
                         }, () => console.log('closed'));
+                    } else {
+                        dispatch(new Navigate([ './home/ricerca' ]));
+                        const mInput: InputModalCaseInterface = {
+                            title: 'Salvataggio Caso Positivo'
+                        };
+                        this.openCase(mInput).then();
                     }
-                } else {
-                    dispatch(new Navigate([ './home/ricerca' ]));
                 }
+                patchState({ saving: formPositivoStateDefaults.saving });
             }
         });
     }

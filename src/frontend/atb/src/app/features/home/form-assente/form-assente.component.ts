@@ -2,7 +2,6 @@ import { AfterContentInit, Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Select, Store } from '@ngxs/store';
 import { Observable, Subscription } from 'rxjs';
-import { LoadingState } from '../../../shared/store/loading/loading.state';
 import { QualificheState } from '../../../shared/store/qualifiche/qualifiche.state';
 import { ActivatedRoute } from '@angular/router';
 import { FormAssenteState } from '../store/form-assente.state';
@@ -34,15 +33,18 @@ import { Location } from '@angular/common';
 })
 export class FormAssenteComponent implements AfterContentInit, OnDestroy {
 
-    @Select(LoadingState.loading) loading$: Observable<boolean>;
     @Select(QualificheState.qualifiche) qualifiche$: Observable<string[]>;
     @Select(FormAssenteState.pageTitle) pageTitle$: Observable<string>;
     @Select(FormAssenteState.assenteFormValid) assenteFormValid$: Observable<boolean>;
     @Select(SearchState.suspectCase) suspectCase$: Observable<SuspectCaseInterface>;
     @Select(SearchState.notFound) notFound$: Observable<boolean>;
     @Select(ConvertCaseState.subject) subject$: Observable<DtoNewCaseInterface>;
+
     @Select(ConvertCaseState.link) link$: Observable<LinkCaseInterface>;
     link: LinkCaseInterface;
+
+    @Select(FormAssenteState.saving) saving$: Observable<boolean>;
+    saving: boolean;
 
     assenteForm: FormGroup;
     submitted = false;
@@ -53,7 +55,7 @@ export class FormAssenteComponent implements AfterContentInit, OnDestroy {
 
     historyCase: SuspectHistoryInterface[] = [];
 
-        private subscription = new Subscription();
+    private subscription = new Subscription();
 
     constructor(private store: Store,
                 private formBuilder: FormBuilder,
@@ -78,13 +80,15 @@ export class FormAssenteComponent implements AfterContentInit, OnDestroy {
             this.store.dispatch(new SetPageTitleFormAssente('modifica sorvegliato'));
         }
 
+        this.subscription.add(this.saving$.subscribe(res => this.saving = res));
+
         this.initForm();
 
     }
 
     ngAfterContentInit(): void {
-        this.subscription.add(this.link$.subscribe( res => this.link = res));
-        this.subscription.add(this.subject$.subscribe( res => {
+        this.subscription.add(this.link$.subscribe(res => this.link = res));
+        this.subscription.add(this.subject$.subscribe(res => {
             if (res) {
                 this.store.dispatch(
                     new UpdateFormValue({
@@ -212,6 +216,6 @@ export class FormAssenteComponent implements AfterContentInit, OnDestroy {
     onPositiveDetail(caseNumber: number): void {
         const url = `./home/form-positivo/detail/${this.gruppo}${LSNAME.detailDelimiter}${caseNumber}`;
         console.log('onPositiveDetail', url);
-        // this.store.dispatch(new Navigate([url]))
+        this.store.dispatch(new Navigate([url]))
     }
 }

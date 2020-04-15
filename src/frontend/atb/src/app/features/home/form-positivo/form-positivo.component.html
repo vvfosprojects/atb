@@ -18,13 +18,13 @@
                     <div class="offset-11 my-2"></div>
                     <div *ngIf="!detailMode" class="col-12 col-lg-6 mx-auto text-center">
                         <button type="button" class="btn btn-block btn-lg btn-primary" (click)="onSubmit()"
-                                [disabled]="!this.positivoForm.valid">
+                                [disabled]="!this.positivoForm.valid || saving">
                             <ng-template [ngIf]="!editMode">
-                                <i class="fa fa-save mr-1"></i>
+                                <i class="mr-1" [ngClass]="saving | savesSpinner: 'fa-save'"></i>
                                 Salva Scheda
                             </ng-template>
                             <ng-template [ngIf]="editMode">
-                                <i class="fa fa-save mr-1"></i>
+                                <i class="mr-1" [ngClass]="saving | savesSpinner: 'fa-save'"></i>
                                 Salva Modifiche
                             </ng-template>
                         </button>
@@ -32,8 +32,8 @@
                     <div class="offset-11 my-2"></div>
                     <div *ngIf="!detailMode && editMode" class="col-12 col-lg-6 mx-auto text-center">
                         <button type="button" class="btn btn-block btn-lg btn-outline-primary" (click)="onSubmit(true)"
-                                [disabled]="!this.positivoForm.valid">
-                            <i class="fa fa-retweet mr-1"></i>
+                                [disabled]="!this.positivoForm.valid || saving">
+                            <i class="mr-1" [ngClass]="saving | savesSpinner: 'fa-retweet'"></i>
                             Converti in Sorvegliato
                         </button>
                     </div>
@@ -299,7 +299,7 @@
                         </div>
                     </div>
                     <ng-container *ngIf="detailMode || editMode">
-                        <app-history-positive-case [historyCase]="historyCase"></app-history-positive-case>
+                        <app-history-positive-case [historyCase]="historyCase" (suspectCaseOpen)="onSuspectDetail($event)"></app-history-positive-case>
                     </ng-container>
                 </form>
             </div>
@@ -323,13 +323,13 @@
                     <div class="offset-11 my-2"></div>
                     <div  *ngIf="!detailMode" class="col-12 col-lg-6 mx-auto text-center">
                         <button type="button" class="btn btn-block btn-lg btn-primary" (click)="onSubmit()"
-                                [disabled]="!this.positivoForm.valid">
+                                [disabled]="!this.positivoForm.valid || saving">
                             <ng-template [ngIf]="!editMode">
-                                <i class="fa fa-save mr-1"></i>
+                                <i class="mr-1" [ngClass]="saving | savesSpinner: 'fa-save'"></i>
                                 Salva Scheda
                             </ng-template>
                             <ng-template [ngIf]="editMode">
-                                <i class="fa fa-save mr-1"></i>
+                                <i class="mr-1" [ngClass]="saving | savesSpinner: 'fa-save'"></i>
                                 Salva Modifiche
                             </ng-template>
                         </button>
@@ -337,8 +337,8 @@
                     <div class="offset-11 my-2"></div>
                     <div *ngIf="!detailMode && editMode" class="col-12 col-lg-6 mx-auto text-center">
                         <button type="button" class="btn btn-block btn-lg btn-outline-primary" (click)="onSubmit(true)"
-                                [disabled]="!this.positivoForm.valid">
-                            <i class="fa fa-retweet mr-1"></i>
+                                [disabled]="!this.positivoForm.valid || saving">
+                            <i class="mr-1" [ngClass]="saving | savesSpinner: 'fa-retweet'"></i>
                             Converti in Sorvegliato
                         </button>
                     </div>

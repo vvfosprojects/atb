@@ -17,8 +17,7 @@
             <div class="input-group-append">
                 <button class="btn btn-primary" type="button" (click)="searchSuspectCase()"
                         [disabled]="!caseNumber || caseNumber < 1">
-                    <i *ngIf="loading" class="fa fa-spin fa-spinner mr-1"></i>
-                    <i *ngIf="!loading" class="fa fa-search mr-1"></i>
+                    <i class="mr-1" [ngClass]="loading | savesSpinner: 'fa-search'"></i>
                     Cerca
                 </button>
             </div>

@@ -79,6 +79,7 @@ export class SearchState {
 
     @Action(SearchPositiveCase)
     searchPositiveCase({ patchState, dispatch }: StateContext<SearchStateModel>, action: SearchPositiveCase) {
+        console.log('searchPositiveCase', action.caseNumber, action.bookmark);
         patchState({ isLooking: true });
         this.positiviService.getPositive(detailArgs(action, this.getUserGroup(action))).subscribe((positive: PositiveCaseInterface) => {
             patchState({
@@ -97,8 +98,8 @@ export class SearchState {
 
     @Action(SearchSuspectCase)
     searchSuspectCase({ patchState, dispatch }: StateContext<SearchStateModel>, action: SearchSuspectCase) {
+        console.log('searchSuspectCase', action.caseNumber, action.bookmark);
         patchState({ isLooking: true });
-
         this.assentiService.getSuspect(detailArgs(action, this.getUserGroup(action))).subscribe((suspect: SuspectCaseInterface) => {
             patchState({
                 suspectCase: suspect,
@@ -158,8 +159,8 @@ export class SearchState {
         let userGroup: string;
         if (!action.bookmark) {
             userGroup = this.getAuthGroup();
+            console.log(userGroup);
         }
-        console.log(userGroup);
         return userGroup;
     }
 

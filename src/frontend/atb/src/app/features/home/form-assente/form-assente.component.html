@@ -18,13 +18,13 @@
                     <div class="offset-11 my-2"></div>
                     <div *ngIf="!detailMode" class="col-12 col-lg-6 mx-auto text-center">
                         <button type="button" class="btn btn-block btn-lg btn-primary" (click)="onSubmit()"
-                                [disabled]="!this.assenteForm.valid">
+                                [disabled]="!this.assenteForm.valid || saving">
                             <ng-template [ngIf]="!editMode">
-                                <i class="fa fa-save mr-1"></i>
+                                <i class="mr-1" [ngClass]="saving | savesSpinner: 'fa-save'"></i>
                                 Salva Scheda
                             </ng-template>
                             <ng-template [ngIf]="editMode">
-                                <i class="fa fa-save mr-1"></i>
+                                <i class="mr-1" [ngClass]="saving | savesSpinner: 'fa-save'"></i>
                                 Salva Modifiche
                             </ng-template>
                         </button>
@@ -32,8 +32,8 @@
                     <div class="offset-11 my-2"></div>
                     <div *ngIf="!detailMode && editMode" class="col-12 col-lg-6 mx-auto text-center">
                         <button type="button" class="btn btn-block btn-lg btn-outline-primary" (click)="onSubmit(true)"
-                                [disabled]="!this.assenteForm.valid">
-                            <i class="fa fa-retweet mr-1"></i>
+                                [disabled]="!this.assenteForm.valid || saving">
+                            <i class="mr-1" [ngClass]="saving | savesSpinner: 'fa-retweet'"></i>
                             Converti in Positivo
                         </button>
                     </div>
@@ -218,7 +218,7 @@
                         </div>
                     </div>
                     <ng-container *ngIf="detailMode || editMode">
-                        <app-history-suspect-case [historyCase]="historyCase"></app-history-suspect-case>
+                        <app-history-suspect-case [historyCase]="historyCase" (positiveCaseOpen)="onPositiveDetail($event)"></app-history-suspect-case>
                     </ng-container>
                 </form>
             </div>
@@ -242,13 +242,13 @@
                     <div class="offset-11 my-2"></div>
                     <div *ngIf="!detailMode" class="col-12 col-lg-6 mx-auto text-center">
                         <button type="button" class="btn btn-block btn-lg btn-primary" (click)="onSubmit()"
-                                [disabled]="!this.assenteForm.valid">
+                                [disabled]="!this.assenteForm.valid || saving">
                             <ng-template [ngIf]="!editMode">
-                                <i class="fa fa-save mr-1"></i>
+                                <i class="mr-1" [ngClass]="saving | savesSpinner: 'fa-save'"></i>
                                 Salva Scheda
                             </ng-template>
                             <ng-template [ngIf]="editMode">
-                                <i class="fa fa-save mr-1"></i>
+                                <i class="mr-1" [ngClass]="saving | savesSpinner: 'fa-save'"></i>
                                 Salva Modifiche
                             </ng-template>
                         </button>
@@ -256,8 +256,8 @@
                     <div class="offset-11 my-2"></div>
                     <div *ngIf="!detailMode && editMode" class="col-12 col-lg-6 mx-auto text-center">
                         <button type="button" class="btn btn-block btn-lg btn-outline-primary" (click)="onSubmit(true)"
-                                [disabled]="!this.assenteForm.valid">
-                                <i class="fa fa-retweet mr-1"></i>
+                                [disabled]="!this.assenteForm.valid || saving">
+                                <i class="mr-1" [ngClass]="saving | savesSpinner: 'fa-retweet'"></i>
                                 Converti in Positivo
                         </button>
                     </div>
