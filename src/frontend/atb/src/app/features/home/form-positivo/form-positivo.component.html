@@ -299,7 +299,7 @@
                         </div>
                     </div>
                     <ng-container *ngIf="detailMode || editMode">
-                        <app-history-positive-case [historyCase]="historyCase"></app-history-positive-case>
+                        <app-history-positive-case [historyCase]="historyCase" (suspectCaseOpen)="onSuspectDetail($event)"></app-history-positive-case>
                     </ng-container>
                 </form>
             </div>

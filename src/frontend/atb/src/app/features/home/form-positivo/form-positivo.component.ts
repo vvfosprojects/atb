@@ -198,7 +198,7 @@ export class FormPositivoComponent implements AfterContentInit, OnDestroy {
     }
 
     searchCase(): void {
-        console.log('searchCase: ', this.route.snapshot.params.id);
+        console.log('formPositive Bookmark: ', this.route.snapshot.params.id);
         this.store.dispatch(new SearchPositiveCase(this.route.snapshot.params.id, true));
     }
 
@@ -243,6 +243,6 @@ export class FormPositivoComponent implements AfterContentInit, OnDestroy {
     onSuspectDetail(caseNumber: number): void {
         const url = `./home/form-assente/detail/${this.gruppo}${LSNAME.detailDelimiter}${caseNumber}`;
         console.log('onSuspectDetail', url);
-        // this.store.dispatch(new Navigate([url]))
+        this.store.dispatch(new Navigate([url]))
     }
 }
