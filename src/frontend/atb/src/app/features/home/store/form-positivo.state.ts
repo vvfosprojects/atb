@@ -121,8 +121,8 @@ export class FormPositivoState {
                 };
                 this.openCase(mInput).then();
                 patchState({ saving: formPositivoStateDefaults.saving });
-            });
-        });
+            }, () => patchState({ saving: formPositivoStateDefaults.saving }));
+        }, () => patchState({ saving: formPositivoStateDefaults.saving }));
     }
 
     @Action(ConvertPositiveCase)
@@ -199,7 +199,7 @@ export class FormPositivoState {
                 }
                 patchState({ saving: formPositivoStateDefaults.saving });
             }
-        });
+        }, () => patchState({ saving: formPositivoStateDefaults.saving }));
     }
 
     @Action(SetPositivoDeceased)

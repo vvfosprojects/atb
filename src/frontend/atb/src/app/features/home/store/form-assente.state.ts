@@ -120,8 +120,8 @@ export class FormAssenteState {
                 };
                 this.openCase(mInput).then();
                 patchState({ saving: formAssenteStateDefaults.saving })
-            });
-        });
+            }, () => patchState({ saving: formAssenteStateDefaults.saving }));
+        }, () => patchState({ saving: formAssenteStateDefaults.saving }));
     }
 
     @Action(ConvertSuspectCase)
@@ -197,7 +197,7 @@ export class FormAssenteState {
                 }
                 patchState({ saving: formAssenteStateDefaults.saving })
             }
-        });
+        }, () => patchState({ saving: formAssenteStateDefaults.saving }));
     }
 
     @Action(ClearFormAssente)
