@@ -20,11 +20,11 @@
                         <button type="button" class="btn btn-block btn-lg btn-primary" (click)="onSubmit()"
                                 [disabled]="!this.assenteForm.valid || saving">
                             <ng-template [ngIf]="!editMode">
-                                <i class="fa fa-save mr-1"></i>
+                                <i class="mr-1" [ngClass]="saving | savesSpinner: 'fa-save'"></i>
                                 Salva Scheda
                             </ng-template>
                             <ng-template [ngIf]="editMode">
-                                <i class="fa fa-save mr-1"></i>
+                                <i class="mr-1" [ngClass]="saving | savesSpinner: 'fa-save'"></i>
                                 Salva Modifiche
                             </ng-template>
                         </button>
@@ -33,7 +33,7 @@
                     <div *ngIf="!detailMode && editMode" class="col-12 col-lg-6 mx-auto text-center">
                         <button type="button" class="btn btn-block btn-lg btn-outline-primary" (click)="onSubmit(true)"
                                 [disabled]="!this.assenteForm.valid || saving">
-                            <i class="fa fa-retweet mr-1"></i>
+                            <i class="mr-1" [ngClass]="saving | savesSpinner: 'fa-retweet'"></i>
                             Converti in Positivo
                         </button>
                     </div>
@@ -244,11 +244,11 @@
                         <button type="button" class="btn btn-block btn-lg btn-primary" (click)="onSubmit()"
                                 [disabled]="!this.assenteForm.valid || saving">
                             <ng-template [ngIf]="!editMode">
-                                <i class="fa fa-save mr-1"></i>
+                                <i class="mr-1" [ngClass]="saving | savesSpinner: 'fa-save'"></i>
                                 Salva Scheda
                             </ng-template>
                             <ng-template [ngIf]="editMode">
-                                <i class="fa fa-save mr-1"></i>
+                                <i class="mr-1" [ngClass]="saving | savesSpinner: 'fa-save'"></i>
                                 Salva Modifiche
                             </ng-template>
                         </button>
@@ -257,7 +257,7 @@
                     <div *ngIf="!detailMode && editMode" class="col-12 col-lg-6 mx-auto text-center">
                         <button type="button" class="btn btn-block btn-lg btn-outline-primary" (click)="onSubmit(true)"
                                 [disabled]="!this.assenteForm.valid || saving">
-                                <i class="fa fa-retweet mr-1"></i>
+                                <i class="mr-1" [ngClass]="saving | savesSpinner: 'fa-retweet'"></i>
                                 Converti in Positivo
                         </button>
                     </div>
