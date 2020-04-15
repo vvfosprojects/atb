@@ -1,5 +1,6 @@
 ﻿using CQRS.Commands;
 using DomainModel.Classes;
+using DomainModel.Classes.Exceptions;
 using DomainModel.CQRS.Commands.NewPositiveUpdate;
 using DomainModel.Services;
 using DomainModel.Services.Users;
@@ -135,6 +136,12 @@ namespace DomainModel.CQRS.Commands.NewSuspectUpdate
                 }
                 else
                 {
+                    var suspectUpdateCheck = this.getSuspectByCaseNumber.GetSuspect(command.CaseNumber, this.getSessionContext.GetActiveGroup());
+                    
+                    if (suspectUpdateCheck.Closed)
+                    {
+                        throw new AtbApplicationException("Attenzione: stai tentando di modificare una scheda chiusa!");
+                    }
                     //UPDATE SEMPLICE DEL SOSPETTO
                     /*
                      * Nel dto di input troverò ConvertToPositive = false
