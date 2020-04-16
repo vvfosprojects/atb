@@ -54,6 +54,12 @@ namespace DomainModel.CQRS.Commands.NewSuspectUpdate
                      * Nel dto di input troverò ConvertToPositive = true, la discriminante sarà la presenza nella scheda sospetto della proprietà link != null --> SOSPETTO ESISTENTE
                      */
 
+                    if (link.Closed)
+                    {
+                        throw new UnauthorizedAccessException("Attenzione: la scheda che stai tentando di convertire è chiusa!");
+                    }
+
+
                     //CHIUSURA DELLA SCHEDA SOSPETTO
                     var suspectCommand = new NewSuspectUpdateCommand()
                     {
