@@ -196,7 +196,7 @@ namespace Persistence.InMongo_local
                     });
                 }
             }
-            return result;
+            return result.OrderBy(x => x.Group).ToList();
         }
     }
 }
