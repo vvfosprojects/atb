@@ -33,12 +33,6 @@ namespace DomainModel.CQRS.Commands.NewSuspectUpdate
                 //recuperato la scheda
                 var suspectSheet = this.getSuspectByCaseNumber.GetSuspect(command.CaseNumber, this.getSessionContext.GetActiveGroup());
 
-                //check if sheet is closed
-                if (suspectSheet.Closed)
-                {
-                    throw new AtbApplicationException("Attenzione: stai tentando di modificare una scheda chiusa!");
-                }
-
                 //check if already linked
                 var dataLink = suspectSheet.Data.Where(x => x.Link != null).LastOrDefault();
                 var link = dataLink != null ? dataLink.Link : null;
@@ -90,7 +84,6 @@ namespace DomainModel.CQRS.Commands.NewSuspectUpdate
                         DiseaseConfirmDate = positiveSheet.Data.Last().DiseaseConfirmDate,
                         EstremiProvvedimentiASL = positiveSheet.Data.Last().EstremiProvvedimentiASL,
                         ExpectedWorkReturnDate = positiveSheet.Data.Last().ExpectedWorkReturnDate,
-                        //QuarantinePlace = positiveQuarantinePlace,
                         QuarantinePlace = positiveQuarantinePlace,
                         Link = new Link()
                         {
@@ -114,6 +107,7 @@ namespace DomainModel.CQRS.Commands.NewSuspectUpdate
                     if (positiveSheet.Data.Last().Link != null)
                     {
                         //Eccezione - esiste già un link alla scheda sospetto
+                        throw new AtbApplicationException("Attenzione: esiste già un collegamento ad una scheda di un caso !");
                     }
 
                     var actualWorkReturnDate = positiveSheet.Data.Last().ActualWorkReturnDate != null ? positiveSheet.Data.Last().ActualWorkReturnDate : null;
@@ -143,12 +137,6 @@ namespace DomainModel.CQRS.Commands.NewSuspectUpdate
                 }
                 else
                 {
-                    var suspectUpdateCheck = this.getSuspectByCaseNumber.GetSuspect(command.CaseNumber, this.getSessionContext.GetActiveGroup());
-                    
-                    if (suspectUpdateCheck.Closed)
-                    {
-                        throw new AtbApplicationException("Attenzione: stai tentando di modificare una scheda chiusa!");
-                    }
                     //UPDATE SEMPLICE DEL SOSPETTO
                     /*
                      * Nel dto di input troverò ConvertToPositive = false

@@ -38,12 +38,6 @@ namespace DomainModel.CQRS.Commands.NewPositiveUpdate
             {
                 var positiveSheet = this.getPatientByCaseNumber.GetPatient(command.CaseNumber, this.getSessionContext.GetActiveGroup());
 
-                //check if sheet is closed
-                if (positiveSheet.Closed)
-                {
-                    throw new AtbApplicationException("Attenzione: stai tentando di modificare una scheda chiusa!");
-                }
-
                 var dataLink = positiveSheet.Data.Where(x => x.Link != null).LastOrDefault();
                 var link = dataLink != null ? dataLink.Link : null;
 
@@ -135,7 +129,8 @@ namespace DomainModel.CQRS.Commands.NewPositiveUpdate
                     var suspectSheet = this.getSuspectByCaseNumber.GetSuspect(command.Link.CaseNumber, this.getSessionContext.GetActiveGroup());
                     if (suspectSheet.Data.Last().Link != null)
                     {
-                        //Eccezione - esiste già un link alla scheda positivo
+                        //Eccezione - esiste già un link alla scheda sospetto
+                        throw new AtbApplicationException("Attenzione: esiste già un collegamento ad una scheda di un caso sospetto!");
                     }
 
                     var actualWorkReturnDate = suspectSheet.Data.Last().ActualWorkReturnDate != null ? suspectSheet.Data.Last().ActualWorkReturnDate : null;
@@ -163,12 +158,6 @@ namespace DomainModel.CQRS.Commands.NewPositiveUpdate
 
                 else
                 {
-                    var positiveUpdateCheck = this.getPatientByCaseNumber.GetPatient(command.CaseNumber, this.getSessionContext.GetActiveGroup());
-
-                    if (positiveUpdateCheck.Closed)
-                    {
-                        throw new AtbApplicationException("Attenzione: stai tentando di modificare una scheda chiusa!");
-                    }
                     //UPDATE SEMPLICE DEL POSITIVO
                     /*
                      * Nel dto di input troverò ConvertToPositive = false

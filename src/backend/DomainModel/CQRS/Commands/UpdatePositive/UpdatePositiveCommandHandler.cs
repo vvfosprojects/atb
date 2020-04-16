@@ -2,6 +2,7 @@
 using DomainModel.Classes.Exceptions;
 using DomainModel.Services;
 using DomainModel.Services.Users;
+using System.Linq;
 
 namespace DomainModel.CQRS.Commands.UpdatePositive
 {
@@ -22,10 +23,6 @@ namespace DomainModel.CQRS.Commands.UpdatePositive
         public void Handle(UpdatePositiveCommand command)
         {
             var positiveSheetToCheck = this.getPatientByCaseNumber.GetPatient(command.Number, this.getSessionContext.GetActiveGroup());
-            if (positiveSheetToCheck.Closed)
-            {
-                throw new AtbApplicationException("Attenzione: stai tentando di modificare una scheda chiusa!");
-            }
 
             command.Name = this.cryptools.Encrypt(command.Name);
             command.Surname = this.cryptools.Encrypt(command.Surname);
