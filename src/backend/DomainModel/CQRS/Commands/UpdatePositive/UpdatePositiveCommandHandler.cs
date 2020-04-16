@@ -24,6 +24,18 @@ namespace DomainModel.CQRS.Commands.UpdatePositive
         {
             var positiveSheetToCheck = this.getPatientByCaseNumber.GetPatient(command.Number, this.getSessionContext.GetActiveGroup());
 
+            var lastData = positiveSheetToCheck.Data.LastOrDefault();
+
+            if (lastData != null)
+            {
+                var linkClosed = (lastData.Link != null) ? lastData.Link.Closed : false;
+                if (linkClosed)
+                {
+                    throw new AtbApplicationException("Attenzione: la scheda che si sta tentando di modificare è chiusa!");
+                }
+            }
+
+
             command.Name = this.cryptools.Encrypt(command.Name);
             command.Surname = this.cryptools.Encrypt(command.Surname);
             command.Email = this.cryptools.Encrypt(command.Email);
