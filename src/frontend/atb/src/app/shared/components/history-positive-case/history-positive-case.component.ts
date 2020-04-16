@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { PositiveHistoryInterface } from '../../interface/positive';
-import { openSuspect } from '../../functions';
+import { convertedPositiveCase } from '../../functions';
 
 @Component({
     selector: 'app-history-positive-case',
@@ -12,12 +12,12 @@ export class HistoryPositiveCaseComponent {
     @Input() historyCase: PositiveHistoryInterface[];
     @Output() suspectCaseOpen = new EventEmitter<number>();
 
-    onCaseNumber(historyCase: PositiveHistoryInterface): void {
-        const caseNumber = historyCase.convertedToSuspectCaseNumber;
+    onCaseNumber(historyCase: PositiveHistoryInterface, index: number): void {
 
-        if (openSuspect(historyCase)) {
-            console.log(historyCase.convertedToSuspectSheetClosed);
-            this.suspectCaseOpen.emit(caseNumber);
+        const caseNumber = historyCase.convertedToSuspectCaseNumber;
+        if (convertedPositiveCase(historyCase)) {
+            console.log(historyCase.convertedToSuspectSheetClosed, caseNumber);
+            // this.suspectCaseOpen.emit(caseNumber);
         }
 
     }

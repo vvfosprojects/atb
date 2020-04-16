@@ -10,8 +10,8 @@
                 <!-- scheda con quarantena e conversione-->
                 <div *ngIf="_case?.convertedToSuspectCaseNumber && _case.quarantinePlace"
                      class="list-group-item flex-column align-items-start"
-                     [ngClass]="_case | openConvertCase : 'class'"
-                     (click)="onCaseNumber(_case)">
+                     [ngClass]="_case | historyPositiveCase : 'class'"
+                     (click)="onCaseNumber(_case, i)">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1">
                         <span>
@@ -33,8 +33,8 @@
                 <!-- scheda senza quarantena-->
                 <div *ngIf="_case?.convertedToSuspectCaseNumber && !_case.quarantinePlace"
                      class="list-group-item flex-column align-items-start"
-                     [ngClass]="_case | openConvertCase : 'class'"
-                     (click)="onCaseNumber(_case)">
+                     [ngClass]="_case | historyPositiveCase : 'class'"
+                     (click)="onCaseNumber(_case, i)">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1">
                         <span>

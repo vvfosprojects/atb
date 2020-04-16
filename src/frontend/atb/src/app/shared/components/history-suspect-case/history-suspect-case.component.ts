@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { SuspectHistoryInterface } from '../../interface/suspect';
-import { openSuspect } from '../../functions';
+import { convertedSuspectCase } from '../../functions';
 
 @Component({
     selector: 'app-history-suspect-case',
@@ -12,12 +12,21 @@ export class HistorySuspectCaseComponent {
     @Input() historyCase: SuspectHistoryInterface[];
     @Output() positiveCaseOpen = new EventEmitter<number>();
 
-    onCaseNumber(historyCase: SuspectHistoryInterface): void {
-        const caseNumber = historyCase.convertedToPositiveCaseNumber;
+    onCaseNumber(historyCase: SuspectHistoryInterface, index: number): void {
 
-        if (openSuspect(historyCase)) {
-            console.log(historyCase.convertedToPositiveSheetClosed);
-            this.positiveCaseOpen.emit(caseNumber);
+        // if (convertedCase(historyCase)) {
+        //     const caseNumber = historyCase.convertedToPositiveCaseNumber;
+        //     console.log(historyCase.convertedToPositiveSheetClosed, caseNumber);
+        //     if (index === 0 && this.historyCase.length === 1 ) {
+        //         console.log('First converted case', caseNumber);
+        //         // this.positiveCaseOpen.emit(caseNumber);
+        //     }
+        // }
+
+        const caseNumber = historyCase.convertedToPositiveCaseNumber;
+        if (convertedSuspectCase(historyCase)) {
+            console.log(historyCase.convertedToPositiveSheetClosed, caseNumber);
+            // this.suspectCaseOpen.emit(caseNumber);
         }
     }
 

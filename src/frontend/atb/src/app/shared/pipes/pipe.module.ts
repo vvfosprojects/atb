@@ -1,10 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CheckPermissionPipe } from './check-permission.pipe';
 import { LuogoIsolamentoPipe } from './luogo-isolamento.pipe';
-import { OpenConvertCasePipe } from './open-convert-case.pipe';
+import { HistoryPositiveCasePipe } from './history-positive-case.pipe';
+import { HistorySuspectCasePipe } from './history-suspect-case.pipe';
 import { SavesSpinnerPipe } from './saves-spinner.pipe';
 
-const COMPONENTS = [ CheckPermissionPipe, LuogoIsolamentoPipe, OpenConvertCasePipe, SavesSpinnerPipe ];
+const COMPONENTS = [
+    CheckPermissionPipe,
+    LuogoIsolamentoPipe,
+    HistoryPositiveCasePipe,
+    HistorySuspectCasePipe,
+    SavesSpinnerPipe
+];
 
 @NgModule({
     imports: [],
