@@ -2,7 +2,8 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/app",
-    "types": []
+    "types": [],
+    "noImplicitAny": false // Todo: will become truly TRUE
   },
   "files": [
     "src/main.ts",
