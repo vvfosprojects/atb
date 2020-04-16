@@ -13,21 +13,31 @@ namespace DomainModel.CQRS.Commands.UpdateSuspect
         private readonly IUpdateSuspect updateSuspect;
         private readonly IGetSessionContext getSessionContext;
         private readonly IGetSuspectByCaseNumber getSuspectByCaseNumber;
-        private readonly IGetPatientByCaseNumber getPatientByCaseNumber;
 
 
         public UpdateSuspectCommandHandler(ICryptools cryptools, IUpdateSuspect updateSuspect, IGetSessionContext getSessionContext, 
-            IGetSuspectByCaseNumber getSuspectByCaseNumber, IGetPatientByCaseNumber getPatientByCaseNumber)
+            IGetSuspectByCaseNumber getSuspectByCaseNumber)
         {
             this.cryptools = cryptools ?? throw new ArgumentNullException(nameof(cryptools));
             this.updateSuspect = updateSuspect ?? throw new ArgumentNullException(nameof(updateSuspect));
             this.getSessionContext = getSessionContext ?? throw new ArgumentNullException(nameof(getSessionContext));
             this.getSuspectByCaseNumber = getSuspectByCaseNumber;
-            this.getPatientByCaseNumber = getPatientByCaseNumber;
         }
 
         public void Handle(UpdateSuspectCommand command)
         {
+            var suspectSheet = this.getSuspectByCaseNumber.GetSuspect(command.Number, this.getSessionContext.GetActiveGroup());
+            var lastData = suspectSheet.Data.LastOrDefault();
+
+            if (lastData != null)
+            {
+                var linkClosed = (lastData.Link != null) ? lastData.Link.Closed : false;
+                if (linkClosed)
+                {
+                    throw new AtbApplicationException("Attenzione: la scheda che si sta tentando di modificare è chiusa!");
+                }
+            }
+
             command.Name = this.cryptools.Encrypt(command.Name);
             command.Surname = this.cryptools.Encrypt(command.Surname);
             command.Email = this.cryptools.Encrypt(command.Email);

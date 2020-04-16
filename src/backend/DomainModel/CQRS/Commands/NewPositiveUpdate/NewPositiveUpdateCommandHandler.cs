@@ -61,6 +61,11 @@ namespace DomainModel.CQRS.Commands.NewPositiveUpdate
                     * Nel dto di input troverò ConvertToPositive = true, la discriminante sarà la presenza nella scheda sospetto della proprietà link != null --> SOSPETTO ESISTENTE
                     */
 
+                    if (link.Closed)
+                    {
+                        throw new AtbApplicationException("Attenzione: la scheda che si sta tentando di modificare è chiusa!");
+                    }
+
                     //CHIUSURA DELLA SCHEDA SOSPETTO
                     var actualWorkReturnDate = positiveSheet.Data.Last().ActualWorkReturnDate != null ? positiveSheet.Data.Last().ActualWorkReturnDate : null;
                     var expectedWorkReturnDate = positiveSheet.Data.Last().ExpectedWorkReturnDate != null ? positiveSheet.Data.Last().ExpectedWorkReturnDate : null;
@@ -158,6 +163,17 @@ namespace DomainModel.CQRS.Commands.NewPositiveUpdate
 
                 else
                 {
+                    var patientSheetCheck = this.getPatientByCaseNumber.GetPatient(command.CaseNumber, this.getSessionContext.GetActiveGroup());
+                    var lastData = patientSheetCheck.Data.LastOrDefault();
+
+                    if (lastData != null)
+                    {
+                        var linkClosed = (lastData.Link != null) ? lastData.Link.Closed : false;
+                        if (linkClosed)
+                        {
+                            throw new AtbApplicationException("Attenzione: la scheda che si sta tentando di modificare è chiusa!");
+                        }
+                    }
                     //UPDATE SEMPLICE DEL POSITIVO
                     /*
                      * Nel dto di input troverò ConvertToPositive = false

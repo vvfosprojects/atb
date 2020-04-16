@@ -56,7 +56,7 @@ namespace DomainModel.CQRS.Commands.NewSuspectUpdate
 
                     if (link.Closed)
                     {
-                        throw new UnauthorizedAccessException("Attenzione: la scheda che stai tentando di convertire è chiusa!");
+                        throw new AtbApplicationException("Attenzione: la scheda che si sta tentando di modificare è chiusa!");
                     }
 
 
@@ -147,6 +147,18 @@ namespace DomainModel.CQRS.Commands.NewSuspectUpdate
                     /*
                      * Nel dto di input troverò ConvertToPositive = false
                      */
+                    var suspectSheetCheck = this.getSuspectByCaseNumber.GetSuspect(command.CaseNumber, this.getSessionContext.GetActiveGroup());
+                    var lastData = suspectSheetCheck.Data.LastOrDefault();
+                    
+                    if (lastData != null)
+                    {
+                        var linkClosed = (lastData.Link != null) ? lastData.Link.Closed : false;
+                        if (linkClosed)
+                        {
+                            throw new AtbApplicationException("Attenzione: la scheda che si sta tentando di modificare è chiusa!");
+                        }
+                    }
+
                     this.newSuspectUpdate.Add(command);
                 }
              }
