@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { SuspectHistoryInterface } from '../interface/suspect';
-import { closedConvertedSuspectCase, convertedSuspectCase } from '../functions';
+import { actionOnConvertedSuspect } from '../functions';
 
 @Pipe({
     name: 'historySuspectCase'
@@ -10,16 +10,16 @@ export class HistorySuspectCasePipe implements PipeTransform {
     constructor() {
     }
 
-    transform(historyCase: SuspectHistoryInterface, args?: any): any {
-        return getClass();
+    transform(historyCase: SuspectHistoryInterface, ...args: unknown[]): string {
 
-        function getBoolean() {
-            return convertedSuspectCase(historyCase) && closedConvertedSuspectCase(historyCase);
-        }
+        const historyCases: SuspectHistoryInterface[] = [ ...args[0] as [] ];
+        const index = args[1] as number;
+
+        return getClass();
 
         function getClass() {
             const cssClass = 'list-group-item-action cursor-pointer';
-            return getBoolean() ? cssClass : '';
+            return actionOnConvertedSuspect(historyCase, historyCases, index) ? cssClass : '';
         }
     }
 

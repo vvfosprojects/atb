@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { SuspectHistoryInterface } from '../../interface/suspect';
-import { convertedSuspectCase } from '../../functions';
+import { actionOnConvertedSuspect } from '../../functions';
 
 @Component({
     selector: 'app-history-suspect-case',
@@ -14,19 +14,11 @@ export class HistorySuspectCaseComponent {
 
     onCaseNumber(historyCase: SuspectHistoryInterface, index: number): void {
 
-        // if (convertedCase(historyCase)) {
-        //     const caseNumber = historyCase.convertedToPositiveCaseNumber;
-        //     console.log(historyCase.convertedToPositiveSheetClosed, caseNumber);
-        //     if (index === 0 && this.historyCase.length === 1 ) {
-        //         console.log('First converted case', caseNumber);
-        //         // this.positiveCaseOpen.emit(caseNumber);
-        //     }
-        // }
-
         const caseNumber = historyCase.convertedToPositiveCaseNumber;
-        if (convertedSuspectCase(historyCase)) {
+        if (actionOnConvertedSuspect(historyCase, this.historyCase, index)) {
             console.log(historyCase.convertedToPositiveSheetClosed, caseNumber);
-            // this.suspectCaseOpen.emit(caseNumber);
+            // Todo emette solo il numero del caso
+            // this.positiveCaseOpen.emit(caseNumber);
         }
     }
 
