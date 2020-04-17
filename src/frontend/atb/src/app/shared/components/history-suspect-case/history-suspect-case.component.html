@@ -53,12 +53,29 @@
 
             <!-- scheda solo quarantena-->
             <ng-template #onlyQuarantine>
-                <div *ngIf="!_case?.convertedToPositiveCaseNumber && _case.quarantinePlace"
+                <div *ngIf="!_case?.convertedToPositiveCaseNumber && _case.quarantinePlace; else onlyHistory"
                      class="list-group-item flex-column align-items-start">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1">
                         <span>
                             <i [ngClass]="_case.quarantinePlace | luogoIsolamento: 'class'"></i>{{_case.quarantinePlace | luogoIsolamento}}
+                        </span>
+                        </h5>
+                        <small class="text-muted">modificato da {{_case.updatedBy}}<span
+                                class="font-italic"> ({{_case.updateTime | date:'medium'}})</span>
+                        </small>
+                    </div>
+                </div>
+            </ng-template>
+
+            <!-- scheda solo modifica-->
+            <ng-template #onlyHistory>
+                <div *ngIf="!_case?.convertedToPositiveCaseNumber && !_case.quarantinePlace"
+                     class="list-group-item flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">
+                        <span>
+                            <i [ngClass]="'HOME' | luogoIsolamento: 'class'"></i>{{'HOME' | luogoIsolamento}}
                         </span>
                         </h5>
                         <small class="text-muted">modificato da {{_case.updatedBy}}<span
