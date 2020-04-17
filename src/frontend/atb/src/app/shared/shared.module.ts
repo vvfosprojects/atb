@@ -30,6 +30,7 @@ const COMPONENTS = [
 const MODULES = [
     FormsModule,
     ReactiveFormsModule,
+    PipeModule,
     NgbTabsetModule,
     NgbTooltipModule
 ];
