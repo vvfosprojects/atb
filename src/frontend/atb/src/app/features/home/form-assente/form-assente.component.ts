@@ -25,6 +25,7 @@ import { Navigate } from '@ngxs/router-plugin';
 import { LSNAME } from '../../../core/settings/config';
 import { ConvertCaseState } from '../store/convert-case.state';
 import { Location } from '@angular/common';
+import { GoToPositiveSheet } from '../store/navigation-link.actions';
 
 @Component({
     selector: 'app-assente',
@@ -215,8 +216,6 @@ export class FormAssenteComponent implements AfterContentInit, OnDestroy {
     }
 
     onPositiveDetail(caseNumber: number): void {
-        const url = `./home/form-positivo/detail/${this.gruppo}${LSNAME.detailDelimiter}${caseNumber}`;
-        console.log('onPositiveDetail', url);
-        this.store.dispatch(new Navigate([ url ]))
+        this.store.dispatch(new GoToPositiveSheet(`${this.gruppo}${LSNAME.detailDelimiter}${caseNumber}`, this.historyCase[0].convertedToPositiveSheetClosed))
     }
 }

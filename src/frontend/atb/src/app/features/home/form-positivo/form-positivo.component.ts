@@ -26,6 +26,7 @@ import { Navigate } from '@ngxs/router-plugin';
 import { LSNAME } from '../../../core/settings/config';
 import { ConvertCaseState } from '../store/convert-case.state';
 import { Location } from '@angular/common';
+import { GoToSuspectSheet } from '../store/navigation-link.actions';
 
 @Component({
     selector: 'app-positivo',
@@ -241,8 +242,6 @@ export class FormPositivoComponent implements AfterContentInit, OnDestroy {
     }
 
     onSuspectDetail(caseNumber: number): void {
-        const url = `./home/form-assente/detail/${this.gruppo}${LSNAME.detailDelimiter}${caseNumber}`;
-        console.log('onSuspectDetail', url);
-        this.store.dispatch(new Navigate([url]))
+        this.store.dispatch(new GoToSuspectSheet(`${this.gruppo}${LSNAME.detailDelimiter}${caseNumber}`, this.historyCase[0].convertedToSuspectSheetClosed));
     }
 }

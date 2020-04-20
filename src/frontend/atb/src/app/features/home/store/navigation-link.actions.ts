@@ -13,3 +13,17 @@ export class SetUserGroup {
     constructor(public userGroup: string) {
     }
 }
+
+export class GoToPositiveSheet {
+    static readonly type = '[NavigationLink] Go To Positive Sheet';
+
+    constructor(public url: string, public closed: boolean) {
+    }
+}
+
+export class GoToSuspectSheet {
+    static readonly type = '[NavigationLink] Go To Suspect Sheet';
+
+    constructor(public url: string, public closed: boolean) {
+    }
+}
