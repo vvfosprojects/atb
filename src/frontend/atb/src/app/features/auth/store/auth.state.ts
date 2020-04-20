@@ -30,9 +30,6 @@ export const AuthStateDefaults: AuthStateModel = {
 })
 export class AuthState {
 
-    constructor() {
-    }
-
     @Selector()
     static currentJwt(state: AuthStateModel) {
         return state.currentJwt;

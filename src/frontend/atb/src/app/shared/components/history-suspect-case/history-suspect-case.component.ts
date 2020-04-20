@@ -17,8 +17,7 @@ export class HistorySuspectCaseComponent {
         const caseNumber = historyCase.convertedToPositiveCaseNumber;
         if (actionOnConvertedSuspect(historyCase, this.historyCase, index)) {
             console.log(historyCase.convertedToPositiveSheetClosed, caseNumber);
-            // Todo emette solo il numero del caso
-            // this.positiveCaseOpen.emit(caseNumber);
+            this.positiveCaseOpen.emit(caseNumber);
         }
     }
 

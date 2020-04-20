@@ -29,6 +29,7 @@ import { SuspectDataTableComponent } from './data-tables/suspect-data-table/susp
 import { CustomDateParserFormatter } from '../../core/adapters/custom-date-parser-formatter.service';
 import { KeepAliveService } from '../../core/services/keep-alive/keep-alive.service';
 import { ConvertCaseState } from './store/convert-case.state';
+import { NavigationLinkState } from './store/navigation-link.state';
 
 @NgModule({
     declarations: [
@@ -55,7 +56,8 @@ import { ConvertCaseState } from './store/convert-case.state';
             FormAssenteState,
             SearchState,
             DataTablesState,
-            ConvertCaseState
+            ConvertCaseState,
+            NavigationLinkState
         ])
     ],
     providers: [

@@ -57,11 +57,14 @@ export class FormAssenteComponent implements AfterContentInit, OnDestroy {
 
     private subscription = new Subscription();
 
+
     constructor(private store: Store,
                 private formBuilder: FormBuilder,
                 private route: ActivatedRoute,
                 private location: Location) {
         if (this.route.snapshot.params.id) {
+            const splittedArgs = this.route.snapshot.params.id.split(LSNAME.detailDelimiter);
+            this.gruppo = splittedArgs[0];
             this.subscription.add(
                 this.suspectCase$.pipe(delay(100)).subscribe((suspectCase: SuspectCaseInterface) => {
                     this.historyCase = suspectCase && suspectCase.history;
@@ -71,8 +74,6 @@ export class FormAssenteComponent implements AfterContentInit, OnDestroy {
         }
 
         if (this.route.snapshot.url.length > 1 && this.route.snapshot.url[1].path === 'detail' && this.route.snapshot.params.id) {
-            const splittedArgs = this.route.snapshot.params.id.split(LSNAME.detailDelimiter);
-            this.gruppo = splittedArgs[0];
             this.detailMode = true;
             this.store.dispatch(new SetPageTitleFormAssente('visualizza sorvegliato'));
         } else if (this.route.snapshot.url.length > 1 && this.route.snapshot.url[1].path !== 'detail' && this.route.snapshot.params.id) {
@@ -216,6 +217,6 @@ export class FormAssenteComponent implements AfterContentInit, OnDestroy {
     onPositiveDetail(caseNumber: number): void {
         const url = `./home/form-positivo/detail/${this.gruppo}${LSNAME.detailDelimiter}${caseNumber}`;
         console.log('onPositiveDetail', url);
-        this.store.dispatch(new Navigate([url]))
+        this.store.dispatch(new Navigate([ url ]))
     }
 }
