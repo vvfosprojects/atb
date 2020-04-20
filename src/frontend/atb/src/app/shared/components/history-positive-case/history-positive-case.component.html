@@ -76,7 +76,7 @@
                 </span>
                 <span *ngIf="!_case?.convertedToSuspectSheetClosed && _case?.convertedToSuspectCaseNumber">
                     <span class="text-muted"><i class="text-danger fa fa-retweet px-1"></i>
-                        <span class="font-weight-bolder">Convertito a positivo.</span>
+                        <span class="font-weight-bolder">Convertito da sorvegliato #{{_case?.convertedToSuspectCaseNumber}} a positivo.</span>
                     </span>
                 </span>
             </ng-template>

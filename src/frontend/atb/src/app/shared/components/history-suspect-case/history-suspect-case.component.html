@@ -88,13 +88,12 @@
             <ng-template #link>
                 <span *ngIf="_case?.convertedToPositiveSheetClosed && _case?.convertedToPositiveCaseNumber">
                     <span class="text-muted"><i class="text-danger fa fa-retweet px-1 flip"></i>
-                        <span class="font-weight-bolder alert alert-primary alert-link">Conversione a positivo #{{_case?.convertedToPositiveCaseNumber}}
-                            .</span>
+                        <span class="font-weight-bolder alert alert-primary alert-link">Conversione a positivo #{{_case?.convertedToPositiveCaseNumber}}.</span>
                     </span>
                 </span>
                 <span *ngIf="!_case?.convertedToPositiveSheetClosed && _case?.convertedToPositiveCaseNumber">
                     <span class="text-muted"><i class="text-warning fa fa-retweet px-1"></i>
-                        <span class="font-weight-bolder">Convertito a sorvegliato.</span>
+                        <span class="font-weight-bolder">Convertito da positivo #{{_case?.convertedToPositiveCaseNumber}} a sorvegliato.</span>
                     </span>
                 </span>
             </ng-template>
