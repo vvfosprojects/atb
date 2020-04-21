@@ -4,6 +4,7 @@ import { Roles } from '../../../shared/enum/roles.enum';
 import { GoToPositiveSheet, GoToSuspectSheet, SetUserGroup, SetUserRoles } from './navigation-link.actions';
 import { AuthState } from '../../auth/store/auth.state';
 import { Navigate } from '@ngxs/router-plugin';
+import { LSNAME } from '../../../core/settings/config';
 
 export interface NavigationLinkStateModel {
     userRoles: Roles[];
@@ -50,7 +51,10 @@ export class NavigationLinkState implements NgxsOnInit {
         const positivePath = './home/form-positivo/';
         let detail = true;
         if (action.closed) {
-            detail = !getState().userRoles.includes(Roles.Doctor);
+            const state = getState();
+            if (state.userRoles.includes(Roles.Doctor)) {
+                detail = !this.hasPermission(action.url, state.userGroup);
+            }
         }
         const link = positivePath + this.createLink(action.url, detail);
         console.log(link);
@@ -62,7 +66,10 @@ export class NavigationLinkState implements NgxsOnInit {
         const suspectPath = './home/form-assente/';
         let detail = true;
         if (action.closed) {
-            detail = !getState().userRoles.includes(Roles.Doctor);
+            const state = getState();
+            if (state.userRoles.includes(Roles.Doctor)) {
+                detail = !this.hasPermission(action.url, state.userGroup);
+            }
         }
         const link = suspectPath + this.createLink(action.url, detail);
         console.log(link);
@@ -71,6 +78,11 @@ export class NavigationLinkState implements NgxsOnInit {
 
     createLink(url: string, detail: boolean): string {
         return detail ? 'detail/' + url : url;
+    }
+
+    hasPermission(url: string, group: string): boolean {
+        const caseGroup: string = url.split(LSNAME.detailDelimiter)[0];
+        return group === caseGroup;
     }
 
 }
