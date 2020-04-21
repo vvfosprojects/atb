@@ -1,5 +1,5 @@
 publiccodeYmlVersion: '0.2'
-name: #ATB
+name: ATB - COVID-19
 releaseDate: '2020-04-04'
 url: 'https://github.com/vvfosprojects/atb'
 developmentStatus: stable
@@ -42,11 +42,11 @@ it:
     codiceIPA: m_it
 description:
   it:
-    localisedName: #ATB
-    genericName: #ATB
+    localisedName: ATB
+    genericName: ATB
     shortDescription: Sistema di gestione dei soggetti COVID-19 interni all'Amministrazione
     longDescription: >
-      L'applicativo #ATB consente il tracciamento dei soggetti coinvolti nell'emergenza COVID-19. Consente alle sedi territoriali
+      L'applicativo ATB consente il tracciamento dei soggetti coinvolti nell'emergenza COVID-19. Consente alle sedi territoriali
       di operare un tracciamento continuo dei soggetti che hanno contratto il virus, di aggiornarne costantemente la situazione del
       contagio, di indicare il luogo della degenza. Consente altresì di gestire il personale in regime di sorveglianza preventiva.
       I dati inseriti sono acquisiti in una base dati centralizzata e utilizzati per fornire indicatori precisi sulle consistenze
